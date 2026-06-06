@@ -1,0 +1,6 @@
+{
+  "name": "FresCo HealthCraft Pune",
+  "description": "Official website of FresCo HealthCraft Pune - offering fresh fruit juices, organic vegetable juices, customizable smoothies, wellness detox drinks, and special discounts with WhatsApp order integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
