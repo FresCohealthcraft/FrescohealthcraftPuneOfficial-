@@ -30,7 +30,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Rich in Vitamin C, it strengthens your natural defenses, helping your body fight off common infections like colds and the flu.",
     price: 70,
     icon: "🍊",
-    category: "Fruit juices",
+    category: "Fruit Juices",
    
   },
 
@@ -40,7 +40,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "High concentrations of Vitamin C and antioxidants help neutralize free radicals and protect the body against infections.",
     price: 70,
     icon: "🍍",
-    category: "Fruit juices",
+    category: "Fruit Juices",
     popular: true,
   },
 
@@ -50,7 +50,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Rich in Vitamin C and over 25 different types of carotenoids, it actively helps protect the body from infections and strengthens immune function.",
     price: 80,
     icon: "🥭",
-    category: "Fruit juices",
+    category: "Fruit Juices",
   popular: true,
   },
 
@@ -60,7 +60,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "provides quick hydration and delivers essential nutrients like Vitamin C and beneficial plant compounds (polyphenols).",
     price: 80,
     icon: " 🍎",
-    category: "Fruit juices",
+    category: "Fruit Juices",
    popular: true,
   },
 
@@ -70,7 +70,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Rich in Vitamin C, it enhances white blood cell production, helping your body ward off infections and recover from colds more effectively.",
     price: 80,
     icon: "🍊",
-    category: "Fruit juices",
+    category: "Fruit Juices",
     
   },
   {
@@ -79,7 +79,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Mosambi+ Pineapple Both fruits are packed with Vitamin C, which strengthens your immune system and helps your body fight off infections..",
     price: 80,
     icon: "🍇",
-    category: "Fruit juices",
+    category: "Fruit Juices",
     popular: true,
   },
   {
@@ -88,16 +88,16 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "promoting heart health, reducing inflammation, and offering excellent antioxidant protection to combat oxidative stress.",
     price: 140,
     icon: "石榴",
-    category: "Fruit juices",
+    category: "Fruit Juices",
     popular: true,
   },
   {
     id: "Nimbu-Pani-Juice",
-    name: "Nimbu Pani Juice",
+    name: "Nimbu Pani Juices",
     description: "promotes hydration, provides a natural dose of Vitamin C, and aids in digestion.",
     price: 40,
     icon: "🍋",
-    category: "Fruit juices",
+    category: "Fruit Juice",
    
   },
 
