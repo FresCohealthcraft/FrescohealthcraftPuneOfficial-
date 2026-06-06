@@ -93,11 +93,15 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "Nimbu-Pani-Juice",
-    name: "Nimbu Pani Juice",
+    name: "Nimbu Pani Juices",
     description: "promotes hydration, provides a natural dose of Vitamin C, and aids in digestion.",
     price: 40,
     icon: "🍋",
+<<<<<<< HEAD
     category: "Fruit Juices",
+=======
+    category: "Fruit Juice",
+>>>>>>> 5ae9845e69f8bd2fc099fbeb24364f3e077837eb
    
   },
 
