@@ -15,15 +15,15 @@ export default function Hero({ onExploreMenu }: HeroProps) {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center space-y-8">
-          
-          {/* Prominent High-Contrast Brand Logo Emblem */}
+           
+          {/* Prominent High-Contrast Brand Logo Emblem in a Sleek Rectangle Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="p-8 pb-7 bg-white/95 border border-[#1A1A1A]/5 rounded-[3rem] shadow-[0_20px_50px_rgba(56,163,37,0.06)] backdrop-blur-md"
+            className="p-6 sm:px-10 sm:py-7 bg-white/95 border border-[#1A1A1A]/5 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(56,163,37,0.05)] backdrop-blur-md w-full max-w-xl mx-auto flex items-center justify-center"
           >
-            <Logo size="lg" showTagline={true} layout="vertical" />
+            <Logo size="md" showTagline={true} layout="horizontal" />
           </motion.div>
 
           {/* Slogan pill */}
