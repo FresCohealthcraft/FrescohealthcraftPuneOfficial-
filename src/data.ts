@@ -4,8 +4,8 @@ export const MENU_CATEGORIES = [
    "All",
   "Fruit Juices",
   "Green Vitality Juice",
-  "Protein Power Fruit Cup",
-  "Super Food Sprouts Bowl",
+  "Power Cups",
+  "Super Food Sprouts Bowls",
   "Fresco Power Juices",
   "Shakes",
   "Specials"
@@ -91,17 +91,33 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "Fruit Juices",
     popular: true,
   },
+   {
+    id: "papaya-Juice",
+    name: "Papaya Juice",
+    description: "Papaya naturally contains papain, a proteolytic enzyme that helps break down proteins",
+    price: 60,
+    icon: "石榴",
+    category: "Fruit Juices",
+    popular: true,
+  },
+
+  {
+    id: "Muskmelon-Juice",
+    name: "Muskmelon Juice",
+    description: "Muskmelon juice is a highly hydrating, nutrient-dense summer drink. Composed of roughly 90% water, it cools the body and supplies essential electrolytes",
+    price: 70,
+    icon: "石榴",
+    category: "Fruit Juices",
+    popular: true,
+  },
+  
   {
     id: "Nimbu-Pani-Juice",
-    name: "Nimbu Pani Juices",
+    name: "Nimbu Pani Juice",
     description: "promotes hydration, provides a natural dose of Vitamin C, and aids in digestion.",
     price: 40,
     icon: "🍋",
-<<<<<<< HEAD
     category: "Fruit Juices",
-=======
-    category: "Fruit Juice",
->>>>>>> 5ae9845e69f8bd2fc099fbeb24364f3e077837eb
    
   },
 
@@ -138,7 +154,6 @@ export const MENU_ITEMS: MenuItem[] = [
     name: "Palak Juice",
     description: "High in nitrates, palak juice improves blood circulation and helps lower blood pressure. The fiber and potassium also help manage bad cholesterol.",
     price: 59,
-
     icon: "🥬",
     category: "Green Vitality Juice",
     
@@ -188,31 +203,30 @@ export const MENU_ITEMS: MenuItem[] = [
 
 {
   id: "Protein-Power-Cup",
-  name: "Protein Power Cup",
-  description: "High-protein healthy cup packed with nutrition to support energy, muscle recovery, and overall wellness.",
+  name: "Power packed Cups",
+  description: "Fresh fruits, chia seeds, flax seeds, and a protein-rich dairy base packed with fiber, omega-3s, calcium, and natural energy.",
   price: 119,
   icon: "🥤",
-  category: "Protein Power Fruit Cup",
-popular: true,
+  category: "Power Cups",
+  popular: true,
 },
 
   {
   id: "Classic-Delight-Cup",
   name: "Classic Delight Cup",
-  description: "Mix of 8–9 fresh seasonal fruits.",
+  description: "A colorful blend of 8–9 fresh fruits, packed with natural vitamins, antioxidants, and refreshing goodness.",
   price: 79,
   icon: "🥤",
-  category: "Protein Power Fruit Cup",
+  category: "Power Cups",
  
 },
 {
   id: "Exotic-Delight-Cup",
   name: "Exotic Delight Cup",
-  description:
-    "Luxury mix of 13–14 premium exotic fruits, freshly cut and beautifully curated for a rich, refreshing, and healthy experience.",
+  description:"Indulge in a colorful medley of 13–14 premium fruits, expertly curated and freshly prepared to deliver natural sweetness, refreshing flavors, and wholesome nutrition.",
   price: 99,
   icon: "🥤",
-  category: "Protein Power Fruit Cup",
+  category: "Power Cups",
  popular: true,
 },
 
@@ -220,20 +234,20 @@ popular: true,
   // Super Food Sprouts Bowl
  {
   id: "Sprouts-Bowl",
-  name: "Sprouts Bowl",
-  description: "Supports weight management, helps lower cholesterol, boosts immunity, and promotes better gut health.",
+  name: "Sprouts Bowls",
+  description: "Fresh green moong, matki, black chana, sweet corn, vegetables, pomegranate, and lemon tossed with chat masala for a protein-rich, fiber-packed wellness bowl.",
   price: 79,
   icon: "🥬",
-  category: "Super Food Sprouts Bowl",
-popular: true,
+  category: "Super Food Sprouts Bowls",
+  popular: true,
 },
   {
   id: "Paneer-Sprouts-Bowl",
-  name: "Paneer Sprouts Bowl",
+  name: "Paneer Sprouts Bowls",
   description: "Protein-rich paneer with healthy sprouts to support immunity, energy, and overall wellness.",
   price: 99,
   icon: "🥬",
-  category: "Super Food Sprouts Bowl",
+  category: "Super Food Sprouts Bowls",
 popular: true,
 },
   
@@ -282,7 +296,7 @@ popular: true,
 {
   id: "Stress-Relief",
   name: "Stress Relief",
-  description: "Pomegranate and beet blend to refresh the body and help reduce fatigue.",
+  description: "Pomegranate and best mini.",
   price: 99,
   icon: "石榴",
   category: "Fresco Power Juices",
@@ -291,7 +305,7 @@ popular: true,
 {
   id: "Iron-Rich",
   name: "Iron Rich",
-  description: "Cucumber, apple, and spinach juice loaded with iron and essential nutrients.",
+  description: "Cucumber, apple, and palak juice loaded with iron and essential nutrients.",
   price: 99,
   icon: "🥒",
   category: "Fresco Power Juices",
@@ -338,7 +352,7 @@ popular: true,
 {
   id: "Detox-Body",
   name: "Detox Body",
-  description: "Cucumber, mint, and amla juice for refreshing hydration and detox support.",
+  description: "Cucumber, Pudina, and amla juice for refreshing hydration and detox support.",
   price: 79,
   icon: "🥒",
   category: "Fresco Power Juices",
@@ -414,6 +428,16 @@ popular: true,
   icon: "🥭",
   category: "Shakes",
 popular: true,
+},
+
+{
+  id: "oreo-shake",
+  name: "Oreo Shake",
+  description: "A rich and creamy blend of milk, premium Oreo cookies, and ice cream, topped with crunchy cookie goodness.",
+  price: 179,
+  icon: "🍪",
+  category: "Shakes",
+  popular: true
 },
 
 {
