@@ -1,145 +1,192 @@
-import { motion } from "motion/react";
-import { PromoCoupon } from "../types";
-import { PROMO_COUPONS } from "../data";
-import { Gift, Clock, Sparkles, Calendar, Check } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { MenuItem } from "../types";
+import { ShoppingBag, Star, Sparkles, Flame, CheckCircle, Heart } from "lucide-react";
 
 interface SpecialOffersProps {
-  onApplyCoupon: (coupon: PromoCoupon) => void;
-  appliedCouponCode?: string;
+  onAddToCartDirectly: (item: MenuItem) => void;
 }
 
-export default function SpecialOffers({ onApplyCoupon, appliedCouponCode }: SpecialOffersProps) {
-  // Map icons dynamically
-  const getIcon = (code: string) => {
-    switch (code) {
-      case "COMBO20":
-        return <Gift className="w-5.5 h-5.5 text-[#38A325]" />;
-      case "HAPPY15":
-        return <Clock className="w-5.5 h-5.5 text-[#F26419]" />;
-      case "WELCOME25":
-        return <Sparkles className="w-5.5 h-5.5 text-[#38A325]" />;
-      case "WEEKLY30":
-        return <Calendar className="w-5.5 h-5.5 text-[#F26419]" />;
-      default:
-        return <Gift className="w-5.5 h-5.5 text-[#38A325]" />;
-    }
-  };
+const DYNAMIC_ITEM_COMBOS = [
+  {
+    id: "combo_detox_monday",
+    name: "Detox Duo Combo",
+    icon: "🌱",
+    subtitle: "Any Green Vitality Juice + Paneer Sprouts Bowl",
+  description: "A refreshing green juice paired with our protein-rich Paneer Sprouts Bowl to support natural detoxification, sustained energy, and daily wellness.",
+  originalPrice: 169,
+  price: 152,
+    category: "Detox & Wellness",
+    tag: "BESTSELLER",
+    badgeColor: "bg-emerald-500/10 text-emerald-700 border-emerald-500/10",
+    glowColor: "shadow-emerald-500/5 hover:border-emerald-500/20"
+  },
+  {
+    id: "combo_immuno_tuesday",
+    name: "Immunity Shield Special",
+    icon: "🛡️",
+    subtitle: "Immunity Booster Juice + Exotic Delight Cup",
+description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",    originalPrice: 198,
+    price: 178,
+    category: "Detox & Wellness",
+    tag: "IMMUNITY BOOST",
+    badgeColor: "bg-amber-500/10 text-amber-700 border-amber-500/10",
+    glowColor: "shadow-amber-500/5 hover:border-amber-500/20"
+  },
+  {
+    id: "combo_glow_thursday",
+    name: "Golden Glow Special",
+    icon: "✨",
+    subtitle: "Skin Glow-Up Juice + Power packed Cup",
+description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",    originalPrice: 208,
+    price: 187,
+    category: "Detox & Wellness",
+    tag: "SKIN GLOW",
+    badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
+    glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
+  },
+  {
+    id: "combo_fitness_friday",
+    name: "Muscle-Refill Special",
+    icon: "💪",
+    subtitle: "Fat-Burning + Paneer Sprouts Bowl",
+    description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",    originalPrice:178 ,
+    price:160 ,
+    category: "Detox & Wellness",
+    tag: "ATHLETE PREP",
+    badgeColor: "bg-blue-500/10 text-blue-700 border-blue-500/10",
+    glowColor: "shadow-blue-500/5 hover:border-blue-500/20"
+  }
+];
 
-  const getSubTags = (code: string) => {
-    switch (code) {
-      case "COMBO20":
-        return ["Valid till month end", "Min. 2 items"];
-      case "HAPPY15":
-        return ["Daily 2 PM - 5 PM", "All items"];
-      case "WELCOME25":
-        return ["First order only", "No minimum order"];
-      case "WEEKLY30":
-        return ["Min 7 days subscription", "Daily fresh delivery"];
-      default:
-        return ["Limited period offer"];
-    }
-  };
+export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProps) {
+  const [addedItem, setAddedItem] = useState<string | null>(null);
 
-  const handleClaim = (coupon: PromoCoupon) => {
-    onApplyCoupon(coupon);
+  const handleAddToCart = (plan: typeof DYNAMIC_ITEM_COMBOS[0]) => {
+    // Map to a MenuItem structure
+    const item: MenuItem = {
+      id: plan.id,
+      name: plan.name,
+      price: plan.price,
+      category: plan.category,
+      description: `${plan.subtitle} — ${plan.description}`,
+      icon: plan.icon
+    };
+    onAddToCartDirectly(item);
     
-    // Smooth scroll into Cart/Checkout section to show benefits
-    const element = document.getElementById("menu");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    // Short temporary pop confirmation
+    setAddedItem(plan.id);
+    setTimeout(() => {
+      setAddedItem(null);
+    }, 1200);
   };
 
   return (
-    <section id="offers" className="py-20 bg-gradient-to-tr from-[#FCFDFC] via-white to-[#F2FAED] scroll-mt-20 border-y border-[#1A1A1A]/10">
+    <section id="offers" className="pt-2 pb-6 bg-gradient-to-tr from-[#FCFDFC] via-white to-[#F2FAED] scroll-mt-20 border-y border-[#1A1A1A]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Special Offers Badge */}
-        <div className="inline-flex items-center justify-center border border-[#38A325]/30 text-[#38A325] bg-transparent px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
-          Special Offers
+        <div className="inline-flex items-center justify-center border border-[#38A325]/30 text-[#38A325] bg-transparent px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider mb-2">
+          Fresh Nutrition, Perfectly Paired
         </div>
 
         {/* Display Title */}
-        <h2 className="text-3xl sm:text-4.5xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
-          Today's Special Deals
+        <h2 className="text-2xl sm:text-3xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
+          Daily Wellness Combos
         </h2>
-        <p className="mt-2 text-[#1A1A1A]/70 max-w-2xl mx-auto text-base sm:text-lg">
-          Don't miss out on our amazing offers! Order now and save big on your favorite healthy drinks
+        <p className="mt-1 text-[#1A1A1A]/70 max-w-xl mx-auto text-xs sm:text-sm">
+Discover our handcrafted combinations of fresh juices, wholesome bowls, and nutrient-rich cups designed for daily wellness.
         </p>
 
-        {/* Deals Cards Grid matching the screenshot (2x2 layout on large desktops) */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto px-4">
-          {PROMO_COUPONS.map((coupon) => {
-            const isApplied = appliedCouponCode === coupon.code;
-            const subTags = getSubTags(coupon.code);
+        {/* Dynamic Item Combos Cards Grid */}
+        <div className="mt-5 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 max-w-6xl mx-auto px-2">
+          {DYNAMIC_ITEM_COMBOS.map((combo) => {
+            const isAdded = addedItem === combo.id;
 
             return (
               <motion.div
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -3 }}
                 transition={{ duration: 0.2 }}
-                key={coupon.id}
-                className="bg-white border border-[#1A1A1A]/10 rounded-3xl p-6 shadow-[0_4px_24_rgba(0,0,0,0.01)] hover:shadow-lg transition-all duration-300 text-left flex flex-col md:flex-row items-start md:items-center justify-between"
+                key={combo.id}
+                className={`bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4 shadow-[0_4px_24px_rgba(0,0,0,0.01)] hover:shadow-md transition-all duration-300 text-left flex flex-col justify-between ${combo.glowColor}`}
               >
-                {/* Left Side: Detail & Coupon metadata */}
-                <div className="flex items-start space-x-4">
-                  
-                  {/* Icon Wrapper in corresponding background colors */}
-                  <div className="p-4 bg-[#EFECE5] rounded-2xl shrink-0">
-                    {getIcon(coupon.code)}
+                <div>
+                  {/* Top: Icon, Badges, Metrics */}
+                  <div className="flex items-start justify-between">
+                    <div className="p-2 bg-[#EFECE5] rounded-xl text-lg sm:text-xl select-none shadow-inner">
+                      {combo.icon}
+                    </div>
+                    
+                    <div className="flex flex-col items-end gap-1">
+                      <span className={`text-[7px] sm:text-[8px] font-bold px-1.5 py-0.5 border rounded-full uppercase tracking-wider ${combo.badgeColor}`}>
+                        {combo.tag}
+                      </span>
+                      <div className="flex items-center space-x-0.5 text-[9px] sm:text-[10px]">
+                        <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                        <span className="font-bold text-[#1A1A1A]/90">{combo.rating}</span>
+                        <span className="text-gray-400 text-[8px]">({combo.reviews})</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    {/* Slogan title and Discount tag */}
-                    <div className="flex items-center space-x-2.5">
-                      <h3 className="font-bold text-base text-[#1A1A1A]">
-                        {coupon.label}
-                      </h3>
-                      <span className="bg-[#38A325]/10 text-[#38A325] text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                        {coupon.tag}
-                      </span>
-                    </div>
-
-                    <p className="text-[#1A1A1A]/70 text-xs mt-1.5 leading-relaxed max-w-md">
-                      {coupon.description}
+                  {/* Header Titles */}
+                  <div className="mt-3">
+                    <h3 className="font-bold text-xs sm:text-sm text-[#1A1A1A] leading-tight font-sans">
+                      {combo.name}
+                    </h3>
+                    <p className="text-[#38A325] text-[8.5px] sm:text-[9.5px] font-bold uppercase tracking-wider mt-1 font-sans">
+                      {combo.subtitle}
                     </p>
-
-                    {/* Pills labels for coupon validation specifications */}
-                    <div className="flex flex-wrap gap-2 mt-3.5">
-                      <span className="bg-[#38A325]/10 text-[#38A325] text-xs font-bold px-2.5 py-1 rounded-md border border-[#38A325]/10">
-                        Simple Automatic Discount
-                      </span>
-                      {subTags.map((tag, i) => (
-                        <span key={i} className="bg-[#F9F8F4]/50 border border-[#1A1A1A]/5 text-[#1A1A1A]/60 text-xs font-semibold px-2.5 py-1 rounded-md">
-                          • {tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
+                  {/* Detailed Description */}
+                  <p className="text-[#1A1A1A]/75 text-[9px] sm:text-[11px] mt-1.5 leading-relaxed line-clamp-3">
+                    {combo.description}
+                  </p>
+
+                  {/* High Quality Features Banner */}
+                  <div className="flex items-center gap-2 mt-2.5 bg-[#F9F8F4] p-1.5 rounded-lg border border-[#1A1A1A]/5">
+                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+                      <span className="text-[#38A325]">✔</span> <span>10% Save</span>
+                    </div>
+                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+                      <span className="text-[#38A325]">✔</span> <span>Fresh Ingredients</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Right Side / Button Action */}
-                <div className="mt-5 md:mt-0 w-full md:w-auto shrink-0 pl-0 md:pl-4">
-                  <button
-                    onClick={() => handleClaim(coupon)}
-                    className={`w-full md:w-auto px-5 py-3 rounded-full text-xs font-bold transition-all duration-300 flex items-center justify-center space-x-1 cursor-pointer border uppercase tracking-wider ${
-                      isApplied
-                        ? "bg-[#38A325] text-white border-[#38A325]"
-                        : "bg-transparent text-[#1A1A1A] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-[#F9F8F4]"
-                    }`}
-                  >
-                    {isApplied ? (
-                      <>
-                        <Check className="w-4 h-4 mr-1" />
-                        <span>Discount Applied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Check className="w-4 h-4 mr-1" />
-                        <span>Apply Discount</span>
-                      </>
-                    )}
-                  </button>
+                {/* Footer and Price / Action buttons */}
+                <div className="mt-3.5 pt-2.5 border-t border-[#1A1A1A]/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <span className="text-[7.5px] font-bold text-gray-400 uppercase tracking-wider block">Combo Price</span>
+                    <div className="flex items-baseline space-x-1 mt-0.5">
+                      <span className="text-base sm:text-lg font-serif italic font-extrabold text-[#38A325]">₹{combo.price}</span>
+                      <span className="text-[10px] text-gray-400 line-through">₹{combo.originalPrice}</span>
+                    </div>
+                  </div>
+
+                  <div className="w-full sm:w-auto">
+                    <button
+                      onClick={() => handleAddToCart(combo)}
+                      className={`w-full sm:w-auto px-2.5 py-1.5 rounded-lg text-[8.5px] sm:text-[9.5px] font-bold transition-all duration-300 flex items-center justify-center space-x-1 cursor-pointer uppercase tracking-wider active:scale-95 shadow-sm ${
+                        isAdded
+                          ? "bg-[#38A325] text-white border border-[#38A325]"
+                          : "bg-transparent text-[#1A1A1A] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
+                      }`}
+                    >
+                      {isAdded ? (
+                        <>
+                          <CheckCircle className="w-3.5 h-3.5 animate-bounce" />
+                          <span>Added!</span>
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <span>Add to Cart</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
 
               </motion.div>
