@@ -10,11 +10,9 @@ import SubscriptionSection from "./components/SubscriptionSection";
 import SpecialOffers from "./components/SpecialOffers";
 import HomeDeliveryBanner from "./components/HomeDeliveryBanner";
 import AboutUs from "./components/AboutUs";
-import ContactSection from "./components/ContactSection";
 import OrderModal from "./components/OrderModal";
 import CartDrawer from "./components/CartDrawer";
 import AdminPortal from "./components/AdminPortal";
-import FruitSlider from "./components/FruitSlider";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Logo from "./components/Logo";
 
@@ -30,14 +28,7 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const [dailyOffer, setDailyOffer] = useState({
-    title: "Summer Citrus Splendor BOGO Boost",
-    description: "Get a complimentary Ayurvedic ginger shot with any premium Orange or Pineapple fresh juice ordered today!",
-    tag: "TODAY'S SPECIAL",
-    code: "GINGERBOOST"
-  });
-
-  // Load cart state and daily offer from localStorage
+  // Load cart state from localStorage
   useEffect(() => {
     const savedCart = localStorage.getItem("fresco_cart");
     if (savedCart) {
@@ -47,21 +38,7 @@ export default function App() {
         console.error("Failed to parse cart storage", e);
       }
     }
-
-    const savedOffer = localStorage.getItem("fresco_daily_offer");
-    if (savedOffer) {
-      try {
-        setDailyOffer(JSON.parse(savedOffer));
-      } catch (e2) {
-        console.error("Failed to parse daily offer storage", e2);
-      }
-    }
   }, []);
-
-  const handleUpdateDailyOffer = (updated: typeof dailyOffer) => {
-    setDailyOffer(updated);
-    localStorage.setItem("fresco_daily_offer", JSON.stringify(updated));
-  };
 
   const saveCart = (updatedCart: CartItem[]) => {
     setCartItems(updatedCart);
@@ -172,71 +149,6 @@ export default function App() {
           />
         </div>
 
-        {/* Fruit Slider Showcase */}
-        <FruitSlider 
-          onSelectItem={(categoryName) => {
-            setSelectedCategory(categoryName);
-            setSearchTerm(""); // Reset search to display the slider category immediately
-            const element = document.getElementById("menu");
-            if (element) {
-              element.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-            setActiveSection("menu");
-          }}
-        />
-
-        {/* 3. Prime Daily Promotional Offer Section */}
-        <section className="py-10 bg-[#38A325] text-[#F9F8F4] relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white/[0.06] backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-              
-              {/* Left description */}
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
-                <span className="text-4xl sm:text-5xl mt-1 shrink-0 animate-pulse select-none">🎁</span>
-                <div className="space-y-1.5 text-left">
-                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
-                    <span className="bg-[#F9F8F4] text-[#38A325] text-[9.5px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest border border-white/10">
-                      {dailyOffer.tag || "TODAY'S SPECIAL"}
-                    </span>
-                    <span className="text-white/65 text-[11px] font-mono uppercase tracking-wider font-semibold">
-                      Pune Daily Spotlight
-                    </span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-serif italic tracking-tight text-white leading-tight">
-                    {dailyOffer.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl">
-                    {dailyOffer.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Right claim button */}
-              <button
-                onClick={() => {
-                  if (dailyOffer.code) {
-                    const matchedCoupon = {
-                      id: "daily_custom",
-                      code: dailyOffer.code,
-                      label: dailyOffer.title,
-                      tag: dailyOffer.tag || "DAILY",
-                      discountPercentage: 20, // default daily special gets 20% off
-                      description: dailyOffer.description,
-                    };
-                    handleApplyPromoCoupon(matchedCoupon);
-                    setIsCartOpen(true);
-                  } else {
-                    scrollToMenuSection();
-                  }
-                }}
-                className="bg-[#F9F8F4] hover:bg-white text-[#1A1A1A] px-6 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md cursor-pointer transition-all shrink-0 border border-transparent"
-              >
-                Claim This Discount
-              </button>
-            </div>
-          </div>
-        </section>
 
         {/* 4. Menu options grid (matching Image 1) */}
         <MenuGrid
@@ -255,8 +167,7 @@ export default function App() {
 
         {/* 5. Special promotional offers Deals list (matching Image 2) */}
         <SpecialOffers
-          onApplyCoupon={handleApplyPromoCoupon}
-          appliedCouponCode={appliedCoupon?.code}
+          onAddToCartDirectly={handleAddToCartDirectly}
         />
 
         {/* 6. Rounded free delivery announcement banner */}
@@ -266,12 +177,6 @@ export default function App() {
 
         {/* 7. Crafting wellness About Us columns (matching Image 2) */}
         <AboutUs />
-
-        {/* 9. Contact Us info card and steps columns (matching Image 2) */}
-        <ContactSection
-          onStartOrdering={scrollToMenuSection}
-          onGeneralChat={handleGeneralChatWhatsApp}
-        />
 
       </main>
 
@@ -416,8 +321,6 @@ export default function App() {
       <AdminPortal
         isOpen={isAdminOpen}
         onClose={() => setIsAdminOpen(false)}
-        dailyOffer={dailyOffer}
-        onUpdateDailyOffer={handleUpdateDailyOffer}
       />
 
     </div>
