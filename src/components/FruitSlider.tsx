@@ -50,7 +50,7 @@ const FRUIT_SLIDES: FruitSlide[] = [
     vitamins: ["Polyphenols", "Vitamin E", "Folic Acid", "Potassium"],
     color: "from-red-500 to-rose-600",
     glowColor: "rgba(231, 76, 60, 0.25)",
-    category: "Detox & Wellness",
+    category: "Fresco Power Juices",
   },
   {
     id: 4,
@@ -62,7 +62,7 @@ const FRUIT_SLIDES: FruitSlide[] = [
     vitamins: ["Chlorophyll", "Silica Mineral", "Gingerol", "Vitamin A"],
     color: "from-teal-400 to-emerald-500",
     glowColor: "rgba(26, 188, 156, 0.25)",
-    category: "Vegetable Juices",
+    category: "Green Vitality Juice",
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ const FRUIT_SLIDES: FruitSlide[] = [
     vitamins: ["Vitamin A", "Vitamin E", "Amylase Enzymes", "Copper"],
     color: "from-yellow-400 to-orange-500",
     glowColor: "rgba(241, 196, 15, 0.25)",
-    category: "Smoothies",
+    category: "Shakes",
   },
   {
     id: 6,
@@ -86,7 +86,7 @@ const FRUIT_SLIDES: FruitSlide[] = [
     vitamins: ["Nitrates", "Natural Betanin", "Vitamin B6", "Manganese"],
     color: "from-fuchsia-500 to-purple-600",
     glowColor: "rgba(155, 89, 182, 0.25)",
-    category: "Detox & Wellness",
+    category: "Fresco Power Juices",
   }
 ];
 
@@ -218,7 +218,7 @@ export default function FruitSlider({ onSelectItem }: FruitSliderProps) {
                   </div>
 
                   {/* Benefit details line-clamp description */}
-                  <p className="text-[10.5px] text-[#1A1A1A]/65 leading-relaxed text-left line-clamp-3 min-h-[46px]">
+                  <p className="text-[10.5px] text-[#1A1A1A]/65 leading-relaxed text-left">
                     {slide.description}
                   </p>
                 </div>
