@@ -5,35 +5,16 @@ import { X, Shield, FileSpreadsheet, Package, Activity, Trash2, TrendingUp, Chec
 interface AdminPortalProps {
   isOpen: boolean;
   onClose: () => void;
-  dailyOffer: {
-    title: string;
-    description: string;
-    tag: string;
-    code: string;
-  };
-  onUpdateDailyOffer: (updated: {
-    title: string;
-    description: string;
-    tag: string;
-    code: string;
-  }) => void;
 }
 
 export default function AdminPortal({
   isOpen,
   onClose,
-  dailyOffer,
-  onUpdateDailyOffer,
 }: AdminPortalProps) {
   const [orders, setOrders] = useState<any[]>([]);
   const [adminKey, setAdminKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authError, setAuthError] = useState("");
-
-  const [editOfferTitle, setEditOfferTitle] = useState("");
-  const [editOfferDesc, setEditOfferDesc] = useState("");
-  const [editOfferTag, setEditOfferTag] = useState("");
-  const [editOfferCode, setEditOfferCode] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -41,15 +22,6 @@ export default function AdminPortal({
       setOrders(savedOrders);
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen && dailyOffer) {
-      setEditOfferTitle(dailyOffer.title || "");
-      setEditOfferDesc(dailyOffer.description || "");
-      setEditOfferTag(dailyOffer.tag || "");
-      setEditOfferCode(dailyOffer.code || "");
-    }
-  }, [isOpen, dailyOffer]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,26 +33,44 @@ export default function AdminPortal({
     }
   };
 
-  const handleSaveOffer = () => {
-    if (!editOfferTitle.trim() || !editOfferDesc.trim()) {
-      alert("Please specify at least an Offer Title and Description!");
-      return;
-    }
-    onUpdateDailyOffer({
-      title: editOfferTitle.trim(),
-      description: editOfferDesc.trim(),
-      tag: editOfferTag.trim(),
-      code: editOfferCode.trim(),
-    });
-    alert("Daily Promo Offer configured successfully!");
-  };
-
   const handleClearOrders = () => {
     if (confirm("Are you sure you want to clear all local order checkout histories?")) {
       localStorage.removeItem("fresco_orders");
       setOrders([]);
     }
   };
+
+  // Compute top ordered items by quantity
+  const getTopOrderedItems = () => {
+    const counts: { [key: string]: { name: string; quantity: number; icon: string; category: string } } = {};
+    orders.forEach((o) => {
+      // Only count non-cancelled orders for accurate demand tracking
+      if (o.status === "cancelled") return;
+      
+      if (o.items && Array.isArray(o.items)) {
+        o.items.forEach((item: any) => {
+          const menuItem = item.menuItem;
+          if (!menuItem) return;
+          const id = menuItem.id || menuItem.name;
+          const name = menuItem.name;
+          const icon = menuItem.icon || "🥤";
+          const category = menuItem.category || "Drink";
+          const qty = Number(item.quantity) || 1;
+
+          if (counts[id]) {
+            counts[id].quantity += qty;
+          } else {
+            counts[id] = { name, quantity: qty, icon, category };
+          }
+        });
+      }
+    });
+
+    return Object.values(counts)
+      .sort((a, b) => b.quantity - a.quantity);
+  };
+
+  const topItems = getTopOrderedItems();
 
   const handleUpdateStatus = (id: string, newStatus: string) => {
     const updated = orders.map((o) => {
@@ -225,68 +215,59 @@ export default function AdminPortal({
                     </div>
                   </div>
 
-                  {/* Daily Offer Management Section */}
-                  <div className="bg-[#F9F8F4] p-4.5 rounded-2xl border border-[#1A1A1A]/10 space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-lg">📢</span>
-                      <div>
-                        <h4 className="font-bold text-[#1A1A1A] text-xs uppercase tracking-wider">Configure Daily Offer Card</h4>
-                        <p className="text-[10px] text-gray-500">Edit the primary daily promotional offer displayed to Pune customers.</p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-3 text-left">
-                      <div>
-                        <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Offer Title</label>
-                        <input
-                          type="text"
-                          value={editOfferTitle}
-                          onChange={(e) => setEditOfferTitle(e.target.value)}
-                          className="w-full text-xs p-2.5 bg-white border border-[#1A1A1A]/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#38A325]"
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-3">
+                  {/* High Quantity Items Section */}
+                  <div className="bg-[#F9F8F4] p-5 rounded-2xl border border-[#1A1A1A]/10 space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-lg">🔥</span>
                         <div>
-                          <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Badge Tag</label>
-                          <input
-                            type="text"
-                            value={editOfferTag}
-                            onChange={(e) => setEditOfferTag(e.target.value)}
-                            placeholder="e.g. TODAY-ONLY"
-                            className="w-full text-xs p-2.5 bg-white border border-[#1A1A1A]/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#38A325]"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Promo Code</label>
-                          <input
-                            type="text"
-                            value={editOfferCode}
-                            onChange={(e) => setEditOfferCode(e.target.value)}
-                            placeholder="e.g. FREEBOOST"
-                            className="w-full text-xs p-2.5 bg-white border border-[#1A1A1A]/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#38A325]"
-                          />
+                          <h4 className="font-bold text-[#1A1A1A] text-xs uppercase tracking-wider">High Quantity Items Demand Index</h4>
+                          <p className="text-[10px] text-gray-500">Live analytics tracking the highest quantity products ordered across your store.</p>
                         </div>
                       </div>
-
-                      <div>
-                        <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Offer Description / Subtitle</label>
-                        <textarea
-                          rows={2}
-                          value={editOfferDesc}
-                          onChange={(e) => setEditOfferDesc(e.target.value)}
-                          className="w-full text-xs p-2.5 bg-white border border-[#1A1A1A]/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#38A325]"
-                        />
-                      </div>
-
-                      <button
-                        onClick={handleSaveOffer}
-                        className="w-full py-2.5 bg-[#38A325] hover:bg-[#1A1A1A] text-white rounded-xl text-[10px] font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
-                      >
-                        <CheckCircle className="w-3.5 h-3.5" />
-                        <span>Update Custom Daily Offer</span>
-                      </button>
+                      <span className="bg-[#38A325]/10 text-[#38A325] text-[9px] font-bold px-2 py-1 rounded-full uppercase">Live</span>
                     </div>
+
+                    {topItems.length === 0 ? (
+                      <div className="bg-white/50 border border-[#1A1A1A]/5 rounded-xl p-6 text-center text-gray-400">
+                        <TrendingUp className="w-5 h-5 mx-auto text-gray-300 mb-1" />
+                        <span className="text-xs font-semibold text-[#1A1A1A]/60 block">No product analytics available</span>
+                        <p className="text-[9px] text-[#1A1A1A]/40 mt-0.5">Place new orders containing items to generate high-demand index rankings.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        {topItems.slice(0, 4).map((item, index) => {
+                          // Rank badges or colors
+                          const rankColors = [
+                            "bg-amber-100 text-amber-800 border-amber-250", // Rank 1
+                            "bg-slate-100 text-slate-800 border-slate-250", // Rank 2
+                            "bg-amber-50 text-amber-700 border-amber-150",  // Rank 3
+                            "bg-gray-50 text-gray-600 border-gray-150"      // Rank 4+
+                          ];
+                          const rankColor = rankColors[index] || "bg-gray-50 text-gray-600 border-gray-150";
+
+                          return (
+                            <div key={item.name} className="bg-white border border-[#1A1A1A]/5 rounded-xl p-3 flex items-center justify-between gap-4 shadow-sm hover:border-[#38A325]/20 transition-colors">
+                              <div className="flex items-center space-x-3 min-w-0 flex-1">
+                                <div className={`w-6 h-6 rounded-lg text-xs font-bold border flex items-center justify-center shrink-0 ${rankColor}`}>
+                                  #{index + 1}
+                                </div>
+                                <span className="text-base leading-none select-none shrink-0">{item.icon}</span>
+                                <div className="min-w-0 flex-1">
+                                  <h5 className="font-bold text-[#1A1A1A] leading-tight truncate">{item.name}</h5>
+                                  <span className="text-[9px] text-gray-400 uppercase tracking-wider font-semibold font-mono block mt-0.5">{item.category}</span>
+                                </div>
+                              </div>
+                              
+                              <div className="text-right shrink-0">
+                                <span className="text-[9px] font-bold text-gray-400 block uppercase tracking-wide">Ordered</span>
+                                <span className="text-xs font-extrabold text-[#38A325]">{item.quantity} {item.quantity === 1 ? 'Unit' : 'Units'}</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
 
                   {/* Actions Header Bar */}
