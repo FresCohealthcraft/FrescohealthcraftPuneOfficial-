@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CartItem, PromoCoupon } from "../types";
-import { PROMO_COUPONS, PUNE_LOCATIONS } from "../data";
+import { PROMO_COUPONS } from "../data";
 import { X, Trash2, Plus, Minus, ShoppingCart, Compass } from "lucide-react";
 
 interface CartDrawerProps {
@@ -30,7 +30,7 @@ export default function CartDrawer({
   const [addressDetails, setAddressDetails] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [customerName, setCustomerName] = useState("");
-  const [puneLocation, setPuneLocation] = useState(PUNE_LOCATIONS[0]);
+  const [puneLocation, setPuneLocation] = useState("Pune");
 
   // Checkout flow state and helpers
 
@@ -40,13 +40,17 @@ export default function CartDrawer({
   // Calculate coupon deductions
   let discountValue = 0;
   if (appliedCoupon) {
-    discountValue = parseFloat(((totalBeforePromo * appliedCoupon.discountPercentage) / 100).toFixed(2));
+    if (appliedCoupon.discountAmount && appliedCoupon.discountAmount > 0) {
+      discountValue = appliedCoupon.discountAmount;
+    } else if (appliedCoupon.discountPercentage && appliedCoupon.discountPercentage > 0) {
+      discountValue = parseFloat(((totalBeforePromo * appliedCoupon.discountPercentage) / 100).toFixed(2));
+    }
   }
   
   // Apply logic for Free delivery threshold
   const isFreeDelivery = totalBeforePromo >= 199;
   const deliveryCharge = isFreeDelivery ? 0 : 30;
-  const payableAmount = totalBeforePromo - discountValue + deliveryCharge;
+  const payableAmount = Math.max(0, totalBeforePromo - discountValue + deliveryCharge);
 
   const handleApplyPromoCode = () => {
     setPromoError("");
@@ -64,7 +68,7 @@ export default function CartDrawer({
 
   const handleCheckoutWhatsAppSubmit = () => {
     if (!phoneNumber || !customerName || !addressDetails) {
-      alert("Please fill in your Delivery Details (Name, Contact No, and Address) first!");
+      alert("Please fill in your Delivery Details (Name, WhatsApp Number and Address) first!");
       return;
     }
 
@@ -81,15 +85,13 @@ export default function CartDrawer({
 =============================
 *Customer Name:* ${customerName}
 *Phone / WhatsApp:* ${phoneNumber}
-*Delivery Location (Pune):* ${puneLocation}
 *Delivery Address:* ${addressDetails}
 
 *Order Items:*
 ${itemsSummary}
 
 *Subtotal Amount:* ₹${totalBeforePromo}
-${appliedCoupon ? `*Discount Applied:* ${appliedCoupon.label} (${appliedCoupon.discountPercentage}% OFF)` : ""}
-${appliedCoupon ? `*Discount Saved:* - ₹${discountValue}` : ""}
+${appliedCoupon ? `*Applied Offer:* ${appliedCoupon.label}${discountValue > 0 ? ` (- ₹${discountValue})` : ""}` : ""}
 *Delivery Fees:* ${deliveryCharge === 0 ? "FREE" : `₹${deliveryCharge}`}
 =============================
 *Total Payable Amount:* *₹${payableAmount.toFixed(0)}*
@@ -106,6 +108,7 @@ Please accept my order request and share tracking updates on WhatsApp!`;
       address: addressDetails,
       phone: phoneNumber,
       itemsCount: cartItems.length,
+      items: cartItems,
       payableAmount,
       status: "pending",
       puneLocation,
@@ -278,33 +281,21 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                     <div className="space-y-2.5">
                       <input
                         type="text"
-                        placeholder="Your Name (e.g. Anand Shinde)"
+                        placeholder="Your Name (e.g. Name)"
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
                         required
                       />
 
-                      <div className="grid grid-cols-2 gap-2">
-                        <select
-                          value={puneLocation}
-                          onChange={(e) => setPuneLocation(e.target.value)}
-                          className="text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50"
-                        >
-                          {PUNE_LOCATIONS.map((loc, idx) => (
-                            <option key={idx} value={loc}>{loc}</option>
-                          ))}
-                        </select>
-
-                        <input
-                          type="tel"
-                          placeholder="WhatsApp Number"
-                          value={phoneNumber}
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                          className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
-                          required
-                        />
-                      </div>
+                      <input
+                        type="tel"
+                        placeholder="WhatsApp Number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
+                        required
+                      />
 
                       <textarea
                         placeholder="Complete Street Address, Wing/Flat No, Landmark next to..."
@@ -332,9 +323,17 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                   </div>
 
                   {appliedCoupon && (
-                    <div className="flex justify-between text-[#F26419]">
-                      <span>Discount Saved ({appliedCoupon.label}):</span>
-                      <span className="font-bold">- ₹{discountValue}</span>
+                    <div className="flex flex-col gap-1.5 bg-[#38A325]/5 p-2.5 rounded-xl border border-[#38A325]/10 text-[#38A325]">
+                      <div className="flex justify-between font-bold">
+                        <span>Applied Offer:</span>
+                        <span>{appliedCoupon.label}</span>
+                      </div>
+                      {discountValue > 0 && (
+                        <div className="flex justify-between text-xs font-semibold">
+                          <span>Discount Deducted:</span>
+                          <span>- ₹{discountValue}</span>
+                        </div>
+                      )}
                     </div>
                   )}
 
