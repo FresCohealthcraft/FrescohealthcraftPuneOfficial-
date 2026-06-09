@@ -6,6 +6,7 @@ export interface MenuItem {
   description: string;
   popular?: boolean;
   icon: string; // Emoji representing the fruit/drink
+  image?: string; // Optional custom image URL
 }
 
 export interface CartItem {
@@ -22,6 +23,7 @@ export interface PromoCoupon {
   code: string;
   label: string;
   discountPercentage: number;
+  discountAmount?: number;
   description: string;
   tag: string;
 }

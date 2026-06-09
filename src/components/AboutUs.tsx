@@ -46,15 +46,17 @@ export default function AboutUs() {
             {/* Title */}
             <h2 className="text-2xl sm:text-3.5xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
               Crafting Wellness, <br />
-              <span className="text-[#38A325]">One Fresh Bite & Sip at a Time</span>
+              <span className="text-[#38A325]">One Sip at a Time</span>
             </h2>
 
             {/* Paragraphs */}
             <div className="space-y-2.5 text-[#1A1A1A]/75 text-xs sm:text-sm leading-relaxed">
-              <p> 
-                At FresCo HealthCraft, we believe healthy living begins with fresh, natural nutrition. From cold-pressed juices and vitality drinks to protein-packed cups, fruit bowls, and wholesome sprouts, every item is thoughtfully crafted to nourish your body and energize your day.              </p>
               <p>
-                At FresCo HealthCraft, we believe healthy living begins with fresh, natural nutrition. From cold-pressed juices and vitality drinks to protein-packed cups, fruit bowls, and wholesome sprouts, every item is thoughtfully crafted to nourish your body and energize your day.              </p>
+                At FresCo HealthCraft, we believe that good health starts with what you drink. Our journey began with a simple mission: to bring the freshest, most nutritious juices to your doorstep.
+              </p>
+              <p>
+                Every juice we craft is made with love, using hand-picked fruits and vegetables that are washed, prepared, and blended fresh just for you. We never use concentrates, artificial flavors, or preservatives - just pure, natural goodness.
+              </p>
             </div>
 
           </div>
@@ -76,7 +78,7 @@ export default function AboutUs() {
                   {usp.title}
                 </h3>
 
-                <p className="mt-1 text-[10px] sm:text-xs text-[#1A1A1A]/70 leading-relaxed line-clamp-3">
+                <p className="mt-1 text-[10px] sm:text-xs text-[#1A1A1A]/70 leading-relaxed">
                   {usp.desc}
                 </p>
 

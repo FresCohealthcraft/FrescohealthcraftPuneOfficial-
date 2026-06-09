@@ -25,7 +25,7 @@ export default function MenuGrid({
   searchTerm,
   setSearchTerm
 }: MenuProps) {
-
+ 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredItems = MENU_ITEMS.filter((item) => {
@@ -202,9 +202,18 @@ export default function MenuGrid({
                   
                   {/* Image/Emoji wrapper Container */}
                   <div className="relative w-full aspect-[4/3] rounded-md sm:rounded-lg bg-[#EFECE5] select-none flex items-center justify-center text-xl xs:text-2xl sm:text-3xl mb-1 sm:mb-2.5 overflow-hidden transition-transform group-hover:scale-[1.01] duration-300">
-                    <span className="transition-transform duration-300 group-hover:rotate-6">
-                      {item.icon}
-                    </span>
+                    {item.image ? (
+                      <img 
+                        src={item.image}
+                        alt={item.name}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <span className="transition-transform duration-300 group-hover:rotate-6">
+                        {item.icon}
+                      </span>
+                    )}
                     
                     {/* Popular Tag Badge */}
                     {item.popular && (
@@ -220,19 +229,6 @@ export default function MenuGrid({
                       <span className="xs:hidden">Pure</span>
                     </span>
 
-                    {/* Interactive quick direct add floating bottom-right */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddToCartDirectly(item);
-                      }}
-                      className="absolute bottom-0.5 right-0.5 p-0.5 sm:p-1 bg-white hover:bg-[#38A325] hover:text-white text-[#38A325] rounded-full border border-[#1A1A1A]/10 transition-colors cursor-pointer shadow-xs z-10 flex items-center justify-center"
-                      title="Quick Add standard to Cart"
-                    >
-                      <ShoppingBag className="w-2 h-2 sm:w-3 sm:h-3" />
-                    </button>
-
-
                   </div>
    
                   {/* Title & Description */}
@@ -244,10 +240,10 @@ export default function MenuGrid({
                   </p>
                 </div>
  
-                {/* Bottom line with price and button */}
-                <div className="mt-1 sm:mt-2.5 pt-1 sm:pt-2 border-t border-[#1A1A1A]/5 flex flex-col xs:flex-row xs:items-center justify-between gap-1">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] xs:text-[11px] sm:text-base font-bold font-serif text-[#38A325] leading-none">
+                {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
+                <div className="mt-1 sm:mt-2 pt-1 border-t border-[#1A1A1A]/5 flex flex-row items-center justify-between gap-1 w-full">
+                  <div className="flex flex-col shrink-0">
+                    <span className="text-[10px] xs:text-[11px] sm:text-sm font-bold font-serif text-[#38A325] leading-none">
                       ₹{item.price}
                     </span>
                     <span className="text-[5.5px] xs:text-[6.5px] sm:text-[7.5px] font-bold tracking-wider uppercase text-[#1A1A1A]/40 mt-0.5 leading-none">
@@ -255,22 +251,36 @@ export default function MenuGrid({
                     </span>
                   </div>
  
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onAddToCartDirectly(item);
-                    }}
-                    className="bg-[#1A1A1A] hover:bg-[#38A325] text-white px-1 xs:px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[6.5px] xs:text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-wider flex items-center justify-center space-x-0.5 cursor-pointer transition-colors shrink-0"
-                  >
-                    {/* Custom WhatsApp Icon Path */}
-                    <svg
-                      className="w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 fill-current"
-                      viewBox="0 0 24 24"
+                  <div className="flex flex-row items-center gap-1 shrink-0">
+                    {/* Add to Cart Button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onAddToCartDirectly(item);
+                      }}
+                      className="bg-[#38A325]/10 hover:bg-[#38A325] text-[#38A325] hover:text-white px-1 py-0.5 sm:px-2 sm:py-0.5 rounded-full text-[6px] xs:text-[7px] sm:text-[8px] font-bold uppercase tracking-wider flex items-center justify-center space-x-0.5 cursor-pointer transition-colors border border-[#38A325]/20 hover:border-[#38A325] shrink-0"
                     >
-                      <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
-                    </svg>
-                    <span>Order</span>
-                  </button>
+                      <ShoppingBag className="w-1.5 h-1.5 sm:w-2 sm:h-2" />
+                      <span>Cart</span>
+                    </button>
+
+                    {/* Order Button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onAddToCartDirectly(item);
+                      }}
+                      className="bg-[#1A1A1A] hover:bg-[#38A325] text-white px-1 py-0.5 sm:px-2 sm:py-0.5 rounded-full text-[6px] xs:text-[7px] sm:text-[8px] font-bold uppercase tracking-wider flex items-center justify-center space-x-0.5 cursor-pointer transition-colors shrink-0"
+                    >
+                      <svg
+                        className="w-1.5 h-1.5 sm:w-2 sm:h-2 fill-current"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
+                      </svg>
+                      <span>Order</span>
+                    </button>
+                  </div>
                 </div>
  
               </motion.div>

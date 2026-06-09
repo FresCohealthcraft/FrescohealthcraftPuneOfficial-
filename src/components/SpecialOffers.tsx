@@ -7,59 +7,59 @@ interface SpecialOffersProps {
   onAddToCartDirectly: (item: MenuItem) => void;
 }
 
-const DYNAMIC_ITEM_COMBOS = [
-  {
-    id: "combo_detox_monday",
-    name: "Detox Duo Combo",
-    icon: "🌱",
-    subtitle: "Any Green Vitality Juice + Paneer Sprouts Bowl",
-  description: "A refreshing green juice paired with our protein-rich Paneer Sprouts Bowl to support natural detoxification, sustained energy, and daily wellness.",
-  originalPrice: 169,
-  price: 152,
-    category: "Detox & Wellness",
-    tag: "BESTSELLER",
-    badgeColor: "bg-emerald-500/10 text-emerald-700 border-emerald-500/10",
-    glowColor: "shadow-emerald-500/5 hover:border-emerald-500/20"
-  },
-  {
-    id: "combo_immuno_tuesday",
-    name: "Immunity Shield Special",
-    icon: "🛡️",
-    subtitle: "Immunity Booster Juice + Exotic Delight Cup",
-description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",    originalPrice: 198,
-    price: 178,
-    category: "Detox & Wellness",
-    tag: "IMMUNITY BOOST",
-    badgeColor: "bg-amber-500/10 text-amber-700 border-amber-500/10",
-    glowColor: "shadow-amber-500/5 hover:border-amber-500/20"
-  },
-  {
-    id: "combo_glow_thursday",
-    name: "Golden Glow Special",
-    icon: "✨",
-    subtitle: "Skin Glow-Up Juice + Power packed Cup",
-description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",    originalPrice: 208,
-    price: 187,
-    category: "Detox & Wellness",
-    tag: "SKIN GLOW",
-    badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
-    glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
-  },
-  {
-    id: "combo_fitness_friday",
-    name: "Muscle-Refill Special",
-    icon: "💪",
-    subtitle: "Fat-Burning + Paneer Sprouts Bowl",
-    description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",    originalPrice:178 ,
-    price:160 ,
-    category: "Detox & Wellness",
-    tag: "ATHLETE PREP",
-    badgeColor: "bg-blue-500/10 text-blue-700 border-blue-500/10",
-    glowColor: "shadow-blue-500/5 hover:border-blue-500/20"
-  }
-];
+  const DYNAMIC_ITEM_COMBOS = [
+    {
+      id: "combo_detox_monday",
+      name: "Detox Duo Combo",
+      icon: "🌱",
+      subtitle: "Any Green Vitality Juice + Paneer Sprouts Bowl",
+    description: "A refreshing green juice paired with our protein-rich Paneer Sprouts Bowl to support natural detoxification, sustained energy, and daily wellness.",
+    originalPrice: 169,
+    price: 152,
+      category: "Detox & Wellness",
+      tag: "BESTSELLER",
+      badgeColor: "bg-emerald-500/10 text-emerald-700 border-emerald-500/10",
+      glowColor: "shadow-emerald-500/5 hover:border-emerald-500/20"
+    },
+    {
+      id: "combo_immuno_tuesday",
+      name: "Immunity Shield Special",
+      icon: "🛡️",
+      subtitle: "Immunity Booster Juice + Exotic Delight Cup",
+  description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",    originalPrice: 198,
+      price: 178,
+      category: "Detox & Wellness",
+      tag: "IMMUNITY BOOST",
+      badgeColor: "bg-amber-500/10 text-amber-700 border-amber-500/10",
+      glowColor: "shadow-amber-500/5 hover:border-amber-500/20"
+    },
+    {
+      id: "combo_glow_thursday",
+      name: "Golden Glow Special",
+      icon: "✨",
+      subtitle: "Skin Glow-Up Juice + Power packed Cup",
+  description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",    originalPrice: 208,
+      price: 187,
+      category: "Detox & Wellness",
+      tag: "SKIN GLOW",
+      badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
+      glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
+    },
+    {
+      id: "combo_fitness_friday",
+      name: "Muscle-Refill Special",
+      icon: "💪",
+      subtitle: "Fat-Burning + Paneer Sprouts Bowl",
+      description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",    originalPrice:178 ,
+      price:160 ,
+      category: "Detox & Wellness",
+      tag: "ATHLETE PREP",
+      badgeColor: "bg-blue-500/10 text-blue-700 border-blue-500/10",
+      glowColor: "shadow-blue-500/5 hover:border-blue-500/20"
+    }
+  ];
 
-export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProps) {
+  export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProps) {
   const [addedItem, setAddedItem] = useState<string | null>(null);
 
   const handleAddToCart = (plan: typeof DYNAMIC_ITEM_COMBOS[0]) => {
@@ -87,15 +87,15 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
         
         {/* Special Offers Badge */}
         <div className="inline-flex items-center justify-center border border-[#38A325]/30 text-[#38A325] bg-transparent px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider mb-2">
-          Fresh Nutrition, Perfectly Paired
+          Daily Specials
         </div>
 
         {/* Display Title */}
         <h2 className="text-2xl sm:text-3xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
-          Daily Wellness Combos
+          Curated Daily Wellness Combos
         </h2>
         <p className="mt-1 text-[#1A1A1A]/70 max-w-xl mx-auto text-xs sm:text-sm">
-Discover our handcrafted combinations of fresh juices, wholesome bowls, and nutrient-rich cups designed for daily wellness.
+          Add our popular daily nutrition pairings directly to your delivery in one click. Completely raw, fresh, and hand-prepared.
         </p>
 
         {/* Dynamic Item Combos Cards Grid */}
@@ -121,11 +121,6 @@ Discover our handcrafted combinations of fresh juices, wholesome bowls, and nutr
                       <span className={`text-[7px] sm:text-[8px] font-bold px-1.5 py-0.5 border rounded-full uppercase tracking-wider ${combo.badgeColor}`}>
                         {combo.tag}
                       </span>
-                      <div className="flex items-center space-x-0.5 text-[9px] sm:text-[10px]">
-                        <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
-                        <span className="font-bold text-[#1A1A1A]/90">{combo.rating}</span>
-                        <span className="text-gray-400 text-[8px]">({combo.reviews})</span>
-                      </div>
                     </div>
                   </div>
 
@@ -140,16 +135,16 @@ Discover our handcrafted combinations of fresh juices, wholesome bowls, and nutr
                   </div>
 
                   {/* Detailed Description */}
-                  <p className="text-[#1A1A1A]/75 text-[9px] sm:text-[11px] mt-1.5 leading-relaxed line-clamp-3">
+                  <p className="text-[#1A1A1A]/75 text-[9px] sm:text-[11px] mt-1.5 leading-relaxed">
                     {combo.description}
                   </p>
 
                   {/* High Quality Features Banner */}
-                  <div className="flex items-center gap-2 mt-2.5 bg-[#F9F8F4] p-1.5 rounded-lg border border-[#1A1A1A]/5">
-                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+                  <div className="flex flex-wrap items-center gap-1.5 mt-2.5 bg-[#F9F8F4] p-1.5 rounded-lg border border-[#1A1A1A]/5">
+                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest">
                       <span className="text-[#38A325]">✔</span> <span>10% Save</span>
                     </div>
-                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest">
                       <span className="text-[#38A325]">✔</span> <span>Fresh Ingredients</span>
                     </div>
                   </div>

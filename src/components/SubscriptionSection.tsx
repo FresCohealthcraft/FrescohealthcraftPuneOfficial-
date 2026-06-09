@@ -20,7 +20,7 @@ export default function SubscriptionSection({ onAddToCartDirectly }: Subscriptio
       tags: ["Value Pack", "Immunity"],
       originalPrice: 158,
       price: 142,
-      description: "Kickstart your week with our refreshing Detox Body Juice paired with a nutrient-rich SuperFood Sprouts Bowl for a naturally cleansing.",
+      description: "Kickstart your week with our refreshing Detox Body Juice paired with a nutrient-rich SuperFood Sprouts Bowl for a naturally cleansing experience.",
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
       accentColor: "#10b981"
     },
@@ -172,7 +172,7 @@ export default function SubscriptionSection({ onAddToCartDirectly }: Subscriptio
       window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
     }, 1500);
   };
-
+ 
   return (
     <section id="subscriptions" className="pt-3.5 pb-3 bg-gradient-to-br from-white via-white to-[#F2FAED] scroll-mt-20 border-t border-[#1A1A1A]/10 relative overflow-hidden">
       
@@ -290,7 +290,7 @@ export default function SubscriptionSection({ onAddToCartDirectly }: Subscriptio
                       </div>
 
                       {/* Specific daily menu combo description */}
-                      <p className="text-[#1A1A1A]/75 text-[9.5px] sm:text-[11px] mt-2 leading-relaxed line-clamp-3">
+                      <p className="text-[#1A1A1A]/75 text-[9.5px] sm:text-[11px] mt-2 leading-relaxed">
                         {plan.description}
                       </p>
                     </div>
