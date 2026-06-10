@@ -22,18 +22,24 @@ export default function Navbar({
     { name: "Home", id: "home" },
     { name: "Menu", id: "menu" },
     { name: "Wellness Plans", id: "subscriptions" },
-    { name: "Special Offers", id: "offers" },
-    { name: "About", id: "about" },
+    { name: "Wellness Combos", id: "offers" },
+    { name: "About Us", id: "about" },
     { name: "Contact", id: "contact" },
   ];
 
   const handleLinkClick = (id: string) => {
     setIsOpen(false);
     setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    const scroll = () => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+    scroll();
+    // Delay slightly to let layout adjust after the mobile drawer collapses
+    setTimeout(scroll, 100);
+    setTimeout(scroll, 300);
   };
 
   return (
@@ -46,7 +52,7 @@ export default function Navbar({
             className="flex items-center space-x-2.5 cursor-pointer group"
             onClick={() => handleLinkClick("home")}
           >
-            <Logo size="sm" showTagline={false} />
+            <Logo size="sm" showTagline={true} />
           </div>
 
           {/* Desktop Navigation Links */}
