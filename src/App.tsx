@@ -10,7 +10,7 @@ import SubscriptionSection from "./components/SubscriptionSection";
 import SpecialOffers from "./components/SpecialOffers";
 import HomeDeliveryBanner from "./components/HomeDeliveryBanner";
 import AboutUs from "./components/AboutUs";
-import OrderModal from "./components/OrderModal";
+import ContactSection from "./components/ContactSection";
 import CartDrawer from "./components/CartDrawer";
 import AdminPortal from "./components/AdminPortal";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
@@ -23,9 +23,7 @@ export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [appliedCoupon, setAppliedCoupon] = useState<PromoCoupon | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   // Load cart state from localStorage
@@ -100,18 +98,6 @@ export default function App() {
     setAppliedCoupon(coupon);
   };
 
-  // Map AI recommendations to trigger order popup of standard options
-  const handleSelectItemByName = (name: string) => {
-    const found = MENU_ITEMS.find((item) => item.name.toLowerCase() === name.toLowerCase());
-    if (found) {
-      setSelectedItem(found);
-    } else {
-      // Find relative
-      const relative = MENU_ITEMS.find((item) => item.name.toLowerCase().includes(name.toLowerCase()));
-      if (relative) setSelectedItem(relative);
-    }
-  };
-
   // Open official Whatsapp chat with custom pre-pended lines
   const handleGeneralChatWhatsApp = () => {
     const text = encodeURIComponent(
@@ -152,10 +138,7 @@ export default function App() {
 
         {/* 4. Menu options grid (matching Image 1) */}
         <MenuGrid
-          onSelectItem={(item) => setSelectedItem(item)}
           onAddToCartDirectly={handleAddToCartDirectly}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
@@ -178,6 +161,12 @@ export default function App() {
         {/* 7. Crafting wellness About Us columns (matching Image 2) */}
         <AboutUs />
 
+        {/* 8. Contact details and WhatsApp steps Map area (matching Image 3) */}
+        <ContactSection
+          onStartOrdering={scrollToMenuSection}
+          onGeneralChat={handleGeneralChatWhatsApp}
+        />
+
       </main>
 
       {/* 10. Ultimate Footer layouts (matching Image 3) */}
@@ -187,9 +176,9 @@ export default function App() {
             
             {/* Logo and Slogans Column */}
             <div className="md:col-span-5 space-y-4 text-left">
-              <Logo size="sm" lightText={true} showTagline={false} />
+              <Logo size="sm" lightText={true} showTagline={true} />
               <p className="text-xs text-[#F9F8F4]/70 max-w-sm leading-relaxed">
-                Your trusted partner for fresh, healthy, and delicious juices. We bring nature's raw goodness right to your Pune doorstep with our high-retention extraction technology and fast delivery operations.
+                Your trusted partner for fresh, healthy, delicious juices and Bowls. We bring nature's raw goodness right to your Pune doorstep with our high-retention extraction technology and fast delivery operations.
               </p>
             </div>
 
@@ -297,14 +286,6 @@ export default function App() {
 
       {/* 12. Modals Backdrop Overrides */}
       
-      {/* Product Customization order modal */}
-      <OrderModal
-        item={selectedItem}
-        isOpen={selectedItem !== null}
-        onClose={() => setSelectedItem(null)}
-        onAddToCart={handleConfirmAddToCart}
-      />
-
       {/* Shopping Cart Drawer Panel */}
       <CartDrawer
         isOpen={isCartOpen}
