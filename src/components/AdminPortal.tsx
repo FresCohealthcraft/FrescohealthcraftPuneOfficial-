@@ -25,11 +25,11 @@ export default function AdminPortal({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminKey === "fresco123") {
+    if (adminKey === "Sumi@2026") {
       setIsAuthenticated(true);
       setAuthError("");
     } else {
-      setAuthError("Invalid Admin Passkey. Hint: fresco123");
+      setAuthError("Invalid Admin Passkey.");
     }
   };
 
@@ -189,9 +189,6 @@ export default function AdminPortal({
                       Verify &amp; Unlock
                     </button>
                   </div>
-                  <span className="text-[10px] text-gray-400 font-mono tracking-wide block">
-                     Default Passkey: <span className="font-bold underline text-[#38A325]">fresco123</span>
-                  </span>
                 </form>
               ) : (
                 /* Authenticated State */
