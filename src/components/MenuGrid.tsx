@@ -29,8 +29,10 @@ export default function MenuGrid({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredItems = MENU_ITEMS.filter((item) => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          item.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const searchLower = searchTerm.toLowerCase().trim();
+    const matchesSearch = item.name.toLowerCase().includes(searchLower) ||
+                          item.description.toLowerCase().includes(searchLower) ||
+                          item.category.toLowerCase().includes(searchLower);
     
     if (searchTerm && !matchesSearch) {
       return false;
@@ -68,29 +70,44 @@ export default function MenuGrid({
             type="text"
             placeholder="Search healthy juices, smoothies, ingredients..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 border border-[#1A1A1A]/15 rounded-full focus:outline-none focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] text-sm bg-white text-[#1A1A1A] placeholder-[#1A1A1A]/40"
+            onChange={(e) => {
+              const val = e.target.value;
+              setSearchTerm(val);
+              if (val.trim() !== "") {
+                setSelectedCategory(null);
+              }
+            }}
+            className="w-full pl-11 pr-10 py-3 border border-[#1A1A1A]/15 rounded-full focus:outline-none focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] text-sm bg-white text-[#1A1A1A] placeholder-[#1A1A1A]/40"
           />
           <Search className="w-5 h-5 text-gray-400 absolute left-8 top-3.5" />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="absolute right-8 top-3.5 text-[#1A1A1A]/40 hover:text-[#1A1A1A] transition-colors focus:outline-none p-0.5 cursor-pointer text-xs font-bold"
+              title="Clear search"
+            >
+              ✕
+            </button>
+          )}
         </div>
 
-        {/* Top categories pill filters (matching user screenshot top rows) */}
-        <div className="mt-5 flex flex-wrap justify-center gap-x-2 gap-y-2 px-2 max-w-3xl mx-auto mb-6">
+        {/* Top categories pill filters (matching user screenshot top rows) - fitted in one or two lines without slider */}
+        <div className="mt-5 flex flex-wrap justify-center gap-x-1 sm:gap-x-1.5 gap-y-1.5 px-2 max-w-4xl mx-auto mb-6">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.name;
             return (
               <button
                 key={cat.name}
                 onClick={() => setSelectedCategory(isActive ? null : cat.name)}
-                className={`py-1.5 px-3.5 text-[10px] font-bold uppercase tracking-wider cursor-pointer rounded-full transition-all duration-300 flex items-center space-x-1 shadow-xs active:scale-95 border ${
+                className={`py-0.5 px-2 xs:py-1 xs:px-2.5 text-[8px] xs:text-[9px] sm:text-[10px] font-bold uppercase tracking-wider cursor-pointer rounded-full transition-all duration-300 flex items-center space-x-1 shadow-xs active:scale-95 border whitespace-nowrap ${
                   isActive
                     ? "bg-[#38A325] text-white border-[#38A325] shadow-none"
                     : "bg-white text-[#1A1A1A]/90 border-[#1A1A1A]/10 hover:bg-[#EFECE5]/40"
                 }`}
               >
-                <span className="shrink-0 select-none text-xs">{cat.emoji}</span>
+                <span className="shrink-0 select-none text-[10px] xs:text-xs">{cat.emoji}</span>
                 <span>{cat.name}</span>
-                {isActive && <span className="ml-1 text-[9px] text-white/80">✕</span>}
+                {isActive && <span className="ml-1 text-[8px] text-white/80">✕</span>}
               </button>
             );
           })}
@@ -128,7 +145,7 @@ export default function MenuGrid({
             </h3>
             
             <p className="mt-2 text-[11px] sm:text-xs text-[#1A1A1A]/60 max-w-md leading-relaxed">
-              We extract each recipe fresh using high-retention pressing techniques. Select a juice category above or click below to reveal active organic creations!
+              We extract each recipe fresh using high-retention pressing techniques. Select any category above or click below to reveal active organic creations!
             </p>
 
             {/* Inner categories rectangular buttons matching the inner grid in standard mockup */}
@@ -232,10 +249,10 @@ export default function MenuGrid({
                   </div>
    
                   {/* Title & Description */}
-                  <h3 className="text-[10px] xs:text-[11px] sm:text-[13px] font-bold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 line-clamp-2 leading-tight">
+                  <h3 className="text-[10px] xs:text-[11px] sm:text-[13px] font-bold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 line-clamp-1 xs:line-clamp-2 leading-tight">
                     {item.name}
                   </h3>
-                  <p className="mt-0.5 text-[8.5px] sm:text-[10px] text-[#1A1A1A]/65 leading-normal">
+                  <p className="mt-0.5 text-[8px] sm:text-[10px] text-[#1A1A1A]/65 leading-normal line-clamp-1 xs:line-clamp-2">
                     {item.description}
                   </p>
                 </div>
@@ -258,10 +275,11 @@ export default function MenuGrid({
                         e.stopPropagation();
                         onAddToCartDirectly(item);
                       }}
-                      className="bg-[#38A325]/10 hover:bg-[#38A325] text-[#38A325] hover:text-white px-1 py-0.5 sm:px-2 sm:py-0.5 rounded-full text-[6px] xs:text-[7px] sm:text-[8px] font-bold uppercase tracking-wider flex items-center justify-center space-x-0.5 cursor-pointer transition-colors border border-[#38A325]/20 hover:border-[#38A325] shrink-0"
+                      className="bg-[#38A325]/10 hover:bg-[#38A325] text-[#38A325] hover:text-white p-1 xs:p-1.5 sm:px-2.5 sm:py-1 rounded-full text-[7px] sm:text-[10px] font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer transition-colors border border-[#38A325]/20 hover:border-[#38A325] shrink-0"
+                      title="Add to Cart"
                     >
-                      <ShoppingBag className="w-1.5 h-1.5 sm:w-2 sm:h-2" />
-                      <span>Cart</span>
+                      <ShoppingBag className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                      <span className="hidden sm:inline sm:ml-1">Cart</span>
                     </button>
 
                     {/* Order Button */}
@@ -270,15 +288,16 @@ export default function MenuGrid({
                         e.stopPropagation();
                         onAddToCartDirectly(item);
                       }}
-                      className="bg-[#1A1A1A] hover:bg-[#38A325] text-white px-1 py-0.5 sm:px-2 sm:py-0.5 rounded-full text-[6px] xs:text-[7px] sm:text-[8px] font-bold uppercase tracking-wider flex items-center justify-center space-x-0.5 cursor-pointer transition-colors shrink-0"
+                      className="bg-[#1A1A1A] hover:bg-[#38A325] text-white p-1 xs:p-1.5 sm:px-2.5 sm:py-1 rounded-full text-[7px] sm:text-[10px] font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer transition-colors shrink-0"
+                      title="Order on WhatsApp"
                     >
                       <svg
-                        className="w-1.5 h-1.5 sm:w-2 sm:h-2 fill-current"
+                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current"
                         viewBox="0 0 24 24"
                       >
                         <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
                       </svg>
-                      <span>Order</span>
+                      <span className="hidden sm:inline sm:ml-1">Order</span>
                     </button>
                   </div>
                 </div>
