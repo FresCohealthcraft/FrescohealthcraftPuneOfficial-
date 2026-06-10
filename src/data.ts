@@ -110,8 +110,8 @@ import MangoChocofrostImg from "./assets/images/Mango-Chocofrost.png";
 
 export const MENU_CATEGORIES = [
   "Fruit Juices",
-  "Green Vitality Juice",
   "Power Cups",
+  "Green Vitality Juice",
   "Super Food Sprouts Bowls",
   "Fresco Power Juices",
   "Shakes",
