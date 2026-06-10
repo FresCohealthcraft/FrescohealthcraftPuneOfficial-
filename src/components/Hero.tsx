@@ -32,7 +32,7 @@ export default function Hero({ onExploreMenu }: HeroProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5.5xl leading-[1.05] font-serif italic tracking-tight text-[#1A1A1A]"
+            className="text-2xl sm:text-3xl lg:text-1.5xl leading-[1.05] font-serif italic tracking-tight text-[#1A1A1A]"
           >
             Nourish Your Body <br />
             With <span className="text-[#38A325]">Pure Wellness</span>
@@ -45,7 +45,9 @@ export default function Hero({ onExploreMenu }: HeroProps) {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[#1A1A1A]/70 max-w-xl text-xs sm:text-sm leading-relaxed font-normal"
           >
-            FresCo HealthCraft brings you 100% raw, organic natural wellness elixirs, functional green smoothies, and clinical Ayurvedic boosters right to your Pune doorstep. No concentrates, no pasteurization, just pure wellness in every sip. 🌿🥤✨          </motion.p>
+        Fresco Crafted with quality ingredients and natural goodness, every serving is designed to refresh, energize, and support a healthier lifestyle.
+            
+     </motion.p>
 
           {/* Unique Selling Points Highlights in compact beautiful badge pills */}
           <motion.div 
@@ -60,7 +62,7 @@ export default function Hero({ onExploreMenu }: HeroProps) {
             </div>
             <div className="inline-flex items-center space-x-1 bg-[#38A325]/5 border border-[#38A325]/10 px-2 py-0.5 rounded-full">
               <Heart className="w-3 h-3 text-[#38A325] shrink-0" />
-              <span className="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A]/85">Heart Healthy</span>
+              <span className="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A]/85">Hygiene Focused</span>
             </div>
             <div className="inline-flex items-center space-x-1 bg-[#38A325]/5 border border-[#38A325]/10 px-2 py-0.5 rounded-full">
               <ShieldCheck className="w-3 h-3 text-[#38A325] shrink-0" />
