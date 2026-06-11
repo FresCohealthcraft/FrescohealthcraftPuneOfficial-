@@ -92,3 +92,4 @@ export default function AboutUs() {
     </section>
   );
 }
+
