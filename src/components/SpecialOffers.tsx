@@ -45,7 +45,7 @@ const DYNAMIC_ITEM_COMBOS = [
       badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
       glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
     },
-    {
+    { 
       id: "combo_fitness_friday",
       name: "Muscle-Refill Special",
       icon: "💪",
