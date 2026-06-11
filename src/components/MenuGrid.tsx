@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MenuItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, ShoppingBag, Leaf } from "lucide-react";
+import { Search, Plus, Leaf } from "lucide-react";
 
 interface MenuProps {
   onAddToCartDirectly: (item: MenuItem) => void;
@@ -145,7 +145,7 @@ export default function MenuGrid({
             </h3>
             
             <p className="mt-2 text-[11px] sm:text-xs text-[#1A1A1A]/60 max-w-md leading-relaxed">
-              We extract each recipe fresh using high-retention pressing techniques. Select any category above or click below to reveal active organic creations!
+Every item is thoughtfully prepared using premium natural ingredients to deliver freshness, flavor, and balanced nutrition in every sip and bite.
             </p>
 
             {/* Inner categories rectangular buttons matching the inner grid in standard mockup */}
@@ -212,8 +212,7 @@ export default function MenuGrid({
                   boxShadow: "0 8px 16px -6px rgba(26,26,26,0.05)"
                 }}
                 key={item.id}
-                onClick={() => onAddToCartDirectly(item)}
-                className="bg-white border border-[#1A1A1A]/10 rounded-lg p-1.5 sm:p-3 shadow-[0_1px_10px_rgba(0,0,0,0.01)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group cursor-pointer"
+                className="bg-white border border-[#1A1A1A]/10 rounded-xl p-2.5 sm:p-3.5 shadow-[0_1px_10px_rgba(0,0,0,0.01)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group"
               >
                 <div>
                   
@@ -249,10 +248,10 @@ export default function MenuGrid({
                   </div>
    
                   {/* Title & Description */}
-                  <h3 className="text-[10px] xs:text-[11px] sm:text-[13px] font-bold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 line-clamp-1 xs:line-clamp-2 leading-tight">
+                  <h3 className="text-[10px] xs:text-[11px] sm:text-[13px] font-bold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 line-clamp-2 sm:line-clamp-none leading-tight">
                     {item.name}
                   </h3>
-                  <p className="mt-0.5 text-[8px] sm:text-[10px] text-[#1A1A1A]/65 leading-normal line-clamp-1 xs:line-clamp-2">
+                  <p className="mt-0.5 text-[8.5px] sm:text-[10px] text-[#1A1A1A]/65 leading-normal line-clamp-4 xs:line-clamp-none">
                     {item.description}
                   </p>
                 </div>
@@ -275,29 +274,10 @@ export default function MenuGrid({
                         e.stopPropagation();
                         onAddToCartDirectly(item);
                       }}
-                      className="bg-[#38A325]/10 hover:bg-[#38A325] text-[#38A325] hover:text-white p-1 xs:p-1.5 sm:px-2.5 sm:py-1 rounded-full text-[7px] sm:text-[10px] font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer transition-colors border border-[#38A325]/20 hover:border-[#38A325] shrink-0"
+                      className="w-10 h-10 sm:w-11 sm:h-11 bg-[#38A325]/10 hover:bg-[#38A325] active:bg-[#2e851e] text-[#38A325] hover:text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-[#38A325]/20 hover:border-[#38A325] shadow-xs active:scale-90 hover:scale-105 shrink-0"
                       title="Add to Cart"
                     >
-                      <ShoppingBag className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                      <span className="hidden sm:inline sm:ml-1">Cart</span>
-                    </button>
-
-                    {/* Order Button */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddToCartDirectly(item);
-                      }}
-                      className="bg-[#1A1A1A] hover:bg-[#38A325] text-white p-1 xs:p-1.5 sm:px-2.5 sm:py-1 rounded-full text-[7px] sm:text-[10px] font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer transition-colors shrink-0"
-                      title="Order on WhatsApp"
-                    >
-                      <svg
-                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
-                      </svg>
-                      <span className="hidden sm:inline sm:ml-1">Order</span>
+                      <Plus className="w-5 h-5 sm:w-5.5 sm:h-5.5" strokeWidth={2.5} />
                     </button>
                   </div>
                 </div>
