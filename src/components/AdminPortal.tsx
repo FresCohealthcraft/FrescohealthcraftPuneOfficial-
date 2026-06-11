@@ -284,14 +284,6 @@ export default function AdminPortal({
                         <span>Export CSV</span>
                       </button>
 
-                      <button
-                        onClick={handleClearOrders}
-                        disabled={orders.length === 0}
-                        className="bg-red-50 text-red-600 hover:bg-red-100 px-3.5 py-2 rounded-xl font-bold uppercase text-[10px] tracking-wider border border-red-100 transition-all cursor-pointer disabled:opacity-40"
-                      >
-                        <Trash2 className="w-3.5 h-3.5 mr-0.5" />
-                        <span>Clear Logs</span>
-                      </button>
                     </div>
                   </div>
 
