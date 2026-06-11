@@ -188,11 +188,11 @@ export default function SubscriptionSection({ onAddToCartDirectly }: Subscriptio
         </div>
 
         {/* Dynamic Headings */}
-        <h2 className="text-3xl sm:text-4.5xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
+        <h2 className="text-2xl sm:text-3.5xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
           Fresco Healthcraft Wellness Plans
         </h2>
-        <p className="mt-2 text-[#1A1A1A]/70 max-w-2xl mx-auto text-base sm:text-lg">
-          Transform your daily wellness and save big with scheduled raw nourishment. Freshly prepared and delivered daily to your Pune doorstep.
+        <p className="mt-2 text-[#1A1A1A]/70 max-w-1xl mx-auto text-base sm:text-lg">
+          Transform your daily wellness and save big with scheduled raw nourishment. Freshly prepared and delivered daily to your doorstep.
         </p>
 
         {/* Tabs for switching between Weekly and Monthly subscriptions (Matched to user visual references) */}
