@@ -120,11 +120,10 @@ export const MENU_CATEGORIES = [
 
 export const MENU_ITEMS: MenuItem[] = [
  // Fruit Juices
-
-   {
+{
     id: "Watermelon-Juice",
     name: "Watermelon Juice",
-    description: "Composed of about 92% water, it is a highly effective way to maintain daily hydration levels and replenish fluids.",
+    description: "Fresh watermelon blended into a naturally sweet juice, perfect for instant refreshment.",
     price: 60,
     image: watermelonJuiceImg,
     icon: "🍉",
@@ -135,7 +134,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mosambi-Juice",
     name: "Mosambi Juice",
-    description: "Rich in Vitamin C, it strengthens your natural defenses, helping your body fight off common infections like colds and the flu.",
+    description: "Rich in Vitamin C, naturally refreshing and immunity-supporting.",
     price: 70,
     image: MosambiJuiceImg,
     icon: "🍊",
@@ -146,7 +145,7 @@ export const MENU_ITEMS: MenuItem[] = [
 {
     id: "Pineapple-Juice",
     name: "Pineapple Juice",
-    description: "High concentrations of Vitamin C and antioxidants help neutralize free radicals and protect the body against infections.",
+    description: "Sweet, refreshing, and naturally rich in Vitamin C.",
     price: 70,
     image: pineappleJuiceImg,
     icon: "🍍",
@@ -157,7 +156,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mango-Juice",
     name: "Mango Juice",
-    description: "Rich in Vitamin C and over 25 different types of carotenoids, it actively helps protect the body from infections and strengthens immune function.",
+    description: "Fresh mango goodness that helps strengthen immunity and keeps you energized.",
     price: 80,
     image: MangoJuiceImg,
     icon: "🥭",
@@ -168,7 +167,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Apple-Juice",
     name: "Apple Juice",
-    description: "provides quick hydration and delivers essential nutrients like Vitamin C and beneficial plant compounds (polyphenols).",
+    description: "Fresh apple goodness that provides hydration and essential nutrients.",
     price: 80,
     image: AppleJuiceImg,
     icon: " 🍎",
@@ -179,7 +178,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Orange-Juice",
     name: "Orange Juice",
-    description: "Rich in Vitamin C, it enhances white blood cell production, helping your body ward off infections and recover from colds more effectively.",
+    description: "Rich in Vitamin C, helping support immunity and overall wellness.",
     price: 80,
     image: OrangeJuiceImg,
     icon: "🍊",
@@ -189,7 +188,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Ganga-Juice",
     name: "Ganga Jamuna Juice",
-    description: "Mosambi+ Pineapple Both fruits are packed with Vitamin C, which strengthens your immune system and helps your body fight off infections..",
+    description: "Packed with Vitamin C, helping support immunity and overall wellness.",
     price: 80,
     image: GangaJuiceImg,
     icon: "🍇",
@@ -199,7 +198,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Pomegranate-Juice",
     name: "Pomegranate Juice",
-    description: "promoting heart health, reducing inflammation, and offering excellent antioxidant protection to combat oxidative stress.",
+    description: "A nutrient-rich juice loaded with natural antioxidants and goodness.",
     price: 140,
     image: PomegranateJuiceImg,
     icon: "石榴",
@@ -209,7 +208,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "papaya-Juice",
     name: "Papaya Juice",
-    description: "Papaya naturally contains papain, a proteolytic enzyme that helps break down proteins",
+    description: "Rich in digestive enzymes and nutrients that support gut health.",
     price: 60,
     image: papayaJuiceImg,
     icon: "石榴",
@@ -220,7 +219,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Muskmelon-Juice",
     name: "Muskmelon Juice",
-    description: "Muskmelon juice is a highly hydrating, nutrient-dense summer drink. Composed of roughly 90% water, it cools the body and supplies essential electrolytes",
+    description: "A refreshing, water-rich juice that supports hydration and wellness.",
     price: 70,
     image: MuskmelonJuiceImg,
     icon: "石榴",
@@ -231,8 +230,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Nimbu-Pani-Juice",
     name: "Nimbu Pani Juice",
-    description: "promotes hydration, provides a natural dose of Vitamin C, and aids in digestion.",
-    price: 40,
+    description: "Cool, refreshing, and naturally rich in Vitamin C and goodness."    price: 40,
     image: NimbuPaniJuiceImg,
     icon: "🍋",
     category: "Fruit Juices",
