@@ -230,7 +230,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Nimbu-Pani-Juice",
     name: "Nimbu Pani Juice",
-    description: "Cool, refreshing, and naturally rich in Vitamin C and goodness."    price: 40,
+    description: "Cool, refreshing, and naturally rich in Vitamin C and goodness.",
+    price: 40,
     image: NimbuPaniJuiceImg,
     icon: "🍋",
     category: "Fruit Juices",
