@@ -53,7 +53,7 @@ export default function MenuGrid({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Our Menu Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#38A325] bg-[#FFFF00]/50 px-3 py-1 rounded-full text-[8.5px] font-semibold uppercase tracking-wider mb-2">
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[8.5px] font-semibold uppercase tracking-wider mb-2">
           Our Menu
         </div>
 
