@@ -10,7 +10,7 @@ interface SubscriptionSectionProps {
 
 const JUICE_OPTIONS = [
   { id: "opt_detox", name: "Detox Body Juice", price: 85, icon: "🌱", desc: "Organic celery, spinach, bitter gourd cleanse" },
-  { id: "opt_immunity", name: "Immunity Booster", price: 90, icon: "🛡️", desc: "Cold-pressed citrus, ginger, turmeric & Amla" },
+  { id: "opt_immunity", name: "Immunity Booster", price: 90, icon: "🛡️", desc: "Fresh citrus, ginger, turmeric & Amla" },
   { id: "opt_watermelon", name: "Watermelon Juice", price: 60, icon: "🍉", desc: "Hydrating, sweet and high in natural electrolytes" },
   { id: "opt_orange", name: "Orange Valencia", price: 75, icon: "🍊", desc: "Fresh sweet valencia orange with rich Vitamin C" },
   { id: "opt_abc", name: "ABC Vitality Juice", price: 90, icon: "🥤", desc: "Apple, Beetroot, Carrot detoxifier & recovery booster" },
@@ -263,7 +263,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_monday",
       name: "Watermelon Monday",
       icon: "🍉",
-      subtitle: "Pure Organic Cold-Pressed Watermelon Juice",
+      subtitle: "Pure Organic Fresh Watermelon Juice",
       originalPrice: 65,
       price: 58,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-00",
@@ -283,7 +283,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_wednesday",
       name: "Pineapple Wednesday",
       icon: "🍍",
-      subtitle: "Bromelain-Rich Refreshing Pineapple Cold Press",
+      subtitle: "Bromelain-Rich Refreshing Pineapple Juice",
       originalPrice: 75,
       price: 67,
       bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
@@ -575,8 +575,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       };
     } else {
       return {
-        juice: "Daily Premium Cold-Press and Sprouts Pack",
-        description: "Freshly prepared cold-pressed juice pairing with premium wellness side bowl scheduled daily",
+        juice: "Daily Premium Fresh and Sprouts Pack",
+        description: "Freshly prepared fresh juice pairing with premium wellness side bowl scheduled daily",
         icon: "🥑"
       };
     }
@@ -880,7 +880,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                           <div>
                             <p className="text-[11px] font-bold text-amber-800 leading-tight">Delivery Details Awaiting Setup</p>
                             <p className="text-[9px] text-amber-700/85 mt-0.5 leading-normal">
-                              To receive cold-pressed morning dispatches in Pune, click Modify Profile to register your name, contact, and address.
+                              To receive fresh juice morning dispatches, click Modify Profile to register your name, contact, and address.
                             </p>
                           </div>
                         </div>
@@ -1177,7 +1177,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                           Weekly Fruit Juice
                         </h3>
                         <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0.5 leading-normal">
-                          A curated Monday-to-Saturday pure organic cold-pressed fresh juices.
+                          A curated Monday-to-Saturday pure organic fresh juices.
                         </p>
                       </div>
                     </div>
@@ -1425,10 +1425,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     </h3>
                   </div>
 
-                  {/* Option A: Cold Pressed Juices */}
+                  {/* Option A: Fresh Juices */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold text-[#1A1A1A] flex items-center justify-between">
-                      <span>1. Choose Cold-Pressed Juice/Drink</span>
+                      <span>1. Choose fresh Juice/Drink</span>
                       <span className="text-[9px] text-gray-450 font-mono">Select One</span>
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
