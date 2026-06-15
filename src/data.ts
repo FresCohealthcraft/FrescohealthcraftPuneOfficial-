@@ -87,7 +87,7 @@ import MuskmelonShakeImg from "./assets/images/Muskmelon-Shake.png";
 // @ts-ignore
 import MangoShakeImg from "./assets/images/Mango-Shake.png";
 // @ts-ignore
-import OreoshakeImg from "./assets/images/oreo-shake.png";
+import OreoshakeImg from "./assets/images/Oreo-Shake.png";
 // @ts-ignore
 import EnergyBoostShakeImg from "./assets/images/Energy-Boost-Shake.png";
 // @ts-ignore
@@ -97,7 +97,7 @@ import WhiteSprinkleImg from "./assets/images/White-Sprinkle.png";
 // @ts-ignore
 import PeanutCaramelImg from "./assets/images/Peanut-Caramel.png";
 // @ts-ignore
-import OreoWhiteImg from "./assets/images/oreo-white.png";
+import OreoWhiteImg from "./assets/images/Oreo-White.png";
 // @ts-ignore
 import BiscoffCrunchImg from "./assets/images/Biscoff-Crunch.png";
 // @ts-ignore
