@@ -41,7 +41,8 @@ import AshGourdJuiceImg from "./assets/images/Ash-Gourd-Juice.png";
 // @ts-ignore
 import ProteinPowerCupImg from "./assets/images/Protein-Power-Cup.png";
 // @ts-ignore
-import ClassicDelightCupImg from "./assets/images/Classic-Delight-Cup.png";
+import ClassicDelightCupImg from "./assets/images/Classic-delight-cup.png";
+
 
 // @ts-ignore
 import ExoticDelightCupImg from "./assets/images/Exotic-Delight-Cup.png";
@@ -96,7 +97,7 @@ import WhiteSprinkleImg from "./assets/images/White-Sprinkle.png";
 // @ts-ignore
 import PeanutCaramelImg from "./assets/images/Peanut-Caramel.png";
 // @ts-ignore
-import OreoWhiteImg from "./assets/images/Oreo-White.png";
+import OreoWhiteImg from "./assets/images/oreo-white.png";
 // @ts-ignore
 import BiscoffCrunchImg from "./assets/images/Biscoff-Crunch.png";
 // @ts-ignore
