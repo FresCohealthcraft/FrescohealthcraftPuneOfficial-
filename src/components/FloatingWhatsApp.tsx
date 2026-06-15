@@ -12,8 +12,8 @@ export default function FloatingWhatsApp({ onChat }: FloatingWhatsAppProps) {
       animate={{ scale: 1, opacity: 1 }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      className="fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#20ba59] text-white p-4.5 rounded-full shadow-2.5xl flex items-center justify-center cursor-pointer border-2 border-white focus:outline-none"
+      transition={{ type: "spring", stiffness: 260, damping:10 }}
+      className="fixed bottom-3 right-6 z-40 bg-[#25D366] hover:bg-[#20ba59] text-white p-1.5 rounded-full shadow-2.5xl flex items-center justify-center cursor-pointer border-2 border-white focus:outline-none"
       title="Direct Urgent WhatsApp Delivery Chat Support"
     >
       <svg

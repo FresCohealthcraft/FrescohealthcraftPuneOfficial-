@@ -110,8 +110,8 @@ import MangoChocofrostImg from "./assets/images/Mango-Chocofrost.png";
 
 export const MENU_CATEGORIES = [
   "Fruit Juices",
-  "Green Vitality Juice",
   "Power Cups",
+  "Green Vitality Juice",
   "Super Food Sprouts Bowls",
   "Fresco Power Juices",
   "Shakes",
@@ -124,8 +124,8 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "Watermelon-Juice",
     name: "Watermelon Juice",
-    description: "Composed of about 92% water, it is a highly effective way to maintain daily hydration levels and replenish fluids.",
-    price: 60,
+    description: "Fresh watermelon blended into a naturally sweet juice.",
+    price: 59,
     image: watermelonJuiceImg,
     icon: "🍉",
     category: "Fruit Juices",
@@ -135,8 +135,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mosambi-Juice",
     name: "Mosambi Juice",
-    description: "Rich in Vitamin C, it strengthens your natural defenses, helping your body fight off common infections like colds and the flu.",
-    price: 70,
+    description: "Rich in Vitamin C, naturally refreshing and immunity.",
+    price: 69,
     image: MosambiJuiceImg,
     icon: "🍊",
     category: "Fruit Juices",
@@ -146,8 +146,8 @@ export const MENU_ITEMS: MenuItem[] = [
 {
     id: "Pineapple-Juice",
     name: "Pineapple Juice",
-    description: "High concentrations of Vitamin C and antioxidants help neutralize free radicals and protect the body against infections.",
-    price: 70,
+    description: "Sweet, refreshing, and naturally rich in Vitamin C.",
+    price: 69,
     image: pineappleJuiceImg,
     icon: "🍍",
     category: "Fruit Juices",
@@ -157,8 +157,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mango-Juice",
     name: "Mango Juice",
-    description: "Rich in Vitamin C and over 25 different types of carotenoids, it actively helps protect the body from infections and strengthens immune function.",
-    price: 80,
+    description: "Fresh mango that keeps you energized.",
+    price: 79,
     image: MangoJuiceImg,
     icon: "🥭",
     category: "Fruit Juices",
@@ -168,8 +168,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Apple-Juice",
     name: "Apple Juice",
-    description: "provides quick hydration and delivers essential nutrients like Vitamin C and beneficial plant compounds (polyphenols).",
-    price: 80,
+    description: "Provides hydration and essential nutrients.",
+    price: 79,
     image: AppleJuiceImg,
     icon: " 🍎",
     category: "Fruit Juices",
@@ -179,8 +179,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Orange-Juice",
     name: "Orange Juice",
-    description: "Rich in Vitamin C, it enhances white blood cell production, helping your body ward off infections and recover from colds more effectively.",
-    price: 80,
+    description: "Helping support immunity and overall wellness.",
+    price: 79,
     image: OrangeJuiceImg,
     icon: "🍊",
     category: "Fruit Juices",
@@ -189,8 +189,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Ganga-Juice",
     name: "Ganga Jamuna Juice",
-    description: "Mosambi+ Pineapple Both fruits are packed with Vitamin C, which strengthens your immune system and helps your body fight off infections..",
-    price: 80,
+    description: "Mosambi + pineapple, packed with Vitamin C.",
+    price: 79,
     image: GangaJuiceImg,
     icon: "🍇",
     category: "Fruit Juices",
@@ -199,8 +199,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Pomegranate-Juice",
     name: "Pomegranate Juice",
-    description: "promoting heart health, reducing inflammation, and offering excellent antioxidant protection to combat oxidative stress.",
-    price: 140,
+    description: "A nutrient-rich juice loaded with natural antioxidants.",
+    price: 139,
     image: PomegranateJuiceImg,
     icon: "石榴",
     category: "Fruit Juices",
@@ -209,8 +209,8 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "papaya-Juice",
     name: "Papaya Juice",
-    description: "Papaya naturally contains papain, a proteolytic enzyme that helps break down proteins",
-    price: 60,
+    description: "Rich in digestive enzymes and nutrients.",
+    price: 59,
     image: papayaJuiceImg,
     icon: "石榴",
     category: "Fruit Juices",
@@ -220,8 +220,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Muskmelon-Juice",
     name: "Muskmelon Juice",
-    description: "Muskmelon juice is a highly hydrating, nutrient-dense summer drink. Composed of roughly 90% water, it cools the body and supplies essential electrolytes",
-    price: 70,
+    description: "Water-rich that supports hydration and wellness.",
+    price: 69,
     image: MuskmelonJuiceImg,
     icon: "石榴",
     category: "Fruit Juices",
@@ -231,8 +231,8 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Nimbu-Pani-Juice",
     name: "Nimbu Pani Juice",
-    description: "promotes hydration, provides a natural dose of Vitamin C, and aids in digestion.",
-    price: 40,
+    description: "Refreshing, and naturally rich in Vitamin C.",
+    price: 59,
     image: NimbuPaniJuiceImg,
     icon: "🍋",
     category: "Fruit Juices",
@@ -240,51 +240,44 @@ export const MENU_ITEMS: MenuItem[] = [
   },
 
   // Green Vitality Juice
+
+    {
+    id: "Beetroot-Juice",
+    name: "Beetroot Juice",
+    description: "Lower blood pressure, boost athletic stamina and liver health",
+    price: 69,
+    image: BeetrootJuiceImg,
+    icon: " Beetroot",
+    category: "Green Vitality Juice",
+  popular: true,
+  },
+  
+    {
+    id: "Cucumber-Juice",
+    name: "Cucumber Juice",
+    description: "Light, refreshing, and naturally hydrating for everyday wellness.",
+    price: 49,
+    image: CucumberJuiceImg,
+    icon: "🥒",
+    category: "Green Vitality Juice",
+   
+  },
+
  {
     id: "Tomato-Juice",
     name: "Tomato Juice",
-    description: "Boost heart health, reduce oxidative stress, and support your immune system and skin",
+    description: "Boost heart health and support your immune system and skin",
     price: 59,
     image: TomatoJuiceImg,
     icon: "🍅",
     category: "Green Vitality Juice",
     
   },
-  {
-    id: "Cucumber-Juice",
-    name: "Cucumber Juice",
-    description: "Supports glowing skin, regulates blood pressure, and aids digestion by reducing bloating and preventing constipation",
-    price:50,
-    image: CucumberJuiceImg,
-    icon: "🥒",
-    category: "Green Vitality Juice",
-   
-  },
-  {
-    id: "Lauki-Juice",
-    name: "Lauki Juice",
-    description: "Being virtually fat-free and low in calories, it keeps you full while providing essential fiber, making it an excellent addition to calorie-restricted diets",
-    price: 59,
-    image: LaukijuiceImg,
-    icon: "🥒",
-    category: "Green Vitality Juice",
-   
-  },
-  {
-    id: "Palak-Juice",
-    name: "Palak Juice",
-    description: "High in nitrates, palak juice improves blood circulation and helps lower blood pressure. The fiber and potassium also help manage bad cholesterol.",
-    price: 59,
-    image: PalakJuiceImg,
-    icon: "🥬",
-    category: "Green Vitality Juice",
-    
-  },
 
-  {
+    {
     id: "Karela-Juice",
     name: "Karela Juice",
-    description: "regulate blood sugar, aid weight loss, and detoxify the liver. It is rich in vitamins A and C, and contains active compounds that mimic insulin to promote overall metabolic health",
+    description: "A nutrient-rich juice that helps support healthy blood sugar balance.",
     price: 69,
     image: KarelaJuiceImg,
     icon: "🥒",
@@ -293,23 +286,36 @@ export const MENU_ITEMS: MenuItem[] = [
   },
 
   {
-    id: "Beetroot-Juice",
-    name: "Beetroot Juice",
-    description: "Lower blood pressure, boost athletic stamina, and support overall cardiovascular and liver health",
-    price: 69,
-    image: BeetrootJuiceImg,
-    icon: " Beetroot",
-    category: "Green Vitality Juice",
-  popular: true,
-  },
-
-  {
     id: "Carrot-Juice",
     name: "Carrot Juice",
-    description: "Promotes radiant skin, boosts immune function, supports eye health, and provides powerful antioxidants that reduce cellular damage",
-    price: 60,
+    description: "Loaded with Vitamin A to help support eye health and vitality.",
+    price: 59,
     image: CarrotJuiceImg,
     icon: " 🍐",
+    category: "Green Vitality Juice",
+   
+  },
+
+    {
+    id: "Palak-Juice",
+    name: "Palak Juice",
+    description: "Loaded with vitamins and minerals for everyday wellness.",
+    price: 59,
+    image: PalakJuiceImg,
+    icon: "🥬",
+    category: "Green Vitality Juice",
+    
+  },
+  
+
+
+  {
+    id: "Lauki-Juice",
+    name: "Lauki Juice",
+    description: "Naturally low in calories and packed with nutrients for everyday wellness.",
+    price: 59,
+    image: LaukijuiceImg,
+    icon: "🥒",
     category: "Green Vitality Juice",
    
   },
@@ -318,7 +324,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Ash-Gourd-Juice",
     name: "Ash Gourd Juice",
     description: "Aids digestion, supports weight loss, and flushes out toxins",
-    price: 60,
+    price: 59,
     image: AshGourdJuiceImg,
     icon: "🍈",
     category: "Green Vitality Juice",
@@ -330,7 +336,7 @@ export const MENU_ITEMS: MenuItem[] = [
 {
   id: "Protein-Power-Cup",
   name: "Power packed Cups",
-  description: "Fresh fruits, chia seeds, flax seeds, and a protein-rich dairy base packed with fiber, omega-3s, calcium, and natural energy.",
+  description: "A wholesome blend of fresh fruits and Protein, fiber- rich goodness.",
   price: 119,
   image: ProteinPowerCupImg,
   icon: "🥤",
@@ -351,7 +357,7 @@ export const MENU_ITEMS: MenuItem[] = [
 {
   id: "Exotic-Delight-Cup",
   name: "Exotic Delight Cup",
-  description:"Indulge in a colorful medley of 13–14 premium fruits, expertly curated and freshly prepared to deliver natural sweetness, refreshing flavors, and wholesome nutrition.",
+  description: "A luxurious mix of 13–14 premium fruits bursting with freshness and natural goodness.",
   price: 99,
   image: ExoticDelightCupImg,
   icon: "🥤",
@@ -363,8 +369,8 @@ export const MENU_ITEMS: MenuItem[] = [
   // Super Food Sprouts Bowl
  {
   id: "Sprouts-Bowl",
-  name: "Sprouts Bowls",
-  description: "Fresh green moong, matki, black chana, sweet corn, vegetables, pomegranate, and lemon tossed with chat masala for a protein-rich, fiber-packed wellness bowl.",
+  name: "Super food sprouts bowl",
+  description: "A refreshing mix of sprouts, veggies, and spices for everyday wellness.",
   price: 79,
   image: SproutsBowlImg,
   icon: "🥬",
@@ -373,8 +379,8 @@ export const MENU_ITEMS: MenuItem[] = [
 },
   {
   id: "Paneer-Sprouts-Bowl",
-  name: "Paneer Sprouts Bowls",
-  description: "Protein-rich paneer with healthy sprouts to support immunity, energy, and overall wellness.",
+  name: "Super food Paneer sprouts bowl",
+  description: "Protein-rich paneer with healthy sprouts to support immunity and overall wellness.",
   price: 99,
   image: PaneerSproutsBowlImg,
   icon: "🥬",
@@ -417,21 +423,23 @@ popular: true,
   category: "Fresco Power Juices",
 },
 
+
 {
-  id: "Vital-Energy-Drink",
-  name: "Vital Energy Drink",
-  description: "Refreshing coconut water with lemon and honey for natural hydration and energy.",
-  price: 99,
-  image: VitalEnergyDrinkImg,
-  icon: "🥥",
+  id: "Detox-Body",
+  name: "Detox Body",
+  description: "Cucumber, Pudina, and amla juice for refreshing hydration and detox support.",
+  price: 79,
+  image: DetoxBodyImg,
+  icon: "🥒",
   category: "Fresco Power Juices",
-  
+ 
 },
+
 
 {
   id: "Stress-Relief",
   name: "Stress Relief",
-  description: "Pomegranate and best mini.",
+  description: "A refreshing blend of pomegranate and beetroot, rich in antioxidants and natural goodness.",
   price: 99,
   image: StressReliefImg,
   icon: "石榴",
@@ -491,15 +499,16 @@ popular: true,
 },
 
 {
-  id: "Detox-Body",
-  name: "Detox Body",
-  description: "Cucumber, Pudina, and amla juice for refreshing hydration and detox support.",
-  price: 79,
-  image: DetoxBodyImg,
-  icon: "🥒",
+  id: "Vital-Energy-Drink",
+  name: "Vital Energy Drink",
+  description: "Refreshing coconut water with lemon and honey for natural hydration and energy.",
+  price: 99,
+  image: VitalEnergyDrinkImg,
+  icon: "🥥",
   category: "Fresco Power Juices",
- 
+  
 },
+
 
 {
   id: "Gut-Reset",
@@ -525,7 +534,7 @@ popular: true,
   id: "Make-Your-Own-(Any-5)",
   name: "Make Your Own (Any 5)",
   description: "Create your own custom power juice blend with any 5 fresh ingredients.",
-  price: 111,
+  price: 119,
   image: MakeYourOwnImg,
   icon: " 🍐",
   category: "Fresco Power Juices",
@@ -572,7 +581,7 @@ popular: true,
   id: "Mango-Shake",
   name: "Mango Shake",
   description: "Rich and creamy mango shake made with fresh juicy mangoes.",
-  price: 179,
+  price: 199,
   image: MangoShakeImg,
   icon: "🥭",
   category: "Shakes",
@@ -582,8 +591,8 @@ popular: true,
 {
   id: "oreo-shake",
   name: "Oreo Shake",
-  description: "A rich and creamy blend of milk, premium Oreo cookies, and ice cream, topped with crunchy cookie goodness.",
-  price: 179,
+  description: "Creamy, chocolaty, and loaded with the irresistible taste of Oreo cookies.",  
+  price: 99,
   image: OreoshakeImg,
   icon: "🍪",
   category: "Shakes",

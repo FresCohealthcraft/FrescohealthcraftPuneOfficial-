@@ -10,7 +10,7 @@ import SubscriptionSection from "./components/SubscriptionSection";
 import SpecialOffers from "./components/SpecialOffers";
 import HomeDeliveryBanner from "./components/HomeDeliveryBanner";
 import AboutUs from "./components/AboutUs";
-import OrderModal from "./components/OrderModal";
+import ContactSection from "./components/ContactSection";
 import CartDrawer from "./components/CartDrawer";
 import AdminPortal from "./components/AdminPortal";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
@@ -23,10 +23,44 @@ export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState<PromoCoupon | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  // Push and Pop window history state dynamically.
+  // This intercepts the mobile system back button so that when a drawer or menu is open,
+  // pressing "Back" closes the overlay instead of closing the browser tab or exiting the application!
+  useEffect(() => {
+    const isAnyModalOpen = isCartOpen || isAdminOpen || isMobileMenuOpen;
+
+    const handlePopState = (e: PopStateEvent) => {
+      // If back button is pressed, close all open draw/menus first
+      if (isCartOpen || isAdminOpen || isMobileMenuOpen) {
+        setIsCartOpen(false);
+        setIsAdminOpen(false);
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    if (isAnyModalOpen) {
+      // Just opened a drawer/modal. Push state so back button has a virtual navigation step to pop.
+      if (!window.history.state || !window.history.state.modalOpen) {
+        window.history.pushState({ modalOpen: true }, "");
+      }
+    } else {
+      // Handled manual closeness in the UI (e.g. clicking "x" close or screen backdrops).
+      // We pop our custom modal state to keep browser back/forward history clean.
+      if (window.history.state && window.history.state.modalOpen) {
+        window.history.back();
+      }
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isCartOpen, isAdminOpen, isMobileMenuOpen]);
 
   // Load cart state from localStorage
   useEffect(() => {
@@ -70,6 +104,37 @@ export default function App() {
     setIsCartOpen(true);
   };
 
+  // Add multiple items to cart at once safely
+  const handleBulkAddToCart = (items: MenuItem[]) => {
+    setCartItems((prevItems) => {
+      let updated = [...prevItems];
+      items.forEach((item, index) => {
+        const existingIndex = updated.findIndex(
+          (c) => c.menuItem.id === item.id && (!c.customIngredients || c.customIngredients.length === 0)
+        );
+
+        if (existingIndex > -1) {
+          updated[existingIndex] = {
+            ...updated[existingIndex],
+            quantity: updated[existingIndex].quantity + 1
+          };
+        } else {
+          const newCartItem: CartItem = {
+            id: `${item.id}_std_${Date.now()}_${index}`,
+            menuItem: item,
+            quantity: 1,
+            finalPrice: item.price,
+            isCustomRecipe: false,
+          };
+          updated.push(newCartItem);
+        }
+      });
+      localStorage.setItem("fresco_cart", JSON.stringify(updated));
+      return updated;
+    });
+    setIsCartOpen(true);
+  };
+
   // Add customized item from custom modal details
   const handleConfirmAddToCart = (cartItem: CartItem) => {
     saveCart([...cartItems, cartItem]);
@@ -100,18 +165,6 @@ export default function App() {
     setAppliedCoupon(coupon);
   };
 
-  // Map AI recommendations to trigger order popup of standard options
-  const handleSelectItemByName = (name: string) => {
-    const found = MENU_ITEMS.find((item) => item.name.toLowerCase() === name.toLowerCase());
-    if (found) {
-      setSelectedItem(found);
-    } else {
-      // Find relative
-      const relative = MENU_ITEMS.find((item) => item.name.toLowerCase().includes(name.toLowerCase()));
-      if (relative) setSelectedItem(relative);
-    }
-  };
-
   // Open official Whatsapp chat with custom pre-pended lines
   const handleGeneralChatWhatsApp = () => {
     const text = encodeURIComponent(
@@ -137,6 +190,8 @@ export default function App() {
         setActiveSection={setActiveSection}
         cartCount={cartItems.reduce((acc, current) => acc + current.quantity, 0)}
         onCartClick={() => setIsCartOpen(true)}
+        isOpen={isMobileMenuOpen}
+        setIsOpen={setIsMobileMenuOpen}
       />
 
       {/* Main Sections */}
@@ -152,10 +207,7 @@ export default function App() {
 
         {/* 4. Menu options grid (matching Image 1) */}
         <MenuGrid
-          onSelectItem={(item) => setSelectedItem(item)}
           onAddToCartDirectly={handleAddToCartDirectly}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
@@ -163,6 +215,7 @@ export default function App() {
         {/* 4.5 Subscription Plans */}
         <SubscriptionSection
           onAddToCartDirectly={handleAddToCartDirectly}
+          onAddBulkToCartDirectly={handleBulkAddToCart}
         />
 
         {/* 5. Special promotional offers Deals list (matching Image 2) */}
@@ -178,6 +231,12 @@ export default function App() {
         {/* 7. Crafting wellness About Us columns (matching Image 2) */}
         <AboutUs />
 
+        {/* 8. Contact details and WhatsApp steps Map area (matching Image 3) */}
+        <ContactSection
+          onStartOrdering={scrollToMenuSection}
+          onGeneralChat={handleGeneralChatWhatsApp}
+        />
+
       </main>
 
       {/* 10. Ultimate Footer layouts (matching Image 3) */}
@@ -187,7 +246,7 @@ export default function App() {
             
             {/* Logo and Slogans Column */}
             <div className="md:col-span-5 space-y-4 text-left">
-              <Logo size="sm" lightText={true} showTagline={false} />
+              <Logo size="sm" lightText={true} showTagline={true} />
               <p className="text-xs text-[#F9F8F4]/70 max-w-sm leading-relaxed">
                 Your trusted partner for fresh, healthy, and delicious juices. We bring nature's raw goodness right to your Pune doorstep with our high-retention extraction technology and fast delivery operations.
               </p>
@@ -297,14 +356,6 @@ export default function App() {
 
       {/* 12. Modals Backdrop Overrides */}
       
-      {/* Product Customization order modal */}
-      <OrderModal
-        item={selectedItem}
-        isOpen={selectedItem !== null}
-        onClose={() => setSelectedItem(null)}
-        onAddToCart={handleConfirmAddToCart}
-      />
-
       {/* Shopping Cart Drawer Panel */}
       <CartDrawer
         isOpen={isCartOpen}

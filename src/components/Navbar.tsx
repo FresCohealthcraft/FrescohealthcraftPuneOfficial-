@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, ShoppingCart, Sparkles, ShieldAlert, PhoneCall } from "lucide-react";
+import { Menu, X, ShoppingCart, Sparkles, ShieldAlert, PhoneCall, Home, ClipboardList, Calendar, Percent, Users, MessageSquare } from "lucide-react";
 import Logo from "./Logo";
 
 interface NavbarProps {
@@ -8,6 +8,8 @@ interface NavbarProps {
   setActiveSection: (section: string) => void;
   cartCount: number;
   onCartClick: () => void;
+  isOpen?: boolean;
+  setIsOpen?: (open: boolean) => void;
 }
 
 export default function Navbar({
@@ -15,25 +17,37 @@ export default function Navbar({
   setActiveSection,
   cartCount,
   onCartClick,
+  isOpen: propsIsOpen,
+  setIsOpen: propsSetIsOpen,
 }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  // Use state if props are not supplied, otherwise use controlled props
+  const [localIsOpen, setLocalIsOpen] = useState(false);
+  
+  const isOpen = propsIsOpen !== undefined ? propsIsOpen : localIsOpen;
+  const setIsOpen = propsSetIsOpen !== undefined ? propsSetIsOpen : setLocalIsOpen;
 
   const navLinks = [
-    { name: "Home", id: "home" },
-    { name: "Menu", id: "menu" },
-    { name: "Wellness Plans", id: "subscriptions" },
-    { name: "Special Offers", id: "offers" },
-    { name: "About", id: "about" },
-    { name: "Contact", id: "contact" },
+    { name: "Home", id: "home", icon: <Home className="w-4 h-4" /> },
+    { name: "Menu", id: "menu", icon: <ClipboardList className="w-4 h-4" /> },
+    { name: "Wellness Plans", id: "subscriptions", icon: <Calendar className="w-4 h-4" /> },
+    { name: "Wellness combo's", id: "offers", icon: <Calendar className="w-4 h-4" /> },
+    { name: "About Us", id: "about", icon: <Users className="w-4 h-4" /> },
+    { name: "Contact", id: "contact", icon: <MessageSquare className="w-4 h-4" /> },
   ];
 
   const handleLinkClick = (id: string) => {
     setIsOpen(false);
     setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    const scroll = () => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+    scroll();
+    // Delay slightly to let layout adjust after the mobile drawer collapses
+    setTimeout(scroll, 100);
+    setTimeout(scroll, 300);
   };
 
   return (
@@ -46,7 +60,7 @@ export default function Navbar({
             className="flex items-center space-x-2.5 cursor-pointer group"
             onClick={() => handleLinkClick("home")}
           >
-            <Logo size="sm" showTagline={false} />
+            <Logo size="sm" showTagline={true} />
           </div>
 
           {/* Desktop Navigation Links */}
@@ -130,13 +144,16 @@ export default function Navbar({
                 <button
                   key={link.id}
                   onClick={() => handleLinkClick(link.id)}
-                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-colors ${
+                  className={`flex items-center w-full text-left px-5 py-3.5 rounded-xl text-[11px] font-extrabold uppercase tracking-widest transition-all ${
                     activeSection === link.id
                       ? "bg-[#38A325]/10 text-[#38A325]"
                       : "text-[#1A1A1A]/70 hover:bg-[#1A1A1A]/5 hover:text-[#1A1A1A]"
                   }`}
                 >
-                  {link.name}
+                  <span className={`mr-3 ${activeSection === link.id ? "text-[#38A325]" : "text-[#1A1A1A]/50"}`}>
+                    {link.icon}
+                  </span>
+                  <span>{link.name}</span>
                 </button>
               ))}
               <div className="pt-4 px-4 flex flex-col space-y-3">

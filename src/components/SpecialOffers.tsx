@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MenuItem } from "../types";
-import { ShoppingBag, Star, Sparkles, Flame, CheckCircle, Heart } from "lucide-react";
+import { Plus, Star, Sparkles, Flame, CheckCircle, Heart } from "lucide-react";
 
 interface SpecialOffersProps {
   onAddToCartDirectly: (item: MenuItem) => void;
 }
 
-  const DYNAMIC_ITEM_COMBOS = [
+const DYNAMIC_ITEM_COMBOS = [
     {
       id: "combo_detox_monday",
       name: "Detox Duo Combo",
@@ -45,7 +45,7 @@ interface SpecialOffersProps {
       badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
       glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
     },
-    {
+    { 
       id: "combo_fitness_friday",
       name: "Muscle-Refill Special",
       icon: "💪",
@@ -59,7 +59,8 @@ interface SpecialOffersProps {
     }
   ];
 
-  export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProps) {
+
+export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProps) {
   const [addedItem, setAddedItem] = useState<string | null>(null);
 
   const handleAddToCart = (plan: typeof DYNAMIC_ITEM_COMBOS[0]) => {
@@ -86,15 +87,15 @@ interface SpecialOffersProps {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Special Offers Badge */}
-        <div className="inline-flex items-center justify-center border border-[#38A325]/30 text-[#38A325] bg-transparent px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider mb-2">
-          Daily Specials
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#38A325] bg-[#FFFF00]/50 px-3 py-1 rounded-full text-[8.5px] font-semibold uppercase tracking-wider mb-2">
+          Daily Specials Combo's
         </div>
 
         {/* Display Title */}
-        <h2 className="text-2xl sm:text-3xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
+        <h2 className="text-xl sm:text-2xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
           Curated Daily Wellness Combos
         </h2>
-        <p className="mt-1 text-[#1A1A1A]/70 max-w-xl mx-auto text-xs sm:text-sm">
+        <p className="mt-1 text-[#1A1A1A]/70 max-w-md mx-auto text-xs sm:text-sm">
           Add our popular daily nutrition pairings directly to your delivery in one click. Completely raw, fresh, and hand-prepared.
         </p>
 
@@ -121,6 +122,11 @@ interface SpecialOffersProps {
                       <span className={`text-[7px] sm:text-[8px] font-bold px-1.5 py-0.5 border rounded-full uppercase tracking-wider ${combo.badgeColor}`}>
                         {combo.tag}
                       </span>
+                      <div className="flex items-center space-x-0.5 text-[9px] sm:text-[10px]">
+                        <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                        <span className="font-bold text-[#1A1A1A]/90">{combo.rating}</span>
+                        <span className="text-gray-400 text-[8px]">({combo.reviews})</span>
+                      </div>
                     </div>
                   </div>
 
@@ -145,7 +151,7 @@ interface SpecialOffersProps {
                       <span className="text-[#38A325]">✔</span> <span>10% Save</span>
                     </div>
                     <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest">
-                      <span className="text-[#38A325]">✔</span> <span>Fresh Ingredients</span>
+                      <span className="text-[#38A325]">✔</span> <span>Sprouts</span>
                     </div>
                   </div>
                 </div>
@@ -176,7 +182,7 @@ interface SpecialOffersProps {
                         </>
                       ) : (
                         <>
-                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <Plus className="w-3.5 h-3.5" />
                           <span>Add to Cart</span>
                         </>
                       )}
