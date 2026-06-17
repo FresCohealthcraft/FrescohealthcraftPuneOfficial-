@@ -24,7 +24,7 @@ export default function Hero({ onExploreMenu }: HeroProps) {
             className="inline-flex items-center space-x-1.5 border border-[#38A325]/30 text-[#38A325] bg-[#38A325]/5 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.14em]"
           >
             <Leaf className="w-3 h-3" />
-            <span>Pure Wellness • Freshly Crafted Daily</span>
+            <span> Fresh • Healthy • Delivered Daily </span>
           </motion.div>
 
           {/* Main Header Tag */}
@@ -68,6 +68,12 @@ export default function Hero({ onExploreMenu }: HeroProps) {
               <ShieldCheck className="w-3 h-3 text-[#38A325] shrink-0" />
               <span className="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A]/85">100% Organic</span>
             </div>
+
+            <div className="inline-flex items-center space-x-1 bg-[#38A325]/5 border border-[#38A325]/10 px-2 py-0.5 rounded-full">
+              <ShieldCheck className="w-3 h-3 text-[#38A325] shrink-0" />
+              <span className="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A]/85">NO Added Preservatives</span>
+            </div>
+
           </motion.div>
 
 
