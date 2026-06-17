@@ -192,7 +192,7 @@ export default function AdminPortal({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminKey === "fresco123") {
+    if (adminKey === "Sumi@2026") {
       setIsAuthenticated(true);
       setAuthError("");
     } else {
