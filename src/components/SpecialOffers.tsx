@@ -13,11 +13,13 @@ const DYNAMIC_ITEM_COMBOS = [
       name: "Detox Duo Combo",
       icon: "🌱",
       subtitle: "Any Green Vitality Juice + Paneer Sprouts Bowl",
-    description: "A refreshing green juice paired with our protein-rich Paneer Sprouts Bowl to support natural detoxification, sustained energy, and daily wellness.",
-    originalPrice: 169,
-    price: 152,
+      description: "A refreshing green juice paired with our protein-rich Paneer Sprouts Bowl to support natural detoxification, sustained energy, and daily wellness.",
+      originalPrice: 198,
+      price: 179,
       category: "Detox & Wellness",
       tag: "BESTSELLER",
+      rating: "4.9",
+      reviews: "120+ ordered",
       badgeColor: "bg-emerald-500/10 text-emerald-700 border-emerald-500/10",
       glowColor: "shadow-emerald-500/5 hover:border-emerald-500/20"
     },
@@ -26,10 +28,13 @@ const DYNAMIC_ITEM_COMBOS = [
       name: "Immunity Shield Special",
       icon: "🛡️",
       subtitle: "Immunity Booster Juice + Exotic Delight Cup",
-  description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",    originalPrice: 198,
-      price: 178,
+      description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",
+      originalPrice: 198,
+      price: 179,
       category: "Detox & Wellness",
       tag: "IMMUNITY BOOST",
+      rating: "4.9",
+      reviews: "180+ ordered",
       badgeColor: "bg-amber-500/10 text-amber-700 border-amber-500/10",
       glowColor: "shadow-amber-500/5 hover:border-amber-500/20"
     },
@@ -38,10 +43,13 @@ const DYNAMIC_ITEM_COMBOS = [
       name: "Golden Glow Special",
       icon: "✨",
       subtitle: "Skin Glow-Up Juice + Power packed Cup",
-  description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",    originalPrice: 208,
-      price: 187,
+      description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",
+      originalPrice: 218,
+      price: 199,
       category: "Detox & Wellness",
       tag: "SKIN GLOW",
+      rating: "4.8",
+      reviews: "140+ ordered",
       badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
       glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
     },
@@ -50,10 +58,13 @@ const DYNAMIC_ITEM_COMBOS = [
       name: "Muscle-Refill Special",
       icon: "💪",
       subtitle: "Fat-Burning + Paneer Sprouts Bowl",
-      description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",    originalPrice:178 ,
-      price:160 ,
+      description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",
+      originalPrice: 218,
+      price: 199,
       category: "Detox & Wellness",
       tag: "ATHLETE PREP",
+      rating: "4.8",
+      reviews: "90+ ordered",
       badgeColor: "bg-blue-500/10 text-blue-700 border-blue-500/10",
       glowColor: "shadow-blue-500/5 hover:border-blue-500/20"
     }
@@ -87,8 +98,8 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Special Offers Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[8.5px] font-semibold uppercase tracking-wider mb-2">
-          Daily Specials Combo's
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
+          Daily Special Combo's
         </div>
 
         {/* Display Title */}
@@ -145,15 +156,6 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
                     {combo.description}
                   </p>
 
-                  {/* High Quality Features Banner */}
-                  <div className="flex flex-wrap items-center gap-1.5 mt-2.5 bg-[#F9F8F4] p-1.5 rounded-lg border border-[#1A1A1A]/5">
-                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest">
-                      <span className="text-[#38A325]">✔</span> <span>10% Save</span>
-                    </div>
-                    <div className="flex items-center space-x-1 text-[7.5px] sm:text-[8.5px] font-bold text-gray-500 uppercase tracking-widest">
-                      <span className="text-[#38A325]">✔</span> <span>Sprouts</span>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Footer and Price / Action buttons */}
@@ -199,4 +201,3 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
     </section>
   );
 }
-
