@@ -87,7 +87,7 @@ import MuskmelonShakeImg from "./assets/images/Muskmelon-Shake.png";
 // @ts-ignore
 import MangoShakeImg from "./assets/images/Mango-Shake.png";
 // @ts-ignore
-import OreoshakeImg from "./assets/images/Oreo-Shake.png";
+import OreoshakeImg from "./assets/images/oreo-shake.png";
 // @ts-ignore
 import EnergyBoostShakeImg from "./assets/images/Energy-Boost-Shake.png";
 // @ts-ignore
@@ -97,7 +97,7 @@ import WhiteSprinkleImg from "./assets/images/White-Sprinkle.png";
 // @ts-ignore
 import PeanutCaramelImg from "./assets/images/Peanut-Caramel.png";
 // @ts-ignore
-import OreoWhiteImg from "./assets/images/Oreo-White.png";
+import OreoWhiteImg from "./assets/images/oreo-white.png";
 // @ts-ignore
 import BiscoffCrunchImg from "./assets/images/Biscoff-Crunch.png";
 // @ts-ignore
@@ -141,7 +141,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: MosambiJuiceImg,
     icon: "🍊",
     category: "Fruit Juices",
-   
+   popular: true,
   },
 
 {
@@ -174,7 +174,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: AppleJuiceImg,
     icon: " 🍎",
     category: "Fruit Juices",
-   popular: true,
+  
   },
 
   {
@@ -185,7 +185,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: OrangeJuiceImg,
     icon: "🍊",
     category: "Fruit Juices",
-    
+    popular: true,
   },
   {
     id: "Ganga-Juice",
@@ -195,17 +195,17 @@ export const MENU_ITEMS: MenuItem[] = [
     image: GangaJuiceImg,
     icon: "🍇",
     category: "Fruit Juices",
-    popular: true,
+   
   },
   {
     id: "Pomegranate-Juice",
     name: "Pomegranate Juice",
-    description: "A nutrient-rich juice loaded with natural antioxidants.",
-    price: 139,
+    description: "Rich in antioxidants, helping support heart health and overall wellness.",
+    price: 149,
     image: PomegranateJuiceImg,
     icon: "石榴",
     category: "Fruit Juices",
-    popular: true,
+   
   },
    {
     id: "papaya-Juice",
@@ -215,7 +215,6 @@ export const MENU_ITEMS: MenuItem[] = [
     image: papayaJuiceImg,
     icon: "石榴",
     category: "Fruit Juices",
-    popular: true,
   },
 
   {
@@ -226,14 +225,14 @@ export const MENU_ITEMS: MenuItem[] = [
     image: MuskmelonJuiceImg,
     icon: "石榴",
     category: "Fruit Juices",
-    popular: true,
+    
   },
   
   {
     id: "Nimbu-Pani-Juice",
     name: "Nimbu Pani Juice",
     description: "Refreshing, and naturally rich in Vitamin C.",
-    price: 59,
+    price: 39,
     image: NimbuPaniJuiceImg,
     icon: "🍋",
     category: "Fruit Juices",
@@ -257,7 +256,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Cucumber-Juice",
     name: "Cucumber Juice",
     description: "Light, refreshing, and naturally hydrating for everyday wellness.",
-    price: 49,
+    price: 69,
     image: CucumberJuiceImg,
     icon: "🥒",
     category: "Green Vitality Juice",
@@ -268,7 +267,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Tomato-Juice",
     name: "Tomato Juice",
     description: "Boost heart health and support your immune system and skin",
-    price: 59,
+    price: 69,
     image: TomatoJuiceImg,
     icon: "🍅",
     category: "Green Vitality Juice",
@@ -290,18 +289,18 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Carrot-Juice",
     name: "Carrot Juice",
     description: "Loaded with Vitamin A to help support eye health and vitality.",
-    price: 59,
+    price: 69,
     image: CarrotJuiceImg,
     icon: " 🍐",
     category: "Green Vitality Juice",
-   
+   popular: true,
   },
 
     {
     id: "Palak-Juice",
     name: "Palak Juice",
     description: "Loaded with vitamins and minerals for everyday wellness.",
-    price: 59,
+    price: 69,
     image: PalakJuiceImg,
     icon: "🥬",
     category: "Green Vitality Juice",
@@ -314,7 +313,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Lauki-Juice",
     name: "Lauki Juice",
     description: "Naturally low in calories and packed with nutrients for everyday wellness.",
-    price: 59,
+    price: 69,
     image: LaukijuiceImg,
     icon: "🥒",
     category: "Green Vitality Juice",
@@ -325,7 +324,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Ash-Gourd-Juice",
     name: "Ash Gourd Juice",
     description: "Aids digestion, supports weight loss, and flushes out toxins",
-    price: 59,
+    price: 69,
     image: AshGourdJuiceImg,
     icon: "🍈",
     category: "Green Vitality Juice",
@@ -422,6 +421,7 @@ popular: true,
   image: SuperWomenImg,
   icon: "石榴",
   category: "Fresco Power Juices",
+  popular: true,
 },
 
 
@@ -429,11 +429,11 @@ popular: true,
   id: "Detox-Body",
   name: "Detox Body",
   description: "Cucumber, Pudina, and amla juice for refreshing hydration and detox support.",
-  price: 79,
+  price: 99,
   image: DetoxBodyImg,
   icon: "🥒",
   category: "Fresco Power Juices",
- 
+ popular: true,
 },
 
 
@@ -461,7 +461,7 @@ popular: true,
   id: "Skin-Glow-up",
   name: "Skin Glow-up",
   description: "Carrot, orange, and apple juice for naturally glowing and healthy skin.",
-  price: 89,
+  price: 99,
   image: SkinGlowupImg,
   icon: " 🍐",
   category: "Fresco Power Juices",
@@ -472,7 +472,7 @@ popular: true,
   id: "Liver-Cleanser",
   name: "Liver Cleanser",
   description: "Aloe vera, cucumber, and amla juice for refreshing detox and cleansing support.",
-  price: 89,
+  price: 99,
   image: LiverCleanserImg,
   icon: " 🍐",
   category: "Fresco Power Juices",
@@ -482,7 +482,7 @@ popular: true,
   id: "Heart-Care",
   name: "Heart Care",
   description: "Beetroot, carrot, and tomato juice rich in heart-friendly nutrients.",
-  price: 89,
+  price: 99,
   image: HeartCareImg,
   icon: " 🍅",
   category: "Fresco Power Juices",
@@ -492,7 +492,7 @@ popular: true,
   id: "Fat-Burner",
   name: "Fat Burner",
   description: "Lauki, spinach, and ginger juice crafted to support healthy metabolism.",
-  price: 79,
+  price: 99,
   image: FatBurnerImg,
   icon: "🥒",
   category: "Fresco Power Juices",
@@ -515,7 +515,7 @@ popular: true,
   id: "Gut-Reset",
   name: "Gut Reset",
   description: "Lauki, tomato, and ginger juice to support digestion and gut wellness.",
-  price: 79,
+  price: 99,
   image: GutResetImg,
   icon: "🥒",
   category: "Fresco Power Juices",
@@ -525,7 +525,7 @@ popular: true,
   id: "Clear-Vision",
   name: "Clear Vision",
   description: "Carrot, tomato, and ginger juice rich in nutrients that support eye health.",
-  price: 79,
+  price: 99,
   image: ClearVisionImg,
   icon: " 🍐",
   category: "Fresco Power Juices",
@@ -608,7 +608,7 @@ popular: true,
   image: EnergyBoostShakeImg,
   icon: "🥤",
   category: "Shakes",
-  
+  popular: true,
 },
 
 
@@ -644,7 +644,7 @@ popular: true,
   image: PeanutCaramelImg,
   icon: "🥜",
   category: "Specials",
- 
+ popular: true,
 },
 
 {
@@ -677,7 +677,6 @@ popular: true,
   image: DubaiKunafaPistachioImg,
   icon: "🍦",
   category: "Specials",
- popular: true,
 },
 
 {
@@ -688,6 +687,7 @@ popular: true,
   image: AppleChocofrostImg,
   icon: "🍦",
   category: "Specials",
+  popular: true,
 },
 
 {
