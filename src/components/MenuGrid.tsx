@@ -53,7 +53,7 @@ export default function MenuGrid({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Our Menu Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[8.5px] font-semibold uppercase tracking-wider mb-2">
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
           Our Menu
         </div>
 
@@ -248,7 +248,7 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
                   </div>
    
                   {/* Title & Description */}
-                  <h3 className="text-xs xs:text-sm sm:text-[15px] font-extrabold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 line-clamp-1 leading-snug">
+                  <h3 className="text-xs xs:text-sm sm:text-[15px] font-extrabold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 leading-snug">
                     {item.name}
                   </h3>
                   <p className="mt-1 text-[9.5px] xs:text-[10.5px] sm:text-[11.5px] text-[#1A1A1A]/60 leading-normal select-none">
@@ -306,4 +306,3 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
     </section>
   );
 }
-
