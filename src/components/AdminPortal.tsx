@@ -109,6 +109,29 @@ export default function AdminPortal({
     window.dispatchEvent(new Event("storage"));
   };
 
+  const handleSetSubscriptionDeliveryCount = (id: string, count: number) => {
+    const updated = subscriptions.map((s) => {
+      if (s.id === id) {
+        return { ...s, deliveriesCompleted: count };
+      }
+      return s;
+    });
+    setSubscriptions(updated);
+    localStorage.setItem("fresco_subscriptions", JSON.stringify(updated));
+
+    // Sync client visual tracker
+    const clientSubStr = localStorage.getItem("fresco_active_sub_v2");
+    if (clientSubStr) {
+      try {
+        const clientSub = JSON.parse(clientSubStr);
+        if (clientSub.id === id) {
+          localStorage.setItem("fresco_active_sub_v2", JSON.stringify({ ...clientSub, deliveriesCompleted: count }));
+        }
+      } catch (e) {}
+    }
+    window.dispatchEvent(new Event("storage"));
+  };
+
   const handleCancelSubscription = (id: string) => {
     if (confirm("Are you sure you want to terminate this customer's active subscription in Pune?")) {
       const updated = subscriptions.filter((s) => s.id !== id);
@@ -169,7 +192,7 @@ export default function AdminPortal({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminKey === "Sumi@2026") {
+    if (adminKey === "fresco123") {
       setIsAuthenticated(true);
       setAuthError("");
     } else {
@@ -396,18 +419,48 @@ export default function AdminPortal({
                                   <span className="text-gray-450 font-mono text-[9.5px]">({sub.customerPhone})</span>
                                 </div>
                                 <p className="text-neutral-500 text-[10.5px] leading-tight">
-                                  📦 <strong>Prepare scheduled:</strong> <span className="text-gray-900 font-semibold">{todayItem.icon} {todayItem.juice}</span> ({todayItem.description})
+                                  📦 <strong>Prepare scheduled:</strong> <span className="text-gray-900 font-semibold">{todayItem?.icon || "🥤"} {todayItem?.juice || "Juice Drop"}</span> ({todayItem?.description || ""})
                                 </p>
                                 <p className="text-[10px] text-gray-400 truncate">
                                   📍 <strong>Pune Address:</strong> {sub.customerAddress}
                                 </p>
+                                {/* Direct Dispatch Cycle Day Buttons inside Alerts for easy Admin update */}
+                                <div className="flex flex-wrap items-center gap-1.5 mt-1.5 border-t border-gray-100/60 pt-1.5">
+                                  <span className="text-[8.5px] font-bold text-gray-400 uppercase tracking-wider mr-1">Approve Drop:</span>
+                                  {Array.from({ length: sub.totalDeliveries || 6 }).map((_, dIdx) => {
+                                    const isDone = dIdx < sub.deliveriesCompleted;
+                                    const isCurrent = dIdx === sub.deliveriesCompleted;
+                                    return (
+                                      <button
+                                        key={dIdx}
+                                        type="button"
+                                        onClick={() => {
+                                          // Set specific count
+                                          const newCount = isDone ? dIdx : dIdx + 1;
+                                          handleSetSubscriptionDeliveryCount(sub.id, newCount);
+                                        }}
+                                        title={isDone ? `Mark Day ${dIdx+1} as NOT delivered` : `Approve Day ${dIdx+1} as Delivered & Done`}
+                                        className={`px-1.5 py-0.5 rounded text-[8px] font-mono font-bold flex items-center gap-0.5 border cursor-pointer hover:scale-105 transition-all select-none ${
+                                          isDone 
+                                            ? "bg-emerald-500 text-white border-emerald-600 hover:bg-emerald-600" 
+                                            : isCurrent 
+                                            ? "bg-amber-100 text-amber-800 border-amber-400 hover:bg-amber-200 animate-pulse font-extrabold"
+                                            : "bg-neutral-50 text-neutral-450 border-neutral-200 hover:bg-neutral-100"
+                                        }`}
+                                      >
+                                        <span>D{dIdx+1}</span>
+                                        {isDone && <Check className="w-2 h-2 text-white stroke-[3.5]" />}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
                               </div>
 
                               <div className="flex items-center space-x-2 shrink-0 self-start sm:self-center">
                                 {/* Direct WhatsApp Dispatch templates */}
                                 <button
                                   onClick={() => {
-                                    const message = `Hello ${sub.customerName}! This is FresCo HealthCraft Pune. 🥤 Your healthy subscription drop for Day D-${sub.deliveriesCompleted + 1} (${todayItem.juice}) has been freshly cold-pressed and dispatched for premium morning delivery. Arriving shortly! Have a wholesome day. 🌿`;
+                                    const message = `Hello ${sub.customerName}! This is FresCo HealthCraft Pune. 🥤 Your healthy subscription drop for Day D-${sub.deliveriesCompleted + 1} (${todayItem?.juice}) has been freshly cold-pressed and dispatched for premium morning delivery. Arriving shortly! Have a wholesome day. 🌿`;
                                     window.open(`https://wa.me/${sub.customerPhone.replace(/[^0-9]/g, "") || "918983363146"}?text=${encodeURIComponent(message)}`, "_blank");
                                   }}
                                   className="border border-[#38A325]/45 text-[#38A325] bg-emerald-50/50 hover:bg-[#38A325]/10 px-2 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider cursor-pointer flex items-center gap-1 transition-colors"
@@ -637,17 +690,46 @@ export default function AdminPortal({
                                         </div>
                                       </div>
                                     </td>
-                                    <td className="p-3 max-w-[120px]">
-                                      <div className="space-y-1">
-                                        <div className="flex justify-between text-[8.5px] font-mono text-gray-500">
-                                          <span>{s.deliveriesCompleted}/{s.totalDeliveries} Drops</span>
-                                          <span>{pct}%</span>
+                                    <td className="p-3 min-w-[210px]">
+                                      <div className="space-y-2">
+                                        <div className="flex justify-between items-center text-[10px] font-mono">
+                                          <span className="font-bold text-[#38A325]">{s.deliveriesCompleted}/{s.totalDeliveries} Drops Done</span>
+                                          <span className="text-gray-400 font-semibold">{pct}%</span>
                                         </div>
                                         <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
                                           <div
                                             className="bg-[#38A325] h-1.5 rounded-full transition-all duration-300"
                                             style={{ width: `${pct}%` }}
                                           />
+                                        </div>
+                                        {/* Direct Dispatch Cycle Day Buttons for Admin update */}
+                                        <div className="flex flex-wrap gap-1 mt-1.5">
+                                          {Array.from({ length: s.totalDeliveries || 6 }).map((_, dIdx) => {
+                                            const isDone = dIdx < s.deliveriesCompleted;
+                                            const isCurrent = dIdx === s.deliveriesCompleted;
+                                            return (
+                                              <button
+                                                key={dIdx}
+                                                type="button"
+                                                onClick={() => {
+                                                  // Set specific count
+                                                  const newCount = isDone ? dIdx : dIdx + 1;
+                                                  handleSetSubscriptionDeliveryCount(s.id, newCount);
+                                                }}
+                                                title={isDone ? `Mark Day ${dIdx+1} as NOT delivered` : `Approve Day ${dIdx+1} as Delivered & Done`}
+                                                className={`px-1.5 py-0.5 rounded text-[8px] font-mono font-bold flex items-center gap-0.5 border cursor-pointer hover:scale-105 transition-all select-none ${
+                                                  isDone 
+                                                    ? "bg-emerald-500 text-white border-emerald-600 hover:bg-emerald-600" 
+                                                    : isCurrent 
+                                                    ? "bg-amber-100 text-amber-800 border-amber-400 hover:bg-amber-200 animate-pulse font-extrabold"
+                                                    : "bg-neutral-100 text-neutral-450 border-neutral-200 hover:bg-neutral-200"
+                                                }`}
+                                              >
+                                                <span>D{dIdx+1}</span>
+                                                {isDone && <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />}
+                                              </button>
+                                            );
+                                          })}
                                         </div>
                                       </div>
                                     </td>
