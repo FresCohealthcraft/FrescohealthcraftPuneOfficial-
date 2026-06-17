@@ -9,7 +9,7 @@ interface SubscriptionSectionProps {
 }
 
 const JUICE_OPTIONS = [
-  { id: "opt_detox", name: "Detox Body Juice", price: 85, icon: "🌱", desc: "Organic celery, spinach, bitter gourd cleanse" },
+  { id: "opt_detox", name:"Detox Body Juice", price: 85, icon: "🌱", desc: "Organic celery, spinach, bitter gourd cleanse" },
   { id: "opt_immunity", name: "Immunity Booster", price: 90, icon: "🛡️", desc: "Fresh citrus, ginger, turmeric & Amla" },
   { id: "opt_watermelon", name: "Watermelon Juice", price: 60, icon: "🍉", desc: "Hydrating, sweet and high in natural electrolytes" },
   { id: "opt_orange", name: "Orange Valencia", price: 75, icon: "🍊", desc: "Fresh sweet valencia orange with rich Vitamin C" },
@@ -118,6 +118,26 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     window.dispatchEvent(new Event("storage"));
   };
 
+  React.useEffect(() => {
+    const handleStorageUpdate = () => {
+      const saved = localStorage.getItem("fresco_active_sub_v2");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed && typeof parsed === "object") {
+            setActivePlan(parsed);
+          }
+        } catch (e) {}
+      } else {
+        setActivePlan(null);
+      }
+    };
+    window.addEventListener("storage", handleStorageUpdate);
+    return () => {
+      window.removeEventListener("storage", handleStorageUpdate);
+    };
+  }, []);
+
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
     if (!profileForm.name.trim() || !profileForm.phone.trim() || !profileForm.address.trim()) {
@@ -189,15 +209,26 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     sub_saturday: { label: "Saturday", icon: "🍉", title: "Refresh Day" },
   };
 
-  const weeklyPlans = [
-    {
+  interface WeeklyCyclePlanItem {
+    id: string;
+    name: string;
+    icon: string;
+    subtitle: string;
+    tags?: string[];
+    price: number;
+    originalPrice?: number;
+    bgColor: string;
+    accentColor: string;
+  }
+
+  const weeklyPlans: WeeklyCyclePlanItem[] = [
+       {
       id: "sub_monday",
       name: "Detox Monday",
       icon: "🌱",
       subtitle: "Detox Body + Sprouts Bowl",
       tags: ["Value Pack", "Immunity"],
-      originalPrice: 158,
-      price: 142,
+      price: 178,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
       accentColor: "#10b981"
     },
@@ -207,8 +238,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "🛡️",
       subtitle: "Immunity Booster + Classic Delight Cup",
       tags: ["Detox", "Full Day"],
-      originalPrice: 178,
-      price: 160,
+      price: 178,
       bgColor: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10 hover:border-amber-500/30 text-amber-800",
       accentColor: "#f59e0b"
     },
@@ -218,8 +248,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "⚡",
       subtitle: "Vital Energy Drink + Protein Power Cup",
       tags: ["Detox", "Full Day"],
-      originalPrice: 218,
-      price: 196,
+      price: 218,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-800",
       accentColor: "#ef4444"
     },
@@ -229,8 +258,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "✨",
       subtitle: "Skin Glow-up + Exotic Delight Cup",
       tags: ["Detox", "Full Day"],
-      originalPrice: 188,
-      price: 169,
+      price: 198,
       bgColor: "bg-fuchsia-100/40 hover:bg-fuchsia-100/70 border-fuchsia-400/10 hover:border-fuchsia-400/30 text-fuchsia-800",
       accentColor: "#d946ef"
     },
@@ -240,8 +268,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "💪",
       subtitle: "Fat Burner + Paneer Sprouts Bowl",
       tags: ["Active High", "Low Carb"],
-      originalPrice: 210,
-      price: 189,
+      price: 198,
       bgColor: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10 hover:border-blue-500/30 text-blue-800",
       accentColor: "#3b82f6"
     },
@@ -249,43 +276,32 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_saturday",
       name: "Refresh Saturday",
       icon: "🍉",
-      subtitle: "ABC Drink + Banana Shake",
+      subtitle: "ABC Drink + Energy Boost Shake",
       tags: ["Weekend Prep", "Hydration"],
-      originalPrice: 180,
-      price: 162,
+      price: 238,
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
       accentColor: "#8b5cf6"
     }
   ];
 
-  const fruitJuicePlans = [
-    {
+
+  const fruitJuicePlans: WeeklyCyclePlanItem[] = [
+     {
       id: "sub_fj_monday",
-      name: "Watermelon Monday",
-      icon: "🍉",
-      subtitle: "Pure Organic Fresh Watermelon Juice",
-      originalPrice: 65,
-      price: 58,
-      bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-00",
-      accentColor: "#ef4444"
-    },
-    {
-      id: "sub_fj_tuesday",
-      name: "Orange Tuesday",
+       name: "Orange Tuesday",
       icon: "🍊",
-      subtitle: "Fresh Sweet Valencia Orange Press",
-      originalPrice: 80,
-      price: 72,
+      subtitle: "Fresh Sweet Orange",
+      price: 79,
       bgColor: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10 hover:border-amber-500/30 text-amber-800",
       accentColor: "#f59e0b"
     },
+
     {
       id: "sub_fj_wednesday",
       name: "Pineapple Wednesday",
       icon: "🍍",
       subtitle: "Bromelain-Rich Refreshing Pineapple Juice",
-      originalPrice: 75,
-      price: 67,
+      price: 69,
       bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
       accentColor: "#eab308"
     },
@@ -294,8 +310,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       name: "Mosambi Thursday",
       icon: "🥤",
       subtitle: "Sweet Lime Natural Immunity Extract",
-      originalPrice: 75,
-      price: 67,
+      price: 69,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
       accentColor: "#10b981"
     },
@@ -303,21 +318,86 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_friday",
       name: "Apple Friday",
       icon: "🍎",
-      subtitle: "Royal Red Gala Apple Juice Extract",
-      originalPrice: 85,
-      price: 76,
+      subtitle: "Provides hydration and essential nutrients.",
+      price: 79,
       bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
       accentColor: "#f43f5e"
     },
     {
       id: "sub_fj_saturday",
-      name: "ABC Vitality Saturday",
+      name: "Papaya Saturday",
       icon: "🥤",
-      subtitle: "Apple Beetroot Carrot Detox Special",
-      originalPrice: 95,
-      price: 85,
+      subtitle: "Rich in digestive enzymes and nutrients.",
+      price: 69,
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
       accentColor: "#8b5cf6"
+    },
+     {
+      id: "sub_fj_saturday",
+      name: "Pomegranate Saturday",
+      icon: "🥤",
+      subtitle: "Rich in antioxidants, helping support heart health and overall wellness.",
+      price: 149,
+      bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
+      accentColor: "#8b5cf6"
+    }
+
+  ];
+
+  const fatBurnPlans: WeeklyCyclePlanItem[] = [
+    {
+      id: "sub_fb_monday",
+      name: "Fat Burn Monday",
+      icon: "🔥",
+      subtitle: "Lauki, Cucumber & Ginger Juice",
+      price: 79,
+      bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
+      accentColor: "#10b981"
+    },
+    {
+      id: "sub_fb_tuesday",
+      name: "Slimmer Tuesday",
+      icon: "🍍",
+      subtitle: "Pineapple, Celery & Lemon Slimmer",
+      price: 89,
+      bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
+      accentColor: "#eab308"
+    },
+    {
+      id: "sub_fb_wednesday",
+      name: "Detox Wednesday",
+      icon: "🥒",
+      subtitle: "Bittergourd, Apple & Mint Extract",
+      price: 79,
+      bgColor: "bg-green-500/5 hover:bg-green-500/10 border-green-500/10 hover:border-green-500/30 text-green-800",
+      accentColor: "#22c55e"
+    },
+    {
+      id: "sub_fb_thursday",
+      name: "Citrus Thursday",
+      icon: "🍊",
+      subtitle: "Grapefruit, Ginger & Lime Buster",
+      price: 99,
+      bgColor: "bg-orange-500/5 hover:bg-orange-500/10 border-orange-500/10 hover:border-orange-500/30 text-orange-800",
+      accentColor: "#f97316"
+    },
+    {
+      id: "sub_fb_friday",
+      name: "ACV Friday",
+      icon: "🍎",
+      subtitle: "Apple Cider Vinegar, Honey & Lemon Infusion",
+      price: 79,
+      bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
+      accentColor: "#f43f5e"
+    },
+    {
+      id: "sub_fb_saturday",
+      name: "Shred Saturday",
+      icon: "💪",
+      subtitle: "Watermelon, Mint & Chia Seeds Shred",
+      price: 95,
+      bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-00",
+      accentColor: "#ef4444"
     }
   ];
 
@@ -425,7 +505,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_nutrient",
       name: "Standard 6-day nutrient cycle",
       type: "weekly",
-      price: 1018,
+      price: 1094,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -460,6 +540,28 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       name: "weekly fruit juice",
       type: "weekly",
       price: 425,
+      startDate: new Date().toISOString().split("T")[0],
+      renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+      deliveriesCompleted: 0,
+      totalDeliveries: 6,
+      status: "active"
+    }, { bulkItems: itemsToBulkAdd });
+  };
+
+  const handleAddAllFatBurnDays = () => {
+    const itemsToBulkAdd: MenuItem[] = fatBurnPlans.map(plan => ({
+      id: plan.id,
+      name: plan.name,
+      category: "Detox & Wellness",
+      price: plan.price,
+      description: plan.subtitle,
+      icon: plan.icon
+    }));
+    promptRegistrationForPlan({
+      id: "sub_weekly_fat_burn",
+      name: "weekly fat burn",
+      type: "weekly",
+      price: 479,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -551,11 +653,20 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }, { isWhatsApp: true, customWhatsAppTemplate: message });
   };
 
-  const getTodayItemForPlan = (planId: string) => {
-    const daysArr = ["sub_sunday", "sub_monday", "sub_tuesday", "sub_wednesday", "sub_thursday", "sub_friday", "sub_saturday"];
-    const currentDayIndex = new Date().getDay();
-    let targetDayKey = daysArr[currentDayIndex];
-    if (targetDayKey === "sub_sunday") targetDayKey = "sub_monday";
+  const getTodayItemForPlan = (planId: string, customDayIndex?: number) => {
+    const dayIndex = customDayIndex !== undefined ? customDayIndex : (activePlan ? activePlan.deliveriesCompleted : 0);
+    const totalD = activePlan ? activePlan.totalDeliveries : 6;
+
+    if (activePlan && dayIndex >= totalD) {
+      return {
+        juice: "Subscription Cycle Completed! 🎉",
+        description: "All scheduled drops have been successfully completed and delivered to Pune. Thank you!",
+        icon: "🌿"
+      };
+    }
+
+    const daysArr = ["sub_monday", "sub_tuesday", "sub_wednesday", "sub_thursday", "sub_friday", "sub_saturday"];
+    const targetDayKey = daysArr[dayIndex % 6];
 
     if (planId === "sub_weekly_nutrient") {
       const dayPlan = weeklyPlans.find(p => p.id === targetDayKey) || weeklyPlans[0];
@@ -574,11 +685,14 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         icon: juice.icon
       };
     } else {
-      return {
-        juice: "Daily Premium Fresh and Sprouts Pack",
-        description: "Freshly prepared fresh juice pairing with premium wellness side bowl scheduled daily",
-        icon: "🥑"
-      };
+      if (planId?.includes("green_taster")) {
+        return { juice: "Daily Fresh Fruit Juice", icon: "🥝", description: "Fresh organic juice + Daily Sprouts Bowl" };
+      } else if (planId?.includes("balanced_cleanse")) {
+        return { juice: "Daily Protein Cup", icon: "🥑", description: "Protein rich snack + Daily Organic Sprouts Bowl" };
+      } else {
+        const dayPlan = weeklyPlans.find(p => p.id === targetDayKey) || weeklyPlans[0];
+        return { juice: dayPlan.name, icon: dayPlan.icon, description: `Wellness Overhaul Drop: ${dayPlan.subtitle}` };
+      }
     }
   };
 
@@ -624,7 +738,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Subscription Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[8.5px] font-semibold uppercase tracking-wider mb-2">
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
           Wellness Subscriptions Plan's
         </div>
 
@@ -804,31 +918,24 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     </div>
                     
                     {/* Staggered Delivery Blocks */}
-                    <div className="grid grid-cols-6 sm:grid-cols-6 gap-1 pt-1.5">
-                      {Array.from({ length: 6 }).map((_, index) => {
+                    <div className="grid grid-cols-6 gap-1 pt-1.5">
+                      {Array.from({ length: activePlan.totalDeliveries || 6 }).map((_, index) => {
                         const isCompleted = index < activePlan.deliveriesCompleted;
                         const isCurrent = index === activePlan.deliveriesCompleted && activePlan.status === "active";
                         return (
-                          <button
+                          <div
                             key={index}
-                            type="button"
-                            onClick={() => {
-                              updateActivePlan({
-                                ...activePlan,
-                                deliveriesCompleted: index
-                              });
-                            }}
-                            title={`Click to set delivery cycle to Day ${index + 1}`}
-                            className={`h-5 rounded text-[8px] font-mono font-bold flex items-center justify-center border transition-all cursor-pointer hover:scale-105 active:scale-95 outline-none focus:ring-1 focus:ring-[#38A325]/50 ${
+                            title={isCompleted ? `Day ${index + 1} completed & dispatched` : isCurrent ? `Day ${index + 1} dispatch in progress` : `Day ${index + 1} scheduled`}
+                            className={`h-5 rounded text-[8px] font-mono font-bold flex items-center justify-center border transition-all select-none cursor-default ${
                               isCompleted
-                                ? "bg-emerald-500/10 border-[#38A325]/40 text-[#38A325] hover:bg-[#38A325]/20"
+                                ? "bg-[#38A325] border-[#2E851E] text-white shadow-sm ring-1 ring-[#38A325]/20 font-extrabold"
                                 : isCurrent
                                 ? "bg-amber-500/10 border-amber-500 text-amber-800 animate-pulse font-black shadow-xs ring-1 ring-amber-400"
-                                : "bg-neutral-50 border-gray-200 text-gray-400 hover:bg-neutral-100"
+                                : "bg-neutral-50 border-gray-200 text-gray-400"
                             }`}
                           >
                             <span>D-{index + 1}</span>
-                          </button>
+                          </div>
                         );
                       })}
                     </div>
@@ -1046,7 +1153,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
-              <span>Weekly Wellness Plan</span>
+              <span>Weekly Subscription Plan</span>
             </button>
             <button
               onClick={() => setActiveTab("monthly")}
@@ -1057,7 +1164,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Monthly subscriptions</span>
+              <span>Monthly Subscription Plan</span>
             </button>
             <button
               onClick={() => setActiveTab("custom")}
@@ -1083,7 +1190,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 px-2"
+              className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4 px-2"
             >
               {/* Card 1: Standard 6-Day Nutrient Cycle Schedule */}
               <div className="bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4.5 shadow-sm text-left flex flex-col justify-between h-full">
@@ -1093,14 +1200,11 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     <div className="flex items-center space-x-2">
                       <span className="text-xl select-none">🌱</span>
                       <div>
-                        <span className="bg-[#38A325]/10 text-[#38A325] text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider inline-block">
-                          10% Combo Cycle Offer
-                        </span>
-                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 mt-0.5 font-bold">
-                          Standard 6-Day Nutrient Cycle
+                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
+                          FresCo 6-Day Wellness Cycle
                         </h3>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0.5 leading-normal">
-                          A curated Monday-to-Saturday breakfast routing with raw juices & sprout bowls.
+                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
+                          A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.
                         </p>
                       </div>
                     </div>
@@ -1114,7 +1218,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                         className="py-1.5 flex flex-row items-center justify-between gap-2 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
                       >
                         {/* Day indicator & title */}
-                        <div className="flex items-center space-x-2 shrink-0 min-w-[60px] xs:min-w-[85px] sm:min-w-[125px]">
+                        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0 min-w-[40px] xs:min-w-[52px] sm:min-w-[70px]">
                           <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold">
                             {plan.icon}
                           </span>
@@ -1131,7 +1235,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                         {/* Combo details */}
                         <div className="flex-1 min-w-0">
-                          <p className="text-gray-750 text-[10px] sm:text-[11.5px] font-medium leading-normal truncate">
+                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal">
                             {plan.subtitle}
                           </p>
                         </div>
@@ -1151,13 +1255,20 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 </div>
 
                 {/* Bulk Add Action Button Container */}
-                <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex justify-end">
+                <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
+                  <div className="text-left font-sans">
+                    <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
+                    <div className="flex items-baseline space-x-1.5 mt-1">
+                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹1099</span>
+                      <span className="text-[10px] text-gray-400 line-through leading-none font-medium">₹1208</span>
+                    </div>
+                  </div>
                   <button
                     onClick={handleAddAllWeeklyDays}
                     className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
                     <Calendar className="w-3 h-3" />
-                    <span>Add All 6 Days — ₹1018</span>
+                    <span>Add All 6 Days</span>
                   </button>
                 </div>
               </div>
@@ -1170,13 +1281,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     <div className="flex items-center space-x-2">
                       <span className="text-xl select-none">🍹</span>
                       <div>
-                        <span className="bg-[#38A325]/10 text-[#38A325] text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider inline-block">
-                          10% Pure Juice Offer
-                        </span>
-                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 mt-0.5 font-bold">
+                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
                           Weekly Fruit Juice
                         </h3>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0.5 leading-normal">
+                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
                           A curated Monday-to-Saturday pure organic fresh juices.
                         </p>
                       </div>
@@ -1191,7 +1299,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                         className="py-1.5 flex flex-row items-center justify-between gap-2 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
                       >
                         {/* Day indicator & title */}
-                        <div className="flex items-center space-x-2 shrink-0 min-w-[60px] xs:min-w-[85px] sm:min-w-[125px]">
+                        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0 min-w-[40px] xs:min-w-[52px] sm:min-w-[70px]">
                           <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold">
                             {plan.icon}
                           </span>
@@ -1208,7 +1316,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                         {/* Combo details */}
                         <div className="flex-1 min-w-0">
-                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal truncate">
+                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal">
                             {plan.subtitle}
                           </p>
                         </div>
@@ -1228,13 +1336,101 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 </div>
 
                 {/* Bulk Add Action Button Container */}
-                <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex justify-end">
+                <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
+                  <div className="text-left font-sans">
+                    <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
+                    <div className="flex items-baseline space-x-1.5 mt-1">
+                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹469</span>
+                      <span className="text-[10px] text-gray-400 line-through leading-none font-medium">₹514</span>
+                    </div>
+                  </div>
                   <button
                     onClick={handleAddAllFruitJuiceDays}
                     className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
                     <Calendar className="w-3 h-3" />
-                    <span>Add All 6 Days — ₹425</span>
+                    <span>Add All 6 Days</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Card 3: Weekly Fat Burn */}
+              <div className="bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4.5 shadow-sm text-left flex flex-col justify-between h-full">
+                <div>
+                  {/* Master Header */}
+                  <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xl select-none">🔥</span>
+                      <div>
+                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
+                          Weekly Fat Burn
+                        </h3>
+                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
+                          A curated Monday-to-Saturday metabolism-boosting fat burner cycle.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Internal Days Layout - Fat burn elegant rows */}
+                  <div className="divide-y divide-[#1A1A1A]/5">
+                    {fatBurnPlans.map((plan) => (
+                      <div
+                        key={plan.id}
+                        className="py-1.5 flex flex-row items-center justify-between gap-2 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
+                      >
+                        {/* Day indicator & title */}
+                        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0 min-w-[40px] xs:min-w-[52px] sm:min-w-[70px]">
+                          <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold">
+                            {plan.icon}
+                          </span>
+                          <div className="min-w-0">
+                            <span className="hidden xs:inline-block bg-[#38A325]/15 text-[#38A325] text-[6.5px] px-1 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                              {plan.name.split(" ")[0]}
+                            </span>
+                            <h4 className="font-serif italic text-[10px] sm:text-[11px] font-semibold text-gray-950 truncate leading-tight mt-0.5">
+                              <span className="xs:hidden">{plan.name.split(" ")[0]}</span>
+                              <span className="hidden xs:inline">{plan.name}</span>
+                            </h4>
+                          </div>
+                        </div>
+
+                        {/* Combo details */}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                            {plan.subtitle}
+                          </p>
+                        </div>
+
+                        {/* Combo Pricing info */}
+                        <div className="flex items-baseline space-x-1.5 font-mono text-right shrink-0">
+                          <span className="text-[10px] sm:text-[11.5px] text-[#38A325] font-black">
+                            ₹{plan.price}
+                          </span>
+                          <span className="hidden sm:inline text-[9px] text-gray-400 line-through">
+                            ₹{plan.originalPrice}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bulk Add Action Button Container */}
+                <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
+                  <div className="text-left font-sans">
+                    <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
+                    <div className="flex items-baseline space-x-1.5 mt-1">
+                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹479</span>
+                      <span className="text-[10px] text-gray-400 line-through leading-none font-medium">₹520</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleAddAllFatBurnDays}
+                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
+                  >
+                    <Calendar className="w-3 h-3" />
+                    <span>Add All 6 Days</span>
                   </button>
                 </div>
               </div>
@@ -1366,9 +1562,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-1.5 shrink-0 bg-white/80 border border-[#1A1A1A]/5 px-3 py-1.5 rounded-full shadow-xs">
-                  <span className="text-xs font-bold text-emerald-800">✨ Flat 12% to 20% Combo Savings Appended</span>
-                </div>
+                
               </div>
 
               {/* Main custom plan workspace */}
