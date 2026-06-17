@@ -55,7 +55,7 @@ export default function Logo({
           <span className={`font-sans font-extrabold ${lightText ? "text-[#9BD54E]" : "text-[#418420]"}`}>
             Fres
           </span>
-          <span className={`font-serif font-black italic tracking-wide ml-0.5 ${lightText ? "text-[#F58220]" : "text-[#F26419]"}`}>
+          <span className={`font-sans font-black italic tracking-wide ml-0.5 ${lightText ? "text-[#F58220]" : "text-[#F26419]"}`}>
             Co
           </span>
         </div>
@@ -72,12 +72,12 @@ export default function Logo({
           <span
             className={`font-serif italic leading-tight tracking-tight border-t block ${
               size === "sm"
-                ? "text-[10px] sm:text-[10px] mt-0.5 pt-0.5"
+                ? "text-[15px] sm:text-[15px] mt-0.5 pt-0.5"
                 : size === "lg"
                   ? "text-xs sm:text-sm mt-2 pt-2"
-                  : "text-[10px] sm:text-[12px] mt-1.5 pt-1.5"
+                  : "text-[15px] sm:text-[15px] mt-1.5 pt-1.5"
             } ${
-              lightText ? "text-[#F9F8F4]/75 border-white/10" : "text-[#7B6E53] border-gray-100"
+              lightText ? "text-[#000000]/75 border-white/10" : "text-[#000000] border-gray-100"
             }`}
           >
             Crafting Wellness, Nurturing Life.
