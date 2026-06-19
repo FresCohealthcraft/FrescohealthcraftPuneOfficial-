@@ -361,7 +361,7 @@ Please accept my order request and share tracking updates on WhatsApp!`;
 
                   <div className="flex justify-between text-sm items-center">
                     <span className="font-bold uppercase tracking-wider text-xs text-[#1A1A1A]">Total Payable Amount:</span>
-                    <span className="text-2xl font-serif italic text-[#38A325]">
+                    <span className="text-2xl font-sans font-extrabold text-[#38A325]">
                       ₹{payableAmount.toFixed(0)}
                     </span>
                   </div>
