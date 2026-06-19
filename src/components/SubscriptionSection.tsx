@@ -221,6 +221,32 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     accentColor: string;
   }
 
+  const getPlanDisplay = (name: string) => {
+    const trimmed = name.trim();
+    const parts = trimmed.split(/\s+/);
+    if (parts.length >= 2) {
+      const lastPart = parts[parts.length - 1];
+      const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+      if (daysOfWeek.includes(lastPart.toLowerCase())) {
+        return {
+          day: lastPart.charAt(0).toUpperCase() + lastPart.slice(1).toLowerCase(),
+          label: parts.slice(0, parts.length - 1).join(" ")
+        };
+      }
+      const firstPart = parts[0];
+      if (daysOfWeek.includes(firstPart.toLowerCase())) {
+        return {
+          day: firstPart.charAt(0).toUpperCase() + firstPart.slice(1).toLowerCase(),
+          label: parts.slice(1).join(" ")
+        };
+      }
+    }
+    return {
+      day: trimmed,
+      label: ""
+    };
+  };
+
   const weeklyPlans: WeeklyCyclePlanItem[] = [
        {
       id: "sub_monday",
@@ -288,7 +314,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
   const fruitJuicePlans: WeeklyCyclePlanItem[] = [
      {
       id: "sub_fj_monday",
-       name: "Orange Tuesday",
+       name: "Orange monday",
       icon: "🍊",
       subtitle: "Fresh Sweet Orange",
       price: 79,
@@ -298,7 +324,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
     {
       id: "sub_fj_wednesday",
-      name: "Pineapple Wednesday",
+      name: "Pineapple Tuesday",
       icon: "🍍",
       subtitle: "Bromelain-Rich Refreshing Pineapple Juice",
       price: 69,
@@ -307,7 +333,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     },
     {
       id: "sub_fj_thursday",
-      name: "Mosambi Thursday",
+      name: "Mosambi Wednesday",
       icon: "🥤",
       subtitle: "Sweet Lime Natural Immunity Extract",
       price: 69,
@@ -316,7 +342,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     },
     {
       id: "sub_fj_friday",
-      name: "Apple Friday",
+      name: "Apple thursday",
       icon: "🍎",
       subtitle: "Provides hydration and essential nutrients.",
       price: 79,
@@ -325,7 +351,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     },
     {
       id: "sub_fj_saturday",
-      name: "Papaya Saturday",
+      name: "Papaya Friday",
       icon: "🥤",
       subtitle: "Rich in digestive enzymes and nutrients.",
       price: 69,
@@ -349,54 +375,63 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_monday",
       name: "Fat Burn Monday",
       icon: "🔥",
-      subtitle: "Lauki, Cucumber & Ginger Juice",
-      price: 79,
+      subtitle: "Fat Burner Juice + Paneer Sprout Bowl",
+      price: 198,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
       accentColor: "#10b981"
     },
     {
       id: "sub_fb_tuesday",
-      name: "Slimmer Tuesday",
+      name: "Detox Tuesday",
       icon: "🍍",
-      subtitle: "Pineapple, Celery & Lemon Slimmer",
-      price: 89,
+      subtitle: "Detox Body Juice + Sprout Bowl",
+      price: 178,
       bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
       accentColor: "#eab308"
     },
     {
       id: "sub_fb_wednesday",
-      name: "Detox Wednesday",
+      name: "Gut Reset Wednesday",
       icon: "🥒",
-      subtitle: "Bittergourd, Apple & Mint Extract",
-      price: 79,
+      subtitle: "Gut Reset Juice + Power Packed Cup",
+      price: 218,
       bgColor: "bg-green-500/5 hover:bg-green-500/10 border-green-500/10 hover:border-green-500/30 text-green-800",
       accentColor: "#22c55e"
     },
     {
       id: "sub_fb_thursday",
-      name: "Citrus Thursday",
+      name: "Fat Burn Thursday",
       icon: "🍊",
-      subtitle: "Grapefruit, Ginger & Lime Buster",
-      price: 99,
+      subtitle: "Fat Burner Juice + Sprout Bowl",
+      price: 178,
       bgColor: "bg-orange-500/5 hover:bg-orange-500/10 border-orange-500/10 hover:border-orange-500/30 text-orange-800",
       accentColor: "#f97316"
     },
     {
       id: "sub_fb_friday",
-      name: "ACV Friday",
+      name: "Detox Friday",
       icon: "🍎",
-      subtitle: "Apple Cider Vinegar, Honey & Lemon Infusion",
-      price: 79,
+      subtitle: "Detox Body Juice + Paneer Sprout Bowl",
+      price: 198,
       bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
       accentColor: "#f43f5e"
     },
     {
       id: "sub_fb_saturday",
-      name: "Shred Saturday",
+      name: "ABC Booster Saturday",
       icon: "💪",
-      subtitle: "Watermelon, Mint & Chia Seeds Shred",
-      price: 95,
-      bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-00",
+      subtitle: "ABC Juice + Power Packed Cup",
+      price: 218,
+      bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
+      accentColor: "#ef4444"
+    },
+    {
+      id: "sub_fb_sunday",
+      name: "Gut Reset Sunday",
+      icon: "💪",
+      subtitle: "Gut Reset Juice + Paneer Sprout Bowl",
+      price: 198,
+      bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
       accentColor: "#ef4444"
     }
   ];
@@ -404,59 +439,66 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
   const monthlySubscriptions = [
     {
       id: "month_green_taster",
-      name: "Daily fresh plan",
+      name: "Daily Fresh Wellness Plan",
       icon: "🥝",
-      subtitle: "30 Day Detox Cycle",
-      deliveries: "30 deliveries",
-      savings: "Save ₹447 off standard menu",
-      price: 4023,
+       subtitle: "30 Days of Fresh Nutrition",
+       deliveries: "30 deliveries / month (Free Delivery)",
+      savings: "Save ₹518 off standard menu",
+      price: 4222,
       benefits: [
-        "1 Fresh organic fruit Juice daily",
-        "1 Sprouts Bowl daily",
-        "Flexible weekend timeslot choices",
-        "Free delivery"
+        "1 Fresh Organic Fruit Juice Daily",
+        "1 Sprouts Bowl / Classic Delight Cup on Alternate Days",
+        "Supports digestion and natural detox",
+         "Boosts daily vitamin and mineral intake",
+         "Fixed delivery time (e.g., 7 AM–10 AM)",
+         "Free doorstep Delivery"
       ],
       popular: false,
       bgColor: "bg-white",
       accentColor: "#38A325",
-      whatsappText: "Hi! I want to subscribe to the Daily fresh plan (₹4023) on FresCo Pune."
+      whatsappText: "Hi! I want to subscribe to the Daily fresh plan (₹4222) on FresCo Pune."
     },
     {
       id: "month_balanced_cleanse",
-      name: "protein plus plan",
+      name: "Protein Power Plan",
       icon: "🥑",
-      subtitle: "30 Days Cycle",
-      deliveries: "30 deliveries (Morning 7-10AM)",
-      savings: "Save ₹694 off standard menu",
-      price: 6242,
+       subtitle: "30 Days of Strength & Wellness",
+       deliveries: "30 deliveries / month (Free Delivery)",
+      savings: "Save ₹661 off standard menu",
+      price: 5799,
       benefits: [
-        "1 Power packed cups / Day",
-        "1 Paneer Sprouts Bowl / Day",
-        "1 premium Fruit Cup every Sunday",
-        " Priority Morning Delivery (7–10 AM)",
-        "Pause Subscription anytime via our portal/ WhatsApp"
+        "30 Paneer Sprouts Bowl / Month",
+        "26 Power Packed Cups / Month",
+        "1 Premium Fruit Cup Every Sunday",
+        "High-Protein, Fiber-Rich Nutrition For Active Lifestyles",
+        "Priority morning delivery (7–10 AM)",
+        "Pause subscription anytime via WhatsApp",
+        "Keeps You Full Longer",
+        "Rich in Omega-3, Vitamins, and Minerals",
+        
       ],
       popular: true,
       bgColor: "bg-gradient-to-b from-white to-[#38A325]/5",
       accentColor: "#38A325",
-      whatsappText: "Hi! I want to subscribe to the protein plus plan (₹6242) on FresCo Pune."
+      whatsappText: "Hi! I want to subscribe to the protein plus plan (₹5799) on FresCo Pune."
     },
     {
       id: "month_wellness_overhaul",
-      name: "full wellness overhaul",
+  name: "Ultimate Wellness Elite Plan",
       icon: "👑",
-      subtitle: "30-Day Daily Fresh Wellness Goal",
-      deliveries: "30 deliveries / month (Daily Morning Delivery)",
-      savings: "Save ₹831 off standard retail menu",
-      price: 7481,
+  subtitle: "Complete 30-Day Nutrition Journey",
+      deliveries: "30 deliveries / month (Free Delivery)",
+      savings: "Save ₹712 off standard retail menu",
+      price: 6888,
       benefits: [
-        "1 Fruit Juice or Green vitality juice / Day (Choose daily from our menu)",
+        "1 Fruit Juice or Green vitality juice / Day",
         "1 Sprouts Bowl / Day",
-        "1 premium Fruit Cup / Day",
-        "1 Power packed cup every Sunday",
+        "1 Premium Fruit Cup / Day",
+        "1 Power Packed Cup every Sunday",
         "1 Paneer Sprouts Bowl every Sunday",
-        "Premium thermal luxury bottle supplied on Day 1 (Co-branded FresCo)",
-        "Zero hidden extra taxes, dedicated concierge Whatsapp service"
+         "Maximum variety for complete daily nutrition",
+         "Priority order support and delivery assistance",
+         "Pause or reschedule deliveries anytime",
       ],
       popular: false,
       bgColor: "bg-white",
@@ -559,7 +601,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }));
     promptRegistrationForPlan({
       id: "sub_weekly_fat_burn",
-      name: "weekly fat burn",
+      name: "7 days weight loss transformation",
       type: "weekly",
       price: 479,
       startDate: new Date().toISOString().split("T")[0],
@@ -1212,45 +1254,45 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                   {/* Internal Days Layout - Unified elegant rows inside ONE card */}
                   <div className="divide-y divide-[#1A1A1A]/5">
-                    {weeklyPlans.map((plan) => (
-                      <div
-                        key={plan.id}
-                        className="py-1.5 flex flex-row items-center justify-between gap-2 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
-                      >
-                        {/* Day indicator & title */}
-                        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0 min-w-[40px] xs:min-w-[52px] sm:min-w-[70px]">
-                          <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold">
-                            {plan.icon}
-                          </span>
-                          <div className="min-w-0">
-                            <span className="hidden xs:inline-block bg-[#38A325]/15 text-[#38A325] text-[6.5px] px-1 py-0.5 rounded font-black uppercase tracking-wider leading-none">
-                              {plan.name.split(" ")[0]}
+                    {weeklyPlans.map((plan) => {
+                      const { day, label } = getPlanDisplay(plan.name);
+                      return (
+                        <div
+                          key={plan.id}
+                          className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
+                        >
+                          {/* Day indicator & title */}
+                          <div className="flex items-center space-x-2 shrink-0 w-[100px] xs:w-[125px] sm:w-[145px]">
+                            <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold shrink-0">
+                              {plan.icon}
                             </span>
-                            <h4 className="font-serif italic text-[10px] sm:text-[11px] font-semibold text-gray-950 truncate leading-tight mt-0.5">
-                              <span className="xs:hidden">{plan.name.split(" ")[0]}</span>
-                              <span className="hidden xs:inline">{plan.name}</span>
-                            </h4>
+                            <div className="min-w-0">
+                              {label ? (
+                                <>
+                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[6.5px] sm:text-[7.5px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                                    {day}
+                                  </span>
+                                  <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight mt-0.5">
+                                    {label}
+                                  </h4>
+                                </>
+                              ) : (
+                                <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight">
+                                  {day}
+                                </h4>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Combo details */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                              {plan.subtitle}
+                            </p>
                           </div>
                         </div>
-
-                        {/* Combo details */}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal">
-                            {plan.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Combo Pricing info */}
-                        <div className="flex items-baseline space-x-1.5 font-mono text-right shrink-0">
-                          <span className="text-[10px] sm:text-[11.5px] text-[#38A325] font-black">
-                            ₹{plan.price}
-                          </span>
-                          <span className="hidden sm:inline text-[9px] text-gray-400 line-through">
-                            ₹{plan.originalPrice}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -1260,7 +1302,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
                       <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹1099</span>
-                      <span className="text-[10px] text-gray-400 line-through leading-none font-medium">₹1208</span>
+                      <span className="text-[12px] text-gray-400 line-through leading-none font-medium">₹1208</span>
                     </div>
                   </div>
                   <button
@@ -1268,7 +1310,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
                     <Calendar className="w-3 h-3" />
-                    <span>Add All 6 Days</span>
+                    <span>Subscribe Now</span>
                   </button>
                 </div>
               </div>
@@ -1293,45 +1335,45 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                   {/* Internal Days Layout - Pure juices elegant rows */}
                   <div className="divide-y divide-[#1A1A1A]/5">
-                    {fruitJuicePlans.map((plan) => (
-                      <div
-                        key={plan.id}
-                        className="py-1.5 flex flex-row items-center justify-between gap-2 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
-                      >
-                        {/* Day indicator & title */}
-                        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0 min-w-[40px] xs:min-w-[52px] sm:min-w-[70px]">
-                          <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold">
-                            {plan.icon}
-                          </span>
-                          <div className="min-w-0">
-                            <span className="hidden xs:inline-block bg-[#38A325]/15 text-[#38A325] text-[6.5px] px-1 py-0.5 rounded font-black uppercase tracking-wider leading-none">
-                              {plan.name.split(" ")[0]}
+                    {fruitJuicePlans.map((plan) => {
+                      const { day, label } = getPlanDisplay(plan.name);
+                      return (
+                        <div
+                          key={plan.id}
+                          className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
+                        >
+                          {/* Day indicator & title */}
+                          <div className="flex items-center space-x-2 shrink-0 w-[100px] xs:w-[125px] sm:w-[145px]">
+                            <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold shrink-0">
+                              {plan.icon}
                             </span>
-                            <h4 className="font-serif italic text-[10px] sm:text-[11px] font-semibold text-gray-950 truncate leading-tight mt-0.5">
-                              <span className="xs:hidden">{plan.name.split(" ")[0]}</span>
-                              <span className="hidden xs:inline">{plan.name}</span>
-                            </h4>
+                            <div className="min-w-0">
+                              {label ? (
+                                <>
+                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[6.5px] sm:text-[7.5px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                                    {day}
+                                  </span>
+                                  <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight mt-0.5">
+                                    {label}
+                                  </h4>
+                                </>
+                              ) : (
+                                <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight">
+                                  {day}
+                                </h4>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Combo details */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                              {plan.subtitle}
+                            </p>
                           </div>
                         </div>
-
-                        {/* Combo details */}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal">
-                            {plan.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Combo Pricing info */}
-                        <div className="flex items-baseline space-x-1.5 font-mono text-right shrink-0">
-                          <span className="text-[10px] sm:text-[11.5px] text-[#38A325] font-black">
-                            ₹{plan.price}
-                          </span>
-                          <span className="hidden sm:inline text-[9px] text-gray-400 line-through">
-                            ₹{plan.originalPrice}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -1341,7 +1383,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
                       <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹469</span>
-                      <span className="text-[10px] text-gray-400 line-through leading-none font-medium">₹514</span>
+                      <span className="text-[12px] text-gray-400 line-through leading-none font-medium">₹514</span>
                     </div>
                   </div>
                   <button
@@ -1349,7 +1391,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
                     <Calendar className="w-3 h-3" />
-                    <span>Add All 6 Days</span>
+                    <span>Subscribe Now</span>
                   </button>
                 </div>
               </div>
@@ -1363,10 +1405,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       <span className="text-xl select-none">🔥</span>
                       <div>
                         <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
-                          Weekly Fat Burn
+                          7-Days Weight Loss Transformation
                         </h3>
                         <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
-                          A curated Monday-to-Saturday metabolism-boosting fat burner cycle.
+                          Scientifically curated juice & protein bowl plan to support healthy weight management.
                         </p>
                       </div>
                     </div>
@@ -1374,45 +1416,57 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                   {/* Internal Days Layout - Fat burn elegant rows */}
                   <div className="divide-y divide-[#1A1A1A]/5">
-                    {fatBurnPlans.map((plan) => (
-                      <div
-                        key={plan.id}
-                        className="py-1.5 flex flex-row items-center justify-between gap-2 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
-                      >
-                        {/* Day indicator & title */}
-                        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0 min-w-[40px] xs:min-w-[52px] sm:min-w-[70px]">
-                          <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold">
-                            {plan.icon}
-                          </span>
-                          <div className="min-w-0">
-                            <span className="hidden xs:inline-block bg-[#38A325]/15 text-[#38A325] text-[6.5px] px-1 py-0.5 rounded font-black uppercase tracking-wider leading-none">
-                              {plan.name.split(" ")[0]}
+                    {fatBurnPlans.map((plan) => {
+                      const { day, label } = getPlanDisplay(plan.name);
+                      return (
+                        <div
+                          key={plan.id}
+                          className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
+                        >
+                          {/* Day indicator & title */}
+                          <div className="flex items-center space-x-2 shrink-0 w-[100px] xs:w-[125px] sm:w-[145px]">
+                            <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold shrink-0">
+                              {plan.icon}
                             </span>
-                            <h4 className="font-serif italic text-[10px] sm:text-[11px] font-semibold text-gray-950 truncate leading-tight mt-0.5">
-                              <span className="xs:hidden">{plan.name.split(" ")[0]}</span>
-                              <span className="hidden xs:inline">{plan.name}</span>
-                            </h4>
+                            <div className="min-w-0">
+                              {label ? (
+                                <>
+                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[6.5px] sm:text-[7.5px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                                    {day}
+                                  </span>
+                                  <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight mt-0.5">
+                                    {label}
+                                  </h4>
+                                </>
+                              ) : (
+                                <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight">
+                                  {day}
+                                </h4>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Combo details */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                              {plan.subtitle}
+                            </p>
+                          </div>
+
+                          {/* Combo Pricing info */}
+                          <div className="flex items-baseline space-x-1.5 font-mono text-right shrink-0">
+                            <span className="text-[10px] sm:text-[11.5px] text-[#38A325] font-black">
+                              ₹{plan.price}
+                            </span>
+                            {plan.originalPrice && (
+                              <span className="hidden sm:inline text-[9px] text-gray-400 line-through">
+                                ₹{plan.originalPrice}
+                              </span>
+                            )}
                           </div>
                         </div>
-
-                        {/* Combo details */}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-gray-755 text-[10px] sm:text-[11.5px] font-medium leading-normal">
-                            {plan.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Combo Pricing info */}
-                        <div className="flex items-baseline space-x-1.5 font-mono text-right shrink-0">
-                          <span className="text-[10px] sm:text-[11.5px] text-[#38A325] font-black">
-                            ₹{plan.price}
-                          </span>
-                          <span className="hidden sm:inline text-[9px] text-gray-400 line-through">
-                            ₹{plan.originalPrice}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -1421,8 +1475,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   <div className="text-left font-sans">
                     <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
-                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹479</span>
-                      <span className="text-[10px] text-gray-400 line-through leading-none font-medium">₹520</span>
+                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹1249</span>
+                      <span className="text-[12px] text-gray-400 line-through leading-none font-medium">₹1386</span>
                     </div>
                   </div>
                   <button
@@ -1430,7 +1484,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
                     <Calendar className="w-3 h-3" />
-                    <span>Add All 6 Days</span>
+                    <span>Subscribe Now</span>
                   </button>
                 </div>
               </div>
