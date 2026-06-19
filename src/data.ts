@@ -710,7 +710,7 @@ popular: true,
   icon: "🍦",
   category: "Specials",
   popular: true,
-},
+},  
 
 ];
 
@@ -748,3 +748,36 @@ export const PROMO_COUPONS: PromoCoupon[] = [
     tag: "10% OFF"
   }
 ];
+
+export const PUNE_LOCATIONS = [
+  "Hadapsar (Magarpatta), Pune",
+  "Amanora Park Town, Pune",
+];
+
+export const SAMPLE_TESTIMONIALS = [
+  {
+    id: "t1",
+    name: "Rahul Kulkarni",
+    location: "Kothrud, Pune",
+    rating: 5,
+    comment: "The Green Detox pure is incredible! It tastes so natural and raw, with no synthetic sugars. It has truly helped my skin wellness in just 2 weeks of regular morning orders.",
+    date: "A week ago"
+  },
+  {
+    id: "t2",
+    name: "Anjali Deshmukh",
+    location: "Kalyani Nagar, Pune",
+    rating: 5,
+    comment: "My go-to place for clean smoothies. The Avocado Cream Green smoothie feels super luxurious yet incredibly light. Also, ordering via WhatsApp is seamless and they delivery fast!",
+    date: "2 days ago"
+  },
+  {
+    id: "t3",
+    name: "Vikram Joshi",
+    location: "Shivaji Nagar, Pune",
+    rating: 5,
+    comment: "Excellent range of Ayurvedic mixes. The Amla Weight Master and Wheatgrass shots are of exceptional quality, prepared fresh. Hard-working delivery crew in Pune!",
+    date: "Yesterday"
+  }
+];
+
