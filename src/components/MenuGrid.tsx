@@ -259,7 +259,7 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
                 {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
                 <div className="mt-3.5 pt-2 border-t border-[#1A1A1A]/5 flex flex-row items-center justify-between gap-1.5 w-full">
                   <div className="flex flex-col shrink-0">
-                    <span className="text-sm xs:text-base sm:text-lg font-bold font-serif text-[#38A325] leading-none">
+                    <span className="text-sm xs:text-base sm:text-lg font-extrabold font-sans text-[#38A325] leading-none">
                       ₹{item.price}
                     </span>
                     <span className="text-[7.5px] xs:text-[8px] sm:text-[9px] font-bold tracking-wider uppercase text-[#1A1A1A]/40 mt-0.5 leading-none">
@@ -306,4 +306,3 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
     </section>
   );
 }
-
