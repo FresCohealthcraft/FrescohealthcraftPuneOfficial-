@@ -163,7 +163,7 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
                   <div>
                     <span className="text-[7.5px] font-bold text-gray-400 uppercase tracking-wider block">Combo Price</span>
                     <div className="flex items-baseline space-x-1 mt-0.5">
-                      <span className="text-base sm:text-lg font-serif italic font-extrabold text-[#38A325]">₹{combo.price}</span>
+                      <span className="text-base sm:text-lg font-sans font-extrabold text-[#38A325]">₹{combo.price}</span>
                       <span className="text-[10px] text-gray-400 line-through">₹{combo.originalPrice}</span>
                     </div>
                   </div>
