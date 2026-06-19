@@ -17,21 +17,21 @@ export default function Logo({
   lightText = false,
 }: LogoProps) {
   // Dimensions for a perfect circle frame depending on size parameter
-  let sizeClasses = "w-28 h-28 sm:w-32 sm:h-32";
-  let titleClasses = "text-3xl sm:text-4xl";
+  let sizeClasses = "w-24 h-24 sm:w-28 sm:h-28";
+  let titleClasses = "text-2xl sm:text-3xl";
   let subtitleClasses = "text-xs sm:text-sm tracking-[0.22em]";
-  let gapClass = "space-x-4.5";
+  let gapClass = "space-x-4";
 
   if (size === "sm") {
-    sizeClasses = "w-16 h-16 sm:w-18 sm:h-18";
-    titleClasses = "text-2xl sm:text-2.5xl";
-    subtitleClasses = "text-[11px] sm:text-[12px] tracking-[0.18em]";
-    gapClass = "space-x-4";
+    sizeClasses = "w-12 h-12 sm:w-14 sm:h-14";
+    titleClasses = "text-lg sm:text-xl";
+    subtitleClasses = "text-[8.5px] sm:text-[9.5px] tracking-[0.16em]";
+    gapClass = "space-x-2.5";
   } else if (size === "lg") {
     sizeClasses = "w-40 h-40 sm:w-48 sm:h-48";
-    titleClasses = "text-5xl sm:text-6xl";
+    titleClasses = "text-4xl sm:text-5xl";
     subtitleClasses = "text-sm sm:text-base tracking-[0.26em]";
-    gapClass = "space-x-9";
+    gapClass = "space-x-6";
   }
 
   return (
@@ -72,12 +72,12 @@ export default function Logo({
           <span
             className={`font-serif italic leading-tight tracking-tight border-t block ${
               size === "sm"
-                ? "text-[15px] sm:text-[15px] mt-0.5 pt-0.5"
+                ? "text-[9.5px] sm:text-[10.5px] mt-0.5 pt-0.5"
                 : size === "lg"
                   ? "text-xs sm:text-sm mt-2 pt-2"
-                  : "text-[15px] sm:text-[15px] mt-1.5 pt-1.5"
+                  : "text-[11px] sm:text-[12.5px] mt-1.5 pt-1.5"
             } ${
-              lightText ? "text-[#000000]/75 border-white/10" : "text-[#000000] border-gray-100"
+              lightText ? "text-white/80 border-white/10" : "text-[#000000]/85 border-gray-100"
             }`}
           >
             Crafting Wellness, Nurturing Life.
