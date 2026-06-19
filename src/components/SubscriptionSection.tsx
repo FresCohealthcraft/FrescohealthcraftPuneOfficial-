@@ -1539,7 +1539,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       <div className="mt-2 p-2 bg-[#EFECE5]/35 rounded-lg border border-[#1A1A1A]/5 text-center">
                         <span className="text-[8px] text-gray-400 block font-mono leading-none">Monthly Subscription Fee</span>
                         <div className="flex items-baseline justify-center space-x-0.5 mt-0.5">
-                          <span className="text-base sm:text-lg font-serif italic font-extrabold text-[#1A1A1A]">₹{sub.price}</span>
+                          <span className="text-base sm:text-lg font-sans font-extrabold text-[#1A1A1A]">₹{sub.price}</span>
                           <span className="text-[8.5px] text-gray-500">/ month</span>
                         </div>
                         <span className="text-[7.5px] font-bold text-[#38A325] bg-[#38A325]/10 px-2.5 py-0.5 rounded-full inline-block mt-0.5 leading-none">
@@ -1852,7 +1852,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       
                       <div className="border-t border-white/10 pt-2 flex justify-between items-baseline">
                         <span className="text-[10px] text-gray-400 font-bold uppercase">Total Price</span>
-                        <span className="text-base font-serif italic font-black text-[#38A325]">₹{customFinalPrice}</span>
+                        <span className="text-base font-sans font-black text-[#38A325]">₹{customFinalPrice}</span>
                       </div>
                     </div>
 
