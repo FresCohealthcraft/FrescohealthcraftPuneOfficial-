@@ -274,10 +274,10 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
                         e.stopPropagation();
                         onAddToCartDirectly(item);
                       }}
-                      className="w-7 h-7 sm:w-8.5 sm:h-8.5 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0"
+                      className="w-5.5 h-5.5 sm:w-7 sm:h-7 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0"
                       title="Add to Cart"
                     >
-                      <Plus className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5" strokeWidth={2.5} />
+                      <Plus className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" strokeWidth={2.5} />
                     </button>
                   </div>
                 </div>
