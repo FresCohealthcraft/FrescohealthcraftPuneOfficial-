@@ -365,17 +365,17 @@ export default function AdminPortal({
                   <div className="grid grid-cols-3 gap-4">
                     <div className="bg-[#EFECE5]/40 p-4 rounded-2xl text-left border border-[#1A1A1A]/5">
                       <span className="text-[9px] font-bold text-[#38A325] uppercase tracking-widest block">Total Sales</span>
-                      <span className="text-lg sm:text-xl font-serif italic text-[#1A1A1A] block mt-1">₹{totalRevenue}</span>
+                      <span className="text-lg sm:text-xl font-sans font-extrabold text-[#1A1A1A] block mt-1">₹{totalRevenue}</span>
                     </div>
 
                     <div className="bg-[#F9F8F4] p-4 rounded-2xl text-left border border-[#1A1A1A]/5">
                       <span className="text-[9px] font-bold text-amber-700 uppercase tracking-widest block">Active Tickets</span>
-                      <span className="text-lg sm:text-xl font-serif italic text-amber-700 block mt-1">{activeCount}</span>
+                      <span className="text-lg sm:text-xl font-sans font-extrabold text-amber-700 block mt-1">{activeCount}</span>
                     </div>
 
                     <div className="bg-white p-4 rounded-2xl text-left border border-[#1A1A1A]/10">
                       <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block">Checkouts log</span>
-                      <span className="text-lg sm:text-xl font-serif italic text-[#1A1A1A] block mt-1">{orders.length}</span>
+                      <span className="text-lg sm:text-xl font-sans font-extrabold text-[#1A1A1A] block mt-1">{orders.length}</span>
                     </div>
                   </div>
 
