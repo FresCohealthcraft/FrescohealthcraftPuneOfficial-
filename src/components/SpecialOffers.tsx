@@ -10,12 +10,12 @@ interface SpecialOffersProps {
 const DYNAMIC_ITEM_COMBOS = [
     {
       id: "combo_detox_monday",
-      name: "Detox Duo Combo",
+      name: "ABC Wellness Combo",
       icon: "🌱",
-      subtitle: "Any Green Vitality Juice + Paneer Sprouts Bowl",
-      description: "A refreshing green juice paired with our protein-rich Paneer Sprouts Bowl to support natural detoxification, sustained energy, and daily wellness.",
-      originalPrice: 198,
-      price: 179,
+      subtitle: "ABC JUICE+ SPROUTS BOWL",
+      description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with our protein-rich Sprouts Bowl to provide natural energy, essential nutrients,and daily wellness support",
+      originalPrice: 178,
+      price: 161,
       category: "Detox & Wellness",
       tag: "BESTSELLER",
       rating: "4.9",
@@ -201,4 +201,3 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
     </section>
   );
 }
-
