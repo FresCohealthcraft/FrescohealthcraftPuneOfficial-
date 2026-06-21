@@ -72,15 +72,15 @@ export default function Logo({
           <span
             className={`font-serif italic leading-tight tracking-tight border-t block ${
               size === "sm"
-                ? "text-[9.5px] sm:text-[10.5px] mt-0.5 pt-0.5"
+                ? "text-[14.5px] sm:text-[10.5px] mt-0.5 pt-0.5"
                 : size === "lg"
                   ? "text-xs sm:text-sm mt-2 pt-2"
-                  : "text-[11px] sm:text-[12.5px] mt-1.5 pt-1.5"
+                  : "text-[12px] sm:text-[14.5px] mt-1.5 pt-1.5"
             } ${
               lightText ? "text-white/80 border-white/10" : "text-[#000000]/85 border-gray-100"
             }`}
           >
-            Crafting Wellness, Nurturing Life.
+            Crafting Wellness, Nurturing Life
           </span>
         )}
       </div>
