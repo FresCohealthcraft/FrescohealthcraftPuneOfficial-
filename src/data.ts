@@ -158,7 +158,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mango-Juice",
     name: "Mango Juice",
-    description: "Fresh mango that keeps you energized.",
+    description: "",
     price: 79,
     image: MangoJuiceImg,
     icon: "🥭",
@@ -169,7 +169,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Apple-Juice",
     name: "Apple Juice",
-    description: "Provides hydration and essential nutrients.",
+    description: "",
     price: 79,
     image: AppleJuiceImg,
     icon: " 🍎",
@@ -180,7 +180,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Orange-Juice",
     name: "Orange Juice",
-    description: "Helping support immunity and overall wellness.",
+    description: "",
     price: 79,
     image: OrangeJuiceImg,
     icon: "🍊",
@@ -190,7 +190,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Ganga-Juice",
     name: "Ganga Jamuna Juice",
-    description: "Mosambi + pineapple, packed with Vitamin C.",
+    description: "",
     price: 79,
     image: GangaJuiceImg,
     icon: "🍇",
@@ -200,7 +200,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Pomegranate-Juice",
     name: "Pomegranate Juice",
-    description: "Rich in antioxidants, helping support heart health and overall wellness.",
+    description: "",
     price: 149,
     image: PomegranateJuiceImg,
     icon: "石榴",
@@ -210,7 +210,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "papaya-Juice",
     name: "Papaya Juice",
-    description: "Rich in digestive enzymes and nutrients.",
+    description: "",
     price: 59,
     image: papayaJuiceImg,
     icon: "石榴",
@@ -220,7 +220,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Muskmelon-Juice",
     name: "Muskmelon Juice",
-    description: "Water-rich that supports hydration and wellness.",
+    description: "",
     price: 69,
     image: MuskmelonJuiceImg,
     icon: "石榴",
@@ -231,7 +231,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Nimbu-Pani-Juice",
     name: "Nimbu Pani Juice",
-    description: "Refreshing, and naturally rich in Vitamin C.",
+    description: "",
     price: 39,
     image: NimbuPaniJuiceImg,
     icon: "🍋",
@@ -244,7 +244,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Beetroot-Juice",
     name: "Beetroot Juice",
-    description: "Lower blood pressure, boost athletic stamina and liver health",
+    description: "",
     price: 69,
     image: BeetrootJuiceImg,
     icon: " Beetroot",
@@ -255,7 +255,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Cucumber-Juice",
     name: "Cucumber Juice",
-    description: "Light, refreshing, and naturally hydrating for everyday wellness.",
+    description: "Light, , and naturally hydrating for everyday wellness.",
     price: 69,
     image: CucumberJuiceImg,
     icon: "🥒",
@@ -266,7 +266,7 @@ export const MENU_ITEMS: MenuItem[] = [
  {
     id: "Tomato-Juice",
     name: "Tomato Juice",
-    description: "Boost heart health and support your immune system and skin",
+    description: "",
     price: 69,
     image: TomatoJuiceImg,
     icon: "🍅",
@@ -277,7 +277,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Karela-Juice",
     name: "Karela Juice",
-    description: "A nutrient-rich juice that helps support healthy blood sugar balance.",
+    description: "",
     price: 69,
     image: KarelaJuiceImg,
     icon: "🥒",
@@ -288,7 +288,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Carrot-Juice",
     name: "Carrot Juice",
-    description: "Loaded with Vitamin A to help support eye health and vitality.",
+    description: "",
     price: 69,
     image: CarrotJuiceImg,
     icon: " 🍐",
@@ -299,7 +299,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Palak-Juice",
     name: "Palak Juice",
-    description: "Loaded with vitamins and minerals for everyday wellness.",
+    description: " ",
     price: 69,
     image: PalakJuiceImg,
     icon: "🥬",
@@ -312,7 +312,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Lauki-Juice",
     name: "Lauki Juice",
-    description: "Naturally low in calories and packed with nutrients for everyday wellness.",
+    description: "Naturally low in calories and .",
     price: 69,
     image: LaukijuiceImg,
     icon: "🥒",
@@ -323,7 +323,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "Ash-Gourd-Juice",
     name: "Ash Gourd Juice",
-    description: "Aids digestion, supports weight loss, and flushes out toxins",
+    description: "",
     price: 69,
     image: AshGourdJuiceImg,
     icon: "🍈",
@@ -616,7 +616,7 @@ popular: true,
 
 {
   id: "Coconut-Caramel",
-  name: "Coconut Caramel",
+  name: "Coconut Caramel Frozen Banana",
   description: "Toasted coconut flakes with rich creamy caramel delight.",
   price: 69,
   image: CoconutCaramelImg,
@@ -627,7 +627,7 @@ popular: true,
 
 {
   id: "White-Sprinkle",
-  name: "White Sprinkle",
+  name: "White Sprinkle Frozen Banana",
   description: "Classic crunchy treat topped with smooth milky drizzle.",
   price: 79,
   image: WhiteSprinkleImg,  
@@ -638,7 +638,7 @@ popular: true,
 
 {
   id: "Peanut-Caramel",
-  name: "Peanut Caramel",
+  name: "Peanut Caramel Frozen Banana",
   description: "Roasted peanuts blended with delicious golden caramel flavor.",
   price: 89,
   image: PeanutCaramelImg,
@@ -649,7 +649,7 @@ popular: true,
 
 {
   id: "Oreo-White",
-  name: "Oreo White",
+  name: "Oreo White Frozen Banana",
   description: "Crunchy Oreo cookies topped with creamy white chocolate drizzle.",
   price: 99,
   image: OreoWhiteImg,
@@ -660,7 +660,7 @@ popular: true,
 
 {
   id: "Biscoff-Crunch",
-  name: "Biscoff Crunch",
+  name: "Biscoff Crunch Frozen Banana",
   description: "Loaded with Biscoff crumbles and rich Biscoff drizzle.",
   price: 119,
   image: BiscoffCrunchImg,
@@ -671,7 +671,7 @@ popular: true,
 
 {
   id: "Dubai-Kunafa-Pistachio",
-  name: "Dubai Kunafa Pistachio",
+  name: "Dubai Kunafa Pistachio Frozen Banana",
   description: "Crunchy kunafa layered with rich pistachio flavor and drizzle.",
   price: 149,
   image: DubaiKunafaPistachioImg,
@@ -781,3 +781,4 @@ export const SAMPLE_TESTIMONIALS = [
   }
 ];
 
+];
