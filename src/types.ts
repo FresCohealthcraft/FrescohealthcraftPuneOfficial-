@@ -7,6 +7,7 @@ export interface MenuItem {
   popular?: boolean;
   icon: string; // Emoji representing the fruit/drink
   image?: string; // Optional custom image URL
+  benefits?: string[]; // Pointwise benefits
 }
 
 export interface CartItem {
