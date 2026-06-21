@@ -4,6 +4,442 @@ import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, Plus, Leaf } from "lucide-react";
 
+// Helper to provide 3 distinct, beautiful point-wise benefits for any health item
+export function getItemBenefits(item: MenuItem): string[] {
+  if (item.benefits && item.benefits.length > 0) {
+    return item.benefits;
+  }
+
+  const name = item.name.toLowerCase();
+  
+  if (name.includes("watermelon")) {
+    return [
+      "Keeps You Hydrated",
+      "Supports Heart Health",
+      "Rich in Antioxidants"
+    ];
+  }
+  if (name.includes("mosambi")) {
+    return [
+      "Vitamin C immunity booster",
+      "Supporting digestion",
+      "Everyday energy."
+    ];
+  }
+  if (name.includes("pineapple")) {
+    return [
+      "Active digestive enzymes",
+      "Rich in bone-strengthening Manganese",
+      "Natural premium energy source"
+    ];
+  }
+  if (name.includes("mango")) {
+    return [
+      "Rich in Vitamin A for eye health",
+      "Energy boost packed with natural sweetness",
+      "Revitalizing freshness"
+    ];
+  }
+  if (name.includes("apple")) {
+    return [
+      "Natural antioxidants",
+      "Supporting energy",
+      "Immunity, and everyday wellness"
+    ];
+  }
+  if (name.includes("orange")) {
+    return [
+      "Supercharged clinical Vitamin C",
+      "Natural energy,",
+      "Immunity-boosting goodness"
+    ];
+  }
+  
+
+  if (name.includes("ganga jamuna juice")) {
+    return [
+      "Mosambi + pinapple, packed with vitamin c",
+      "Preserves living immune-bioenzymes",
+      "Naturally hydrating & sugar-crash free"  
+    ];
+  }
+if (name.includes("pomegranate")) {
+    return [
+      "Polyphenolic arterial support",
+      "Promotes fresh oxygenated blood",
+      "Combats general cellular fatiguing"
+    ];
+  }
+
+  if (name.includes("nimbu pani juice")) {
+    return [
+      "Detox drink that refreshes,",
+      "Restores natural energy instantlyd",
+      "keep hydrates"
+    ];
+  }
+
+   if (name.includes("muskmelon juice")) {
+    return [
+      "Polyphenolic arterial support",
+      "Promotes fresh oxygenated blood",
+      "Combats general cellular fatiguing"
+    ];
+  }
+
+  if (name.includes("papaya")) {
+    return [
+      "Active high-grade papain digestion",
+      "Fiber to clear abdominal heavy fat",
+      "Skin renewing vitamins & folate"
+    ];
+  }
+
+  if (name.includes("beetroot")) {
+    return [
+      "Lower blood pressure",
+      "Boost athletic stamina",
+      "Liver health"
+    ];
+  }
+  if (name.includes("cucumber")) {
+    return [
+      "Deep alkalizing system cooling",
+      "Natural hydration & skin repair",
+      "Silica for hair and nail integrity"
+    ];
+  }
+
+   if (name.includes("tomato juice")) {
+    return [
+      "Boost heart health",
+      "support your immune system and skin",
+      "Rich in antioxidants"
+    ];
+  }
+
+  if (name.includes("karela juice")) {
+    return [
+      "Supports healthy blood sugar",
+      "Boosts digestive health",
+      "Natural detox powerhouse"
+    ];
+  }
+
+  if (name.includes("carrot")) {
+    return [
+      "supporting eye health",
+      "Glowing skin, and natural vitality",
+      "Naturally rich in antioxidants"
+    ];
+  }
+
+  if (name.includes("palak juice")) {
+    return [
+      "Rich in iron",
+      "Antioxidants, and daily nourishment",
+      "Rich in antioxidants"
+    ];
+  }
+
+  if (name.includes("lauki juice")) {
+    return [
+      "Ntioxidants, and daily nourishment",
+      "Naturally low in calories",
+      "Nutrients for everyday wellness"
+    ];
+  }
+
+  if (name.includes("ash gourd juice")) {
+    return [
+      "Aids digestion",
+      "Supports weight loss",
+      "Flushes out toxins"
+    ];
+  }
+
+
+   if (name.includes("power packed cups")) {
+    return [
+      "Fuel Your Day Naturally",
+      "Power, Protein & Fresh Fruit",
+      "Protein & Fiber for Lasting Energy"
+    ];
+  }
+
+
+   if (name.includes("classic delight cup")) {
+    return [
+      "Fresh Fruit Goodness in Every Bite",
+      "Naturally Sweet & Nourishing",
+      "Rich in Vitamins & Fiber."
+    ];
+  }
+
+
+   if (name.includes("exotic delight cup")) {
+    return [
+      "Boost of Vitamins & Antioxidants",
+      "Rich in Antioxidants & Natural Goodness",
+      "Bursting with Tropical Freshness"
+    ];
+  }
+
+
+  if (name.includes("Super food sprouts bowl")) {
+    return [
+      "Plant Protein & Fiber",
+      "Protein-Rich Fuel for Daily Wellness",
+      "Nutrient-Dense Goodness in Every Bite"
+    ];
+  }
+  if (name.includes("Super food paneer sprouts bowl")) {
+    return [
+      "High Protein, High Satisfaction",
+      "Powerful Blend of Protein & Fiber",
+      "High Protein, High Satisfaction"
+    ];
+  }
+
+
+  if (name.includes("abc drink") ) {
+    return [
+      "Supports Natural Detox & Vitality",
+      "Antioxidant-Rich Daily Wellness Boost",
+      "Nourish, Cleanse & Revitalize Naturally"
+    ];
+  }
+
+  if (name.includes("immunity booster") ) {
+    return [
+      "Supports Natural Immune Defense",
+      "Strengthen Wellness, Naturally",
+      "Daily Immune Support & Vitality"
+    ];
+  }
+
+  if (name.includes("super women") ) {
+    return [
+      "Supports Energy, Vitality & Balance",
+      "Nourishment Designed for Women’s Wellness",
+      "Empowering Wellness in Every Sip"
+    ];
+  }
+
+  if (name.includes("detox body") ) {
+    return [
+      "Refresh, Cleanse & Rejuvenate Naturally",
+      "Supports Natural Cleansing & Hydration",
+      "Feel Lighter, Fresher & Revitalized"
+    ];
+  }
+
+   if (name.includes("stress relief") ) {
+    return [
+      "Promotes Calm & Relaxation Naturally",
+      "Sip Your Way to Serenity",
+      "Helps Ease Stress & Restore Balance"
+    ];
+  }
+
+   if (name.includes("iron rich") ) {
+    return [
+      "Supports Healthy Iron & Energy Levels",
+      "Rich in Iron for Strength & Stamina",
+      "Boost Energy, Naturally"
+    ];
+  }
+
+   if (name.includes("skin glow-up") ) {
+    return [
+      "Radiant Skin from Within",
+      "Glow Naturally, Every Day",
+      "Nourishes Healthy, Glowing Skin"
+    ];
+  }
+
+if (name.includes("liver cleanser") ) {
+    return [
+      "Refreshing Support for Everyday Wellness",
+      "Hydrate, Refresh & Rejuvenate Naturally",
+      "Clean, Green Boost for Vitality."
+    ];
+  }
+
+  if (name.includes("heart care") ) {
+    return [
+      "Supports Heart Health Naturally",
+      "Nourish Your Heart, Naturally",
+      "Heart-Friendly Nutrition in Every Sip"
+    ];
+  }
+
+  if (name.includes("fat burner") ) {
+    return [
+      "Supports an Active Lifestyle Naturally",
+      "Fuel for Your Fitness Journey",
+      "Boost Your Day with Natural Energy"
+    ];
+  }
+
+   if (name.includes("vital energy drink") ) {
+    return [
+      "Natural Energy for Your Day",
+      "Revitalize, Refresh & Recharge",
+      "Clean Energy in Every Sip"
+    ];
+  }
+
+   if (name.includes("gut reset") ) {
+    return [
+      "Happy Gut, Happy You",
+      "Supports Digestive Wellness Naturally",
+      "Refresh & Restore Digestive Balance"
+    ];
+  }
+
+  if (name.includes("clear vision") ) {
+    return [
+      "Supports Eye Health Naturally",
+      "Eye-Friendly Nutrition in Every Sip",
+      "See the Day with Clarity"
+    ];
+  }
+  if (name.includes("make your own (any 5)") ) {
+    return [
+      "Your Choice, Your Wellness",
+      "Crafted Fresh, Just for You",
+      "Personalized Nutrition in Every Sip"
+    ];
+  }
+
+ if (name.includes("banana shake") ) {
+    return [
+      "Potassium & Natural Energy",
+      "Rich in Potassium & Natural Energy",
+      "Fuel Your Day with Natural Goodness."
+    ];
+  }
+
+  if (name.includes("apple shake") ) {
+    return [
+      "Rich in Fiber & Natural Antioxidants",
+      "Fresh Energy from Real Apples",
+      "Refreshing Nutrition in Every Sip"
+    ];
+  }
+
+  if (name.includes("muskmelon shake") ) {
+    return [
+      "Hydrating Goodness with Every Sip",
+      "Naturally Refreshing & Nourishing",
+      "Rich in Vitamins & Hydration"
+    ];
+  }
+
+  if (name.includes("mango shake") ) {
+    return [
+      "Rich in Vitamins & Natural Energy",
+      "Naturally Sweet, Energizing & Nourishing",
+      "Packed with Antioxidants & Vitality"
+    ];
+  }
+
+   if (name.includes("oreo shake") ) {
+    return [
+      "Creamy Oreo Bliss in Every Sip",
+      "The Ultimate Cookies & Cream Delight",
+      "Rich, Creamy & Irresistibly Delicious"
+    ];
+  }
+
+   if (name.includes("energy boost shake") ) {
+    return [
+      "Natural Energy in Every Sip",
+      "Fuel Your Day with Lasting Vitality",
+      "Power Up Naturally"
+    ];
+  }
+
+   if (name.includes("coconut caramel frozen banana") ) {
+    return [
+      "Tropical Indulgence, Naturally Sweet",
+      "Real Fruit, Rich Flavor, Pure Enjoyment",
+      "Island-Inspired Sweetness in Every Bite."
+    ];
+  }
+
+   if (name.includes("white sprinkle frozen banana") ) {
+    return [
+      "Real Banana, Frozen Perfection",
+      "Refreshing Treat with Real Fruit Goodness",
+      "Refreshing Treat with Real Fruit Goodness"
+    ];
+  }
+
+   if (name.includes("peanut caramel frozen banana") ) {
+    return [
+      "Protein-Packed Indulgence",
+      "Nutty Protein Meets Natural Banana Goodness",
+      "Energy & Flavor in Every Bite"
+    ];
+  }
+
+   if (name.includes("oreo white frozen banana") ) {
+    return [
+      "Creamy Banana Meets Cookie Crunch",
+      "White Chocolate Bliss with Every Bite",
+      "Frozen Banana Goodness, Elevated"
+    ];
+  }
+
+   if (name.includes("biscoff crunch frozen banana") ) {
+    return [
+      "Real Banana, Irresistible Crunch",
+      "Creamy Banana Meets Biscoff Bliss",
+      "Crunchy, Creamy & Delightfully Indulgent"
+    ];
+  }
+
+   if (name.includes("dubai kunafa pistachio frozen banana") ) {
+    return [
+      "Kunafa Meets Creamy Pistachio Bliss",
+      "Luxurious Blend of Crunch & Creaminess",
+      "Inspired by Dubai, Crafted for Indulgence"
+    ];
+  }
+
+   if (name.includes("apple chocofrost candy") ) {
+    return [
+      "Fresh Apple, Chocolate Delight",
+      "Fruit Meets Premium Chocolate",
+      "Blend of Fruit & Indulgence"
+    ];
+  }
+
+   if (name.includes("grapes chocofrost candy") ) {
+    return [
+      "Juicy Grapes, Chocolate Bliss",
+      "Real Fruit, Premium Chocolate",
+      "Bursting with Fruity Goodness"
+    ];
+  }
+
+   if (name.includes("mango chocofrost candy") ) {
+    return [
+      "Tropical Mango, Chocolate Bliss",
+      "Sweet Mango Meets Rich Chocolate",
+      "Perfect Fusion of Fruit & Chocolate"
+    ];
+  }
+
+  return [
+    "No chemical additives or flavorings",
+    "Hand-pressed fresh daily on order",
+    "Native bio-available vitamins & ions"
+  ];
+}
+
 interface MenuProps {
   onAddToCartDirectly: (item: MenuItem) => void;
   searchTerm: string;
@@ -17,7 +453,7 @@ const CATEGORIES = [
   { name: "SUPER FOOD SPROUTS BOWLS", emoji: "🌱", value: "Super Food Sprouts Bowls" },
   { name: "FRESCO POWER JUICES", emoji: "🥤", value: "Fresco Power Juices" },
   { name: "SHAKES", emoji: "🥤", value: "Shakes" },
-  { name: "Choco Signature", emoji: "🌟", value: "Specials" }
+  { name: "Choco Frozen Signature", emoji: "🌟", value: "Specials" }
 ];
 
 export default function MenuGrid({ 
@@ -251,9 +687,22 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
                   <h3 className="text-xs xs:text-sm sm:text-[15px] font-extrabold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 leading-snug">
                     {item.name}
                   </h3>
-                  <p className="mt-1 text-[9.5px] xs:text-[10.5px] sm:text-[11.5px] text-[#1A1A1A]/60 leading-normal select-none">
+                  <p className="mt-1 mb-1 text-[9.5px] xs:text-[10.5px] sm:text-[11.5px] text-[#1A1A1A]/60 leading-normal select-none font-medium">
                     {item.description}
                   </p>
+
+                  {/* Dynamic Point-wise Benefits */}
+                  <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-0.5 select-none">
+                    <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-widest uppercase text-[#38A325] block mb-0.5">
+                      Key Benefits:
+                    </span>
+                    {Array.from(new Set(getItemBenefits(item))).map((benefit, i) => (
+                      <div key={i} className="flex items-start gap-1 pb-0.5 text-[8.5px] xs:text-[9.5px] sm:text-[10px] leading-tight text-[#1A1A1A]/70 font-medium">
+                        <span className="text-[#38A325] shrink-0 font-black text-[9px] sm:text-[10px] mr-0.5">✓</span>
+                        <span className="tracking-tight">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
  
                 {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
