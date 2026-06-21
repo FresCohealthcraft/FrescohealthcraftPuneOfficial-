@@ -9,6 +9,7 @@ interface SubscriptionSectionProps {
 }
 
 const JUICE_OPTIONS = [
+  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Extra juice, no snack" },
   { id: "opt_detox", name:"Detox Body Juice", price: 85, icon: "🌱", desc: "Organic celery, spinach, bitter gourd cleanse" },
   { id: "opt_immunity", name: "Immunity Booster", price: 90, icon: "🛡️", desc: "Fresh citrus, ginger, turmeric & Amla" },
   { id: "opt_watermelon", name: "Watermelon Juice", price: 60, icon: "🍉", desc: "Hydrating, sweet and high in natural electrolytes" },
@@ -19,7 +20,7 @@ const JUICE_OPTIONS = [
 ];
 
 const SNACK_OPTIONS = [
-  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Omit the side snack and receive double juice portion size" },
+  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Extra juice, no snack" },
   { id: "snack_sprouts_orig", name: "SuperFood Sprouts Bowl", price: 80, icon: "🌱", desc: "Sprouted organic legumes & seeds, high fiber breakfast" },
   { id: "snack_paneer_sprouts", name: "Paneer Sprouts Bowl", price: 110, icon: "🧀", desc: "Raw organic sprouts topped with protein-rich paneer cubes" },
   { id: "snack_fruit_cup", name: "Classic Fruit Platter", price: 90, icon: "🍎", desc: "Assorted hand-sliced sweet organic seasonal fruits bowl" },
@@ -1791,14 +1792,14 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       <span className="text-[8.5px] font-bold text-[#38A325] bg-[#38A325]/15 px-2 py-0.5 rounded-full inline-block uppercase tracking-wider leading-none">
                         Custom Bill Summary
                       </span>
-                      <h4 className="text-xs font-serif italic mt-1 text-white font-semibold flex items-center gap-1.5">
+                      <h4 className="text-xs font-sans font-extrabold mt-1 text-white tracking-wide uppercase flex items-center gap-1.5">
                         <span>{customCycleType === "monthly" ? "👑 24-Day Sub" : "✨ 6-Day Combo"}</span>
                       </h4>
                     </div>
 
                     {/* Day-by-Day Selected Matches */}
-                    <div className="space-y-1.5 bg-white/5 p-2 rounded-xl border border-white/5 max-h-56 overflow-y-auto scrollbar-none">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-1 text-[8px] font-bold uppercase tracking-wider text-gray-400">
+                    <div className="space-y-1 bg-white/5 p-2 rounded-xl border border-white/5 max-h-56 overflow-y-auto scrollbar-none">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-1.5 px-0.5 text-[8px] font-bold uppercase tracking-wider text-gray-400">
                         <span>Daily Blueprint</span>
                         <span className="text-emerald-400">Setup Active</span>
                       </div>
@@ -1825,15 +1826,29 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                               .replace(" Power", "");
 
                         return (
-                          <div key={dayId} className="flex items-center justify-between text-[9px] py-0.5 last:border-b-0 border-b border-white/5 hover:bg-white/5 px-1 rounded transition-colors">
-                            <span className="text-gray-300 font-semibold flex items-center gap-1">
-                              <span>{day.icon}</span>
-                              <span>{day.label.slice(0, 3)}</span>
+                          <div 
+                            key={dayId} 
+                            className="grid grid-cols-[58px_1fr_12px_1fr] items-center gap-1.5 text-[9px] py-1.5 last:border-b-0 border-b border-white/5 hover:bg-white/5 px-1 rounded transition-colors"
+                          >
+                            {/* Day Column */}
+                            <span className="text-gray-300 font-bold flex items-center space-x-1 min-w-0">
+                              <span className="text-[10px] shrink-0 select-none">{day.icon}</span>
+                              <span className="uppercase text-gray-400 text-[8.5px] tracking-wide font-sans">{day.label.slice(0, 3)}</span>
                             </span>
-                            <span className="text-gray-200 flex items-center gap-1 truncate max-w-[155px] font-mono justify-end">
-                              <span className="truncate text-gray-100" title={juice.name}>{juice.icon} {cleanJuiceName}</span>
-                              <span className="text-gray-500 text-[8px]">+</span>
-                              <span className="truncate text-gray-400" title={snack.name}>{snack.icon} {cleanSnackName}</span>
+
+                            {/* Juice Column */}
+                            <span className="truncate text-gray-100 font-medium flex items-center space-x-1 min-w-0" title={juice.name}>
+                              <span className="text-[10px] shrink-0 select-none">{juice.icon}</span>
+                              <span className="truncate">{cleanJuiceName}</span>
+                            </span>
+
+                            {/* Connector Column */}
+                            <span className="text-gray-500 text-[8px] font-bold text-center select-none">+</span>
+
+                            {/* Snack Column */}
+                            <span className="truncate text-gray-400 font-medium flex items-center space-x-1 min-w-0" title={snack.name}>
+                              <span className="text-[10px] shrink-0 select-none">{snack.icon}</span>
+                              <span className="truncate">{cleanSnackName}</span>
                             </span>
                           </div>
                         );

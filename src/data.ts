@@ -125,7 +125,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "Watermelon-Juice",
     name: "Watermelon Juice",
-    description: "Fresh watermelon blended into a naturally sweet juice.",
+    description: "",
     price: 59,
     image: watermelonJuiceImg,
     icon: "🍉",
@@ -136,7 +136,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mosambi-Juice",
     name: "Mosambi Juice",
-    description: "Rich in Vitamin C, naturally refreshing and immunity.",
+    description: "",
     price: 69,
     image: MosambiJuiceImg,
     icon: "🍊",
@@ -147,7 +147,7 @@ export const MENU_ITEMS: MenuItem[] = [
 {
     id: "Pineapple-Juice",
     name: "Pineapple Juice",
-    description: "Sweet, refreshing, and naturally rich in Vitamin C.",
+    description: "",
     price: 69,
     image: pineappleJuiceImg,
     icon: "🍍",
