@@ -9,22 +9,28 @@ interface SubscriptionSectionProps {
 }
 
 const JUICE_OPTIONS = [
-  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Extra juice, no snack" },
   { id: "opt_detox", name:"Detox Body Juice", price: 85, icon: "🌱", desc: "Organic celery, spinach, bitter gourd cleanse" },
   { id: "opt_immunity", name: "Immunity Booster", price: 90, icon: "🛡️", desc: "Fresh citrus, ginger, turmeric & Amla" },
   { id: "opt_watermelon", name: "Watermelon Juice", price: 60, icon: "🍉", desc: "Hydrating, sweet and high in natural electrolytes" },
   { id: "opt_orange", name: "Orange Valencia", price: 75, icon: "🍊", desc: "Fresh sweet valencia orange with rich Vitamin C" },
   { id: "opt_abc", name: "ABC Vitality Juice", price: 90, icon: "🥤", desc: "Apple, Beetroot, Carrot detoxifier & recovery booster" },
   { id: "opt_pineapple", name: "Pineapple Juice", price: 70, icon: "🍍", desc: "Bromelain-rich tropical refreshing juice" },
-  { id: "opt_mosambi", name: "Mosambi Cleanse", price: 70, icon: "🍊", desc: "Sweet Lime natural press rich in anti-oxidants" }
+  { id: "opt_mosambi", name: "Mosambi Cleanse", price: 70, icon: "🍊", desc: "Sweet Lime natural press rich in anti-oxidants" },
+  { id: "opt_beet_pom", name: "Beetroot Pomegranate Elixir", price: 95, icon: "🍷", desc: "Superfood nitrates booster with pomegranate, red apple & lime" },
+  { id: "opt_coconut_mint", name: "Coconut Mint Cooler", price: 65, icon: "🥥", desc: "Pure tender coconut water infused with fresh mint leaves and chia" },
+  { id: "opt_avocado_green", name: "Avocado Cream Smoothie", price: 110, icon: "🥑", desc: "Rich avocado blend with spinach, sweet basil, honey and soy milk" },
+  { id: "opt_ginger_shot", name: "Spicy Ginger Turmeric Shot", price: 50, icon: "🔥", desc: "Concentrated ginger, fresh lemon juice, turmeric & honey kick" }
 ];
 
 const SNACK_OPTIONS = [
-  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Extra juice, no snack" },
+  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Omit the side snack and receive double juice portion size" },
   { id: "snack_sprouts_orig", name: "SuperFood Sprouts Bowl", price: 80, icon: "🌱", desc: "Sprouted organic legumes & seeds, high fiber breakfast" },
   { id: "snack_paneer_sprouts", name: "Paneer Sprouts Bowl", price: 110, icon: "🧀", desc: "Raw organic sprouts topped with protein-rich paneer cubes" },
   { id: "snack_fruit_cup", name: "Classic Fruit Platter", price: 90, icon: "🍎", desc: "Assorted hand-sliced sweet organic seasonal fruits bowl" },
-  { id: "snack_protein_power", name: "Protein Power Cup", price: 100, icon: "🥜", desc: "Almonds, pumpkin seeds, dates and roasted chickpea crunch" }
+  { id: "snack_protein_power", name: "Protein Power Cup", price: 100, icon: "🥜", desc: "Almonds, pumpkin seeds, dates and roasted chickpea crunch" },
+  { id: "snack_chia_pudding", name: "Peanut Butter Chia Pudding", price: 120, icon: "🍨", desc: "Creamy almond milk chia pudding with natural peanut butter and banana" },
+  { id: "snack_energy_balls", name: "Dates & Nut Protein Truffles", price: 95, icon: "🍘", desc: "Premium energy balls made of delicious dates, cashews and cocoa" },
+  { id: "snack_oats_berry", name: "Overnight Berry Oats Bowl", price: 110, icon: "🥣", desc: "Rolled oats soaked in coconut milk topped with delicious mixed berry compote" }
 ];
 
 export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCartDirectly }: SubscriptionSectionProps) {
@@ -64,22 +70,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         if (parsed && typeof parsed === "object") return parsed;
       } catch (e) {}
     }
-    // Default standard cycle is active, but requires custom delivery registration!
-    return {
-      id: "sub_weekly_nutrient",
-      name: "Standard 6-day nutrient cycle",
-      type: "weekly",
-      price: 1018,
-      startDate: "2026-06-12",
-      renewalDate: "2026-06-19",
-      deliveriesCompleted: 0,
-      totalDeliveries: 6,
-      status: "active",
-      customerName: "",
-      customerPhone: "",
-      customerLocation: "",
-      customerAddress: ""
-    };
+    // By default, no subscription is selected, letting the user choose one
+    return null;
   });
 
   const updateActivePlan = (newPlan: any) => {
@@ -311,7 +303,6 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }
   ];
 
-
   const fruitJuicePlans: WeeklyCyclePlanItem[] = [
      {
       id: "sub_fj_monday",
@@ -324,7 +315,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     },
 
     {
-      id: "sub_fj_wednesday",
+      id: "sub_fj_tuesday",
       name: "Pineapple Tuesday",
       icon: "🍍",
       subtitle: "Bromelain-Rich Refreshing Pineapple Juice",
@@ -333,7 +324,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       accentColor: "#eab308"
     },
     {
-      id: "sub_fj_thursday",
+      id: "sub_fj_wednesday",
       name: "Mosambi Wednesday",
       icon: "🥤",
       subtitle: "Sweet Lime Natural Immunity Extract",
@@ -342,7 +333,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       accentColor: "#10b981"
     },
     {
-      id: "sub_fj_friday",
+      id: "sub_fj_thursday",
       name: "Apple thursday",
       icon: "🍎",
       subtitle: "Provides hydration and essential nutrients.",
@@ -351,7 +342,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       accentColor: "#f43f5e"
     },
     {
-      id: "sub_fj_saturday",
+      id: "sub_fj_friday",
       name: "Papaya Friday",
       icon: "🥤",
       subtitle: "Rich in digestive enzymes and nutrients.",
@@ -368,7 +359,6 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
       accentColor: "#8b5cf6"
     }
-
   ];
 
   const fatBurnPlans: WeeklyCyclePlanItem[] = [
@@ -1452,18 +1442,6 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                             <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
                               {plan.subtitle}
                             </p>
-                          </div>
-
-                          {/* Combo Pricing info */}
-                          <div className="flex items-baseline space-x-1.5 font-mono text-right shrink-0">
-                            <span className="text-[10px] sm:text-[11.5px] text-[#38A325] font-black">
-                              ₹{plan.price}
-                            </span>
-                            {plan.originalPrice && (
-                              <span className="hidden sm:inline text-[9px] text-gray-400 line-through">
-                                ₹{plan.originalPrice}
-                              </span>
-                            )}
                           </div>
                         </div>
                       );
