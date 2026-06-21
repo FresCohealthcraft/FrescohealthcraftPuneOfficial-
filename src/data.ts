@@ -781,4 +781,3 @@ export const SAMPLE_TESTIMONIALS = [
   }
 ];
 
-];
