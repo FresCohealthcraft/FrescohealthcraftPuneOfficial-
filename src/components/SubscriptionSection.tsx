@@ -1993,3 +1993,4 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     </section>
   );
 }
+
