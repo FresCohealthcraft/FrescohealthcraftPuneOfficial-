@@ -133,23 +133,21 @@ export default function AdminPortal({
   };
 
   const handleCancelSubscription = (id: string) => {
-    if (confirm("Are you sure you want to terminate this customer's active subscription in Pune?")) {
-      const updated = subscriptions.filter((s) => s.id !== id);
-      setSubscriptions(updated);
-      localStorage.setItem("fresco_subscriptions", JSON.stringify(updated));
+    const updated = subscriptions.filter((s) => s.id !== id);
+    setSubscriptions(updated);
+    localStorage.setItem("fresco_subscriptions", JSON.stringify(updated));
 
-      // Clear client visual tracker if matching
-      const clientSubStr = localStorage.getItem("fresco_active_sub_v2");
-      if (clientSubStr) {
-        try {
-          const clientSub = JSON.parse(clientSubStr);
-          if (clientSub.id === id) {
-            localStorage.removeItem("fresco_active_sub_v2");
-          }
-        } catch (e) {}
-      }
-      window.dispatchEvent(new Event("storage"));
+    // Clear client visual tracker if matching
+    const clientSubStr = localStorage.getItem("fresco_active_sub_v2");
+    if (clientSubStr) {
+      try {
+        const clientSub = JSON.parse(clientSubStr);
+        if (clientSub.id === id) {
+          localStorage.removeItem("fresco_active_sub_v2");
+        }
+      } catch (e) {}
     }
+    window.dispatchEvent(new Event("storage"));
   };
 
   const getSubscriptionItemForDay = (planId: string, dayIndex: number) => {
@@ -201,10 +199,8 @@ export default function AdminPortal({
   };
 
   const handleClearOrders = () => {
-    if (confirm("Are you sure you want to clear all local order checkout histories?")) {
-      localStorage.removeItem("fresco_orders");
-      setOrders([]);
-    }
+    localStorage.removeItem("fresco_orders");
+    setOrders([]);
   };
 
   // Compute top ordered items by quantity
