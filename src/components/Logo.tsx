@@ -16,19 +16,19 @@ export default function Logo({
   showTagline = true,
   lightText = false,
 }: LogoProps) {
-  // Dimensions for a perfect circle frame depending on size parameter
-  let sizeClasses = "w-24 h-24 sm:w-28 sm:h-28";
+  // Dimensions for a perfect rectangular frame depending on size parameter
+  let sizeClasses = "w-48 h-20 sm:w-56 sm:h-24 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.04)]";
   let titleClasses = "text-2xl sm:text-3xl";
   let subtitleClasses = "text-xs sm:text-sm tracking-[0.22em]";
   let gapClass = "space-x-4";
 
   if (size === "sm") {
-    sizeClasses = "w-12 h-12 sm:w-14 sm:h-14";
+    sizeClasses = "w-32 h-14 sm:w-36 sm:h-16 rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.03)]";
     titleClasses = "text-lg sm:text-xl";
     subtitleClasses = "text-[8.5px] sm:text-[9.5px] tracking-[0.16em]";
     gapClass = "space-x-2.5";
   } else if (size === "lg") {
-    sizeClasses = "w-40 h-40 sm:w-48 sm:h-48";
+    sizeClasses = "w-64 h-28 sm:w-72 sm:h-32 rounded-3xl shadow-[0_6px_24px_rgba(0,0,0,0.05)]";
     titleClasses = "text-4xl sm:text-5xl";
     subtitleClasses = "text-sm sm:text-base tracking-[0.26em]";
     gapClass = "space-x-6";
@@ -39,51 +39,18 @@ export default function Logo({
       id="fresco-logo" 
       className={`inline-flex items-center justify-center transition-all duration-300 transform hover:scale-[1.01] select-none ${gapClass} ${className}`}
     >
-      {/* Perfect circle image frame with clean white background and slightly reduced padding so the logo fills the space more */}
-      <div className={`${sizeClasses} flex-shrink-0 rounded-full overflow-hidden  shadow-xs bg-white p-[0%] flex items-center justify-center`}>
+      {/* Rectangular image frame with clean white background, border, and generous space so the logo highlights beautifully */}
+      <div className={`${sizeClasses} flex-shrink-0 overflow-hidden bg-white border border-gray-100 p-0 hover:border-gray-200 transition-colors flex items-center justify-center`}>
         <img
           src={frescoLogo}
           alt="FresCo Logo Icon"
-          className="w-full h-full object-contain"
+          className="w-full  l-full r-full  h-full object-contain"
           referrerPolicy="no-referrer"
         />
       </div>
 
       {/* Side Text columns */}
-      <div className="flex flex-col text-left justify-center">
-        <div className={`font-sans font-black tracking-tight leading-none ${titleClasses}`}>
-          <span className={`font-sans font-extrabold ${lightText ? "text-[#9BD54E]" : "text-[#418420]"}`}>
-            Fres
-          </span>
-          <span className={`font-sans font-black italic tracking-wide ml-0.5 ${lightText ? "text-[#F58220]" : "text-[#F26419]"}`}>
-            Co
-          </span>
-        </div>
-
-       <span
-          className={`font-sans font-extrabold uppercase mt-1 leading-none ${subtitleClasses} ${
-            lightText ? "text-white/90" : "text-[#334D1C]"
-          }`}
-        >
-          HEALTHCRAFT
-        </span>
-
-        {showTagline && (
-          <span
-            className={`font-serif italic leading-tight tracking-tight border-t block ${
-              size === "sm"
-                ? "text-[14.5px] sm:text-[10.5px] mt-0.5 pt-0.5"
-                : size === "lg"
-                  ? "text-xs sm:text-sm mt-2 pt-2"
-                  : "text-[12px] sm:text-[14.5px] mt-1.5 pt-1.5"
-            } ${
-              lightText ? "text-white/80 border-white/10" : "text-[#000000]/85 border-gray-100"
-            }`}
-          >
-            Crafting Wellness, Nurturing Life
-          </span>
-        )}
-      </div>
+    
     </div>
   );
 }
