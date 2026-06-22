@@ -448,12 +448,12 @@ interface MenuProps {
 
 const CATEGORIES = [
   { name: "FRUIT JUICES", emoji: "🍊", value: "Fruit Juices" },
-  { name: "GREEN VITALITY JUICE", emoji: "🥤", value: "Green Vitality Juice" },
-  { name: "POWER CUPS", emoji: "🥤", value: "Power Cups" },
+  { name: "GREEN VITALITY JUICE", emoji: "🥬", value: "Green Vitality Juice" },
+  { name: "POWER CUPS", emoji: "🍓", value: "Power Cups" },
   { name: "SUPER FOOD SPROUTS BOWLS", emoji: "🌱", value: "Super Food Sprouts Bowls" },
-  { name: "FRESCO POWER JUICES", emoji: "🥤", value: "Fresco Power Juices" },
+  { name: "FRESCO POWER JUICES", emoji: "⚡", value: "Fresco Power Juices" },
   { name: "SHAKES", emoji: "🥤", value: "Shakes" },
-  { name: "Choco Frozen Signature", emoji: "🌟", value: "Specials" }
+  { name: "Choco Frozen Signature", emoji: "🍫", value: "Specials" }
 ];
 
 export default function MenuGrid({ 
@@ -582,7 +582,7 @@ export default function MenuGrid({
             </h3>
             
             <p className="mt-2 text-[11px] sm:text-xs text-[#1A1A1A]/60 max-w-md leading-relaxed">
-Every item is thoughtfully prepared using premium natural ingredients to deliver freshness, flavor, and balanced nutrition in every sip and bite.
+            Every item is thoughtfully prepared using premium natural ingredients to deliver freshness, flavor, and balanced nutrition in every sip and bite.
             </p>
 
             {/* Inner categories rectangular buttons matching the inner grid in standard mockup */}
@@ -755,4 +755,3 @@ Every item is thoughtfully prepared using premium natural ingredients to deliver
     </section>
   );
 }
-
