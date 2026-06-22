@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MenuItem, CartItem } from "../types";
-import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check } from "lucide-react";
+import { MENU_ITEMS } from "../data";
+import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check, MessageSquare } from "lucide-react";
 
 interface SubscriptionSectionProps {
   onAddToCartDirectly: (item: MenuItem) => void;
   onAddBulkToCartDirectly: (items: MenuItem[]) => void;
 }
 
-const JUICE_OPTIONS = [
-  { id: "opt_detox", name:"Detox Body Juice", price: 85, icon: "🌱", desc: "Organic celery, spinach, bitter gourd cleanse" },
-  { id: "opt_immunity", name: "Immunity Booster", price: 90, icon: "🛡️", desc: "Fresh citrus, ginger, turmeric & Amla" },
-  { id: "opt_watermelon", name: "Watermelon Juice", price: 60, icon: "🍉", desc: "Hydrating, sweet and high in natural electrolytes" },
-  { id: "opt_orange", name: "Orange Valencia", price: 75, icon: "🍊", desc: "Fresh sweet valencia orange with rich Vitamin C" },
-  { id: "opt_abc", name: "ABC Vitality Juice", price: 90, icon: "🥤", desc: "Apple, Beetroot, Carrot detoxifier & recovery booster" },
-  { id: "opt_pineapple", name: "Pineapple Juice", price: 70, icon: "🍍", desc: "Bromelain-rich tropical refreshing juice" },
-  { id: "opt_mosambi", name: "Mosambi Cleanse", price: 70, icon: "🍊", desc: "Sweet Lime natural press rich in anti-oxidants" },
-  { id: "opt_beet_pom", name: "Beetroot Pomegranate Elixir", price: 95, icon: "🍷", desc: "Superfood nitrates booster with pomegranate, red apple & lime" },
-  { id: "opt_coconut_mint", name: "Coconut Mint Cooler", price: 65, icon: "🥥", desc: "Pure tender coconut water infused with fresh mint leaves and chia" },
-  { id: "opt_avocado_green", name: "Avocado Cream Smoothie", price: 110, icon: "🥑", desc: "Rich avocado blend with spinach, sweet basil, honey and soy milk" },
-  { id: "opt_ginger_shot", name: "Spicy Ginger Turmeric Shot", price: 50, icon: "🔥", desc: "Concentrated ginger, fresh lemon juice, turmeric & honey kick" }
-];
+const JUICE_OPTIONS = MENU_ITEMS.filter(item =>
+  ["Fruit Juices", "Green Vitality Juice", "Fresco Power Juices", "Shakes"].includes(item.category)
+).map(item => ({
+  id: item.id,
+  name: item.name,
+  price: item.price,
+  icon: item.icon || "🥤",
+  desc: item.description
+}));
 
-const SNACK_OPTIONS = [
-  { id: "snack_none", name: "No Snack (Juice Only)", price: 0, icon: "❌", desc: "Omit the side snack and receive double juice portion size" },
-  { id: "snack_sprouts_orig", name: "SuperFood Sprouts Bowl", price: 80, icon: "🌱", desc: "Sprouted organic legumes & seeds, high fiber breakfast" },
-  { id: "snack_paneer_sprouts", name: "Paneer Sprouts Bowl", price: 110, icon: "🧀", desc: "Raw organic sprouts topped with protein-rich paneer cubes" },
-  { id: "snack_fruit_cup", name: "Classic Fruit Platter", price: 90, icon: "🍎", desc: "Assorted hand-sliced sweet organic seasonal fruits bowl" },
-  { id: "snack_protein_power", name: "Protein Power Cup", price: 100, icon: "🥜", desc: "Almonds, pumpkin seeds, dates and roasted chickpea crunch" },
-  { id: "snack_chia_pudding", name: "Peanut Butter Chia Pudding", price: 120, icon: "🍨", desc: "Creamy almond milk chia pudding with natural peanut butter and banana" },
-  { id: "snack_energy_balls", name: "Dates & Nut Protein Truffles", price: 95, icon: "🍘", desc: "Premium energy balls made of delicious dates, cashews and cocoa" },
-  { id: "snack_oats_berry", name: "Overnight Berry Oats Bowl", price: 110, icon: "🥣", desc: "Rolled oats soaked in coconut milk topped with delicious mixed berry compote" }
-];
+const SNACK_OPTIONS = MENU_ITEMS.filter(item =>
+    ["Power Cups", "Super Food Sprouts Bowls", "Specials"].includes(item.category)
+  ).map(item => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    icon: item.icon || "🥗",
+    desc: item.description
+  }));
 
 export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCartDirectly }: SubscriptionSectionProps) {
   const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "custom">("weekly");
@@ -46,6 +42,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     address: ""
   });
   const [pendingPlan, setPendingPlan] = useState<any>(null);
+  const [showTerminateConfirm, setShowTerminateConfirm] = useState(false);
 
   // Dynamic user subscription tracker (Weekly or Monthly) for real-time customer website interaction till new renewal
   const [activePlan, setActivePlan] = useState<{
@@ -166,28 +163,31 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     // Show custom success screen with plan name
     setShowSubscriptionSuccess(cleanPlan.name);
 
-    if (isWhatsApp) {
-      setTimeout(() => {
-        const textWithUser = `${whatsappText || customWhatsAppTemplate || ""}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}`;
-        const encodedText = encodeURIComponent(textWithUser);
-        window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
-        setShowSubscriptionSuccess(null);
-      }, 1200);
-    } else {
-      setTimeout(() => {
-        setShowSubscriptionSuccess(null);
-      }, 3000);
-    }
+    setTimeout(() => {
+      let coreMessage = "";
+      if (customWhatsAppTemplate) {
+        coreMessage = customWhatsAppTemplate;
+      } else if (whatsappText) {
+        coreMessage = whatsappText;
+      } else {
+        coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo Pune. Please activate my cycle dispatch immediately!`;
+      }
+
+      const textWithUser = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
+      const encodedText = encodeURIComponent(textWithUser);
+      window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
+      setShowSubscriptionSuccess(null);
+    }, 1200);
   };
 
-  // Selected daily customization options for Monday to Saturday
-  const [customDays, setCustomDays] = useState<Record<string, { juiceId: string; snackId: string }>>({
-    sub_monday: { juiceId: "opt_detox", snackId: "snack_sprouts_orig" },
-    sub_tuesday: { juiceId: "opt_immunity", snackId: "snack_fruit_cup" },
-    sub_wednesday: { juiceId: "opt_watermelon", snackId: "snack_paneer_sprouts" },
-    sub_thursday: { juiceId: "opt_orange", snackId: "snack_protein_power" },
-    sub_friday: { juiceId: "opt_abc", snackId: "snack_paneer_sprouts" },
-    sub_saturday: { juiceId: "opt_pineapple", snackId: "snack_sprouts_orig" },
+  // Selected daily customization options for Monday to Saturday (allowing multiple selection)
+  const [customDays, setCustomDays] = useState<Record<string, { juiceIds: string[]; snackIds: string[] }>>({
+    sub_monday: { juiceIds: [], snackIds: [] },
+    sub_tuesday: { juiceIds: [], snackIds: [] },
+    sub_wednesday: { juiceIds: [], snackIds: [] },
+    sub_thursday: { juiceIds: [], snackIds: [] },
+    sub_friday: { juiceIds: [], snackIds: [] },
+    sub_saturday: { juiceIds: [], snackIds: [] },
   });
 
   const [customCycleType, setCustomCycleType] = useState<"weekly" | "monthly">("weekly");
@@ -199,7 +199,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     sub_wednesday: { label: "Wednesday", icon: "⚡", title: "Energy Day" },
     sub_thursday: { label: "Thursday", icon: "✨", title: "Glow Day" },
     sub_friday: { label: "Friday", icon: "💪", title: "Fitness Day" },
-    sub_saturday: { label: "Saturday", icon: "🍉", title: "Refresh Day" },
+    sub_saturday: { label: "Saturday", icon: "💧", title: "Refresh Day" },
   };
 
   interface WeeklyCyclePlanItem {
@@ -294,7 +294,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_saturday",
       name: "Refresh Saturday",
-      icon: "🍉",
+      icon: "💧",
       subtitle: "ABC Drink + Energy Boost Shake",
       tags: ["Weekend Prep", "Hydration"],
       price: 238,
@@ -326,7 +326,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fj_wednesday",
       name: "Mosambi Wednesday",
-      icon: "🥤",
+      icon: "🍈 ",
       subtitle: "Sweet Lime Natural Immunity Extract",
       price: 69,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
@@ -344,7 +344,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fj_friday",
       name: "Papaya Friday",
-      icon: "🥤",
+      icon: "🍑",
       subtitle: "Rich in digestive enzymes and nutrients.",
       price: 69,
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
@@ -353,7 +353,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
      {
       id: "sub_fj_saturday",
       name: "Pomegranate Saturday",
-      icon: "🥤",
+      icon: "🍷",
       subtitle: "Rich in antioxidants, helping support heart health and overall wellness.",
       price: 149,
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
@@ -374,7 +374,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fb_tuesday",
       name: "Detox Tuesday",
-      icon: "🍍",
+      icon: "🌿",
       subtitle: "Detox Body Juice + Sprout Bowl",
       price: 178,
       bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
@@ -392,7 +392,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fb_thursday",
       name: "Fat Burn Thursday",
-      icon: "🍊",
+      icon: "🔥",
       subtitle: "Fat Burner Juice + Sprout Bowl",
       price: 178,
       bgColor: "bg-orange-500/5 hover:bg-orange-500/10 border-orange-500/10 hover:border-orange-500/30 text-orange-800",
@@ -401,7 +401,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fb_friday",
       name: "Detox Friday",
-      icon: "🍎",
+      icon: "🍃",
       subtitle: "Detox Body Juice + Paneer Sprout Bowl",
       price: 198,
       bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
@@ -410,7 +410,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fb_saturday",
       name: "ABC Booster Saturday",
-      icon: "💪",
+      icon: "❤️",
       subtitle: "ABC Juice + Power Packed Cup",
       price: 218,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
@@ -419,7 +419,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "sub_fb_sunday",
       name: "Gut Reset Sunday",
-      icon: "💪",
+      icon: "🌱",
       subtitle: "Gut Reset Juice + Paneer Sprout Bowl",
       price: 198,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
@@ -431,7 +431,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "month_green_taster",
       name: "Daily Fresh Wellness Plan",
-      icon: "🥝",
+      icon: "🌿",
        subtitle: "30 Days of Fresh Nutrition",
        deliveries: "30 deliveries / month (Free Delivery)",
       savings: "Save ₹518 off standard menu",
@@ -452,7 +452,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     {
       id: "month_balanced_cleanse",
       name: "Protein Power Plan",
-      icon: "🥑",
+      icon: "💪",
        subtitle: "30 Days of Strength & Wellness",
        deliveries: "30 deliveries / month (Free Delivery)",
       savings: "Save ₹661 off standard menu",
@@ -517,10 +517,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       ...options
     });
     setProfileForm({
-      name: activePlan?.customerName || "",
-      phone: activePlan?.customerPhone || "",
+      name: activePlan?.customerName || "Enter your name",
+      phone: activePlan?.customerPhone || "Contact Number",
       location: "Pune",
-      address: activePlan?.customerAddress || ""
+      address: activePlan?.customerAddress || "Enter Address"
     });
     setShowProfileModal(true);
   };
@@ -621,9 +621,18 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     let subtotal = 0;
     Object.keys(customDays).forEach((dayId) => {
       const selections = customDays[dayId];
-      const juice = JUICE_OPTIONS.find(j => j.id === selections.juiceId) || JUICE_OPTIONS[0];
-      const snack = SNACK_OPTIONS.find(s => s.id === selections.snackId) || SNACK_OPTIONS[0];
-      subtotal += juice.price + snack.price;
+      if (selections.juiceIds) {
+        selections.juiceIds.forEach(id => {
+          const juice = JUICE_OPTIONS.find(j => j.id === id);
+          if (juice) subtotal += juice.price;
+        });
+      }
+      if (selections.snackIds) {
+        selections.snackIds.forEach(id => {
+          const snack = SNACK_OPTIONS.find(s => s.id === id);
+          if (snack) subtotal += snack.price;
+        });
+      }
     });
     return customCycleType === "monthly" ? subtotal * 4 : subtotal;
   };
@@ -636,9 +645,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
   const handleAddCustomPlanToCart = () => {
     const scheduleSummary = Object.keys(customDays).map(dayId => {
       const dayLabel = dayNames[dayId].label;
-      const juice = JUICE_OPTIONS.find(j => j.id === customDays[dayId].juiceId) || JUICE_OPTIONS[0];
-      const snack = SNACK_OPTIONS.find(s => s.id === customDays[dayId].snackId) || SNACK_OPTIONS[0];
-      return `${dayLabel}: ${juice.icon} + ${snack.icon}`;
+      const selections = customDays[dayId];
+      const juicesStr = JUICE_OPTIONS.filter(j => selections.juiceIds?.includes(j.id)).map(j => j.icon).join("");
+      const snacksStr = SNACK_OPTIONS.filter(s => selections.snackIds?.includes(s.id)).map(s => s.icon).join("");
+      return `${dayLabel}: ${juicesStr || "❌"} + ${snacksStr || "❌"}`;
     }).join(", ");
 
     const customMenuItem: MenuItem = {
@@ -666,9 +676,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
   const handleCustomWhatsAppSubscribe = () => {
     const scheduleDetails = Object.keys(customDays).map(dayId => {
       const day = dayNames[dayId].label;
-      const juice = JUICE_OPTIONS.find(j => j.id === customDays[dayId].juiceId) || JUICE_OPTIONS[0];
-      const snack = SNACK_OPTIONS.find(s => s.id === customDays[dayId].snackId) || SNACK_OPTIONS[0];
-      return `- ${day}: ${juice.name} (${juice.icon}) + ${snack.name} (${snack.icon})`;
+      const selections = customDays[dayId];
+      const juicesStr = JUICE_OPTIONS.filter(j => selections.juiceIds?.includes(j.id)).map(j => `${j.name} (${j.icon})`).join(" + ");
+      const snacksStr = SNACK_OPTIONS.filter(s => selections.snackIds?.includes(s.id)).map(s => `${s.name} (${s.icon})`).join(" + ");
+      return `- ${day}: ${juicesStr || "None"} + ${snacksStr || "None"}`;
     }).join("\n");
 
     const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo Pune.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nSubtotal: ₹${customSubtotal}\nDiscount (${customDiscountPercentage}%): -₹${customSavings}\nTotal Payable: ₹${customFinalPrice}`;
@@ -710,12 +721,15 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       return { juice: dayPlan.name, description: dayPlan.subtitle, icon: dayPlan.icon };
     } else if (planId?.startsWith("custom_plan")) {
       const config = customDays[targetDayKey] || customDays["sub_monday"];
-      const juice = JUICE_OPTIONS.find(j => j.id === config.juiceId) || JUICE_OPTIONS[0];
-      const snack = SNACK_OPTIONS.find(s => s.id === config.snackId) || SNACK_OPTIONS[0];
+      const juices = JUICE_OPTIONS.filter(j => config.juiceIds?.includes(j.id));
+      const snacks = SNACK_OPTIONS.filter(s => config.snackIds?.includes(s.id));
+      const juiceNames = juices.map(j => j.name).join(", ") || "No juice selected";
+      const snackNames = snacks.map(s => s.name).join(", ") || "No snack selected";
+      const primaryIcon = juices[0]?.icon || "🥤";
       return {
-        juice: juice.name,
-        description: `Custom Pairing: ${juice.name} + ${snack.name}`,
-        icon: juice.icon
+        juice: juiceNames,
+        description: `Custom Pairing: ${juiceNames} + ${snackNames}`,
+        icon: primaryIcon
       };
     } else {
       if (planId?.includes("green_taster")) {
@@ -759,6 +773,115 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     setTimeout(() => {
       setShowSubscriptionSuccess(null);
     }, 2000);
+  };
+
+  const handleSendActivePlanWhatsApp = () => {
+    if (!activePlan) return;
+    
+    if (!activePlan.customerName) {
+      setPendingPlan(activePlan);
+      setProfileForm({
+        name: "",
+        phone: "",
+        location: "Pune",
+        address: ""
+      });
+      setShowProfileModal(true);
+      return;
+    }
+
+    const { name, type, price, customerName, customerPhone, customerAddress } = activePlan;
+    const message = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
+
+    const encodedText = encodeURIComponent(message);
+    window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
+  };
+
+  const handleSimulatorDropdownSelect = (val: string) => {
+    if (val === "none") {
+      updateActivePlan(null);
+      return;
+    }
+
+    let planData: any = null;
+    if (val === "sub_weekly_nutrient") {
+      planData = {
+        id: "sub_weekly_nutrient",
+        name: "Fresco 6-Day Wellness Cycle",
+        type: "weekly",
+        price: 1018,
+        startDate: new Date().toISOString().split("T")[0],
+        renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        deliveriesCompleted: 0,
+        totalDeliveries: 6,
+        status: "active"
+      };
+    } else if (val === "sub_weekly_fruit_juice") {
+      planData = {
+        id: "sub_weekly_fruit_juice",
+        name: "Weekly Fruit Juice",
+        type: "weekly",
+        price: 425,
+        startDate: new Date().toISOString().split("T")[0],
+        renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        deliveriesCompleted: 0,
+        totalDeliveries: 6,
+        status: "active"
+      };
+    } else if (val === "month_green_taster") {
+      planData = {
+        id: "month_green_taster",
+        name: "7-Days Weight Loss Transformation",
+        type: "monthly",
+        price: 4023,
+        startDate: new Date().toISOString().split("T")[0],
+        renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        deliveriesCompleted: 0,
+        totalDeliveries: 30,
+        status: "active"
+      };
+    } else if (val === "month_balanced_cleanse") {
+      planData = {
+        id: "month_balanced_cleanse",
+        name: "Daily Fresh Wellness Plan",
+        type: "monthly",
+        price: 6242,
+        startDate: new Date().toISOString().split("T")[0],
+        renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        deliveriesCompleted: 0,
+        totalDeliveries: 30,
+        status: "active"
+      };
+    } else if (val === "month_wellness_overhaul") {
+      planData = {
+        id: "month_wellness_overhaul",
+        name: "Protein Power Plan",
+        type: "monthly",
+        price: 7481,
+        startDate: new Date().toISOString().split("T")[0],
+        renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        deliveriesCompleted: 0,
+        totalDeliveries: 30,
+        status: "active"
+      };
+    } else if (val === "custom_plan_custom") {
+      planData = {
+        id: "custom_plan_custom",
+        name: "Ultimate Wellness Elite Plan",
+        type: "weekly",
+        price: 950,
+        startDate: new Date().toISOString().split("T")[0],
+        renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        deliveriesCompleted: 1,
+        totalDeliveries: 6,
+        status: "active"
+      };
+    }
+
+    if (!planData) return;
+
+    // Prompt high-fidelity demo/real checkout modal so registration metadata triggers WhatsApp and registers in the admin portal
+    promptRegistrationForPlan(planData);
   };
  
   return (
@@ -812,93 +935,16 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 </span>
                 <select
                   value={activePlan ? activePlan.id : "none"}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (val === "none") {
-                      updateActivePlan(null);
-                    } else if (val === "sub_weekly_nutrient") {
-                      updateActivePlan({
-                        id: "sub_weekly_nutrient",
-                        name: "Standard 6-day nutrient cycle",
-                        type: "weekly",
-                        price: 1018,
-                        startDate: "2026-06-12",
-                        renewalDate: "2026-06-19",
-                        deliveriesCompleted: 0,
-                        totalDeliveries: 6,
-                        status: "active"
-                      });
-                    } else if (val === "sub_weekly_fruit_juice") {
-                      updateActivePlan({
-                        id: "sub_weekly_fruit_juice",
-                        name: "weekly fruit juice",
-                        type: "weekly",
-                        price: 425,
-                        startDate: "2026-06-10",
-                        renewalDate: "2026-06-17",
-                        deliveriesCompleted: 0,
-                        totalDeliveries: 6,
-                        status: "active"
-                      });
-                    } else if (val === "month_green_taster") {
-                      updateActivePlan({
-                        id: "month_green_taster",
-                        name: "Daily fresh plan",
-                        type: "monthly",
-                        price: 4023,
-                        startDate: "2026-06-11",
-                        renewalDate: "2026-07-11",
-                        deliveriesCompleted: 0,
-                        totalDeliveries: 30,
-                        status: "active"
-                      });
-                    } else if (val === "month_balanced_cleanse") {
-                      updateActivePlan({
-                        id: "month_balanced_cleanse",
-                        name: "protein plus plan",
-                        type: "monthly",
-                        price: 6242,
-                        startDate: "2026-06-12",
-                        renewalDate: "2026-07-12",
-                        deliveriesCompleted: 0,
-                        totalDeliveries: 30,
-                        status: "active"
-                      });
-                    } else if (val === "month_wellness_overhaul") {
-                      updateActivePlan({
-                        id: "month_wellness_overhaul",
-                        name: "full wellness overhaul",
-                        type: "monthly",
-                        price: 7481,
-                        startDate: "2026-06-14",
-                        renewalDate: "2026-07-14",
-                        deliveriesCompleted: 0,
-                        totalDeliveries: 30,
-                        status: "active"
-                      });
-                    } else if (val === "custom_plan_custom") {
-                      updateActivePlan({
-                        id: "custom_plan_custom",
-                        name: "customize your plan",
-                        type: "weekly",
-                        price: 950,
-                        startDate: "2026-06-13",
-                        renewalDate: "2026-06-20",
-                        deliveriesCompleted: 1,
-                        totalDeliveries: 6,
-                        status: "active"
-                      });
-                    }
-                  }}
+                  onChange={(e) => handleSimulatorDropdownSelect(e.target.value)}
                   className="bg-white border border-gray-300 rounded text-[9.5px] font-bold text-[#1A1A1A] py-0.5 px-1 focus:outline-none focus:ring-1 focus:ring-[#38A325] cursor-pointer"
                 >
                   <option value="none">No Active Plan</option>
-                  <option value="sub_weekly_nutrient">Standard 6-day nutrient cycle</option>
-                  <option value="sub_weekly_fruit_juice">weekly fruit juice</option>
-                  <option value="month_green_taster">Daily fresh plan</option>
-                  <option value="month_balanced_cleanse">protein plus plan</option>
-                  <option value="month_wellness_overhaul">full wellness overhaul</option>
-                  <option value="custom_plan_custom">customize your plan</option>
+                  <option value="sub_weekly_nutrient">Fresco 6-Day Wellness Cycle</option>
+                  <option value="sub_weekly_fruit_juice">Weekly Fruit Juice</option>
+                  <option value="month_green_taster">7-Days Weight Loss Transformation</option>
+                  <option value="month_balanced_cleanse"> Daily Fresh Wellness Plan</option>
+                  <option value="month_wellness_overhaul">Protein Power Plan</option>
+                  <option value="custom_plan_custom">Ultimate Wellness Elite Plan</option>
                 </select>
               </div>
             </div>
@@ -1106,18 +1152,57 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     </div>
 
                     <button
-                      onClick={() => {
-                        if (confirm("Are you sure you want to terminate your active subscription cycle?")) {
-                          updateActivePlan(null);
-                          setShowSubscriptionSuccess("Subscription cancelled successfully.");
-                          setTimeout(() => setShowSubscriptionSuccess(null), 2500);
-                        }
-                      }}
-                      className="w-full bg-rose-50 hover:bg-rose-100/80 hover:text-rose-900 border border-rose-300 py-1.5 rounded-lg font-bold text-[9px] text-rose-700 uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center space-x-1 active:scale-95"
+                      onClick={handleSendActivePlanWhatsApp}
+                      className="w-full bg-[#25D366] hover:bg-[#20ba54] text-white py-2 rounded-lg font-extrabold text-[10.5px] uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-xs active:scale-95 border-b-2 border-emerald-700"
                     >
-                      <Trash2 className="w-3 h-3 text-rose-500" />
-                      <span>Cancel Subscription</span>
+                      <MessageSquare className="w-4 h-4 fill-current text-white" />
+                      <span>Order Subscription via WhatsApp</span>
                     </button>
+
+                    {showTerminateConfirm ? (
+                      <div className="bg-rose-50 border border-rose-200 rounded-lg p-2.5 text-center space-y-2 animate-fade-in w-full">
+                        <p className="text-[10px] text-rose-950 font-semibold leading-tight">
+                          ⚠️ Are you sure you want to terminate your active subscription cycle? All scheduled deliveries will stop.
+                        </p>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            onClick={() => {
+                              const planToCancel = activePlan;
+                              updateActivePlan(null);
+                              setShowTerminateConfirm(false);
+                              setShowSubscriptionSuccess("Subscription cancelled successfully.");
+                              setTimeout(() => setShowSubscriptionSuccess(null), 2500);
+
+                              if (planToCancel) {
+                                const cancelMsg = `*FRESCO PUNE FRESH JUICES - SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
+                                const encodedCancelMsg = encodeURIComponent(cancelMsg);
+                                setTimeout(() => {
+                                  window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
+                                }, 500);
+                              }
+                            }}
+                            className="bg-rose-600 hover:bg-rose-700 text-white rounded py-1 px-2 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-all"
+                          >
+                            Yes, Cancel
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setShowTerminateConfirm(false)}
+                            className="bg-neutral-200 hover:bg-neutral-300 text-neutral-800 rounded py-1 px-2 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-all"
+                          >
+                            Keep Plan
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setShowTerminateConfirm(true)}
+                        className="w-full bg-rose-50 hover:bg-rose-100/80 hover:text-rose-900 border border-rose-300 py-1.5 rounded-lg font-bold text-[9px] text-rose-700 uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center space-x-1 active:scale-95"
+                      >
+                        <Trash2 className="w-3 h-3 text-rose-500" />
+                        <span>Cancel Subscription</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1607,9 +1692,16 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   <div className="flex flex-row overflow-x-auto lg:flex-col gap-1.5 pb-2 lg:pb-0 scrollbar-none w-full">
                     {Object.keys(dayNames).map((dayId) => {
                       const isSelected = selectedCustomDay === dayId;
-                      const config = customDays[dayId];
-                      const currentJuice = JUICE_OPTIONS.find(j => j.id === config.juiceId) || JUICE_OPTIONS[0];
-                      const currentSnack = SNACK_OPTIONS.find(s => s.id === config.snackId) || SNACK_OPTIONS[0];
+                      const config = customDays[dayId] || { juiceIds: [], snackIds: [] };
+                      const selectedJuices = JUICE_OPTIONS.filter(j => config.juiceIds?.includes(j.id));
+                      const selectedSnacks = SNACK_OPTIONS.filter(s => config.snackIds?.includes(s.id));
+
+                      const juicesDisplay = selectedJuices.length > 0 
+                        ? `${selectedJuices.map(j => j.icon).join("")} ${selectedJuices.map(j => j.name.replace(" Juice", "").replace(" Shake", "").replace(" Drink", "")).join(", ")}`
+                        : "❌ No drinks selected";
+                      const snacksDisplay = selectedSnacks.length > 0 
+                        ? `${selectedSnacks.map(s => s.icon).join("")} ${selectedSnacks.map(s => s.name.replace(" Sprouts Bowl", "").replace(" Platter", "")).join(", ")}`
+                        : "❌ No snack selected";
                       
                       return (
                         <button
@@ -1629,10 +1721,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                             {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#38A325]" />}
                           </div>
                           <div className="mt-0.5 text-[8.5px] text-gray-500 truncate leading-tight">
-                            {currentJuice.icon} {currentJuice.name}
+                            {juicesDisplay}
                           </div>
                           <div className="text-[8.5px] text-gray-400 truncate mt-0.5 leading-tight">
-                            + {currentSnack.icon} {currentSnack.name}
+                            + {snacksDisplay}
                           </div>
                         </button>
                       );
@@ -1656,18 +1748,24 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold text-[#1A1A1A] flex items-center justify-between">
                       <span>1. Choose fresh Juice/Drink</span>
-                      <span className="text-[9px] text-gray-450 font-mono">Select One</span>
+                      <span className="text-[9px] text-[#38A325] font-bold">Select Multiple</span>
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
                       {JUICE_OPTIONS.map((j) => {
-                        const isActive = customDays[selectedCustomDay].juiceId === j.id;
+                        const isActive = customDays[selectedCustomDay]?.juiceIds?.includes(j.id);
                         return (
                           <div
                             key={j.id}
-                            onClick={() => setCustomDays(prev => ({
-                              ...prev,
-                              [selectedCustomDay]: { ...prev[selectedCustomDay], juiceId: j.id }
-                            }))}
+                            onClick={() => setCustomDays(prev => {
+                              const currentIds = prev[selectedCustomDay]?.juiceIds || [];
+                              const newIds = currentIds.includes(j.id)
+                                ? currentIds.filter(id => id !== j.id)
+                                : [...currentIds, j.id];
+                              return {
+                                ...prev,
+                                [selectedCustomDay]: { ...prev[selectedCustomDay], juiceIds: newIds }
+                              };
+                            })}
                             className={`p-1.5 px-2 rounded-lg border text-left cursor-pointer transition-all flex items-start space-x-1.5 relative ${
                               isActive
                                 ? "border-[#38A325] bg-[#38A325]/5 shadow-xs"
@@ -1677,7 +1775,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                             <span className="text-base select-none mt-0.5">{j.icon}</span>
                             <div className="flex-1 min-w-0">
                               <span className="font-bold text-[10px] text-gray-900 block truncate leading-tight">{j.name}</span>
-                              <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5">₹{j.price}</span>
+                              <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5 font-sans">₹{j.price}</span>
                               <p className="text-[8px] text-gray-500 mt-0.5 leading-tight line-clamp-1">{j.desc}</p>
                             </div>
                             {isActive && (
@@ -1695,18 +1793,24 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   <div className="space-y-1.5 pt-1.5 border-t border-[#1A1A1A]/5">
                     <label className="text-[11px] font-bold text-[#1A1A1A] flex items-center justify-between">
                       <span>2. Choose Superfood Bowl / Fruits / Addon</span>
-                      <span className="text-[9px] text-gray-455 font-mono">Select One</span>
+                      <span className="text-[9px] text-[#38A325] font-bold">Select Multiple</span>
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
                       {SNACK_OPTIONS.map((s) => {
-                        const isActive = customDays[selectedCustomDay].snackId === s.id;
+                        const isActive = customDays[selectedCustomDay]?.snackIds?.includes(s.id);
                         return (
                           <div
                             key={s.id}
-                            onClick={() => setCustomDays(prev => ({
-                              ...prev,
-                              [selectedCustomDay]: { ...prev[selectedCustomDay], snackId: s.id }
-                            }))}
+                            onClick={() => setCustomDays(prev => {
+                              const currentIds = prev[selectedCustomDay]?.snackIds || [];
+                              const newIds = currentIds.includes(s.id)
+                                ? currentIds.filter(id => id !== s.id)
+                                : [...currentIds, s.id];
+                              return {
+                                ...prev,
+                                [selectedCustomDay]: { ...prev[selectedCustomDay], snackIds: newIds }
+                              };
+                            })}
                             className={`p-1.5 px-2 rounded-lg border text-left cursor-pointer transition-all flex items-start space-x-1.5 relative ${
                               isActive
                                 ? "border-[#38A325] bg-[#38A325]/5 shadow-xs"
@@ -1716,7 +1820,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                             <span className="text-base select-none mt-0.5">{s.icon}</span>
                             <div className="flex-1 min-w-0">
                               <span className="font-bold text-[10px] text-gray-900 block truncate leading-tight">{s.name}</span>
-                              <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5">
+                              <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5 font-sans">
                                 {s.price === 0 ? "Included" : `+₹${s.price}`}
                               </span>
                               <p className="text-[8px] text-gray-500 mt-0.5 leading-tight line-clamp-1">{s.desc}</p>
@@ -1783,25 +1887,34 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       </div>
                       {Object.keys(dayNames).map((dayId) => {
                         const day = dayNames[dayId];
-                        const selections = customDays[dayId];
-                        const juice = JUICE_OPTIONS.find(j => j.id === selections.juiceId) || JUICE_OPTIONS[0];
-                        const snack = SNACK_OPTIONS.find(s => s.id === selections.snackId) || SNACK_OPTIONS[0];
+                        const selections = customDays[dayId] || { juiceIds: [], snackIds: [] };
+                        const juices = JUICE_OPTIONS.filter(j => selections.juiceIds?.includes(j.id));
+                        const snacks = SNACK_OPTIONS.filter(s => selections.snackIds?.includes(s.id));
 
-                        const cleanJuiceName = juice.name
-                          .replace(" Juice", "")
-                          .replace(" Valencia", "")
-                          .replace(" Cleanse", "")
-                          .replace(" Booster", "");
+                        const cleanJuicesName = juices.map(j => {
+                          return j.name
+                            .replace(" Juice", "")
+                            .replace(" Valencia", "")
+                            .replace(" Cleanse", "")
+                            .replace(" Booster", "")
+                            .replace(" Shake", "")
+                            .replace(" Drink", "");
+                        }).join(" & ") || "No Drink";
 
-                        const cleanSnackName = snack.id === "snack_none" 
+                        const cleanSnacksName = snacks.length === 0 
                           ? "Juice Only" 
-                          : snack.name
-                              .replace(" Sprouts Bowl", "")
-                              .replace(" Classic ", "")
-                              .replace(" Fruit Platter", " Fruit")
-                              .replace(" Bowl", "")
-                              .replace(" Cup", "")
-                              .replace(" Power", "");
+                          : snacks.map(s => {
+                              return s.name
+                                .replace(" Sprouts Bowl", "")
+                                .replace(" Classic ", "")
+                                .replace(" Fruit Platter", " Fruit")
+                                .replace(" Bowl", "")
+                                .replace(" Cup", "")
+                                .replace(" Power", "");
+                            }).join(" & ");
+
+                        const juicesIcon = juices.map(j => j.icon).join("") || "🥤";
+                        const snacksIcon = snacks.length === 0 ? "❌" : snacks.map(s => s.icon).join("");
 
                         return (
                           <div 
@@ -1815,18 +1928,18 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                             </span>
 
                             {/* Juice Column */}
-                            <span className="truncate text-gray-100 font-medium flex items-center space-x-1 min-w-0" title={juice.name}>
-                              <span className="text-[10px] shrink-0 select-none">{juice.icon}</span>
-                              <span className="truncate">{cleanJuiceName}</span>
+                            <span className="truncate text-gray-100 font-medium flex items-center space-x-1 min-w-0" title={juices.map(j => j.name).join(", ")}>
+                              <span className="text-[10px] shrink-0 select-none">{juicesIcon}</span>
+                              <span className="truncate">{cleanJuicesName}</span>
                             </span>
 
                             {/* Connector Column */}
                             <span className="text-gray-500 text-[8px] font-bold text-center select-none">+</span>
 
                             {/* Snack Column */}
-                            <span className="truncate text-gray-400 font-medium flex items-center space-x-1 min-w-0" title={snack.name}>
-                              <span className="text-[10px] shrink-0 select-none">{snack.icon}</span>
-                              <span className="truncate">{cleanSnackName}</span>
+                            <span className="truncate text-gray-400 font-medium flex items-center space-x-1 min-w-0" title={snacks.map(s => s.name).join(", ")}>
+                              <span className="text-[10px] shrink-0 select-none">{snacksIcon}</span>
+                              <span className="truncate">{cleanSnacksName}</span>
                             </span>
                           </div>
                         );
@@ -1857,14 +1970,24 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     <div className="space-y-2 pt-1 border-t border-white/10">
                       <button
                         onClick={handleAddCustomPlanToCart}
-                        className="w-full bg-[#38A325] hover:bg-[#38A325]/95 active:scale-95 text-white py-2 px-3 rounded-lg font-bold text-[9px] uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-1.5 shadow-sm"
+                        disabled={customSubtotal === 0}
+                        className={`w-full py-2 px-3 rounded-lg font-bold text-[9px] uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 shadow-sm ${
+                          customSubtotal === 0 
+                            ? "bg-neutral-800 text-neutral-500 cursor-not-allowed border border-white/5" 
+                            : "bg-[#38A325] hover:bg-[#38A325]/95 active:scale-95 text-white cursor-pointer"
+                        }`}
                       >
-                        <Calendar className="w-3 h-3 text-white" />
-                        <span>Add Custom Plan</span>
+                        <Calendar className="w-3 h-3" />
+                        <span>{customSubtotal === 0 ? "Select Items to Build Plan" : "Add Custom Plan"}</span>
                       </button>
                       <button
                         onClick={handleCustomWhatsAppSubscribe}
-                        className="w-full bg-white text-gray-900 hover:bg-gray-100 active:scale-95 py-2 px-3 rounded-lg font-bold text-[9px] uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-1.5 shadow-sm"
+                        disabled={customSubtotal === 0}
+                        className={`w-full py-2 px-3 rounded-lg font-bold text-[9px] uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 shadow-sm ${
+                          customSubtotal === 0
+                            ? "bg-neutral-800/40 text-neutral-500 cursor-not-allowed border border-white/5"
+                            : "bg-white text-gray-900 hover:bg-gray-100 active:scale-95 cursor-pointer"
+                        }`}
                       >
                         <svg className="w-3 h-3 fill-current text-green-600" viewBox="0 0 24 24">
                           <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
@@ -1993,4 +2116,3 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     </section>
   );
 }
-
