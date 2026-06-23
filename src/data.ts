@@ -255,7 +255,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Cucumber-Juice",
     name: "Cucumber Juice",
-    description: "Light, , and naturally hydrating for everyday wellness.",
+    description: "",
     price: 69,
     image: CucumberJuiceImg,
     icon: "🥒",
