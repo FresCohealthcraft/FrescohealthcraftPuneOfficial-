@@ -448,8 +448,9 @@ interface MenuProps {
 
 const CATEGORIES = [
   { name: "FRUIT JUICES", emoji: "🍊", value: "Fruit Juices" },
+    { name: "POWER CUPS", emoji: "🍓", value: "Power Cups" },
+
   { name: "GREEN VITALITY JUICE", emoji: "🥬", value: "Green Vitality Juice" },
-  { name: "POWER CUPS", emoji: "🍓", value: "Power Cups" },
   { name: "SUPER FOOD SPROUTS BOWLS", emoji: "🌱", value: "Super Food Sprouts Bowls" },
   { name: "FRESCO POWER JUICES", emoji: "⚡", value: "Fresco Power Juices" },
   { name: "SHAKES", emoji: "🥤", value: "Shakes" },
@@ -489,7 +490,7 @@ export default function MenuGrid({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Our Menu Badge */}
-        <div className="inline-flex items-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
           Our Menu
         </div>
 
@@ -529,7 +530,7 @@ export default function MenuGrid({
         </div>
 
         {/* Top categories pill filters - wrapped and centered on all screens to prevent horizontal overflow */}
-        <div className="mt-5 flex flex-wrap justify-center gap-1.5 sm:gap-2 px-2 max-w-9xl mx-auto mb-6">
+        <div className="mt-5 flex flex-wrap gap-1.5 sm:gap-2 px-2 max-w-9xl mx-6 mb-6">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.name;
             return (
