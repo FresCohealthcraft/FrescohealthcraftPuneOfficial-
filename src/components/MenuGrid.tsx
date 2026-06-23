@@ -529,14 +529,14 @@ export default function MenuGrid({
         </div>
 
         {/* Top categories pill filters - wrapped and centered on all screens to prevent horizontal overflow */}
-        <div className="mt-5 flex flex-wrap justify-center gap-1.5 sm:gap-2 px-2 max-w-4xl mx-auto mb-6">
+        <div className="mt-5 flex flex-wrap justify-center gap-1.5 sm:gap-2 px-2 max-w-9xl mx-auto mb-6">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.name;
             return (
               <button
                 key={cat.name}
                 onClick={() => setSelectedCategory(isActive ? null : cat.name)}
-                className={`py-1.5 sm:py-2 px-3 sm:px-4 text-[9px] sm:text-[11px] font-extrabold uppercase tracking-widest cursor-pointer rounded-full transition-all duration-350 flex items-center space-x-1 sm:space-x-1.5 shadow-xs active:scale-95 border ${
+                className={`py-1.5 sm:py-2 px-3 sm:px-4 text-[10px] sm:text-[20px] font-extrabold uppercase tracking-widest cursor-pointer rounded-full transition-all duration-350 flex items-center space-x-1 sm:space-x-1.5 shadow-xs active:scale-95 border ${
                   isActive
                     ? "bg-[#38A325] text-white border-[#38A325] shadow-sm"
                     : "bg-white text-[#1A1A1A]/90 border-[#1A1A1A]/10 hover:bg-neutral-50"
