@@ -530,7 +530,7 @@ export default function MenuGrid({
         </div>
 
         {/* Top categories pill filters - wrapped and centered on all screens to prevent horizontal overflow */}
-        <div className="mt-5 flex flex-wrap gap-1.5 sm:gap-2 px-2 max-w-9xl mx-6 mb-6">
+        <div className="mt-5 flex flex-wrap justify-center gap-1.5 sm:gap-2 px-2 max-w-1xl mx-0 mb-6">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.name;
             return (
