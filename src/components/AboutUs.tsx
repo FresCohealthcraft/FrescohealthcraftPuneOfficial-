@@ -1,91 +1,75 @@
-import { Leaf, Heart, Award, ShieldAlert, Navigation } from "lucide-react";
+import React from "react";
 
 export default function AboutUs() {
-  const USP_CARDS = [
+  const BENEFITS = [
     {
-      id: "usp_1",
-      icon: <Leaf className="w-5.5 h-5.5 text-[#38A325]" />,
+      id: "benefit-freshly-prepared",
       title: "100% Natural",
-      desc: "We use only fresh, organic fruits and vegetables with no artificial preservatives or added sugars."
+      desc: "We use only fresh, organic fruits and vegetables with no artificial preservatives or added sugars.",
+      image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=240&h=240",
+      alt: "Freshly prepared daily salad bowl"
     },
     {
-      id: "usp_2",
-      icon: <Heart className="w-5.5 h-5.5 text-[#F26419]" />,
+      id: "benefit-clean-natural",
       title: "Health Focused",
-      desc: "Every drink is crafted to maximize nutritional benefits and support your wellness journey."
+      desc: "Every drink is crafted to maximize nutritional benefits and support your wellness journey.",
+      image: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&q=80&w=240&h=240",
+      alt: "Clean and natural fresh green juice bottle"
     },
     {
-      id: "usp_3",
-      icon: <Award className="w-5.5 h-5.5 text-[#38A325]" />,
+      id: "benefit-nutrition-matters",
       title: "Premium Quality",
-      desc: "We source the finest ingredients from trusted local farmers and suppliers."
+      desc: "We source the finest ingredients from trusted local farmers and suppliers.",
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=240&h=240",
+      alt: "Nutrition that matters healthy organic food bowl"
     },
     {
-      id: "usp_4",
-      icon: <Navigation className="w-5.5 h-5.5 text-[#F26419]" />,
+      id: "benefit-loved-thousands",
       title: "Fast Delivery",
-      desc: "Quick doorstep delivery within 30 minutes to ensure maximum freshness."
+      desc: "Quick doorstep delivery within 30 minutes to ensure maximum freshness.",
+      image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=240&h=240",
+      alt: "Loved by thousands glowing bubbles and hearts"
     }
   ];
 
   return (
-    <section id="about" className="pt-3 pb-8 bg-gradient-to-b from-white via-white to-[#F2FAED] scroll-mt-20 border-t border-[#1A1A1A]/5">
+    <section id="why-choose-us" className="py-10 sm:py-14 bg-white border-t border-neutral-100 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Grid: Left Side Description + Left Stats, Right Side USP Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-          
-          {/* Left Column */}
-          <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left space-y-3">
-            
-            {/* About Us Badge */}
-            <div className="inline-flex items-center justify-center border border-[#38A325]/30 text-[#38A325] bg-transparent px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider">
-              About Us
-            </div>
+        {/* Title */}
+        <h2 id="why-choose-title" className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight mb-6 sm:mb-8 text-left">
+          Why Choose Fresco Healthcraft?
+        </h2>
 
-            {/* Title */}
-            <h2 className="text-2xl sm:text-3.5xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
-              Crafting Wellness, <br />
-              <span className="text-[#38A325]">One Sip at a Time</span>
-            </h2>
-
-            {/* Paragraphs */}
-            <div className="space-y-2.5 text-[#1A1A1A]/75 text-xs sm:text-sm leading-relaxed">
-              <p>
-                At FresCo HealthCraft, we believe that good health starts with what you drink. Our journey began with a simple mission: to bring the freshest, most nutritious juices to your doorstep.
-              </p>
-              <p>
-                Every juice we craft is made with love, using hand-picked fruits and vegetables that are washed, prepared, and blended fresh just for you. We never use concentrates, artificial flavors, or preservatives - just pure, natural goodness.
-              </p>
-            </div>
-
-          </div>
-
-          {/* Right Column: USPs Grid matching representation */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4 w-full">
-            {USP_CARDS.map((usp) => (
-              <div
-                key={usp.id}
-                className="bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-transform hover:-translate-y-0.5 hover:shadow-md duration-300"
-              >
-                
-                {/* Icon wrapper */}
-                <div className="p-1.5 sm:p-2 bg-[#EFECE5] text-[#38A325] inline-flex rounded-lg mb-2">
-                  {usp.icon}
-                </div>
-
-                <h3 className="text-xs sm:text-sm font-bold text-[#1A1A1A] font-sans">
-                  {usp.title}
+        {/* Responsive Benefits Grid */}
+        <div id="benefits-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {BENEFITS.map((benefit) => (
+            <div
+              key={benefit.id}
+              id={`card-${benefit.id}`}
+              className="bg-[#FAF9F5] rounded-3xl p-5 sm:p-6 border border-neutral-100 flex items-center justify-between gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-0.5 min-h-[145px] overflow-hidden group"
+            >
+              {/* Left text column */}
+              <div className="flex-1 text-left">
+                <h3 className="text-sm sm:text-base font-black text-gray-900 leading-tight mb-1">
+                  {benefit.title}
                 </h3>
-
-                <p className="mt-1 text-[10px] sm:text-xs text-[#1A1A1A]/70 leading-relaxed">
-                  {usp.desc}
+                <p className="text-[11px] sm:text-xs text-gray-500 font-bold leading-normal">
+                  {benefit.desc}
                 </p>
-
               </div>
-            ))}
-          </div>
 
+              {/* Right image circle with nice overflow/styling */}
+              <div className="relative w-18 h-18 sm:w-20 sm:h-20 rounded-full overflow-hidden shrink-0 bg-white/50 flex items-center justify-center border border-white/80 shadow-2xs group-hover:scale-105 transition-transform duration-300">
+                <img
+                  src={benefit.image}
+                  alt={benefit.alt}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>
