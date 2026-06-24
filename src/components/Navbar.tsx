@@ -30,7 +30,7 @@ export default function Navbar({
     { name: "Home", id: "home", icon: <Home className="w-4 h-4" /> },
     { name: "Menu", id: "menu", icon: <ClipboardList className="w-4 h-4" /> },
     { name: "Wellness Plans", id: "subscriptions", icon: <Calendar className="w-4 h-4" /> },
-    { name: "Wellness combo's", id: "offers", icon: <Calendar className="w-4 h-4" /> },
+    { name: "Special Offers", id: "offers", icon: <Percent className="w-4 h-4" /> },
     { name: "About Us", id: "about", icon: <Users className="w-4 h-4" /> },
     { name: "Contact", id: "contact", icon: <MessageSquare className="w-4 h-4" /> },
   ];
