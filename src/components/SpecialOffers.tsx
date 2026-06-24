@@ -3,73 +3,86 @@ import { motion, AnimatePresence } from "motion/react";
 import { MenuItem } from "../types";
 import { Plus, Star, Sparkles, Flame, CheckCircle, Heart } from "lucide-react";
 
+// Import local premium images
+// @ts-ignore
+import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
+// @ts-ignore
+import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
+// @ts-ignore
+import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
+// @ts-ignore
+import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
+
 interface SpecialOffersProps {
   onAddToCartDirectly: (item: MenuItem) => void;
 }
 
 const DYNAMIC_ITEM_COMBOS = [
-    {
-      id: "combo_detox_monday",
-      name: "ABC Wellness Combo",
-      icon: "🌱",
-      subtitle: "ABC JUICE+ SPROUTS BOWL",
-      description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with our protein-rich Sprouts Bowl to provide natural energy, essential nutrients,and daily wellness support",
-      originalPrice: 178,
-      price: 161,
-      category: "Detox & Wellness",
-      tag: "POPULAR",
-      rating: "4.9",
-      reviews: "220+ ordered",
-      badgeColor: "bg-emerald-500/10 text-emerald-700 border-emerald-500/10",
-      glowColor: "shadow-emerald-500/5 hover:border-emerald-500/20"
-    },
-    {
-      id: "combo_immuno_tuesday",
-      name: "Immunity Shield Special",
-      icon: "🛡️",
-      subtitle: "Immunity Booster Juice + Exotic Delight Cup",
-      description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",
-      originalPrice: 198,
-      price: 179,
-      category: "Detox & Wellness",
-      tag: "IMMUNITY BOOST",
-      rating: "4.9",
-      reviews: "180+ ordered",
-      badgeColor: "bg-amber-500/10 text-amber-700 border-amber-500/10",
-      glowColor: "shadow-amber-500/5 hover:border-amber-500/20"
-    },
-    {
-      id: "combo_glow_thursday",
-      name: "Golden Glow Special",
-      icon: "✨",
-      subtitle: "Skin Glow-Up Juice + Power packed Cup",
-      description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",
-      originalPrice: 218,
-      price: 199,
-      category: "Detox & Wellness",
-      tag: "SKIN GLOW",
-      rating: "4.8",
-      reviews: "140+ ordered",
-      badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
-      glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
-    },
-    { 
-      id: "combo_fitness_friday",
-      name: "Muscle-Refill Special",
-      icon: "💪",
-      subtitle: "Fat-Burning + Paneer Sprouts Bowl",
-      description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",
-      originalPrice: 198,
-      price: 179,
-      category: "Detox & Wellness",
-      tag: "ATHLETE PREP",
-      rating: "4.8",
-      reviews: "90+ ordered",
-      badgeColor: "bg-blue-500/10 text-blue-700 border-blue-500/10",
-      glowColor: "shadow-blue-500/5 hover:border-blue-500/20"
-    }
-  ];
-
+  {
+    id: "combo_detox_monday",
+    name: "ABC Wellness Combo",
+    icon: "🌱",
+    image: SproutsBowlImg,
+    subtitle: "ABC JUICE + SPROUTS BOWL",
+    description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with our protein-rich Sprouts Bowl to provide natural energy, essential nutrients, and daily wellness support.",
+    originalPrice: 178,
+    price: 161,
+    category: "Detox & Wellness",
+    tag: "POPULAR",
+    rating: "4.9",
+    reviews: "220+ ordered",
+    badgeColor: "bg-emerald-500/10 text-emerald-700 border-emerald-500/10",
+    glowColor: "shadow-emerald-500/5 hover:border-emerald-500/20"
+  },
+  {
+    id: "combo_immuno_tuesday",
+    name: "Immunity Shield Special",
+    icon: "🛡️",
+    image: ExoticDelightCupImg,
+    subtitle: "Immunity Booster Juice + Exotic Delight Cup",
+    description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",
+    originalPrice: 198,
+    price: 179,
+    category: "Detox & Wellness",
+    tag: "IMMUNITY BOOST",
+    rating: "4.9",
+    reviews: "180+ ordered",
+    badgeColor: "bg-amber-500/10 text-amber-700 border-amber-500/10",
+    glowColor: "shadow-amber-500/5 hover:border-amber-500/20"
+  },
+  {
+    id: "combo_glow_thursday",
+    name: "Golden Glow Special",
+    icon: "✨",
+    image: ProteinPowerCupImg,
+    subtitle: "Skin Glow-Up Juice + Power Packed Cup",
+    description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",
+    originalPrice: 218,
+    price: 199,
+    category: "Detox & Wellness",
+    tag: "SKIN GLOW",
+    rating: "4.8",
+    reviews: "140+ ordered",
+    badgeColor: "bg-fuchsia-500/10 text-fuchsia-700 border-fuchsia-100",
+    glowColor: "shadow-fuchsia-500/5 hover:border-fuchsia-500/20"
+  },
+  { 
+    id: "combo_fitness_friday",
+    name: "Muscle-Refill Special",
+    icon: "💪",
+    image: PaneerSproutsBowlImg,
+    subtitle: "Fat-Burning + Paneer Sprouts Bowl",
+    description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",
+    originalPrice: 198,
+    price: 179,
+    category: "Detox & Wellness",
+    tag: "ATHLETE PREP",
+    rating: "4.8",
+    reviews: "90+ ordered",
+    badgeColor: "bg-blue-500/10 text-blue-700 border-blue-500/10",
+    glowColor: "shadow-blue-500/5 hover:border-blue-500/20"
+  }
+];
 
 export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProps) {
   const [addedItem, setAddedItem] = useState<string | null>(null);
@@ -94,102 +107,108 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
   };
 
   return (
-    <section id="offers" className="pt-2 pb-6 bg-gradient-to-tr from-[#FCFDFC] via-white to-[#F2FAED] scroll-mt-20 border-y border-[#1A1A1A]/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section id="offers" className="pt-4 pb-8 bg-gradient-to-tr from-[#FCFDFC] via-white to-[#F2FAED] scroll-mt-20 border-y border-[#1A1A1A]/10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Special Offers Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
-          Daily Special Combo's
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-white bg-[#e47200] px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-2 shadow-sm select-none">
+          Daily Special Combos
         </div>
 
         {/* Display Title */}
-        <h2 className="text-xl sm:text-2xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
           Curated Daily Wellness Combos
         </h2>
-        <p className="mt-1 text-[#1A1A1A]/70 max-w-md mx-auto text-xs sm:text-sm">
+        <p className="mt-0.5 text-[#1A1A1A]/70 max-w-md mx-auto text-[11px] sm:text-xs">
           Add our popular daily nutrition pairings directly to your delivery in one click. Completely raw, fresh, and hand-prepared.
         </p>
 
-        {/* Dynamic Item Combos Cards Grid */}
-        <div className="mt-5 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 max-w-6xl mx-auto px-2">
+        {/* Dynamic Item Combos Cards Grid - Re-engineered into a modern layout matching the requested card UI */}
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto px-2">
           {DYNAMIC_ITEM_COMBOS.map((combo) => {
             const isAdded = addedItem === combo.id;
 
             return (
               <motion.div
-                whileHover={{ y: -3 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.15 }}
                 key={combo.id}
-                className={`bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4 shadow-[0_4px_24px_rgba(0,0,0,0.01)] hover:shadow-md transition-all duration-300 text-left flex flex-col justify-between ${combo.glowColor}`}
+                className="bg-[#F5F8F4] border border-[#38A325]/12 rounded-[18px] p-3 sm:p-4 hover:shadow-sm hover:border-[#38A325]/30 transition-all duration-300 text-left flex flex-row items-center justify-between gap-3 sm:gap-4 group relative overflow-hidden"
               >
-                <div>
-                  {/* Top: Icon, Badges, Metrics */}
-                  <div className="flex items-start justify-between">
-                    <div className="p-2 bg-[#EFECE5] rounded-xl text-lg sm:text-xl select-none shadow-inner">
-                      {combo.icon}
-                    </div>
-                    
-                    <div className="flex flex-col items-end gap-1">
-                      <span className={`text-[7px] sm:text-[8px] font-bold px-1.5 py-0.5 border rounded-full uppercase tracking-wider ${combo.badgeColor}`}>
+                {/* Text and interaction content on the left */}
+                <div className="flex-1 flex flex-col justify-between h-full space-y-2">
+                  <div>
+                    {/* Top Tag Badges & Rating */}
+                    <div className="flex items-center space-x-2 select-none">
+                      <span className={`text-[6.5px] sm:text-[7.5px] font-extrabold px-1.5 py-0.5 border rounded-full uppercase tracking-wider ${combo.badgeColor}`}>
                         {combo.tag}
                       </span>
-                      <div className="flex items-center space-x-0.5 text-[9px] sm:text-[10px]">
-                        <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                      <div className="flex items-center space-x-0.5 text-[8.5px] sm:text-[9.5px]">
+                        <Star className="w-2 h-2 sm:w-2.5 sm:h-2.5 fill-amber-400 text-amber-400" />
                         <span className="font-bold text-[#1A1A1A]/90">{combo.rating}</span>
-                        <span className="text-gray-400 text-[8px]">({combo.reviews})</span>
+                        <span className="text-gray-400 text-[7.5px]">({combo.reviews})</span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Header Titles */}
-                  <div className="mt-3">
-                    <h3 className="font-bold text-xs sm:text-sm text-[#1A1A1A] leading-tight font-sans">
-                      {combo.name}
-                    </h3>
-                    <p className="text-[#38A325] text-[8.5px] sm:text-[9.5px] font-bold uppercase tracking-wider mt-1 font-sans">
-                      {combo.subtitle}
+                    {/* Bold Heading & Subheading */}
+                    <div className="mt-1.5">
+                      <h3 className="font-black text-xs sm:text-sm md:text-base text-[#1A1A1A] leading-tight font-sans tracking-tight">
+                        {combo.name}
+                      </h3>
+                      <p className="text-[#38A325] text-[8px] sm:text-[9px] font-extrabold uppercase tracking-widest mt-0.5 font-sans">
+                        {combo.subtitle}
+                      </p>
+                    </div>
+
+                    {/* Detailed Description */}
+                    <p className="text-[#1A1A1A]/70 text-[9px] sm:text-[10px] mt-1 leading-relaxed font-medium line-clamp-2">
+                      {combo.description}
                     </p>
                   </div>
 
-                  {/* Detailed Description */}
-                  <p className="text-[#1A1A1A]/75 text-[9px] sm:text-[11px] mt-1.5 leading-relaxed">
-                    {combo.description}
-                  </p>
+                  {/* Pricing and Action Button Column */}
+                  <div className="pt-1.5 border-t border-[#1A1A1A]/5 flex flex-row items-center justify-between gap-2 mt-1.5">
+                    <div>
+                      <span className="text-[7px] font-bold text-gray-400 uppercase tracking-wider block">Combo Price</span>
+                      <div className="flex items-baseline space-x-1 mt-0.5">
+                        <span className="text-xs sm:text-sm font-sans font-extrabold text-[#38A325]">₹{combo.price}</span>
+                        <span className="text-[9.5px] text-gray-400 line-through font-medium">₹{combo.originalPrice}</span>
+                      </div>
+                    </div>
 
-                </div>
-
-                {/* Footer and Price / Action buttons */}
-                <div className="mt-3.5 pt-2.5 border-t border-[#1A1A1A]/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
-                    <span className="text-[7.5px] font-bold text-gray-400 uppercase tracking-wider block">Combo Price</span>
-                    <div className="flex items-baseline space-x-1 mt-0.5">
-                      <span className="text-base sm:text-lg font-sans font-extrabold text-[#38A325]">₹{combo.price}</span>
-                      <span className="text-[10px] text-gray-400 line-through">₹{combo.originalPrice}</span>
+                    <div>
+                      <button
+                        onClick={() => handleAddToCart(combo)}
+                        className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[8.5px] sm:text-[9px] font-black transition-all duration-200 flex items-center justify-center space-x-1 cursor-pointer uppercase tracking-wider active:scale-95 shadow-xs ${
+                          isAdded
+                            ? "bg-[#38A325] text-white border border-[#38A325]"
+                            : "bg-[#1A1A1A] text-white hover:bg-[#38A325] hover:shadow-xs transition-all duration-250"
+                        }`}
+                      >
+                        {isAdded ? (
+                          <>
+                            <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 animate-bounce" />
+                            <span>Added!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3" strokeWidth={2.5} />
+                            <span>Add</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                   </div>
+                </div>
 
-                  <div className="w-full sm:w-auto">
-                    <button
-                      onClick={() => handleAddToCart(combo)}
-                      className={`w-full sm:w-auto px-2.5 py-1.5 rounded-lg text-[8.5px] sm:text-[9.5px] font-bold transition-all duration-300 flex items-center justify-center space-x-1 cursor-pointer uppercase tracking-wider active:scale-95 shadow-sm ${
-                        isAdded
-                          ? "bg-[#38A325] text-white border border-[#38A325]"
-                          : "bg-transparent text-[#1A1A1A] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
-                      }`}
-                    >
-                      {isAdded ? (
-                        <>
-                          <CheckCircle className="w-3.5 h-3.5 animate-bounce" />
-                          <span>Added!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="w-3.5 h-3.5" />
-                          <span>Add to Cart</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
+                {/* Circular Bowl Image on the right, matching the user's card UI exactly */}
+                <div className="w-[66px] h-[66px] xs:w-[76px] xs:h-[76px] sm:w-[94px] sm:h-[94px] rounded-full overflow-hidden bg-white border border-neutral-100 flex-shrink-0 flex items-center justify-center p-0.5 sm:p-1 shadow-[0_2px_10px_rgba(0,0,0,0.02)] group-hover:shadow-[0_4px_12px_rgba(56,163,37,0.06)] transition-all duration-300 select-none">
+                  <img
+                    src={combo.image}
+                    alt={combo.name}
+                    referrerPolicy="no-referrer"
+                    className="w-[95%] h-[95%] rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
 
               </motion.div>
@@ -201,4 +220,3 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
     </section>
   );
 }
-
