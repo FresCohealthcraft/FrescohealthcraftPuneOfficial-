@@ -10,13 +10,16 @@ import SubscriptionSection from "./components/SubscriptionSection";
 import SpecialOffers from "./components/SpecialOffers";
 import HomeDeliveryBanner from "./components/HomeDeliveryBanner";
 import AboutUs from "./components/AboutUs";
-import ContactSection from "./components/ContactSection";
 import CartDrawer from "./components/CartDrawer";
 import AdminPortal from "./components/AdminPortal";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import ActiveSubscriptionWidget from "./components/ActiveSubscriptionWidget";
 import Logo from "./components/Logo";
 
 import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart } from "lucide-react";
+
+
+
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -231,12 +234,6 @@ export default function App() {
         {/* 7. Crafting wellness About Us columns (matching Image 2) */}
         <AboutUs />
 
-        {/* 8. Contact details and WhatsApp steps Map area (matching Image 3) */}
-        <ContactSection
-          onStartOrdering={scrollToMenuSection}
-          onGeneralChat={handleGeneralChatWhatsApp}
-        />
-
       </main>
 
       {/* 10. Ultimate Footer layouts (matching Image 3) */}
@@ -354,6 +351,9 @@ export default function App() {
       {/* 11. Overlapping Floating WhatsApp Bubble for fast navigation */}
       <FloatingWhatsApp onChat={handleGeneralChatWhatsApp} />
 
+      {/* 11.5 Responsive Active Subscription overlay for quick client tracking */}
+      <ActiveSubscriptionWidget />
+
       {/* 12. Modals Backdrop Overrides */}
       
       {/* Shopping Cart Drawer Panel */}
@@ -377,5 +377,3 @@ export default function App() {
     </div>
   );
 }
-
-
