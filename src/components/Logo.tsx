@@ -51,15 +51,17 @@ export default function Logo({
           <span className={`font-sans font-black italic tracking-wide ml-0.5 ${lightText ? "text-[#F58220]" : "text-[#F26419]"}`}>
             Co
           </span>
+         <span
+  className={`font-sans font-extrabold ml-2 ${
+    lightText ? "text-[#9BD54E]" : "text-[#418420]"
+  }`}
+>
+  HEALTHCRAFT
+</span>
+        
         </div>
 
-       <span
-          className={`font-sans font-extrabold uppercase mt-1 leading-none ${subtitleClasses} ${
-            lightText ? "text-white/50" : "text-[#334D1C]"
-          }`}
-        >
-          HEALTHCRAFT
-        </span>
+                
 
         {showTagline && (
           <span
