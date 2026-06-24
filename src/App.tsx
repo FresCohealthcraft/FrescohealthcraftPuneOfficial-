@@ -13,7 +13,7 @@ import AboutUs from "./components/AboutUs";
 import CartDrawer from "./components/CartDrawer";
 import AdminPortal from "./components/AdminPortal";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
-import ActiveSubscriptionWidget from "./components/ActiveSubscriptionWidget";
+
 import Logo from "./components/Logo";
 
 import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Instagram, Facebook, Youtube, Send } from "lucide-react";
@@ -388,7 +388,6 @@ export default function App() {
       <FloatingWhatsApp onChat={handleGeneralChatWhatsApp} />
 
       {/* 11.5 Responsive Active Subscription overlay for quick client tracking */}
-      <ActiveSubscriptionWidget />
 
       {/* 12. Modals Backdrop Overrides */}
       
