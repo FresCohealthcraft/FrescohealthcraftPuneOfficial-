@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
-import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check, MessageSquare } from "lucide-react";
+import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check, MessageSquare, ShieldCheck, Truck } from "lucide-react";
 
 interface SubscriptionSectionProps {
   onAddToCartDirectly: (item: MenuItem) => void;
@@ -894,325 +894,403 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Subscription Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-[#ffffff] bg-[#e47200]/100 px-3 py-1 rounded-full text-[15px] font-semibold uppercase tracking-wider mb-2">
+        <div className="inline-flex items-center justify-center text-white bg-[#F26419] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-3 shadow-xs">
           Wellness Subscriptions Plan's
         </div>
 
         {/* Dynamic Headings */}
-        <h2 className="text-xl sm:text-2xl font-serif italic text-[#1A1A1A] tracking-tight leading-tight">
-          Fresco Healthcraft Wellness Plans
-        </h2>
-        <p className="mt-1 text-[#1A1A1A]/70 max-w-md mx-auto text-xs sm:text-sm">
-          Transform your daily wellness and save big with scheduled raw nourishment. Freshly prepared and delivered daily to your doorstep.
+        
+        <p className="mt-2 text-[#1A1A1A]/75 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
+          Transform your daily wellness and save big with scheduled raw nourishment.
+          <br />
+          Freshly prepared and delivered daily to your doorstep.
         </p>
 
         {/* Real-time Customer Active Subscription Status Desk */}
-        <div id="subscription-tracker-desk" className="max-w-4xl mx-auto my-6 text-left">
-          <div className="bg-white border-2 border-[#38A325]/25 rounded-2xl p-4 sm:p-5.5 shadow-md relative overflow-hidden">
-            {/* Ambient Background Glow */}
-            <div className="absolute right-0 top-0 w-28 h-28 bg-[#38A325]/5 rounded-full filter blur-xl pointer-events-none" />
+        <div id="subscription-tracker-desk" className="max-w-5xl mx-auto my-6 text-left">
+          <div className="bg-white border border-neutral-200/80 rounded-3xl p-5 sm:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] relative">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#1A1A1A]/10 pb-3 mb-4 gap-3">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold text-[#38A325]">
-                  <ShieldAlert className="w-4.5 h-4.5" />
+            {/* Top Dashboard Row */}
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 lg:gap-6 pb-5 border-b border-neutral-150">
+              
+              {/* Left Group: Shield Badge & Dashboard Title */}
+              <div className="flex items-center space-x-3 shrink-0">
+                <div className="w-11 h-11 rounded-2xl bg-[#F2FAED] flex items-center justify-center text-[#38A325] border border-[#38A325]/15 shadow-sm">
+                  <ShieldCheck className="w-5.5 h-5.5" strokeWidth={2.2} />
                 </div>
-                <div>
-                  <h3 className="text-[9.5px] font-bold uppercase tracking-widest text-[#1A1A1A]/55 font-sans">
-                    Customer Account Dashboard
+                <div className="text-left">
+                  <h3 className="text-[9.5px] font-extrabold uppercase tracking-widest text-[#38A325]/90 font-sans leading-none">
+                    CUSTOMER ACCOUNT DASHBOARD
                   </h3>
-                  <h4 className="font-serif italic text-base sm:text-lg text-gray-900 font-bold">
+                  <h4 className="font-serif italic text-base sm:text-lg text-gray-950 font-extrabold mt-1">
                     Active Subscription Tracker
                   </h4>
                 </div>
               </div>
 
-              {/* Status Switcher & Simulator Tools */}
-              <div className="flex items-center space-x-2 bg-[#EFECE5]/60 px-2.5 py-1 rounded-xl border border-neutral-200 self-start sm:self-center">
-                <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                  <Settings className="w-3 h-3 animate-spin" style={{ animationDuration: "12s" }} />
-                  <span>Interactive Simulator:</span>
-                </span>
-                <select
-                  value={activePlan ? activePlan.id : "none"}
-                  onChange={(e) => handleSimulatorDropdownSelect(e.target.value)}
-                  className="bg-white border border-gray-300 rounded text-[9.5px] font-bold text-[#1A1A1A] py-0.5 px-1 focus:outline-none focus:ring-1 focus:ring-[#38A325] cursor-pointer"
-                >
-                  <option value="none">No Active Plan</option>
-                  <option value="sub_weekly_nutrient">Fresco 6-Day Wellness Cycle</option>
-                  <option value="sub_weekly_fruit_juice">Weekly Fruit Juice</option>
-                  <option value="month_green_taster">7-Days Weight Loss Transformation</option>
-                  <option value="month_balanced_cleanse"> Daily Fresh Wellness Plan</option>
-                  <option value="month_wellness_overhaul">Protein Power Plan</option>
-                  <option value="custom_plan_custom">Ultimate Wellness Elite Plan</option>
-                </select>
-              </div>
-            </div>
-
-            {activePlan ? (
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-5.5">
-                {/* Visual Status Indicator & Delivery Tracker */}
-                <div className="md:col-span-7 space-y-3.5">
-                  <div className="flex flex-wrap items-center justify-between gap-2.5">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-xl select-none">
-                        {activePlan.type === "monthly" ? "👑" : "🌱"}
-                      </span>
-                      <div>
-                        <h5 className="font-bold text-sm sm:text-base text-gray-900 leading-tight">
-                          {activePlan.name}
-                        </h5>
-                        <p className="text-[10px] text-gray-500 font-mono mt-0.5">
-                          Billing Cycle: <span className="font-bold capitalize text-emerald-700">{activePlan.type} Plan</span> (Price: ₹{activePlan.price})
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-1.5 shrink-0">
-                      <span className={`inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full select-none ${
-                        activePlan.status === "active"
-                          ? "bg-emerald-100 text-[#38A325] border border-emerald-300"
-                          : "bg-amber-100 text-amber-700 border border-amber-300"
-                      }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${activePlan.status === "active" ? "bg-[#38A325] animate-pulse" : "bg-amber-500"}`} />
-                        <span>{activePlan.status === "active" ? "In Progress" : "Paused"}</span>
-                      </span>
-                    </div>
+              {/* Middle Stats Group - Beautiful columns with vertical dividers */}
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 md:gap-8 lg:border-l lg:border-neutral-100 lg:pl-6 py-1">
+                
+                {/* Stat 1: Plan status */}
+                <div className="flex items-center space-x-2.5 min-w-[145px] text-left">
+                  <div className="w-9 h-9 rounded-xl bg-neutral-50 border border-neutral-150 flex items-center justify-center shrink-0">
+                    <Calendar className="w-4.5 h-4.5 text-[#38A325]" strokeWidth={2.2} />
                   </div>
-
-                  {/* Delivery Progress Bar */}
-                  <div className="bg-[#EFECE5]/40 border border-gray-200/50 rounded-xl p-3 space-y-1.5">
-                    <div className="flex justify-between items-baseline text-[10.5px]">
-                      <span className="text-gray-500 font-medium">Deliveries Dispatch Cycle:</span>
-                      <span className="font-mono text-gray-850 font-bold">
-                        {activePlan.deliveriesCompleted} of {activePlan.totalDeliveries} Completed
-                      </span>
-                    </div>
-                    {/* Real Progress Bar */}
-                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                      <div
-                        className="bg-gradient-to-r from-[#38A325] to-emerald-600 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${(activePlan.deliveriesCompleted / activePlan.totalDeliveries) * 100}%` }}
-                      />
-                    </div>
-                    
-                    {/* Staggered Delivery Blocks */}
-                    <div className="grid grid-cols-6 gap-1 pt-1.5">
-                      {Array.from({ length: activePlan.totalDeliveries || 6 }).map((_, index) => {
-                        const isCompleted = index < activePlan.deliveriesCompleted;
-                        const isCurrent = index === activePlan.deliveriesCompleted && activePlan.status === "active";
-                        return (
-                          <div
-                            key={index}
-                            title={isCompleted ? `Day ${index + 1} completed & dispatched` : isCurrent ? `Day ${index + 1} dispatch in progress` : `Day ${index + 1} scheduled`}
-                            className={`h-5 rounded text-[8px] font-mono font-bold flex items-center justify-center border transition-all select-none cursor-default ${
-                              isCompleted
-                                ? "bg-[#38A325] border-[#2E851E] text-white shadow-sm ring-1 ring-[#38A325]/20 font-extrabold"
-                                : isCurrent
-                                ? "bg-amber-500/10 border-amber-500 text-amber-800 animate-pulse font-black shadow-xs ring-1 ring-amber-400"
-                                : "bg-neutral-50 border-gray-200 text-gray-400"
-                            }`}
-                          >
-                            <span>D-{index + 1}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Date & Auto-Renewal locks */}
-                  <div className="grid grid-cols-2 gap-3 text-left">
-                    <div className="bg-neutral-50/70 border border-neutral-200/60 rounded-xl p-2.5">
-                      <span className="text-[8.5px] font-bold uppercase tracking-wider text-gray-400 block font-mono">Cycle Activated Date</span>
-                      <span className="text-[11.5px] font-bold text-gray-800 font-mono flex items-center gap-1.5 mt-0.5">
-                        <Calendar className="w-3.5 h-3.5 text-gray-500" />
-                        <span>{activePlan.startDate}</span>
-                      </span>
-                    </div>
-                    <div className="bg-neutral-50/70 border border-neutral-200/60 rounded-xl p-2.5 relative overflow-hidden">
-                      <span className="text-[8.5px] font-bold uppercase tracking-wider text-[#38A325] block font-mono">Next Auto-Renewal Date</span>
-                      <span className="text-[11.5px] font-bold text-gray-950 font-mono flex items-center gap-1.5 mt-0.5">
-                        <Clock className="w-3.5 h-3.5 text-[#38A325]" />
-                        <span>{activePlan.renewalDate}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Customer Address Profile & Editing block */}
-                  <div className="bg-[#EFECE5]/35 border border-neutral-200/65 rounded-xl p-3.5 space-y-1.5 text-left relative overflow-hidden">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[9px] font-bold uppercase tracking-wider text-neutral-400 font-mono">Subscriber Address Profile</span>
-                      <button
-                        onClick={() => {
-                          setPendingPlan(activePlan);
-                          setProfileForm({
-                            name: activePlan.customerName || "",
-                            phone: activePlan.customerPhone || "",
-                            location: "Pune",
-                            address: activePlan.customerAddress || ""
-                          });
-                          setShowProfileModal(true);
-                        }}
-                        className="text-[9.5px] text-[#38A325] font-extrabold uppercase hover:underline cursor-pointer flex items-center gap-1 bg-white/80 hover:bg-white px-2 py-0.5 rounded border border-[#38A325]/20 shadow-2xs transition-all"
-                      >
-                        <span>⚙️ Modify Profile</span>
-                      </button>
-                    </div>
-
-                    {!activePlan.customerName ? (
-                      <div className="pt-1.5 pb-0.5">
-                        <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-2.5 flex items-start space-x-2">
-                          <span className="text-sm">⚠️</span>
-                          <div>
-                            <p className="text-[11px] font-bold text-amber-800 leading-tight">Delivery Details Awaiting Setup</p>
-                            <p className="text-[9px] text-amber-700/85 mt-0.5 leading-normal">
-                              To receive fresh juice morning dispatches, click Modify Profile to register your name, contact, and address.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-[11.5px] space-y-1.5 pt-1">
-                        <p className="text-[#1A1A1A] font-bold flex items-center gap-1.5 leading-none">
-                          <span>👤 Name:</span>
-                          <span className="text-[#38A325] font-extrabold">{activePlan.customerName}</span>
-                          <span className="text-[10px] font-mono text-neutral-400 font-normal">({activePlan.customerPhone})</span>
-                        </p>
-                        <p className="text-gray-505 leading-relaxed flex items-start gap-1.5 mt-1 text-xs">
-                          <span>📍 Dropto:</span>
-                          <span className="text-neutral-600 font-medium">
-                            {activePlan.customerAddress}
-                          </span>
-                        </p>
-                      </div>
-                    )}
+                  <div>
+                    <h5 className={`text-xs font-black ${activePlan ? 'text-gray-950' : 'text-[#E47200]'}`}>
+                      {activePlan ? activePlan.name : "No Active Plan"}
+                    </h5>
+                    <p className="text-[10px] text-gray-400 font-bold mt-0.5 leading-none">
+                      {activePlan ? "Active & Confirmed" : "You are not subscribed"}
+                    </p>
                   </div>
                 </div>
 
-                {/* Today's Drop Details & Subscription Controls */}
-                <div className="md:col-span-5 space-y-3.5 flex flex-col justify-between border-t md:border-t-0 md:border-l border-neutral-200/50 pt-3 md:pt-0 md:pl-5.5">
-                  <div className="space-y-2 text-left">
-                    <div className="flex items-center space-x-1">
-                      <span className="text-[9.5px] font-bold uppercase tracking-widest text-[#38A325]">
-                        Today's Scheduled Drop
-                      </span>
-                      <span className="bg-emerald-500/10 text-[#38A325] text-[7.5px] font-bold px-1.5 py-0.2 rounded font-mono">Live</span>
+                <div className="hidden sm:block h-8 w-px bg-neutral-200/60" />
+
+                {/* Stat 2: Savings */}
+                <div className="flex items-center space-x-2.5 text-left">
+                  <Leaf className="w-4.5 h-4.5 text-[#38A325]" strokeWidth={2.2} />
+                  <div>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider leading-none">Savings</p>
+                    <p className="text-xs font-black text-gray-900 mt-1 font-mono">
+                      ₹{activePlan ? (activePlan.type === "monthly" ? "661" : "150") : "0"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="hidden sm:block h-8 w-px bg-neutral-200/60" />
+
+                {/* Stat 3: Next Delivery */}
+                <div className="flex items-center space-x-2.5 text-left">
+                  <Truck className="w-4.5 h-4.5 text-[#38A325]" strokeWidth={2.2} />
+                  <div>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider leading-none">Next Delivery</p>
+                    <p className="text-xs font-black text-gray-900 mt-1 font-sans">
+                      {activePlan ? "Tomorrow" : "—"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="hidden sm:block h-8 w-px bg-neutral-200/60" />
+
+                {/* Stat 4: Pause Anytime */}
+                <div className="flex items-center space-x-2.5 text-left">
+                  <Pause className="w-4.5 h-4.5 text-[#38A325]" strokeWidth={2.2} />
+                  <div>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider leading-none">Pause Anytime</p>
+                    <p className="text-xs font-black text-gray-900 mt-1 font-sans">
+                      Yes
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Right Group: Interactive Simulator Select Box */}
+              <div className="lg:border-l lg:border-neutral-100 lg:pl-6 shrink-0 w-full lg:w-auto">
+                <div className="bg-[#F9FAF9] rounded-xl p-2.5 border border-neutral-150 min-w-[200px] shadow-3xs text-left">
+                  <span className="block text-[8px] font-black uppercase tracking-widest text-gray-450 mb-1 leading-none font-sans">
+                    INTERACTIVE SIMULATOR:
+                  </span>
+                  <div className="relative">
+                    <select
+                      value={activePlan ? activePlan.id : "none"}
+                      onChange={(e) => handleSimulatorDropdownSelect(e.target.value)}
+                      className="w-full bg-white border border-gray-200 hover:border-gray-350 rounded-lg text-[11px] font-black text-gray-955 py-1 pl-2.5 pr-7 focus:outline-none focus:ring-1 focus:ring-[#38A325]/30 cursor-pointer appearance-none shadow-4xs"
+                    >
+                      <option value="none">No Active Plan</option>
+                      <option value="sub_weekly_nutrient">Fresco 6-Day Wellness Cycle</option>
+                      <option value="sub_weekly_fruit_juice">Weekly Fruit Juice</option>
+                      <option value="month_green_taster">7-Days Weight Loss Transformation</option>
+                      <option value="month_balanced_cleanse">Daily Fresh Wellness Plan</option>
+                      <option value="month_wellness_overhaul">Protein Power Plan</option>
+                      <option value="custom_plan_custom">Ultimate Wellness Elite Plan</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-gray-450">
+                      <ChevronDown className="w-3.5 h-3.5" />
                     </div>
-                    
-                    <div className="bg-[#EFECE5]/40 border border-[#1A1A1A]/5 rounded-xl p-3 flex items-start space-x-2.5">
-                      <div className="text-xl p-1 bg-white/95 rounded-lg border border-neutral-200 select-none">
-                        {getTodayItemForPlan(activePlan.id).icon}
-                      </div>
-                      <div className="min-w-0">
-                        <span className="font-bold text-[11.5px] text-gray-950 block leading-tight truncate">
-                          {getTodayItemForPlan(activePlan.id).juice}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom Content Area */}
+            {activePlan ? (
+              <div className="pt-5">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5.5">
+                  {/* Visual Status Indicator & Delivery Tracker */}
+                  <div className="md:col-span-7 space-y-3.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2.5 text-left">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xl select-none">
+                          {activePlan.type === "monthly" ? "👑" : "🌱"}
                         </span>
-                        <p className="text-[9px] text-[#38A325] font-semibold mt-0.5 flex items-center gap-1">
-                          <CheckCircle2 className="w-2.5 h-2.5 fill-current" />
-                          <span>Delivered Daily morning (7-10 AM)</span>
-                        </p>
-                        <p className="text-[9px] text-gray-500 mt-1 leading-normal">
-                          {getTodayItemForPlan(activePlan.id).description}
-                        </p>
+                        <div>
+                          <h5 className="font-bold text-sm sm:text-base text-gray-900 leading-tight">
+                            {activePlan.name}
+                          </h5>
+                          <p className="text-[10px] text-gray-500 font-mono mt-0.5">
+                            Billing Cycle: <span className="font-bold capitalize text-emerald-700">{activePlan.type} Plan</span> (Price: ₹{activePlan.price})
+                          </p>
+                        </div>
                       </div>
+
+                      <div className="flex items-center space-x-1.5 shrink-0">
+                        <span className={`inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full select-none ${
+                          activePlan.status === "active"
+                            ? "bg-emerald-100 text-[#38A325] border border-emerald-300"
+                            : "bg-amber-100 text-amber-700 border border-amber-300"
+                        }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${activePlan.status === "active" ? "bg-[#38A325] animate-pulse" : "bg-amber-500"}`} />
+                          <span>{activePlan.status === "active" ? "In Progress" : "Paused"}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Delivery Progress Bar */}
+                    <div className="bg-[#EFECE5]/40 border border-gray-200/50 rounded-xl p-3 space-y-1.5 text-left">
+                      <div className="flex justify-between items-baseline text-[10.5px]">
+                        <span className="text-gray-500 font-medium">Deliveries Dispatch Cycle:</span>
+                        <span className="font-mono text-gray-850 font-bold">
+                          {activePlan.deliveriesCompleted} of {activePlan.totalDeliveries} Completed
+                        </span>
+                      </div>
+                      {/* Real Progress Bar */}
+                      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                        <div
+                          className="bg-gradient-to-r from-[#38A325] to-emerald-600 h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${(activePlan.deliveriesCompleted / activePlan.totalDeliveries) * 100}%` }}
+                        />
+                      </div>
+                      
+                      {/* Staggered Delivery Blocks */}
+                      <div className="grid grid-cols-6 gap-1 pt-1.5">
+                        {Array.from({ length: activePlan.totalDeliveries || 6 }).map((_, index) => {
+                          const isCompleted = index < activePlan.deliveriesCompleted;
+                          const isCurrent = index === activePlan.deliveriesCompleted && activePlan.status === "active";
+                          return (
+                            <div
+                              key={index}
+                              title={isCompleted ? `Day ${index + 1} completed & dispatched` : isCurrent ? `Day ${index + 1} dispatch in progress` : `Day ${index + 1} scheduled`}
+                              className={`h-5 rounded text-[8px] font-mono font-bold flex items-center justify-center border transition-all select-none cursor-default ${
+                                isCompleted
+                                  ? "bg-[#38A325] border-[#2E851E] text-white shadow-sm ring-1 ring-[#38A325]/20 font-extrabold"
+                                  : isCurrent
+                                  ? "bg-amber-500/10 border-amber-500 text-amber-800 animate-pulse font-black shadow-xs ring-1 ring-amber-400"
+                                  : "bg-neutral-50 border-gray-200 text-gray-400"
+                              }`}
+                            >
+                              <span>D-{index + 1}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Date & Auto-Renewal locks */}
+                    <div className="grid grid-cols-2 gap-3 text-left">
+                      <div className="bg-neutral-50/70 border border-neutral-200/60 rounded-xl p-2.5">
+                        <span className="text-[8.5px] font-bold uppercase tracking-wider text-gray-400 block font-mono">Cycle Activated Date</span>
+                        <span className="text-[11.5px] font-bold text-gray-800 font-mono flex items-center gap-1.5 mt-0.5">
+                          <Calendar className="w-3.5 h-3.5 text-gray-500" />
+                          <span>{activePlan.startDate}</span>
+                        </span>
+                      </div>
+                      <div className="bg-neutral-50/70 border border-neutral-200/60 rounded-xl p-2.5 relative overflow-hidden">
+                        <span className="text-[8.5px] font-bold uppercase tracking-wider text-[#38A325] block font-mono">Next Auto-Renewal Date</span>
+                        <span className="text-[11.5px] font-bold text-gray-950 font-mono flex items-center gap-1.5 mt-0.5">
+                          <Clock className="w-3.5 h-3.5 text-[#38A325]" />
+                          <span>{activePlan.renewalDate}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Customer Address Profile & Editing block */}
+                    <div className="bg-[#EFECE5]/35 border border-neutral-200/65 rounded-xl p-3.5 space-y-1.5 text-left relative overflow-hidden">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-neutral-400 font-mono">Subscriber Address Profile</span>
+                        <button
+                          onClick={() => {
+                            setPendingPlan(activePlan);
+                            setProfileForm({
+                              name: activePlan.customerName || "",
+                              phone: activePlan.customerPhone || "",
+                              location: "Pune",
+                              address: activePlan.customerAddress || ""
+                            });
+                            setShowProfileModal(true);
+                          }}
+                          className="text-[9.5px] text-[#38A325] font-extrabold uppercase hover:underline cursor-pointer flex items-center gap-1 bg-white/80 hover:bg-white px-2 py-0.5 rounded border border-[#38A325]/20 shadow-2xs transition-all"
+                        >
+                          <span>⚙️ Modify Profile</span>
+                        </button>
+                      </div>
+
+                      {!activePlan.customerName ? (
+                        <div className="pt-1.5 pb-0.5">
+                          <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-2.5 flex items-start space-x-2">
+                            <span className="text-sm">⚠️</span>
+                            <div>
+                              <p className="text-[11px] font-bold text-amber-800 leading-tight">Delivery Details Awaiting Setup</p>
+                              <p className="text-[9px] text-amber-700/85 mt-0.5 leading-normal">
+                                To receive fresh juice morning dispatches, click Modify Profile to register your name, contact, and address.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-[11.5px] space-y-1.5 pt-1">
+                          <p className="text-[#1A1A1A] font-bold flex items-center gap-1.5 leading-none">
+                            <span>👤 Name:</span>
+                            <span className="text-[#38A325] font-extrabold">{activePlan.customerName}</span>
+                            <span className="text-[10px] font-mono text-neutral-400 font-normal">({activePlan.customerPhone})</span>
+                          </p>
+                          <p className="text-gray-505 leading-relaxed flex items-start gap-1.5 mt-1 text-xs text-neutral-650">
+                            <span>📍 Dropto:</span>
+                            <span className="text-neutral-600 font-medium">
+                              {activePlan.customerAddress}
+                            </span>
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* Active Controls */}
-                  <div className="space-y-2 pt-2 border-t border-neutral-200/20">
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        onClick={handleTogglePausePlan}
-                        className={`py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border cursor-pointer flex items-center justify-center space-x-1.5 transition-all w-full active:scale-95 ${
-                          activePlan.status === "active"
-                            ? "border-amber-400 bg-amber-50/50 hover:bg-amber-50 text-amber-800"
-                            : "border-emerald-400 bg-emerald-50/50 hover:bg-emerald-50 text-emerald-800"
-                        }`}
-                      >
-                        {activePlan.status === "active" ? (
-                          <>
-                            <Pause className="w-3.5 h-3.5 text-amber-600" />
-                            <span>Pause Plan</span>
-                          </>
-                        ) : (
-                          <>
-                            <Play className="w-3.5 h-3.5 text-emerald-600 fill-current" />
-                            <span>Resume</span>
-                          </>
-                        )}
-                      </button>
-
-                      <button
-                        onClick={handleRenewSimulatedPlan}
-                        className="bg-[#38A325] hover:bg-[#2F891F] py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg text-white cursor-pointer flex items-center justify-center space-x-1.5 transition-all w-full active:scale-95 shadow-xs"
-                      >
-                        <RefreshCw className="w-3.5 h-3.5 text-white" />
-                        <span>Renew Plan</span>
-                      </button>
-                    </div>
-
-                    <button
-                      onClick={handleSendActivePlanWhatsApp}
-                      className="w-full bg-[#25D366] hover:bg-[#20ba54] text-white py-2 rounded-lg font-extrabold text-[10.5px] uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-xs active:scale-95 border-b-2 border-emerald-700"
-                    >
-                      <MessageSquare className="w-4 h-4 fill-current text-white" />
-                      <span>Order Subscription via WhatsApp</span>
-                    </button>
-
-                    {showTerminateConfirm ? (
-                      <div className="bg-rose-50 border border-rose-200 rounded-lg p-2.5 text-center space-y-2 animate-fade-in w-full">
-                        <p className="text-[10px] text-rose-950 font-semibold leading-tight">
-                          ⚠️ Are you sure you want to terminate your active subscription cycle? All scheduled deliveries will stop.
-                        </p>
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            onClick={() => {
-                              const planToCancel = activePlan;
-                              updateActivePlan(null);
-                              setShowTerminateConfirm(false);
-                              setShowSubscriptionSuccess("Subscription cancelled successfully.");
-                              setTimeout(() => setShowSubscriptionSuccess(null), 2500);
-
-                              if (planToCancel) {
-                                const cancelMsg = `*FRESCO PUNE FRESH JUICES - SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
-                                const encodedCancelMsg = encodeURIComponent(cancelMsg);
-                                setTimeout(() => {
-                                  window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
-                                }, 500);
-                              }
-                            }}
-                            className="bg-rose-600 hover:bg-rose-700 text-white rounded py-1 px-2 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-all"
-                          >
-                            Yes, Cancel
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setShowTerminateConfirm(false)}
-                            className="bg-neutral-200 hover:bg-neutral-300 text-neutral-800 rounded py-1 px-2 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-all"
-                          >
-                            Keep Plan
-                          </button>
+                  {/* Today's Drop Details & Subscription Controls */}
+                  <div className="md:col-span-5 space-y-3.5 flex flex-col justify-between border-t md:border-t-0 md:border-l border-neutral-200/50 pt-3 md:pt-0 md:pl-5.5">
+                    <div className="space-y-2 text-left">
+                      <div className="flex items-center space-x-1">
+                        <span className="text-[9.5px] font-bold uppercase tracking-widest text-[#38A325]">
+                          Today's Scheduled Drop
+                        </span>
+                        <span className="bg-emerald-500/10 text-[#38A325] text-[7.5px] font-bold px-1.5 py-0.2 rounded font-mono">Live</span>
+                      </div>
+                      
+                      <div className="bg-[#EFECE5]/40 border border-[#1A1A1A]/5 rounded-xl p-3 flex items-start space-x-2.5">
+                        <div className="text-xl p-1 bg-white/95 rounded-lg border border-neutral-200 select-none">
+                          {getTodayItemForPlan(activePlan.id).icon}
+                        </div>
+                        <div className="min-w-0 text-left">
+                          <span className="font-bold text-[11.5px] text-gray-950 block leading-tight truncate">
+                            {getTodayItemForPlan(activePlan.id).juice}
+                          </span>
+                          <p className="text-[9px] text-[#38A325] font-semibold mt-0.5 flex items-center gap-1">
+                            <CheckCircle2 className="w-2.5 h-2.5 fill-current" />
+                            <span>Delivered Daily morning (7-10 AM)</span>
+                          </p>
+                          <p className="text-[9px] text-gray-500 mt-1 leading-normal">
+                            {getTodayItemForPlan(activePlan.id).description}
+                          </p>
                         </div>
                       </div>
-                    ) : (
+                    </div>
+
+                    {/* Active Controls */}
+                    <div className="space-y-2 pt-2 border-t border-neutral-200/20 text-left">
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={handleTogglePausePlan}
+                          className={`py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border cursor-pointer flex items-center justify-center space-x-1.5 transition-all w-full active:scale-95 ${
+                            activePlan.status === "active"
+                              ? "border-amber-400 bg-amber-50/50 hover:bg-amber-50 text-amber-800"
+                              : "border-emerald-400 bg-emerald-50/50 hover:bg-emerald-50 text-emerald-800"
+                          }`}
+                        >
+                          {activePlan.status === "active" ? (
+                            <>
+                              <Pause className="w-3.5 h-3.5 text-amber-600" />
+                              <span>Pause Plan</span>
+                            </>
+                          ) : (
+                            <>
+                              <Play className="w-3.5 h-3.5 text-emerald-600 fill-current" />
+                              <span>Resume</span>
+                            </>
+                          )}
+                        </button>
+
+                        <button
+                          onClick={handleRenewSimulatedPlan}
+                          className="bg-[#38A325] hover:bg-[#2F891F] py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg text-white cursor-pointer flex items-center justify-center space-x-1.5 transition-all w-full active:scale-95 shadow-xs"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5 text-white" />
+                          <span>Renew Plan</span>
+                        </button>
+                      </div>
+
                       <button
-                        onClick={() => setShowTerminateConfirm(true)}
-                        className="w-full bg-rose-50 hover:bg-rose-100/80 hover:text-rose-900 border border-rose-300 py-1.5 rounded-lg font-bold text-[9px] text-rose-700 uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center space-x-1 active:scale-95"
+                        onClick={handleSendActivePlanWhatsApp}
+                        className="w-full bg-[#25D366] hover:bg-[#20ba54] text-white py-2 rounded-lg font-extrabold text-[10.5px] uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-xs active:scale-95 border-b-2 border-emerald-700"
                       >
-                        <Trash2 className="w-3 h-3 text-rose-500" />
-                        <span>Cancel Subscription</span>
+                        <MessageSquare className="w-4 h-4 fill-current text-white" />
+                        <span>Order Subscription via WhatsApp</span>
                       </button>
-                    )}
+
+                      {showTerminateConfirm ? (
+                        <div className="bg-rose-50 border border-rose-200 rounded-lg p-2.5 text-center space-y-2 animate-fade-in w-full">
+                          <p className="text-[10px] text-rose-950 font-semibold leading-tight">
+                            ⚠️ Are you sure you want to terminate your active subscription cycle? All scheduled deliveries will stop.
+                          </p>
+                          <div className="grid grid-cols-2 gap-2">
+                            <button
+                              onClick={() => {
+                                const planToCancel = activePlan;
+                                updateActivePlan(null);
+                                setShowTerminateConfirm(false);
+                                setShowSubscriptionSuccess("Subscription cancelled successfully.");
+                                setTimeout(() => setShowSubscriptionSuccess(null), 2500);
+
+                                if (planToCancel) {
+                                  const cancelMsg = `*FRESCO PUNE FRESH JUICES - SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
+                                  const encodedCancelMsg = encodeURIComponent(cancelMsg);
+                                  setTimeout(() => {
+                                    window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
+                                  }, 500);
+                                }
+                              }}
+                              className="bg-rose-600 hover:bg-rose-700 text-white rounded py-1 px-2 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-all"
+                            >
+                              Yes, Cancel
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setShowTerminateConfirm(false)}
+                              className="bg-neutral-200 hover:bg-neutral-300 text-neutral-800 rounded py-1 px-2 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-all"
+                            >
+                              Keep Plan
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setShowTerminateConfirm(true)}
+                          className="w-full bg-rose-50 hover:bg-rose-100/80 hover:text-rose-900 border border-rose-300 py-1.5 rounded-lg font-bold text-[9px] text-rose-700 uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center space-x-1 active:scale-95"
+                        >
+                          <Trash2 className="w-3 h-3 text-rose-500" />
+                          <span>Cancel Subscription</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="py-4 text-center">
-                <p className="text-xs text-gray-500 font-semibold mb-3 flex items-center justify-center gap-1.5">
-                  <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>No Active Subscription found on FresCo. Choose a wellness cycle below to activate.</span>
-                </p>
-                <div className="flex flex-wrap items-center justify-center gap-2 max-w-xl mx-auto">
+              <div className="pt-5 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-neutral-100 mt-1">
+                
+                {/* Warning Alert Message */}
+                <div className="flex items-center space-x-2 text-left bg-transparent">
+                  <div className="w-7 h-7 rounded-full bg-amber-500/5 flex items-center justify-center shrink-0 border border-amber-500/10">
+                    <AlertCircle className="w-4 h-4 text-[#F26419]" />
+                  </div>
+                  <p className="text-[11.5px] font-bold text-gray-700 leading-tight">
+                    No Active Subscription found on FresCo. Choose a wellness cycle below to activate.
+                  </p>
+                </div>
+
+                {/* Quick Action Buttons */}
+                <div className="flex flex-wrap items-center gap-2.5 shrink-0">
                   <button
                     onClick={() => {
                       updateActivePlan({
@@ -1229,9 +1307,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       setShowSubscriptionSuccess("Weekly Plan Loaded!");
                       setTimeout(() => setShowSubscriptionSuccess(null), 2000);
                     }}
-                    className="border border-[#38A325] text-[#38A325] bg-emerald-500/5 hover:bg-[#38A325]/10 px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-colors"
+                    className="flex items-center space-x-1.5 px-4 py-1.5 border border-[#38A325] text-[#38A325] hover:bg-[#38A325]/5 rounded-xl font-extrabold text-[10.5px] uppercase tracking-wider transition-all cursor-pointer active:scale-95 bg-transparent"
                   >
-                    Quick Activate Weekly (6-Day)
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>QUICK ACTIVATE WEEKLY (6-DAY)</span>
                   </button>
                   <button
                     onClick={() => {
@@ -1249,11 +1328,13 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                       setShowSubscriptionSuccess("Monthly Protein Plus Loaded!");
                       setTimeout(() => setShowSubscriptionSuccess(null), 2000);
                     }}
-                    className="border border-[#38A325] text-white bg-[#38A325] hover:bg-[#2F891F] px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider cursor-pointer shadow-xs transition-colors"
+                    className="flex items-center space-x-1.5 px-4 py-1.5 bg-[#38A325] hover:bg-[#2F891F] text-white rounded-xl font-extrabold text-[10.5px] uppercase tracking-wider transition-all cursor-pointer shadow-sm active:scale-95"
                   >
-                    Quick Activate Monthly (30-Day)
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>QUICK ACTIVATE MONTHLY (30-DAY)</span>
                   </button>
                 </div>
+
               </div>
             )}
           </div>
