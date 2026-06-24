@@ -16,7 +16,7 @@ import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import ActiveSubscriptionWidget from "./components/ActiveSubscriptionWidget";
 import Logo from "./components/Logo";
 
-import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart } from "lucide-react";
+import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Instagram, Facebook, Youtube, Send } from "lucide-react";
 
 
 
@@ -236,113 +236,149 @@ export default function App() {
 
       </main>
 
-      {/* 10. Ultimate Footer layouts (matching Image 3) */}
-      <footer className="bg-[#1A1A1A] text-[#F9F8F4] pt-16 pb-8 border-t border-[#1A1A1A]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      {/* 10. Ultimate Footer layouts (matching Redesigned Image) */}
+      <footer className="bg-[#0C2D1C] text-white pt-12 pb-10 border-t border-emerald-950 relative overflow-hidden">
+        {/* Subtle background glow effect */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-850/15 via-transparent to-transparent pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-start">
             
-            {/* Logo and Slogans Column */}
-            <div className="md:col-span-5 space-y-4 text-left">
-              <Logo size="sm" lightText={true} showTagline={true} />
-              <p className="text-xs text-[#F9F8F4]/70 max-w-sm leading-relaxed">
-                Your trusted partner for fresh, healthy, and delicious juices. We bring nature's raw goodness right to your Pune doorstep with our high-retention extraction technology and fast delivery operations.
+            {/* Column 1: Logo & Slogan */}
+            <div className="space-y-4 text-left">
+              <div className="flex flex-col text-left select-none">
+                <div className="flex items-center space-x-1.5">
+                  <span className="font-sans font-bold text-2xl tracking-tight text-white">
+                    Fresco
+                  </span>
+                  <Leaf className="w-4.5 h-4.5 text-[#F58220] fill-[#F58220]" />
+                </div>
+                <span className="text-[10px] font-black uppercase mt-1 leading-none text-[#F58220] tracking-[0.2em]">
+                  HEALTHCRAFT
+                </span>
+              </div>
+              <p className="text-xs text-neutral-300 leading-relaxed max-w-xs font-medium">
+                We make healthy eating easy, tasty and convenient with our range of fresh sprouts, salads, fruit cups, and cold-pressed juices.
               </p>
             </div>
 
-            {/* Quick Links column */}
-            <div className="md:col-span-3 text-left">
-              <h4 className="font-bold text-[11px] text-[#38A325] uppercase tracking-[0.25em]">
-                Quick Links
+            {/* Column 2: Shop */}
+            <div className="text-left">
+              <h4 className="font-bold text-sm text-white tracking-wide mb-3 sm:mb-4">
+                Shop
               </h4>
-              <ul className="mt-4 space-y-2.5 text-xs text-[#F9F8F4]/70">
+              <ul className="space-y-2.5 text-xs text-neutral-300">
                 <li>
-                  <button onClick={() => { setActiveSection("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
-                    Home
+                  <button onClick={() => { setSearchTerm("sprouts"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
+                    Sprouts
                   </button>
                 </li>
                 <li>
-                  <button onClick={scrollToMenuSection} className="hover:text-white transition-colors cursor-pointer text-left">
-                    Menu
+                  <button onClick={() => { setSearchTerm("cup"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
+                    Fruit Cups
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setActiveSection("subscriptions"); document.getElementById("subscriptions")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
-                    Wellness Plans
+                  <button onClick={() => { setSearchTerm("juice"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
+                    Fresh Juices
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setActiveSection("offers"); document.getElementById("offers")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
-                    Special Offers
+                  <button onClick={() => { setSearchTerm("vegetable"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
+                    Vegetable Juices
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setActiveSection("about"); document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
-                    About Us
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => { setActiveSection("contact"); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
-                    Contact
-                  </button>
-                </li>
-                <li className="pt-2 border-t border-white/5">
-                  <button
-                    onClick={() => setIsAdminOpen(true)}
-                    className="text-[#EFECE5]/80 hover:text-white font-extrabold transition-colors cursor-pointer flex items-center space-x-1"
-                  >
-                    <span>🛡️ Admin Portal</span>
+                  <button onClick={() => { setSearchTerm("combo"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
+                    Combos
                   </button>
                 </li>
               </ul>
             </div>
 
-            {/* Official Contact Column */}
-            <div className="md:col-span-4 text-left space-y-4">
-              <h4 className="font-bold text-[11px] text-[#38A325] uppercase tracking-[0.25em]">
-                Contact Us
+            {/* Column 3: Stay Connected */}
+            <div className="text-left space-y-3">
+              <h4 className="font-bold text-sm text-white tracking-wide">
+                Stay Connected
               </h4>
-              <div className="text-xs text-[#F9F8F4]/70 space-y-2.5 leading-relaxed">
-                <p>
-                  <a href="tel:+918983363146" className="hover:text-white hover:underline transition-colors cursor-pointer">
-                    📞 +91 89833 63146
-                  </a>
-                </p>
-                <p>
-                  <a href="mailto:frescofruit.pune@gmail.com" className="hover:text-white hover:underline transition-colors cursor-pointer">
-                    ✉ frescofruit.pune@gmail.com
-                  </a>
-                </p>
-                <p className="max-w-xs leading-normal">
-                  <a 
-                    href="https://maps.google.com/?q=Amanora+Urban+Plaza,+near+Sanjay+medico,+Amanora+Park+Town,+Hadapsar,+Pune,+Maharashtra+411028"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-white hover:underline transition-colors cursor-pointer"
-                  >
-                    📍 Amanora Urban Plaza, near Sanjay medico, Amanora Park Town, Hadapsar, Pune, Maharashtra 411028
-                  </a>
-                </p>
+              <p className="text-xs text-neutral-300 leading-normal font-medium max-w-xs">
+                Get updates on offers and new healthy products.
+              </p>
+              
+              {/* Subscription Input */}
+              <div className="relative max-w-xs mt-1.5">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/15 rounded-xl text-xs py-2 px-3.5 pr-10 text-white placeholder-white/45 focus:outline-none focus:ring-1 focus:ring-[#9BD54E] transition-all"
+                />
+                <button 
+                  onClick={() => {
+                    alert("Thank you for subscribing! We've registered your email for premium updates.");
+                  }}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-[#9BD54E] hover:bg-[#86be3e] text-[#0C2D1C] rounded-lg flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                </button>
               </div>
+
+              {/* Social Icons row */}
+              <div className="flex items-center space-x-3 pt-2">
+                <a 
+                  href="https://instagram.com/fresco_healthcraft" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs"
+                  title="Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a 
+                  href="https://facebook.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs"
+                  title="Facebook"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a 
+                  href="https://youtube.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs"
+                  title="YouTube"
+                >
+                  <Youtube className="w-4 h-4" />
+                </a>
+                <button 
+                  onClick={handleGeneralChatWhatsApp}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs cursor-pointer"
+                  title="WhatsApp"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Admin Portal Toggle Link */}
+              <div className="pt-2 border-t border-white/5">
+                <button
+                  onClick={() => setIsAdminOpen(true)}
+                  className="text-[11px] text-neutral-400 hover:text-white font-bold transition-colors cursor-pointer flex items-center space-x-1"
+                >
+                  <span>🛡️ Admin Portal</span>
+                </button>
+              </div>
+
             </div>
 
           </div>
 
-          {/* Social and Copyright bar */}
-          <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#F9F8F4]/50 text-xs">
+          {/* Copyright bar */}
+          <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-neutral-400 text-xs">
             <p className="text-center sm:text-left">
               © 2026 FresCo HealthCraft. All rights reserved. Registered Trade Brand in Pune, MH.
             </p>
-            <div className="flex space-x-3 select-none">
-              <button onClick={() => window.open("https://wa.me/918983363146", "_blank")} className="hover:text-white hover:bg-white/10 transition-colors cursor-pointer bg-white/5 p-2 px-3 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider">
-                💬 WhatsApp
-              </button>
-              <button onClick={() => window.open("https://instagram.com/fresco_healthcraft", "_blank")} className="hover:text-white hover:bg-white/10 transition-colors cursor-pointer bg-white/5 p-2 px-3 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider">
-                📸 Instagram
-              </button>
-              <button onClick={handleGeneralChatWhatsApp} className="hover:text-white hover:bg-white/10 transition-colors cursor-pointer bg-white/5 p-2 px-3 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider font-mono">
-                👥 Contact Chat
-              </button>
-            </div>
           </div>
 
         </div>
