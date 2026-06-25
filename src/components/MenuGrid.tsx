@@ -539,6 +539,14 @@ export default function MenuGrid({
                       setSelectedCategory(null);
                     } else {
                       setSelectedCategory(cat.name);
+                      setSearchTerm(""); // clear search term to show full category items
+                      // Smoothly scroll down to the category results section
+                      setTimeout(() => {
+                        const element = document.getElementById("categories-results-anchor");
+                        if (element) {
+                          element.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }, 100);
                     }
                   }}
                   initial={{ opacity: 0, y: 8 }}
@@ -584,6 +592,9 @@ export default function MenuGrid({
             })}
           </div>
         </motion.div>
+
+        {/* Scroll anchor target for category clicks */}
+        <div id="categories-results-anchor" className="scroll-mt-24 sm:scroll-mt-28" />
 
         {/* Clean, compact search bar inside grid view */}
         <div className="mb-8 max-w-md mx-auto relative px-2">
