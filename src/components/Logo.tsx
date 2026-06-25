@@ -22,18 +22,6 @@ export default function Logo({
   let subtitleClasses = "text-xs sm:text-sm tracking-[0.22em]";
   let gapClass = "space-x-4";
 
-  if (size === "sm") {
-    sizeClasses = "w-20 h-20 sm:w-16 sm:h-16";
-    titleClasses = "text-lg sm:text-xl";
-    subtitleClasses = "text-[8.5px] sm:text-[9.5px] tracking-[0.16em]";
-    gapClass = "space-x-2.5";
-  } else if (size === "lg") {
-    sizeClasses = "w-60 h-60 sm:w-48 sm:h-48";
-    titleClasses = "text-6xl sm:text-6xl";
-    subtitleClasses = "text-sm sm:text-base tracking-[0.26em]";
-    gapClass = "space-x-6";
-  }
-
   return (
     <div 
       id="fresco-logo" 
@@ -56,7 +44,7 @@ export default function Logo({
     lightText ? "text-[#9BD54E]" : "text-[#418420]"
   }`}
 >
-  HEALTHCRAFT
+  HealthCraft
 </span>
         
         </div>
