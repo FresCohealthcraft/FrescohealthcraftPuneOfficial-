@@ -28,7 +28,7 @@ export default function Hero({ onExploreMenu }: HeroProps) {
 
   const slides = [
     {
-      titleTop: "Nourish Your Body.",
+      titleTop: "Nourish Your Body with",
       titleBottom: "Pure Wellness.",
       subtitle: "Fresh, healthy meals delivered daily.",
       buttonText: "ORDER NOW",
@@ -40,9 +40,9 @@ export default function Hero({ onExploreMenu }: HeroProps) {
       mainRotation: "rotate-3",
     },
     {
-      titleTop: "Power Sprouts.",
-      titleBottom: "Daily Energy.",
-      subtitle: "High-protein superfood sprouts bowls.",
+      titleTop: "High Protein.",
+      titleBottom: "SuperFood Bowls.",
+      subtitle: "Sprout Bowl, Paneer Bowl Daily Energy.",
       buttonText: "ORDER NOW",
       mainImage: PaneerSproutsBowlImg, // Sprouts bowl
       overlayImage: SproutsBowlImg, // Wellness green drink
@@ -51,9 +51,9 @@ export default function Hero({ onExploreMenu }: HeroProps) {
       mainRotation: "-rotate-2",
     },
     {
-      titleTop: "Pure Juices.",
-      titleBottom: "Daily Reset.",
-      subtitle: "100% natural cold pressed juices.",
+      titleTop: "Pure Juice,",
+      titleBottom: "Pure You.",
+      subtitle: "Natural, Fresh Healthy Juices.",
       buttonText: "ORDER NOW",
       mainImage: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500&h=500&fit=crop&auto=format&q=80", // Premium juices background
       overlayImage: ExoticDelightCupImg, // Premium fruit cup
