@@ -4,6 +4,47 @@ import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check, MessageSquare, ShieldCheck, Truck } from "lucide-react";
 
+// @ts-ignore
+import DetoxBodyImg from "../assets/images/Detox-Body.png";
+// @ts-ignore
+import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
+// @ts-ignore
+import ImmunityBoosterImg from "../assets/images/Immunity-Booster.png";
+// @ts-ignore
+import ClassicDelightCupImg from "../assets/images/Classic-Delight-Cup.png";
+// @ts-ignore
+import VitalEnergyDrinkImg from "../assets/images/Vital-Energy-Drink.png";
+// @ts-ignore
+import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
+// @ts-ignore
+import SkinGlowUpImg from "../assets/images/Skin-Glow-up.png";
+// @ts-ignore
+import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
+// @ts-ignore
+import FatBurnerImg from "../assets/images/Fat-Burner.png";
+// @ts-ignore
+import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
+// @ts-ignore
+import ABCDriknImg from "../assets/images/ABC-Drink.png";
+// @ts-ignore
+import EnergyBoostShakeImg from "../assets/images/Energy-Boost-Shake.png";
+
+// @ts-ignore
+import OrangeJuiceImg from "../assets/images/Orange-Juice.png";
+// @ts-ignore
+import PineappleJuiceImg from "../assets/images/Pineapple-Juice.png";
+// @ts-ignore
+import MosambiJuiceImg from "../assets/images/Mosambi_Juice.png";
+// @ts-ignore
+import AppleJuiceImg from "../assets/images/Apple-Juice.png";
+// @ts-ignore
+import PapayaJuiceImg from "../assets/images/Papaya-Juice.png";
+// @ts-ignore
+import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
+
+// @ts-ignore
+import GutResetImg from "../assets/images/Gut-Reset.png";
+
 interface SubscriptionSectionProps {
   onAddToCartDirectly: (item: MenuItem) => void;
   onAddBulkToCartDirectly: (items: MenuItem[]) => void;
@@ -16,6 +57,7 @@ const JUICE_OPTIONS = MENU_ITEMS.filter(item =>
   name: item.name,
   price: item.price,
   icon: item.icon || "🥤",
+  image: item.image,
   desc: item.description
 }));
 
@@ -26,12 +68,27 @@ const SNACK_OPTIONS = MENU_ITEMS.filter(item =>
     name: item.name,
     price: item.price,
     icon: item.icon || "🥗",
+    image: item.image,
     desc: item.description
   }));
 
 export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCartDirectly }: SubscriptionSectionProps) {
   const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "custom">("weekly");
   const [showSubscriptionSuccess, setShowSubscriptionSuccess] = useState<string | null>(null);
+  const [showSubscriptionItems, setShowSubscriptionItems] = useState(false);
+
+  const handleExploreToggle = () => {
+    const nextState = !showSubscriptionItems;
+    setShowSubscriptionItems(nextState);
+    if (nextState) {
+      setTimeout(() => {
+        const element = document.getElementById("explore-plans-container");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  };
 
   // Interactive Onboarding Profile Modal
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -173,7 +230,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo Pune. Please activate my cycle dispatch immediately!`;
       }
 
-      const textWithUser = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
+      const textWithUser = `*Hello FresCo HealthCraft! I'd like to place an order:* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
       const encodedText = encodeURIComponent(textWithUser);
       window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
       setShowSubscriptionSuccess(null);
@@ -206,6 +263,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     id: string;
     name: string;
     icon: string;
+    image1?: any;
+    image2?: any;
     subtitle: string;
     tags?: string[];
     price: number;
@@ -245,7 +304,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_monday",
       name: "Detox Monday",
       icon: "🌱",
-      subtitle: "Detox Body + Sprouts Bowl",
+      image1: DetoxBodyImg,
+      image2: SproutsBowlImg,
+      subtitle: "Detox Body Drink + Sprouts Bowl",
       tags: ["Value Pack", "Immunity"],
       price: 178,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
@@ -255,7 +316,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_tuesday",
       name: "Immunity Tuesday",
       icon: "🛡️",
-      subtitle: "Immunity Booster + Classic Delight Cup",
+      image1: ImmunityBoosterImg,
+      image2: ClassicDelightCupImg,
+      subtitle: "Immunity Booster Drink+ Classic Delight Cup",
       tags: ["Detox", "Full Day"],
       price: 178,
       bgColor: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10 hover:border-amber-500/30 text-amber-800",
@@ -265,6 +328,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_wednesday",
       name: "Energy Wednesday",
       icon: "⚡",
+      image1: VitalEnergyDrinkImg,
+      image2: ProteinPowerCupImg,
       subtitle: "Vital Energy Drink + Protein Power Cup",
       tags: ["Detox", "Full Day"],
       price: 218,
@@ -275,7 +340,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_thursday",
       name: "Glow Thursday",
       icon: "✨",
-      subtitle: "Skin Glow-up + Exotic Delight Cup",
+      image1: SkinGlowUpImg,
+      image2: ExoticDelightCupImg,
+      subtitle: "Skin Glow-up Drink + Exotic Delight Cup",
       tags: ["Detox", "Full Day"],
       price: 198,
       bgColor: "bg-fuchsia-100/40 hover:bg-fuchsia-100/70 border-fuchsia-400/10 hover:border-fuchsia-400/30 text-fuchsia-800",
@@ -285,7 +352,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_friday",
       name: "Fitness Friday",
       icon: "💪",
-      subtitle: "Fat Burner + Paneer Sprouts Bowl",
+      image1: FatBurnerImg,
+      image2: PaneerSproutsBowlImg,
+      subtitle: "Fat Burner Drink + Paneer Sprouts Bowl",
       tags: ["Active High", "Low Carb"],
       price: 198,
       bgColor: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10 hover:border-blue-500/30 text-blue-800",
@@ -295,6 +364,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_saturday",
       name: "Refresh Saturday",
       icon: "💧",
+      image1: ABCDriknImg,
+      image2: EnergyBoostShakeImg,
       subtitle: "ABC Drink + Energy Boost Shake",
       tags: ["Weekend Prep", "Hydration"],
       price: 238,
@@ -308,7 +379,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_monday",
        name: "Orange monday",
       icon: "🍊",
-      subtitle: "Fresh Sweet Orange",
+      image1: OrangeJuiceImg,
+      image2: OrangeJuiceImg,
+      subtitle: "Fresh Sweet Orange Juice",
       price: 79,
       bgColor: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10 hover:border-amber-500/30 text-amber-800",
       accentColor: "#f59e0b"
@@ -318,6 +391,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_tuesday",
       name: "Pineapple Tuesday",
       icon: "🍍",
+      image1: PineappleJuiceImg,
+      image2: PineappleJuiceImg,
       subtitle: "Bromelain-Rich Refreshing Pineapple Juice",
       price: 69,
       bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
@@ -327,6 +402,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_wednesday",
       name: "Mosambi Wednesday",
       icon: "🍈 ",
+      image1: MosambiJuiceImg,
+      image2: MosambiJuiceImg,
       subtitle: "Sweet Lime Natural Immunity Extract",
       price: 69,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
@@ -336,6 +413,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_thursday",
       name: "Apple thursday",
       icon: "🍎",
+      image1: AppleJuiceImg,
+      image2: AppleJuiceImg,
       subtitle: "Provides hydration and essential nutrients.",
       price: 79,
       bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
@@ -345,6 +424,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_friday",
       name: "Papaya Friday",
       icon: "🍑",
+      image1: PapayaJuiceImg,
+      image2: PapayaJuiceImg,
       subtitle: "Rich in digestive enzymes and nutrients.",
       price: 69,
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
@@ -354,6 +435,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fj_saturday",
       name: "Pomegranate Saturday",
       icon: "🍷",
+      image1: PomegranateJuiceImg,
+      image2: PomegranateJuiceImg,
       subtitle: "Rich in antioxidants, helping support heart health and overall wellness.",
       price: 149,
       bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
@@ -366,6 +449,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_monday",
       name: "Fat Burn Monday",
       icon: "🔥",
+      image1: FatBurnerImg,
+      image2: PaneerSproutsBowlImg,
       subtitle: "Fat Burner Juice + Paneer Sprout Bowl",
       price: 198,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
@@ -375,6 +460,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_tuesday",
       name: "Detox Tuesday",
       icon: "🌿",
+      image1: DetoxBodyImg,
+      image2: SproutsBowlImg,
       subtitle: "Detox Body Juice + Sprout Bowl",
       price: 178,
       bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
@@ -384,6 +471,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_wednesday",
       name: "Gut Reset Wednesday",
       icon: "🥒",
+      image1: GutResetImg,
+      image2: ProteinPowerCupImg,
       subtitle: "Gut Reset Juice + Power Packed Cup",
       price: 218,
       bgColor: "bg-green-500/5 hover:bg-green-500/10 border-green-500/10 hover:border-green-500/30 text-green-800",
@@ -393,6 +482,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_thursday",
       name: "Fat Burn Thursday",
       icon: "🔥",
+      image1: FatBurnerImg,
+      image2: SproutsBowlImg,
       subtitle: "Fat Burner Juice + Sprout Bowl",
       price: 178,
       bgColor: "bg-orange-500/5 hover:bg-orange-500/10 border-orange-500/10 hover:border-orange-500/30 text-orange-800",
@@ -402,6 +493,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_friday",
       name: "Detox Friday",
       icon: "🍃",
+      image1: DetoxBodyImg,
+      image2: PaneerSproutsBowlImg,
       subtitle: "Detox Body Juice + Paneer Sprout Bowl",
       price: 198,
       bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
@@ -411,6 +504,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_saturday",
       name: "ABC Booster Saturday",
       icon: "❤️",
+      image1: ABCDriknImg,
+      image2: ProteinPowerCupImg,
       subtitle: "ABC Juice + Power Packed Cup",
       price: 218,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
@@ -420,6 +515,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_fb_sunday",
       name: "Gut Reset Sunday",
       icon: "🌱",
+      image1: GutResetImg,
+      image2: PaneerSproutsBowlImg,
       subtitle: "Gut Reset Juice + Paneer Sprout Bowl",
       price: 198,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
@@ -536,9 +633,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }));
     promptRegistrationForPlan({
       id: "sub_weekly_nutrient",
-      name: "Standard 6-day nutrient cycle",
+      name: "Fresco 6-Days Wellness Cycle",
       type: "weekly",
-      price: 1094,
+      price: 1099,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -572,7 +669,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_fruit_juice",
       name: "weekly fruit juice",
       type: "weekly",
-      price: 425,
+      price: 469,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -594,7 +691,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_fat_burn",
       name: "7 days weight loss transformation",
       type: "weekly",
-      price: 479,
+      price: 1249,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -637,7 +734,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     return customCycleType === "monthly" ? subtotal * 4 : subtotal;
   };
 
-  const customDiscountPercentage = customCycleType === "monthly" ? 20 : 12;
+  const customDiscountPercentage = customCycleType === "monthly" ? 20 : 10;
   const customSubtotal = calculateCustomSubtotal();
   const customSavings = Math.round(customSubtotal * (customDiscountPercentage / 100));
   const customFinalPrice = customSubtotal - customSavings;
@@ -791,7 +888,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }
 
     const { name, type, price, customerName, customerPhone, customerAddress } = activePlan;
-    const message = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
+    const message = `*Hello FresCo HealthCraft! I'd like to place an order:* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
 
     const encodedText = encodeURIComponent(message);
     window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
@@ -899,12 +996,35 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         </div>
 
         {/* Dynamic Headings */}
-        
-        <p className="mt-2 text-[#1A1A1A]/75 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
+        <p className="mt-2 mb-4 text-[#1A1A1A]/75 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
           Transform your daily wellness and save big with scheduled raw nourishment.
           <br />
           Freshly prepared and delivered daily to your doorstep.
         </p>
+
+        {activePlan && (
+          <div className="flex justify-center mt-3 mb-6">
+            <button
+              onClick={handleExploreToggle}
+              className="flex items-center space-x-2 bg-white hover:bg-neutral-50 text-[#38A325] border border-[#38A325]/30 py-2 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-xs active:scale-95"
+            >
+              <span>{showSubscriptionItems ? "Hide Subscription Items" : "Show Subscription Items"}</span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showSubscriptionItems ? "rotate-180" : ""}`} />
+            </button>
+          </div>
+        )}
+
+        {!activePlan && (
+          <div className="flex justify-center mt-4 mb-6">
+            <button
+              onClick={handleExploreToggle}
+              className="flex items-center space-x-2 bg-[#38A325] hover:bg-[#2F891F] text-white py-3.5 px-8 rounded-full font-extrabold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
+            >
+              <span>{showSubscriptionItems ? "Hide Wellness Subscription Plans" : "Explore Wellness Subscription Plans"}</span>
+              <ChevronDown className={`w-4.5 h-4.5 transition-transform duration-300 ${showSubscriptionItems ? "rotate-180" : ""}`} />
+            </button>
+          </div>
+        )}
 
         {/* Real-time Customer Active Subscription Status Desk */}
         <div id="subscription-tracker-desk" className="max-w-5xl mx-auto my-6 text-left">
@@ -1078,7 +1198,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 isCompleted
                                   ? "bg-[#38A325] border-[#2E851E] text-white shadow-sm ring-1 ring-[#38A325]/20 font-extrabold"
                                   : isCurrent
-                                  ? "bg-amber-500/10 border-amber-500 text-amber-800 animate-pulse font-black shadow-xs ring-1 ring-amber-400"
+                                  ? "bg-amber-50/10 border-amber-50 text-amber-800 animate-pulse font-black shadow-xs ring-1 ring-amber-400"
                                   : "bg-neutral-50 border-gray-200 text-gray-400"
                               }`}
                             >
@@ -1243,7 +1363,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 setTimeout(() => setShowSubscriptionSuccess(null), 2500);
 
                                 if (planToCancel) {
-                                  const cancelMsg = `*FRESCO PUNE FRESH JUICES - SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
+                                  const cancelMsg = `*SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
                                   const encodedCancelMsg = encodeURIComponent(cancelMsg);
                                   setTimeout(() => {
                                     window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
@@ -1280,12 +1400,16 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
               <div className="pt-5 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-neutral-100 mt-1">
                 
                 {/* Warning Alert Message */}
-                <div className="flex items-center space-x-2 text-left bg-transparent">
-                  <div className="w-7 h-7 rounded-full bg-amber-500/5 flex items-center justify-center shrink-0 border border-amber-500/10">
+                <div 
+                  onClick={handleExploreToggle}
+                  className="flex items-center space-x-2 text-left bg-transparent cursor-pointer hover:opacity-90 group transition-all"
+                  title="Click to explore and choose a wellness cycle below"
+                >
+                  <div className="w-7 h-7 rounded-full bg-amber-500/5 flex items-center justify-center shrink-0 border border-amber-500/10 group-hover:bg-amber-500/10 group-hover:border-amber-500/30 transition-all">
                     <AlertCircle className="w-4 h-4 text-[#F26419]" />
                   </div>
                   <p className="text-[11.5px] font-bold text-gray-700 leading-tight">
-                    No Active Subscription found on FresCo. Choose a wellness cycle below to activate.
+                    No Active Subscription found on FresCo. <span className="text-[#38A325] underline decoration-dotted decoration-1 underline-offset-2 hover:text-[#2F891F]">Choose a wellness cycle below to activate.</span>
                   </p>
                 </div>
 
@@ -1340,8 +1464,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
           </div>
         </div>
 
-        {/* Tabs for switching between Weekly and Monthly subscriptions (Matched to user visual references) */}
-        <div className="mt-5 mb-6 flex justify-center">
+        <div id="explore-plans-container" className={!showSubscriptionItems ? "hidden" : ""}>
+          {/* Tabs for switching between Weekly and Monthly subscriptions (Matched to user visual references) */}
+          <div className="mt-5 mb-6 flex justify-center">
           <div className="bg-[#EFECE5] p-1 rounded-3xl sm:rounded-full inline-flex flex-col sm:flex-row gap-1 border border-[#1A1A1A]/5 shadow-inner">
             <button
               onClick={() => setActiveTab("weekly")}
@@ -1397,12 +1522,12 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   {/* Master Header */}
                   <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
                     <div className="flex items-center space-x-2">
-                      <span className="text-xl select-none">🌱</span>
+                      <span className="text-2xl select-none">🌱</span>
                       <div>
-                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
+                        <h3 className="font-serif italic text-sm sm:text-base text-gray-900 font-bold leading-tight">
                           FresCo 6-Day Wellness Cycle
                         </h3>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
+                        <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-normal">
                           A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.
                         </p>
                       </div>
@@ -1419,22 +1544,51 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                           className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
                         >
                           {/* Day indicator & title */}
-                          <div className="flex items-center space-x-2 shrink-0 w-[100px] xs:w-[125px] sm:w-[145px]">
-                            <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold shrink-0">
-                              {plan.icon}
-                            </span>
+                          <div className="flex items-center space-x-3 shrink-0 w-[125px] xs:w-[150px] sm:w-[170px]">
+                            {/* Two overlapping images representing the combo, or one single centered image */}
+                            <div className="relative w-11 h-11 sm:w-13 sm:h-13 shrink-0 select-none">
+                              {plan.image1 && plan.image2 && plan.image1 !== plan.image2 ? (
+                                <>
+                                  <div className="absolute top-0 left-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm z-10 flex items-center justify-center p-0.5">
+                                    <img
+                                      src={plan.image1}
+                                      alt="item 1"
+                                      referrerPolicy="no-referrer"
+                                      className="w-full h-full rounded-full object-cover"
+                                    />
+                                  </div>
+                                  <div className="absolute bottom-0 right-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow z-0 flex items-center justify-center p-0.5">
+                                    <img
+                                      src={plan.image2}
+                                      alt="item 2"
+                                      referrerPolicy="no-referrer"
+                                      className="w-full h-full rounded-full object-cover"
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm flex items-center justify-center p-0.5 mx-auto">
+                                  <img
+                                    src={plan.image1}
+                                    alt="item"
+                                    referrerPolicy="no-referrer"
+                                    className="w-full h-full rounded-full object-cover"
+                                  />
+                                </div>
+                              )}
+                            </div>
                             <div className="min-w-0">
                               {label ? (
                                 <>
-                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[6.5px] sm:text-[7.5px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
                                     {day}
                                   </span>
-                                  <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight mt-0.5">
+                                  <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight mt-0.5">
                                     {label}
                                   </h4>
                                 </>
                               ) : (
-                                <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight">
+                                <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight">
                                   {day}
                                 </h4>
                               )}
@@ -1443,7 +1597,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                           {/* Combo details */}
                           <div className="flex-1 min-w-0">
-                            <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                            <p className="text-gray-650 text-xs sm:text-sm font-medium leading-normal">
                               {plan.subtitle}
                             </p>
                           </div>
@@ -1456,17 +1610,17 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 {/* Bulk Add Action Button Container */}
                 <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
                   <div className="text-left font-sans">
-                    <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
+                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
-                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹1099</span>
-                      <span className="text-[12px] text-gray-400 line-through leading-none font-medium">₹1208</span>
+                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1099</span>
+                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1208</span>
                     </div>
                   </div>
                   <button
                     onClick={handleAddAllWeeklyDays}
-                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
+                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
-                    <Calendar className="w-3 h-3" />
+                    <Calendar className="w-3.5 h-3.5" />
                     <span>Subscribe Now</span>
                   </button>
                 </div>
@@ -1478,12 +1632,12 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   {/* Master Header */}
                   <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
                     <div className="flex items-center space-x-2">
-                      <span className="text-xl select-none">🍹</span>
+                      <span className="text-2xl select-none">🍹</span>
                       <div>
-                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
+                        <h3 className="font-serif italic text-sm sm:text-base text-gray-900 font-bold leading-tight">
                           Weekly Fruit Juice
                         </h3>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
+                        <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-normal">
                           A curated Monday-to-Saturday pure organic fresh juices.
                         </p>
                       </div>
@@ -1500,22 +1654,51 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                           className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
                         >
                           {/* Day indicator & title */}
-                          <div className="flex items-center space-x-2 shrink-0 w-[100px] xs:w-[125px] sm:w-[145px]">
-                            <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold shrink-0">
-                              {plan.icon}
-                            </span>
+                          <div className="flex items-center space-x-3 shrink-0 w-[125px] xs:w-[150px] sm:w-[170px]">
+                            {/* Two overlapping images representing the combo, or one single centered image */}
+                            <div className="relative w-11 h-11 sm:w-13 sm:h-13 shrink-0 select-none">
+                              {plan.image1 && plan.image2 && plan.image1 !== plan.image2 ? (
+                                <>
+                                  <div className="absolute top-0 left-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm z-10 flex items-center justify-center p-0.5">
+                                    <img
+                                      src={plan.image1}
+                                      alt="item 1"
+                                      referrerPolicy="no-referrer"
+                                      className="w-full h-full rounded-full object-cover"
+                                    />
+                                  </div>
+                                  <div className="absolute bottom-0 right-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow z-0 flex items-center justify-center p-0.5">
+                                    <img
+                                      src={plan.image2}
+                                      alt="item 2"
+                                      referrerPolicy="no-referrer"
+                                      className="w-full h-full rounded-full object-cover"
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm flex items-center justify-center p-0.5 mx-auto">
+                                  <img
+                                    src={plan.image1}
+                                    alt="item"
+                                    referrerPolicy="no-referrer"
+                                    className="w-full h-full rounded-full object-cover"
+                                  />
+                                </div>
+                              )}
+                            </div>
                             <div className="min-w-0">
                               {label ? (
                                 <>
-                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[6.5px] sm:text-[7.5px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
                                     {day}
                                   </span>
-                                  <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight mt-0.5">
+                                  <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight mt-0.5">
                                     {label}
                                   </h4>
                                 </>
                               ) : (
-                                <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight">
+                                <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight">
                                   {day}
                                 </h4>
                               )}
@@ -1524,7 +1707,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                           {/* Combo details */}
                           <div className="flex-1 min-w-0">
-                            <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                            <p className="text-gray-650 text-xs sm:text-sm font-medium leading-normal">
                               {plan.subtitle}
                             </p>
                           </div>
@@ -1537,17 +1720,17 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 {/* Bulk Add Action Button Container */}
                 <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
                   <div className="text-left font-sans">
-                    <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
+                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
-                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹469</span>
-                      <span className="text-[12px] text-gray-400 line-through leading-none font-medium">₹514</span>
+                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹469</span>
+                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹514</span>
                     </div>
                   </div>
                   <button
                     onClick={handleAddAllFruitJuiceDays}
-                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
+                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
-                    <Calendar className="w-3 h-3" />
+                    <Calendar className="w-3.5 h-3.5" />
                     <span>Subscribe Now</span>
                   </button>
                 </div>
@@ -1559,12 +1742,12 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   {/* Master Header */}
                   <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
                     <div className="flex items-center space-x-2">
-                      <span className="text-xl select-none">🔥</span>
+                      <span className="text-2xl select-none">🔥</span>
                       <div>
-                        <h3 className="font-serif italic text-xs sm:text-sm text-gray-900 font-bold leading-tight">
+                        <h3 className="font-serif italic text-sm sm:text-base text-gray-900 font-bold leading-tight">
                           7-Days Weight Loss Transformation
                         </h3>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 mt-0 leading-normal">
+                        <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-normal">
                           Scientifically curated juice & protein bowl plan to support healthy weight management.
                         </p>
                       </div>
@@ -1581,22 +1764,51 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                           className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
                         >
                           {/* Day indicator & title */}
-                          <div className="flex items-center space-x-2 shrink-0 w-[100px] xs:w-[125px] sm:w-[145px]">
-                            <span className="text-xs sm:text-sm select-none w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38A325]/10 flex items-center justify-center font-bold shrink-0">
-                              {plan.icon}
-                            </span>
+                          <div className="flex items-center space-x-3 shrink-0 w-[125px] xs:w-[150px] sm:w-[170px]">
+                            {/* Two overlapping images representing the combo, or one single centered image */}
+                            <div className="relative w-11 h-11 sm:w-13 sm:h-13 shrink-0 select-none">
+                              {plan.image1 && plan.image2 && plan.image1 !== plan.image2 ? (
+                                <>
+                                  <div className="absolute top-0 left-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm z-10 flex items-center justify-center p-0.5">
+                                    <img
+                                      src={plan.image1}
+                                      alt="item 1"
+                                      referrerPolicy="no-referrer"
+                                      className="w-full h-full rounded-full object-cover"
+                                    />
+                                  </div>
+                                  <div className="absolute bottom-0 right-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow z-0 flex items-center justify-center p-0.5">
+                                    <img
+                                      src={plan.image2}
+                                      alt="item 2"
+                                      referrerPolicy="no-referrer"
+                                      className="w-full h-full rounded-full object-cover"
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm flex items-center justify-center p-0.5 mx-auto">
+                                  <img
+                                    src={plan.image1}
+                                    alt="item"
+                                    referrerPolicy="no-referrer"
+                                    className="w-full h-full rounded-full object-cover"
+                                  />
+                                </div>
+                              )}
+                            </div>
                             <div className="min-w-0">
                               {label ? (
                                 <>
-                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[6.5px] sm:text-[7.5px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
+                                  <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
                                     {day}
                                   </span>
-                                  <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight mt-0.5">
+                                  <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight mt-0.5">
                                     {label}
                                   </h4>
                                 </>
                               ) : (
-                                <h4 className="font-sans text-[10px] sm:text-[11.5px] font-bold text-gray-900 leading-tight">
+                                <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight">
                                   {day}
                                 </h4>
                               )}
@@ -1605,7 +1817,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
 
                           {/* Combo details */}
                           <div className="flex-1 min-w-0">
-                            <p className="text-gray-650 text-[10px] sm:text-[11.5px] font-medium leading-normal">
+                            <p className="text-gray-650 text-xs sm:text-sm font-medium leading-normal">
                               {plan.subtitle}
                             </p>
                           </div>
@@ -1618,17 +1830,17 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 {/* Bulk Add Action Button Container */}
                 <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
                   <div className="text-left font-sans">
-                    <span className="text-[9px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
+                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
-                      <span className="text-xs sm:text-base font-extrabold text-[#38A325] leading-none">₹1249</span>
-                      <span className="text-[12px] text-gray-400 line-through leading-none font-medium">₹1386</span>
+                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1249</span>
+                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1386</span>
                     </div>
                   </div>
                   <button
                     onClick={handleAddAllFatBurnDays}
-                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider py-2 px-3.5 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
+                    className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
                   >
-                    <Calendar className="w-3 h-3" />
+                    <Calendar className="w-3.5 h-3.5" />
                     <span>Subscribe Now</span>
                   </button>
                 </div>
@@ -1847,13 +2059,24 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 [selectedCustomDay]: { ...prev[selectedCustomDay], juiceIds: newIds }
                               };
                             })}
-                            className={`p-1.5 px-2 rounded-lg border text-left cursor-pointer transition-all flex items-start space-x-1.5 relative ${
+                            className={`p-1.5 px-2 rounded-lg border text-left cursor-pointer transition-all flex items-center space-x-2 relative ${
                               isActive
                                 ? "border-[#38A325] bg-[#38A325]/5 shadow-xs"
                                 : "border-gray-200 hover:border-gray-400 bg-white"
                             }`}
                           >
-                            <span className="text-base select-none mt-0.5">{j.icon}</span>
+                            {j.image ? (
+                              <div className="w-[36px] h-[36px] rounded-full overflow-hidden bg-white border border-neutral-100/60 flex-shrink-0 flex items-center justify-center p-0.5 shadow-xs">
+                                <img
+                                  src={j.image}
+                                  alt={j.name}
+                                  referrerPolicy="no-referrer"
+                                  className="w-full h-full rounded-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <span className="text-base select-none mt-0.5">{j.icon}</span>
+                            )}
                             <div className="flex-1 min-w-0">
                               <span className="font-bold text-[10px] text-gray-900 block truncate leading-tight">{j.name}</span>
                               <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5 font-sans">₹{j.price}</span>
@@ -1892,13 +2115,24 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 [selectedCustomDay]: { ...prev[selectedCustomDay], snackIds: newIds }
                               };
                             })}
-                            className={`p-1.5 px-2 rounded-lg border text-left cursor-pointer transition-all flex items-start space-x-1.5 relative ${
+                            className={`p-1.5 px-2 rounded-lg border text-left cursor-pointer transition-all flex items-center space-x-2 relative ${
                               isActive
                                 ? "border-[#38A325] bg-[#38A325]/5 shadow-xs"
                                 : "border-gray-200 hover:border-gray-400 bg-white"
                             }`}
                           >
-                            <span className="text-base select-none mt-0.5">{s.icon}</span>
+                            {s.image ? (
+                              <div className="w-[36px] h-[36px] rounded-full overflow-hidden bg-white border border-neutral-100/60 flex-shrink-0 flex items-center justify-center p-0.5 shadow-xs">
+                                <img
+                                  src={s.image}
+                                  alt={s.name}
+                                  referrerPolicy="no-referrer"
+                                  className="w-full h-full rounded-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <span className="text-base select-none mt-0.5">{s.icon}</span>
+                            )}
                             <div className="flex-1 min-w-0">
                               <span className="font-bold text-[10px] text-gray-900 block truncate leading-tight">{s.name}</span>
                               <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5 font-sans">
@@ -2033,7 +2267,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                         <span className="font-mono text-[10px]">₹{customSubtotal}</span>
                       </div>
                       <div className="flex justify-between text-emerald-400">
-                        <span className="text-[10px] font-bold">{customDiscountPercentage}% Bundle Saved</span>
+                        <span className="text-[10px] font-bold">{customDiscountPercentage}% Discount</span>
                         <span className="font-mono text-[10px] font-bold">-₹{customSavings}</span>
                       </div>
                       
@@ -2083,6 +2317,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
 
         {/* Global floating notification success */}
         <AnimatePresence>
