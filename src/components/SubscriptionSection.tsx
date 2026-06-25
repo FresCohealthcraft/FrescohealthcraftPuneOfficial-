@@ -227,10 +227,10 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       } else if (whatsappText) {
         coreMessage = whatsappText;
       } else {
-        coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo Pune. Please activate my cycle dispatch immediately!`;
+        coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo. Please activate my cycle dispatch immediately!`;
       }
 
-      const textWithUser = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
+      const textWithUser = `*Hello FresCo HealthCraft! I'd like to place an order:* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
       const encodedText = encodeURIComponent(textWithUser);
       window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
       setShowSubscriptionSuccess(null);
@@ -544,7 +544,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       popular: false,
       bgColor: "bg-white",
       accentColor: "#38A325",
-      whatsappText: "Hi! I want to subscribe to the Daily fresh plan (₹4222) on FresCo Pune."
+      whatsappText: "Hi! I want to subscribe to the Daily fresh plan (₹4222) on FresCo HealthCraft."
     },
     {
       id: "month_balanced_cleanse",
@@ -568,7 +568,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       popular: true,
       bgColor: "bg-gradient-to-b from-white to-[#38A325]/5",
       accentColor: "#38A325",
-      whatsappText: "Hi! I want to subscribe to the protein plus plan (₹5799) on FresCo Pune."
+      whatsappText: "Hi! I want to subscribe to the protein power plan (₹5799) on FresCo HealthCraft."
     },
     {
       id: "month_wellness_overhaul",
@@ -591,7 +591,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       popular: false,
       bgColor: "bg-white",
       accentColor: "#F26419",
-      whatsappText: "Hi! I want to subscribe to the full wellness overhaul plan (₹7481) on FresCo Pune."
+      whatsappText: "Hi! I want to subscribe to the full Ultimate Wellness Elite Plan (₹7481) on FresCo HealthCraft."
     }
   ];
 
@@ -779,7 +779,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       return `- ${day}: ${juicesStr || "None"} + ${snacksStr || "None"}`;
     }).join("\n");
 
-    const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo Pune.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nSubtotal: ₹${customSubtotal}\nDiscount (${customDiscountPercentage}%): -₹${customSavings}\nTotal Payable: ₹${customFinalPrice}`;
+    const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nSubtotal: ₹${customSubtotal}\nDiscount (${customDiscountPercentage}%): -₹${customSavings}\nTotal Payable: ₹${customFinalPrice}`;
 
     promptRegistrationForPlan({
       id: `custom_plan_${customCycleType}`,
@@ -888,7 +888,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }
 
     const { name, type, price, customerName, customerPhone, customerAddress } = activePlan;
-    const message = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
+    const message = `*Hello FresCo HealthCraft! I'd like to place an order:* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
 
     const encodedText = encodeURIComponent(message);
     window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
@@ -1363,7 +1363,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 setTimeout(() => setShowSubscriptionSuccess(null), 2500);
 
                                 if (planToCancel) {
-                                  const cancelMsg = `*FRESCO PUNE FRESH JUICES - SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
+                                  const cancelMsg = `*Hello FresCo HealthCraft! I'd like to place an order:* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
                                   const encodedCancelMsg = encodeURIComponent(cancelMsg);
                                   setTimeout(() => {
                                     window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
