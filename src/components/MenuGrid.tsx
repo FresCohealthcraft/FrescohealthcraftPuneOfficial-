@@ -464,9 +464,9 @@ interface MenuProps {
 const CATEGORIES = [
   { name: "Fruit Juices", image: orangeJuiceImg, value: "Fruit Juices" },
   { name: "Power Cups", image: classicDelightCupImg, value: "Power Cups" },
-  { name: "Sprouts Bowls", image: sproutsBowlImg, value: "Super Food Sprouts Bowls" },
+  { name: "Super Food Sprouts Bowls", image: sproutsBowlImg, value: "Super Food Sprouts Bowls" },
   { name: "Green Juice", image: cucumberJuiceImg, value: "Green Vitality Juice" },
-  { name: "Fresco Power", image: vitalEnergyDrinkImg, value: "Fresco Power Juices" },
+  { name: "FresCo Power Juices", image: vitalEnergyDrinkImg, value: "Fresco Power Juices" },
   { name: "Shakes", image: mangoShakeImg, value: "Shakes" },
   { name: "Choco Frozen", image: grapesChocofrostImg, value: "Specials" }
 ];
@@ -500,7 +500,7 @@ export default function MenuGrid({
   });
 
   return (
-    <section id="menu" className="pt-8 pb-12 bg-white scroll-mt-10 border-t border-[#1A1A1A]/10">
+    <section id="menu" className={`pt-8 ${selectedCategory || searchTerm ? "pb-12" : "pb-2"} bg-white scroll-mt-10 border-t border-[#1A1A1A]/10`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
         {/* CATEGORIES CARD VIEW: Displayed beautifully as a main category selector card */}
@@ -520,15 +520,15 @@ export default function MenuGrid({
               <span className="opacity-40 mr-1">─</span>⊹
             </span>
             <h2 className="text-[13px] sm:text-sm md:text-base font-black text-[#1A1A1A] tracking-[0.22em] uppercase font-sans">
-              OUR DAILY MENU
+              MENU
             </h2>
             <span className="text-[#38A325] text-xs sm:text-sm font-bold tracking-widest flex items-center">
               ⊹<span className="opacity-40 ml-1">─</span>
             </span>
           </div>
 
-          {/* Circular Category Buttons layout (4 top, 3 bottom centered) */}
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-6 sm:gap-x-10 sm:gap-y-8 max-w-[340px] xs:max-w-[380px] sm:max-w-[580px] mx-auto px-1 z-10">
+          {/* Circular Category Buttons layout (4 in one line) */}
+          <div className="flex flex-wrap justify-center gap-x-2.5 sm:gap-x-8 gap-y-5 sm:gap-y-7 max-w-[400px] xs:max-w-[440px] sm:max-w-[720px] mx-auto px-1 z-10">
             {CATEGORIES.map((cat, idx) => {
               const isActive = selectedCategory === cat.name;
               return (
@@ -562,11 +562,11 @@ export default function MenuGrid({
                     y: -2
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex flex-col items-center space-y-2.5 group cursor-pointer focus:outline-none shrink-0 w-[72px] sm:w-[92px]"
+                  className="flex flex-col items-center space-y-2.5 group cursor-pointer focus:outline-none shrink-0 w-auto min-w-[84px] sm:min-w-[112px] px-1"
                 >
                   {/* Perfect circle image frame with light cream background */}
                   <div
-                    className={`w-[66px] h-[66px] xs:w-[72px] xs:h-[72px] sm:w-[88px] sm:h-[88px] rounded-full flex items-center justify-center overflow-hidden transition-all duration-300 bg-[#FAF9F5]/40 border ${
+                    className={`w-[76px] h-[76px] xs:w-[82px] xs:h-[82px] sm:w-[104px] sm:h-[104px] rounded-full flex items-center justify-center overflow-hidden transition-all duration-300 bg-[#FAF9F5]/40 border ${
                       isActive
                         ? "border-[#38A325] ring-4 ring-[#38A325]/15 scale-105 shadow-md bg-white"
                         : "border-neutral-200/55 hover:border-[#38A325]/40 hover:scale-105 shadow-[0_3px_12px_rgba(0,0,0,0.01)] hover:bg-white"
@@ -576,7 +576,7 @@ export default function MenuGrid({
                       src={cat.image}
                       alt={cat.name}
                       referrerPolicy="no-referrer"
-                      className="w-[85%] h-[85%] rounded-full object-cover"
+                      className="w-[88%] h-[88%] rounded-full object-cover"
                     />
                   </div>
                   {/* Category Label below circle */}
@@ -597,10 +597,10 @@ export default function MenuGrid({
         <div id="categories-results-anchor" className="scroll-mt-24 sm:scroll-mt-28" />
 
         {/* Clean, compact search bar inside grid view */}
-        <div className="mb-8 max-w-md mx-auto relative px-2">
+        <div className={`max-w-md mx-auto relative px-2 ${selectedCategory || searchTerm ? "mb-8" : "mb-0"}`}>
           <input
             type="text"
-            placeholder="Search healthy juices, smoothies, ingredients..."
+            placeholder="Search Healthy Juices, Bowls, High Protine..."
             value={searchTerm}
             onChange={(e) => {
               const val = e.target.value;
@@ -647,7 +647,7 @@ export default function MenuGrid({
           <>
             <motion.div 
               layout
-              className="mt-6 sm:mt-8 grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-5 px-1 sm:px-2 max-w-4xl mx-auto"
+              className="mt-6 sm:mt-8 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 px-1 sm:px-2 max-w-5xl mx-auto"
             >
               <AnimatePresence mode="popLayout">
                 {filteredItems.map((item, index) => (
@@ -663,16 +663,16 @@ export default function MenuGrid({
                       delay: (index % 3) * 0.03 
                     }}
                     whileHover={{ 
-                      y: -3,
-                      boxShadow: "0 10px 20px -6px rgba(26,26,26,0.06)"
+                      y: -4,
+                      boxShadow: "0 12px 24px -8px rgba(26,26,26,0.1)"
                     }}
                     key={item.id}
-                    className="bg-white border border-[#1A1A1A]/10 rounded-[16px] p-2.5 sm:p-4 shadow-[0_1.5px_10px_rgba(0,0,0,0.01)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group"
+                    className="bg-white border border-[#1A1A1A]/10 rounded-[18px] p-3 sm:p-4.5 shadow-[0_2px_15px_rgba(0,0,0,0.015)] hover:border-[#38A325]/45 transition-all duration-300 flex flex-col justify-between h-full text-left group"
                   >
                     <div>
                       
                       {/* Image/Emoji wrapper Container */}
-                      <div className="relative w-full aspect-[4/3] rounded-xl bg-[#EFECE5] select-none flex items-center justify-center text-3xl sm:text-4xl mb-2.5 sm:mb-3.5 overflow-hidden transition-transform group-hover:scale-[1.01] duration-300">
+                      <div className="relative w-full aspect-[1.2/1] rounded-2xl bg-[#EFECE5] select-none flex items-center justify-center text-3xl sm:text-4xl mb-3 sm:mb-4 overflow-hidden transition-transform group-hover:scale-[1.02] duration-300">
                         {item.image ? (
                           <img 
                             src={item.image}
@@ -710,7 +710,7 @@ export default function MenuGrid({
                       </p>
 
                       {/* Dynamic Point-wise Benefits */}
-                      <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-0.5 select-none">
+                    <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-0.5 select-none">
                         <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-widest uppercase text-[#38A325] block mb-0.5">
                           Key Benefits:
                         </span>
@@ -721,6 +721,7 @@ export default function MenuGrid({
                           </div>
                         ))}
                       </div>
+
                     </div>
      
                     {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
