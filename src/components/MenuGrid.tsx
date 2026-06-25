@@ -17,7 +17,7 @@ import vitalEnergyDrinkImg from "../assets/images/Vital-Energy-Drink.png";
 // @ts-ignore
 import mangoShakeImg from "../assets/images/Mango-Shake.png";
 // @ts-ignore
-import grapesChocofrostImg from "../assets/images/Grapes-Chocofrost.png";
+import grapesChocofrostImg from "../assets/images/White-Sprinkle.png";
 
 // Helper to provide 3 distinct, beautiful point-wise benefits for any health item
 export function getItemBenefits(item: MenuItem): string[] {
@@ -705,23 +705,25 @@ export default function MenuGrid({
                       <h3 className="text-xs xs:text-sm sm:text-[15px] font-extrabold text-[#1A1A1A] group-hover:text-[#38A325] transition-colors duration-200 leading-snug">
                         {item.name}
                       </h3>
-                      <p className="mt-1 mb-1 text-[9.5px] xs:text-[10.5px] sm:text-[11.5px] text-[#1A1A1A]/60 leading-normal select-none font-medium">
+                      <p className="mt-1 mb-2 text-[9.5px] xs:text-[10.5px] sm:text-[11.5px] text-[#1A1A1A]/60 leading-normal select-none font-medium">
                         {item.description}
                       </p>
 
                       {/* Dynamic Point-wise Benefits */}
-                    <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-0.5 select-none">
-                        <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-widest uppercase text-[#38A325] block mb-0.5">
-                          Key Benefits:
-                        </span>
-                        {Array.from(new Set(getItemBenefits(item))).map((benefit, i) => (
-                          <div key={i} className="flex items-start gap-1 pb-0.5 text-[8.5px] xs:text-[9.5px] sm:text-[10px] leading-tight text-[#1A1A1A]/70 font-medium">
-                            <span className="text-[#38A325] shrink-0 font-black text-[9px] sm:text-[10px] mr-0.5">✓</span>
-                            <span className="tracking-tight">{benefit}</span>
-                          </div>
-                        ))}
-                      </div>
-
+                      {!["Shakes", "Specials", "Fruit Juices", "Green Vitality Juice"].includes(item.category || "") && (
+                        <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-1">
+                          <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-1">
+                            Key Benefits
+                          </span>
+                          {getItemBenefits(item).map((benefit, idx) => (
+                            <div key={idx} className="flex items-center space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
+                              <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0" />
+                              <span className="truncate">{benefit}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    
                     </div>
      
                     {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
