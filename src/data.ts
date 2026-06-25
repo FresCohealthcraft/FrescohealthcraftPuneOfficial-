@@ -125,7 +125,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "Watermelon-Juice",
     name: "Watermelon Juice",
-    description: "",
+    description: "Keeps You Hydrated • Supports Heart Health • Rich in Antioxidants",
     price: 59,
     image: watermelonJuiceImg,
     icon: "🍉",
@@ -136,7 +136,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mosambi-Juice",
     name: "Mosambi Juice",
-    description: "",
+    description: " Vitamin C immunity booster • Supporting digestion • Everyday energy.",
     price: 69,
     image: MosambiJuiceImg,
     icon: "🍊",
@@ -147,7 +147,7 @@ export const MENU_ITEMS: MenuItem[] = [
 {
     id: "Pineapple-Juice",
     name: "Pineapple Juice",
-    description: "",
+    description:  "Active digestive enzymes • Rich in bone-strengthening Manganese • Natural premium energy source",
     price: 69,
     image: pineappleJuiceImg,
     icon: "🍍",
@@ -158,7 +158,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Mango-Juice",
     name: "Mango Juice",
-    description: "",
+    description: "Rich in Vitamin A for eye health • Energy boost packed with natural sweetness • Revitalizing freshness",
     price: 79,
     image: MangoJuiceImg,
     icon: "🥭",
@@ -169,7 +169,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Apple-Juice",
     name: "Apple Juice",
-    description: "",
+    description: "Natural antioxidants • Supporting energy • Immunity, and everyday wellness",
     price: 79,
     image: AppleJuiceImg,
     icon: " 🍎",
@@ -180,7 +180,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Orange-Juice",
     name: "Orange Juice",
-    description: "",
+    description: "Supercharged clinical Vitamin C • Natural energy • Immunity-boosting goodness",
     price: 79,
     image: OrangeJuiceImg,
     icon: "🍊",
@@ -190,7 +190,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Ganga-Juice",
     name: "Ganga Jamuna Juice",
-    description: "",
+    description: "Mosambi + pinapple, packed with vitamin c • Preserves living immune-bioenzymes • Naturally hydrating & sugar-crash free",
     price: 79,
     image: GangaJuiceImg,
     icon: "🍇",
@@ -200,7 +200,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Pomegranate-Juice",
     name: "Pomegranate Juice",
-    description: "",
+    description: "Polyphenolic arterial support • Promotes fresh oxygenated blood • Combats general cellular fatiguing",
     price: 149,
     image: PomegranateJuiceImg,
     icon: "❤️",
@@ -210,7 +210,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "papaya-Juice",
     name: "Papaya Juice",
-    description: "",
+    description: "Active high-grade papain digestion • Fiber to clear abdominal heavy fat • Skin renewing vitamins & folate",
     price: 59,
     image: papayaJuiceImg,
     icon: "🧡",
@@ -220,7 +220,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Muskmelon-Juice",
     name: "Muskmelon Juice",
-    description: "",
+    description: "Polyphenolic arterial support • Promotes fresh oxygenated blood • Combats general cellular fatiguing",
     price: 69,
     image: MuskmelonJuiceImg,
     icon: "🍈",
@@ -231,7 +231,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Nimbu-Pani-Juice",
     name: "Nimbu Pani Juice",
-    description: "",
+    description: "Detox drink that refreshes • Restores natural energy instantlyd • keep hydrates",
     price: 39,
     image: NimbuPaniJuiceImg,
     icon: "🍋",
@@ -244,7 +244,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Beetroot-Juice",
     name: "Beetroot Juice",
-    description: "",
+    description: "Lower blood pressure • Boost athletic stamina • Liver health",
     price: 69,
     image: BeetrootJuiceImg,
     icon: "❤️",
@@ -255,7 +255,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Cucumber-Juice",
     name: "Cucumber Juice",
-    description: "",
+    description: "Deep alkalizing system cooling • Natural hydration & skin repair • Silica for hair and nail integrity",
     price: 69,
     image: CucumberJuiceImg,
     icon: "🥒",
@@ -266,7 +266,7 @@ export const MENU_ITEMS: MenuItem[] = [
  {
     id: "Tomato-Juice",
     name: "Tomato Juice",
-    description: "",
+    description: "Boost heart health • support your immune system and skin • Rich in antioxidants",
     price: 69,
     image: TomatoJuiceImg,
     icon: "🍅",
@@ -277,7 +277,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Karela-Juice",
     name: "Karela Juice",
-    description: "",
+    description: "Supports healthy blood sugar • Boosts digestive health • Natural detox powerhouse",
     price: 69,
     image: KarelaJuiceImg,
     icon: "🌿",
@@ -288,7 +288,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Carrot-Juice",
     name: "Carrot Juice",
-    description: "",
+    description: "supporting eye health • Glowing skin, and natural vitality • Naturally rich in antioxidants",
     price: 69,
     image: CarrotJuiceImg,
     icon: "🥕",
@@ -299,7 +299,7 @@ export const MENU_ITEMS: MenuItem[] = [
     {
     id: "Palak-Juice",
     name: "Palak Juice",
-    description: " ",
+    description: "Rich in iron • Antioxidants, and daily nourishment • Rich in antioxidants",
     price: 69,
     image: PalakJuiceImg,
     icon: "🥬",
@@ -312,7 +312,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Lauki-Juice",
     name: "Lauki Juice",
-    description: "Naturally low in calories and .",
+    description: "Ntioxidants, and daily nourishment • Naturally low in calories • Nutrients for everyday wellness",
     price: 69,
     image: LaukijuiceImg,
     icon: "🥒",
@@ -323,7 +323,7 @@ export const MENU_ITEMS: MenuItem[] = [
    {
     id: "Ash-Gourd-Juice",
     name: "Ash Gourd Juice",
-    description: "",
+    description: "Aids digestion • Supports weight loss • Flushes out toxins",
     price: 69,
     image: AshGourdJuiceImg,
     icon: "🍈",
@@ -710,10 +710,7 @@ popular: true,
   icon: "🥭",
   category: "Specials",
   popular: true,
-},  
-
-];
-
+},
 export const PROMO_COUPONS: PromoCoupon[] = [
    {
     id: "promo_combo",
