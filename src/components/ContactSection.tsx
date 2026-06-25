@@ -25,7 +25,7 @@ export default function ContactSection({ onStartOrdering, onGeneralChat }: Conta
                 
                 {/* Location */}
                 <a
-                  href="https://maps.google.com/?q=Amanora+Urban+Plaza,+near+Sanjay+medico,+Amanora+Park+Town,+Hadapsar,+Pune,+Maharashtra+411028"
+                  href="https://maps.app.goo.gl/unEnUYWZUV8XD7hP6"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start space-x-3.5 group cursor-pointer hover:opacity-95 transition-opacity"
@@ -36,8 +36,8 @@ export default function ContactSection({ onStartOrdering, onGeneralChat }: Conta
                   <div>
                     <h4 className="font-bold text-sm text-[#1A1A1A] group-hover:text-[#38A325] transition-all duration-200">Our Location</h4>
                     <p className="text-xs text-[#1A1A1A]/70 mt-1 leading-normal max-w-xs group-hover:text-[#1A1A1A] group-hover:underline transition-all duration-200">
-                      Amanora Urban Plaza, near Sanjay medico, Amanora Park Town, Hadapsar, Pune, Maharashtra 411028
-                    </p>
+                     Amanora Urban Plaza, near Sanjay medico, FresCo HealthCraft, Amanora Park Town, Hadapsar, Pune, Maharashtra 411028              
+                      </p>
                   </div>
                 </a>
 
