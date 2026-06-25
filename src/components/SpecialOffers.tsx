@@ -12,6 +12,14 @@ import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
 import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
 import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
+// @ts-ignore
+import ABCDriknImg from "../assets/images/ABC-Drink.png";
+// @ts-ignore
+import ImmunityBoosterImg from "../assets/images/Immunity-Booster.png";
+// @ts-ignore
+import SkinGlowUpImg from "../assets/images/Skin-Glow-up.png";
+// @ts-ignore
+import FatBurnerImg from "../assets/images/Fat-Burner.png";
 
 interface SpecialOffersProps {
   onAddToCartDirectly: (item: MenuItem) => void;
@@ -22,7 +30,8 @@ const DYNAMIC_ITEM_COMBOS = [
     id: "combo_detox_monday",
     name: "ABC Wellness Combo",
     icon: "🌱",
-    image: SproutsBowlImg,
+    image1: ABCDriknImg,
+    image2: SproutsBowlImg,
     subtitle: "ABC JUICE + SPROUTS BOWL",
     description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with our protein-rich Sprouts Bowl to provide natural energy, essential nutrients, and daily wellness support.",
     originalPrice: 178,
@@ -38,7 +47,8 @@ const DYNAMIC_ITEM_COMBOS = [
     id: "combo_immuno_tuesday",
     name: "Immunity Shield Special",
     icon: "🛡️",
-    image: ExoticDelightCupImg,
+    image1: ImmunityBoosterImg,
+    image2: ExoticDelightCupImg,
     subtitle: "Immunity Booster Juice + Exotic Delight Cup",
     description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support immunity, vitality, and everyday wellness.",
     originalPrice: 198,
@@ -54,7 +64,8 @@ const DYNAMIC_ITEM_COMBOS = [
     id: "combo_glow_thursday",
     name: "Golden Glow Special",
     icon: "✨",
-    image: ProteinPowerCupImg,
+    image1: SkinGlowUpImg,
+    image2: ProteinPowerCupImg,
     subtitle: "Skin Glow-Up Juice + Power Packed Cup",
     description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds, and nutrient-rich ingredients to support healthy skin and everyday vitality.",
     originalPrice: 218,
@@ -70,7 +81,8 @@ const DYNAMIC_ITEM_COMBOS = [
     id: "combo_fitness_friday",
     name: "Muscle-Refill Special",
     icon: "💪",
-    image: PaneerSproutsBowlImg,
+    image1: FatBurnerImg,
+    image2: PaneerSproutsBowlImg,
     subtitle: "Fat-Burning + Paneer Sprouts Bowl",
     description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",
     originalPrice: 198,
@@ -201,14 +213,26 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
                   </div>
                 </div>
 
-                {/* Circular Bowl Image on the right, matching the user's card UI exactly */}
-                <div className="w-[66px] h-[66px] xs:w-[76px] xs:h-[76px] sm:w-[94px] sm:h-[94px] rounded-full overflow-hidden bg-white border border-neutral-100 flex-shrink-0 flex items-center justify-center p-0.5 sm:p-1 shadow-[0_2px_10px_rgba(0,0,0,0.02)] group-hover:shadow-[0_4px_12px_rgba(56,163,37,0.06)] transition-all duration-300 select-none">
-                  <img
-                    src={combo.image}
-                    alt={combo.name}
-                    referrerPolicy="no-referrer"
-                    className="w-[95%] h-[95%] rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                {/* Two Overlapping Circular Images (Juice + Bowl) on the right, matching the user request for two images */}
+                <div className="relative w-[76px] h-[76px] xs:w-[86px] xs:h-[86px] sm:w-[110px] sm:h-[110px] flex-shrink-0 select-none mr-1 sm:mr-2">
+                  {/* Image 1: Drink (Offset left-top) */}
+                  <div className="absolute top-0 left-0 w-[46px] h-[46px] xs:w-[52px] xs:h-[52px] sm:w-[68px] sm:h-[68px] rounded-full overflow-hidden bg-white border border-neutral-100/80 flex items-center justify-center p-0.5 shadow-md z-10 transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1">
+                    <img
+                      src={combo.image1}
+                      alt={`${combo.name} Drink`}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
+                  {/* Image 2: Bowl / Cup (Offset right-bottom) */}
+                  <div className="absolute bottom-0 right-0 w-[48px] h-[48px] xs:w-[56px] xs:h-[56px] sm:w-[72px] sm:h-[72px] rounded-full overflow-hidden bg-white border border-neutral-100/80 flex items-center justify-center p-0.5 shadow-lg z-0 transition-all duration-500 group-hover:scale-105 group-hover:translate-x-1 group-hover:translate-y-1">
+                    <img
+                      src={combo.image2}
+                      alt={`${combo.name} Bowl`}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
                 </div>
 
               </motion.div>
