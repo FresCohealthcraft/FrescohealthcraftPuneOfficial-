@@ -39,7 +39,6 @@ import MosambiJuiceImg from "../assets/images/Mosambi_Juice.png";
 import AppleJuiceImg from "../assets/images/Apple-Juice.png";
 // @ts-ignore
 import PapayaJuiceImg from "../assets/images/papaya-Juice.png";
-
 // @ts-ignore
 import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
 
@@ -231,7 +230,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo Pune. Please activate my cycle dispatch immediately!`;
       }
 
-      const textWithUser = `*Hello FresCo HealthCraft! I'd like to place an order:* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
+      const textWithUser = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
       const encodedText = encodeURIComponent(textWithUser);
       window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
       setShowSubscriptionSuccess(null);
@@ -634,9 +633,9 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }));
     promptRegistrationForPlan({
       id: "sub_weekly_nutrient",
-      name: "Fresco 6-Days Wellness Cycle",
+      name: "Standard 6-day nutrient cycle",
       type: "weekly",
-      price: 1099,
+      price: 1094,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -670,7 +669,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_fruit_juice",
       name: "weekly fruit juice",
       type: "weekly",
-      price: 469,
+      price: 425,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -692,7 +691,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_fat_burn",
       name: "7 days weight loss transformation",
       type: "weekly",
-      price: 1249,
+      price: 479,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -889,7 +888,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     }
 
     const { name, type, price, customerName, customerPhone, customerAddress } = activePlan;
-    const message = `*Hello FresCo HealthCraft! I'd like to place an order:* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
+    const message = `*FRESCO PUNE FRESH JUICES - BILLING ORDER* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
 
     const encodedText = encodeURIComponent(message);
     window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
@@ -1364,7 +1363,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 setTimeout(() => setShowSubscriptionSuccess(null), 2500);
 
                                 if (planToCancel) {
-                                  const cancelMsg = `*SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
+                                  const cancelMsg = `*FRESCO PUNE FRESH JUICES - SUBSCRIPTION CANCELLED* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
                                   const encodedCancelMsg = encodeURIComponent(cancelMsg);
                                   setTimeout(() => {
                                     window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
