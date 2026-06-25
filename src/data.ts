@@ -710,7 +710,11 @@ popular: true,
   icon: "🥭",
   category: "Specials",
   popular: true,
-},
+},  
+
+];
+
+
 export const PROMO_COUPONS: PromoCoupon[] = [
    {
     id: "promo_combo",
