@@ -38,7 +38,7 @@ import MosambiJuiceImg from "../assets/images/Mosambi_Juice.png";
 // @ts-ignore
 import AppleJuiceImg from "../assets/images/Apple-Juice.png";
 // @ts-ignore
-import PapayaJuiceImg from "../assets/images/papaya-Juice.png";
+import PapayaJuiceImg from "../assets/images/Papaya-Juice.png";
 // @ts-ignore
 import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
 
@@ -73,7 +73,7 @@ const SNACK_OPTIONS = MENU_ITEMS.filter(item =>
   }));
 
 export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCartDirectly }: SubscriptionSectionProps) {
-  const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "custom">("weekly");
+  const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "custom" | null>(null);
   const [showSubscriptionSuccess, setShowSubscriptionSuccess] = useState<string | null>(null);
   const [showSubscriptionItems, setShowSubscriptionItems] = useState(false);
 
@@ -87,6 +87,19 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }, 100);
+    }
+  };
+
+  const handleJumpToExplore = () => {
+    const nextState = !showSubscriptionItems;
+    setShowSubscriptionItems(nextState);
+    if (nextState) {
+      setTimeout(() => {
+        const element = document.getElementById("explore-plans-container");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 120);
     }
   };
 
@@ -227,7 +240,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       } else if (whatsappText) {
         coreMessage = whatsappText;
       } else {
-        coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo. Please activate my cycle dispatch immediately!`;
+        coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo HealthrCaft. Please activate my cycle dispatch immediately!`;
       }
 
       const textWithUser = `*Hello FresCo HealthCraft! I'd like to place an order:* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
@@ -779,7 +792,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       return `- ${day}: ${juicesStr || "None"} + ${snacksStr || "None"}`;
     }).join("\n");
 
-    const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nSubtotal: ₹${customSubtotal}\nDiscount (${customDiscountPercentage}%): -₹${customSavings}\nTotal Payable: ₹${customFinalPrice}`;
+    const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo HealthrCaft.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nSubtotal: ₹${customSubtotal}\nDiscount (${customDiscountPercentage}%): -₹${customSavings}\nTotal Payable: ₹${customFinalPrice}`;
 
     promptRegistrationForPlan({
       id: `custom_plan_${customCycleType}`,
@@ -1017,7 +1030,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         {!activePlan && (
           <div className="flex justify-center mt-4 mb-6">
             <button
-              onClick={handleExploreToggle}
+              onClick={handleJumpToExplore}
               className="flex items-center space-x-2 bg-[#38A325] hover:bg-[#2F891F] text-white py-3.5 px-8 rounded-full font-extrabold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
             >
               <span>{showSubscriptionItems ? "Hide Wellness Subscription Plans" : "Explore Wellness Subscription Plans"}</span>
@@ -1363,7 +1376,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                                 setTimeout(() => setShowSubscriptionSuccess(null), 2500);
 
                                 if (planToCancel) {
-                                  const cancelMsg = `*Hello FresCo HealthCraft! I'd like to place an order:* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
+                                  const cancelMsg = `*Hello FresCo HealthCraft! I'd like to place an order:* ⚠️\n\nI have cancelled my active Subscription cycle on the FresCo HealthrCaft website.\n\n📋 *Subscription Plan:* ${planToCancel.name}\n💰 *Price:* ₹${planToCancel.price}\n👤 *Subscriber Profile:* ${planToCancel.customerName || "Ananya Sen (Demo-Pune)"}\n📞 *WhatsApp:* ${planToCancel.customerPhone || "+91 98765 43210"}\n🛵 *Address:* ${planToCancel.customerAddress || "N/A"}\n\nPlease stop all future delivery dispatches for this cycle!`;
                                   const encodedCancelMsg = encodeURIComponent(cancelMsg);
                                   setTimeout(() => {
                                     window.open(`https://wa.me/918983363146?text=${encodedCancelMsg}`, "_blank");
@@ -1401,7 +1414,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                 
                 {/* Warning Alert Message */}
                 <div 
-                  onClick={handleExploreToggle}
+                  onClick={handleJumpToExplore}
                   className="flex items-center space-x-2 text-left bg-transparent cursor-pointer hover:opacity-90 group transition-all"
                   title="Click to explore and choose a wellness cycle below"
                 >
@@ -1409,7 +1422,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                     <AlertCircle className="w-4 h-4 text-[#F26419]" />
                   </div>
                   <p className="text-[11.5px] font-bold text-gray-700 leading-tight">
-                    No Active Subscription found on FresCo. <span className="text-[#38A325] underline decoration-dotted decoration-1 underline-offset-2 hover:text-[#2F891F]">Choose a wellness cycle below to activate.</span>
+                    No Active Subscription found on FresCo HealthrCaft. <span className="text-[#38A325] underline decoration-dotted decoration-1 underline-offset-2 hover:text-[#2F891F]">Choose a wellness cycle below to activate.</span>
                   </p>
                 </div>
 
@@ -1464,7 +1477,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
           </div>
         </div>
 
-        <div id="explore-plans-container" className={!showSubscriptionItems ? "hidden" : ""}>
+        <div id="explore-plans-container" className={`scroll-mt-24 ${!showSubscriptionItems ? "hidden" : ""}`}>
           {/* Tabs for switching between Weekly and Monthly subscriptions (Matched to user visual references) */}
           <div className="mt-5 mb-6 flex justify-center">
           <div className="bg-[#EFECE5] p-1 rounded-3xl sm:rounded-full inline-flex flex-col sm:flex-row gap-1 border border-[#1A1A1A]/5 shadow-inner">
@@ -1506,6 +1519,25 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
         </div>
 
         <AnimatePresence mode="wait">
+          {activeTab === null && (
+            <motion.div
+              key="placeholder"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
+              className="max-w-xl mx-auto text-center py-16 px-4"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#38A325]/10 text-[#38A325] mb-5 border border-[#38A325]/20 shadow-xs">
+                <Sparkles className="w-7 h-7 animate-pulse text-[#38A325]" />
+              </div>
+              <h3 className="font-serif italic text-lg sm:text-xl text-[#1A1A1A] font-extrabold tracking-tight">Choose Your Wellness Journey</h3>
+              <p className="text-xs sm:text-sm text-[#1A1A1A]/60 mt-2.5 max-w-sm mx-auto leading-relaxed font-sans font-medium">
+                Please select a subscription plan above to explore our Weekly, Monthly, or completely Customized wellness subscription cycles.
+              </p>
+            </motion.div>
+          )}
+
           {activeTab === "weekly" && (
             <motion.div
               layout
