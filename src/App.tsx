@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { MenuItem, CartItem, PromoCoupon } from "./types";
 import { MENU_ITEMS } from "./data";
+import { motion, AnimatePresence } from "motion/react";
 
 // Import Custom Subcomponents
 import Navbar from "./components/Navbar";
@@ -13,10 +14,9 @@ import AboutUs from "./components/AboutUs";
 import CartDrawer from "./components/CartDrawer";
 import AdminPortal from "./components/AdminPortal";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
-
 import Logo from "./components/Logo";
 
-import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Instagram, Facebook, Youtube, Send } from "lucide-react";
+import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Check } from "lucide-react";
 
 
 
@@ -29,6 +29,15 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState<PromoCoupon | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [toasts, setToasts] = useState<{ id: number; message: string; icon?: string }[]>([]);
+
+  const showToast = (message: string, icon?: string) => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, icon }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 2500);
+  };
 
   // Push and Pop window history state dynamically.
   // This intercepts the mobile system back button so that when a drawer or menu is open,
@@ -103,8 +112,8 @@ export default function App() {
       saveCart([...cartItems, newCartItem]);
     }
     
-    // Auto-pop a small feedback of cart opening
-    setIsCartOpen(true);
+    // Show non-intrusive beautiful toast feedback instead of popping open the cart drawer
+    showToast(`${item.name} added to cart!`, "🥤");
   };
 
   // Add multiple items to cart at once safely
@@ -135,13 +144,13 @@ export default function App() {
       localStorage.setItem("fresco_cart", JSON.stringify(updated));
       return updated;
     });
-    setIsCartOpen(true);
+    showToast(`${items.length} items added to your wellness plan!`, "🥗");
   };
 
   // Add customized item from custom modal details
   const handleConfirmAddToCart = (cartItem: CartItem) => {
     saveCart([...cartItems, cartItem]);
-    setIsCartOpen(true);
+    showToast(`${cartItem.menuItem.name} customized & added!`, "✨");
   };
 
   const handleUpdateCartQuantity = (cartId: string, quantity: number) => {
@@ -236,149 +245,113 @@ export default function App() {
 
       </main>
 
-      {/* 10. Ultimate Footer layouts (matching Redesigned Image) */}
-      <footer className="bg-[#0C2D1C] text-white pt-12 pb-10 border-t border-emerald-950 relative overflow-hidden">
-        {/* Subtle background glow effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-850/15 via-transparent to-transparent pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-start">
+      {/* 10. Ultimate Footer layouts (matching Image 3) */}
+      <footer className="bg-[#1A1A1A] text-[#F9F8F4] pt-16 pb-8 border-t border-[#1A1A1A]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
             
-            {/* Column 1: Logo & Slogan */}
-            <div className="space-y-4 text-left">
-              <div className="flex flex-col text-left select-none">
-                <div className="flex items-center space-x-1.5">
-                  <span className="font-sans font-bold text-2xl tracking-tight text-white">
-                    Fresco
-                  </span>
-                  <Leaf className="w-4.5 h-4.5 text-[#F58220] fill-[#F58220]" />
-                </div>
-                <span className="text-[10px] font-black uppercase mt-1 leading-none text-[#F58220] tracking-[0.2em]">
-                  HEALTHCRAFT
-                </span>
-              </div>
-              <p className="text-xs text-neutral-300 leading-relaxed max-w-xs font-medium">
-                We make healthy eating easy, tasty and convenient with our range of fresh sprouts, salads, fruit cups, and cold-pressed juices.
+            {/* Logo and Slogans Column */}
+            <div className="md:col-span-5 space-y-4 text-left">
+              <Logo size="sm" lightText={true} showTagline={true} />
+              <p className="text-xs text-[#F9F8F4]/70 max-w-sm leading-relaxed">
+                Your trusted partner for fresh, healthy, and delicious juices. We bring nature's raw goodness right to your Pune doorstep with our high-retention extraction technology and fast delivery operations.
               </p>
             </div>
 
-            {/* Column 2: Shop */}
-            <div className="text-left">
-              <h4 className="font-bold text-sm text-white tracking-wide mb-3 sm:mb-4">
-                Shop
+            {/* Quick Links column */}
+            <div className="md:col-span-3 text-left">
+              <h4 className="font-bold text-[11px] text-[#38A325] uppercase tracking-[0.25em]">
+                Quick Links
               </h4>
-              <ul className="space-y-2.5 text-xs text-neutral-300">
+              <ul className="mt-4 space-y-2.5 text-xs text-[#F9F8F4]/70">
                 <li>
-                  <button onClick={() => { setSearchTerm("sprouts"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
-                    Sprouts
+                  <button onClick={() => { setActiveSection("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
+                    Home
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setSearchTerm("cup"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
-                    Fruit Cups
+                  <button onClick={scrollToMenuSection} className="hover:text-white transition-colors cursor-pointer text-left">
+                    Menu
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setSearchTerm("juice"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
-                    Fresh Juices
+                  <button onClick={() => { setActiveSection("subscriptions"); document.getElementById("subscriptions")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
+                    Wellness Plans
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setSearchTerm("vegetable"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
-                    Vegetable Juices
+                  <button onClick={() => { setActiveSection("offers"); document.getElementById("offers")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
+                    Special Offers
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => { setSearchTerm("combo"); scrollToMenuSection(); }} className="hover:text-[#9BD54E] transition-colors cursor-pointer text-left py-0.5">
-                    Combos
+                  <button onClick={() => { setActiveSection("about"); document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
+                    About Us
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveSection("contact"); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-white transition-colors cursor-pointer text-left">
+                    Contact
+                  </button>
+                </li>
+                <li className="pt-2 border-t border-white/5">
+                  <button
+                    onClick={() => setIsAdminOpen(true)}
+                    className="text-[#EFECE5]/80 hover:text-white font-extrabold transition-colors cursor-pointer flex items-center space-x-1"
+                  >
+                    <span>🛡️ Admin Portal</span>
                   </button>
                 </li>
               </ul>
             </div>
 
-            {/* Column 3: Stay Connected */}
-            <div className="text-left space-y-3">
-              <h4 className="font-bold text-sm text-white tracking-wide">
-                Stay Connected
+            {/* Official Contact Column */}
+            <div className="md:col-span-4 text-left space-y-4">
+              <h4 className="font-bold text-[11px] text-[#38A325] uppercase tracking-[0.25em]">
+                Contact Us
               </h4>
-              <p className="text-xs text-neutral-300 leading-normal font-medium max-w-xs">
-                Get updates on offers and new healthy products.
-              </p>
-              
-              {/* Subscription Input */}
-              <div className="relative max-w-xs mt-1.5">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/15 rounded-xl text-xs py-2 px-3.5 pr-10 text-white placeholder-white/45 focus:outline-none focus:ring-1 focus:ring-[#9BD54E] transition-all"
-                />
-                <button 
-                  onClick={() => {
-                    alert("Thank you for subscribing! We've registered your email for premium updates.");
-                  }}
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-[#9BD54E] hover:bg-[#86be3e] text-[#0C2D1C] rounded-lg flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                </button>
+              <div className="text-xs text-[#F9F8F4]/70 space-y-2.5 leading-relaxed">
+                <p>
+                  <a href="tel:+918983363146" className="hover:text-white hover:underline transition-colors cursor-pointer">
+                    📞 +91 89833 63146
+                  </a>
+                </p>
+                <p>
+                  <a href="mailto:frescofruit.pune@gmail.com" className="hover:text-white hover:underline transition-colors cursor-pointer">
+                    ✉ frescofruit.pune@gmail.com
+                  </a>
+                </p>
+                <p className="max-w-xs leading-normal">
+                  <a 
+                    href="https://maps.google.com/?q=Amanora+Urban+Plaza,+near+Sanjay+medico,+Amanora+Park+Town,+Hadapsar,+Pune,+Maharashtra+411028"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white hover:underline transition-colors cursor-pointer"
+                  >
+                    📍 Amanora Urban Plaza, near Sanjay medico, Amanora Park Town, Hadapsar, Pune, Maharashtra 411028
+                  </a>
+                </p>
               </div>
-
-              {/* Social Icons row */}
-              <div className="flex items-center space-x-3 pt-2">
-                <a 
-                  href="https://instagram.com/fresco_healthcraft" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs"
-                  title="Instagram"
-                >
-                  <Instagram className="w-4 h-4" />
-                </a>
-                <a 
-                  href="https://facebook.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs"
-                  title="Facebook"
-                >
-                  <Facebook className="w-4 h-4" />
-                </a>
-                <a 
-                  href="https://youtube.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs"
-                  title="YouTube"
-                >
-                  <Youtube className="w-4 h-4" />
-                </a>
-                <button 
-                  onClick={handleGeneralChatWhatsApp}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all shadow-3xs cursor-pointer"
-                  title="WhatsApp"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Admin Portal Toggle Link */}
-              <div className="pt-2 border-t border-white/5">
-                <button
-                  onClick={() => setIsAdminOpen(true)}
-                  className="text-[11px] text-neutral-400 hover:text-white font-bold transition-colors cursor-pointer flex items-center space-x-1"
-                >
-                  <span>🛡️ Admin Portal</span>
-                </button>
-              </div>
-
             </div>
 
           </div>
 
-          {/* Copyright bar */}
-          <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-neutral-400 text-xs">
+          {/* Social and Copyright bar */}
+          <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#F9F8F4]/50 text-xs">
             <p className="text-center sm:text-left">
               © 2026 FresCo HealthCraft. All rights reserved. Registered Trade Brand in Pune, MH.
             </p>
+            <div className="flex space-x-3 select-none">
+              <button onClick={() => window.open("https://wa.me/918983363146", "_blank")} className="hover:text-white hover:bg-white/10 transition-colors cursor-pointer bg-white/5 p-2 px-3 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider">
+                💬 WhatsApp
+              </button>
+              <button onClick={() => window.open("https://instagram.com/fresco_healthcraft", "_blank")} className="hover:text-white hover:bg-white/10 transition-colors cursor-pointer bg-white/5 p-2 px-3 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider">
+                📸 Instagram
+              </button>
+              <button onClick={handleGeneralChatWhatsApp} className="hover:text-white hover:bg-white/10 transition-colors cursor-pointer bg-white/5 p-2 px-3 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider font-mono">
+                👥 Contact Chat
+              </button>
+            </div>
           </div>
 
         </div>
@@ -408,6 +381,31 @@ export default function App() {
         isOpen={isAdminOpen}
         onClose={() => setIsAdminOpen(false)}
       />
+
+      {/* Dynamic Toast Notifications */}
+      <div className="fixed top-24 right-4 z-50 flex flex-col gap-2.5 pointer-events-none max-w-sm w-full sm:w-auto">
+        <AnimatePresence>
+          {toasts.map((toast) => (
+            <motion.div
+              key={toast.id}
+              initial={{ opacity: 0, y: -20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85, transition: { duration: 0.15 } }}
+              className="bg-white border-2 border-[#38A325]/15 text-[#1A1A1A] p-3 rounded-2xl shadow-[0_10px_25px_-5px_rgba(56,163,37,0.1)] flex items-center gap-3 pointer-events-auto"
+            >
+              <div className="w-8 h-8 rounded-full bg-[#38A325]/10 flex items-center justify-center text-lg shrink-0 select-none">
+                {toast.icon || "✓"}
+              </div>
+              <div className="flex-1 text-xs font-bold leading-tight pr-2">
+                {toast.message}
+              </div>
+              <div className="text-[10px] uppercase font-black tracking-wider text-[#38A325] bg-[#38A325]/10 px-2 py-0.5 rounded-full">
+                Added
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
 
     </div>
   );
