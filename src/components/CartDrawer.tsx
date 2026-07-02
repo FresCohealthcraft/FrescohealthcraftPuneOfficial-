@@ -31,6 +31,29 @@ export default function CartDrawer({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [puneLocation, setPuneLocation] = useState("Pune");
+  const [deliveryDate, setDeliveryDate] = useState(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  });
+  const [deliveryTime, setDeliveryTime] = useState("Morning (08:00 AM - 11:00 AM)");
+  const [customTime, setCustomTime] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      const savedUser = localStorage.getItem("fresco_logged_in_user");
+      if (savedUser) {
+        try {
+          const parsed = JSON.parse(savedUser);
+          if (parsed.name && !customerName) setCustomerName(parsed.name);
+          if (parsed.phone && !phoneNumber) setPhoneNumber(parsed.phone);
+          if (parsed.address && !addressDetails) setAddressDetails(parsed.address);
+        } catch (e) {}
+      }
+    }
+  }, [isOpen]);
 
   // Checkout flow state and helpers
 
@@ -67,8 +90,14 @@ export default function CartDrawer({
   };
 
   const handleCheckoutWhatsAppSubmit = () => {
-    if (!phoneNumber || !customerName || !addressDetails) {
-      alert("Please fill in your Delivery Details (Name, WhatsApp Number and Address) first!");
+    const resolvedDeliveryTime = deliveryTime === "Custom Time" ? (customTime.trim() ? `Custom (${customTime.trim()})` : "") : deliveryTime;
+    
+    if (!phoneNumber || !customerName || !addressDetails || !deliveryDate || !resolvedDeliveryTime) {
+      if (deliveryTime === "Custom Time" && !customTime.trim()) {
+        alert("Please enter your preferred custom delivery time!");
+      } else {
+        alert("Please fill in your Delivery Details (Name, WhatsApp Number, Address, Date and Time) first!");
+      }
       return;
     }
 
@@ -86,6 +115,7 @@ export default function CartDrawer({
 *Customer Name:* ${customerName}
 *Phone / WhatsApp:* ${phoneNumber}
 *Delivery Address:* ${addressDetails}
+*Preferred Delivery:* ${deliveryDate} @ ${resolvedDeliveryTime}
 
 *Order Items:*
 ${itemsSummary}
@@ -112,6 +142,8 @@ Please accept my order request and share tracking updates on WhatsApp!`;
       payableAmount,
       status: "pending",
       puneLocation,
+      deliveryDate,
+      deliveryTime: resolvedDeliveryTime,
       timestamp: new Date().toLocaleDateString("en-IN", {
         hour: "2-digit",
         minute: "2-digit",
@@ -120,6 +152,58 @@ Please accept my order request and share tracking updates on WhatsApp!`;
 
     const existing = JSON.parse(localStorage.getItem("fresco_orders") || "[]");
     localStorage.setItem("fresco_orders", JSON.stringify([newOrder, ...existing]));
+
+    // Sync to logged-in user in localStorage
+    const savedUser = localStorage.getItem("fresco_logged_in_user");
+    if (!savedUser) {
+      const newUser = {
+        name: customerName,
+        phone: phoneNumber,
+        email: `${customerName.toLowerCase().replace(/\s+/g, "") || "user"}@gmail.com`,
+        address: addressDetails
+      };
+      localStorage.setItem("fresco_logged_in_user", JSON.stringify(newUser));
+    } else {
+      try {
+        const parsed = JSON.parse(savedUser);
+        parsed.address = addressDetails;
+        parsed.name = customerName;
+        parsed.phone = phoneNumber;
+        localStorage.setItem("fresco_logged_in_user", JSON.stringify(parsed));
+      } catch (e) {}
+    }
+
+    // POST new order to live server
+    try {
+      fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newOrder),
+      });
+    } catch (err) {
+      console.error("Error pushing order to server database:", err);
+    }
+
+    // POST new customer info to live server
+    try {
+      const serverCust = {
+        id: `cust_${Date.now()}`,
+        name: customerName,
+        phone: phoneNumber,
+        email: `${customerName.toLowerCase().replace(/\s+/g, "") || "user"}@gmail.com`,
+        address: addressDetails,
+        status: "Active",
+        ordersCount: existing.length + 1,
+        totalSpent: existing.reduce((sum: number, o: any) => sum + (o.payableAmount || 0), 0) + payableAmount,
+      };
+      fetch("/api/customers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(serverCust),
+      });
+    } catch (err) {
+      console.error("Error pushing customer to server database:", err);
+    }
 
     onClearCart();
     onClose();
@@ -305,6 +389,57 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                         className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
                         required
                       />
+
+                      {/* Delivery Date & Time Slot Column */}
+                      <div className="grid grid-cols-2 gap-2.5">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-black uppercase tracking-wider text-neutral-400 pl-1 block text-left">
+                            Delivery Date
+                          </label>
+                          <input
+                            type="date"
+                            value={deliveryDate}
+                            onChange={(e) => setDeliveryDate(e.target.value)}
+                            min={new Date().toISOString().split("T")[0]}
+                            className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 cursor-pointer text-left"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-black uppercase tracking-wider text-neutral-400 pl-1 block text-left">
+                            Delivery Time
+                          </label>
+                          <select
+                            value={deliveryTime}
+                            onChange={(e) => setDeliveryTime(e.target.value)}
+                            className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 cursor-pointer text-left"
+                            required
+                          >
+                            <option value="Morning (08:00 AM - 11:00 AM)">Morning (08:00 AM - 11:00 AM)</option>
+                            <option value="Noon (11:00 AM - 02:00 PM)">Noon (11:00 AM - 02:00 PM)</option>
+                            <option value="Afternoon (02:00 PM - 05:00 PM)">Afternoon (02:00 PM - 05:00 PM)</option>
+                            <option value="Evening (05:00 PM - 08:00 PM)">Evening (05:00 PM - 08:00 PM)</option>
+                            <option value="Custom Time">Custom Time...</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Custom Time Input Field */}
+                      {deliveryTime === "Custom Time" && (
+                        <div className="space-y-1 animate-fadeIn transition-all duration-300">
+                          <label className="text-[10px] font-black uppercase tracking-wider text-[#38A325] pl-1 block text-left">
+                            Specify Custom Time
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="e.g., 04:30 PM, or As soon as possible"
+                            value={customTime}
+                            onChange={(e) => setCustomTime(e.target.value)}
+                            className="w-full text-xs p-3.5 border border-[#38A325]/30 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-white placeholder:text-gray-400 text-left"
+                            required
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </>
