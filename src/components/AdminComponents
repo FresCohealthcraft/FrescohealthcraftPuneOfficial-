@@ -1,0 +1,688 @@
+import React from "react";
+import { Shield, Bell, MapPin, Send, Check, Sparkles, TrendingUp, FileSpreadsheet, Activity, ChevronRight, CheckCircle, Download, X } from "lucide-react";
+
+// Decorative Hand-Drawn Leaf Illustration Component matching the shared image
+export const CuteLeafIllustration = ({ className = "" }: { className?: string }) => (
+  <svg className={`text-[#289E68]/15 pointer-events-none select-none ${className}`} viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* First Leaf */}
+    <path
+      d="M60 10C75 25 85 45 80 65C75 85 55 95 35 90C15 85 5 65 10 45C15 25 35 10 60 10Z"
+      fill="currentColor"
+      fillOpacity="0.14"
+    />
+    <path
+      d="M10 45C15 25 35 10 60 10C45 30 40 55 35 90C20 80 15 65 10 45Z"
+      fill="currentColor"
+      fillOpacity="0.08"
+    />
+    <path
+      d="M10 45Q35 35 60 10"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeOpacity="0.25"
+      strokeLinecap="round"
+    />
+    
+    {/* Second Leaf */}
+    <path
+      d="M60 40C78 40 92 50 98 62C104 74 100 86 88 92C76 98 62 94 56 82C50 70 52 52 60 40Z"
+      fill="currentColor"
+      fillOpacity="0.18"
+    />
+    <path
+      d="M56 82C50 70 52 52 60 40C68 55 75 70 88 92C72 94 62 90 56 82Z"
+      fill="currentColor"
+      fillOpacity="0.10"
+    />
+    <path
+      d="M60 40Q74 55 88 92"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeOpacity="0.25"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+// Circular Progress Component matching the "2/6" progress ring in the shared image
+const CircularProgress = ({ completed, total }: { completed: number; total: number }) => {
+  const safeTotal = total || 6;
+  const percentage = (completed / safeTotal) * 100;
+  const radius = 16;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+
+  return (
+    <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
+      <svg className="w-12 h-12 transform -rotate-90">
+        {/* Track circle */}
+        <circle
+          cx="24"
+          cy="24"
+          r={radius}
+          className="text-stone-100"
+          strokeWidth="3.5"
+          stroke="currentColor"
+          fill="transparent"
+        />
+        {/* Progress circle */}
+        <circle
+          cx="24"
+          cy="24"
+          r={radius}
+          className="text-[#289E68]"
+          strokeWidth="3.5"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          strokeLinecap="round"
+          stroke="currentColor"
+          fill="transparent"
+        />
+      </svg>
+      <span className="absolute text-[10px] font-black text-[#1A1A1A] font-sans leading-none">
+        {completed}/{safeTotal}
+      </span>
+    </div>
+  );
+};
+
+// 1. AdminHeader (Identity + Global Actions)
+interface AdminHeaderProps {
+  onClose: () => void;
+}
+export const AdminHeader: React.FC<AdminHeaderProps> = ({ onClose }) => {
+  return (
+    <div className="bg-gradient-to-r from-[#D5EDE1] via-[#E4F5EC] to-[#EDFAF3] p-4.5 rounded-3xl flex items-center justify-between border border-[#289E68]/15 shadow-[0_8px_30px_rgb(0,0,0,0.02)] relative overflow-hidden">
+      {/* Decorative leaf motifs */}
+      <CuteLeafIllustration className="absolute -right-3 -top-3 w-16 h-16 text-[#289E68]/12" />
+      
+      <div className="flex items-center space-x-3.5 relative z-10">
+        <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-[#289E68] shadow-[0_4px_12px_rgba(40,158,104,0.08)] border border-[#289E68]/10">
+          <Shield className="w-5.5 h-5.5 stroke-[2.2]" />
+        </div>
+        <div>
+          <h3 className="font-sans font-black text-[#1A1A1A] text-[15px] tracking-tight leading-none">
+            Fresco Admin Center
+          </h3>
+          <p className="text-[10px] font-bold text-[#289E68] tracking-normal mt-1 leading-none">
+            Outlet Management &amp; Analytics
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center space-x-3 relative z-10">
+        {/* Bell Icon with red/orange alert dot */}
+        <div className="relative p-2.5 bg-white rounded-full border border-stone-200/40 shadow-xs cursor-pointer hover:bg-[#FAF9F5] transition-all hover:scale-105">
+          <Bell className="w-4.5 h-4.5 text-stone-700" />
+          <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#E57373] ring-2 ring-white" />
+        </div>
+        
+        {/* Admin User Avatar */}
+        <div className="flex items-center gap-2">
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+            alt="Admin Profile"
+            referrerPolicy="no-referrer"
+            className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-xs"
+          />
+        </div>
+
+        {/* Exit Button */}
+        <button
+          onClick={onClose}
+          className="p-2.5 bg-stone-900 text-white rounded-full hover:bg-red-500 hover:text-white transition-all duration-200 shadow-sm flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 ml-1"
+          title="Return to Shop"
+        >
+          <X className="w-4.5 h-4.5 stroke-[2.5]" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// 2. QuickStats Cards (Instant Business Snapshot)
+interface QuickStatsProps {
+  totalRevenue: number;
+  activeCount: number;
+  ordersCount: number;
+}
+export const QuickStats: React.FC<QuickStatsProps> = ({
+  totalRevenue,
+  activeCount,
+  ordersCount,
+}) => {
+  const stats = [
+    { label: "Total Sales", value: `₹${totalRevenue}` },
+    { label: "Active Tickets", value: activeCount },
+    { label: "Checkout Logs", value: ordersCount },
+  ];
+
+  return (
+    <div className="space-y-3">
+      <h4 className="font-sans font-black text-[13px] text-stone-800 tracking-tight pl-0.5">
+        Quick Stats Cards
+      </h4>
+      <div className="grid grid-cols-3 gap-3">
+        {stats.map((item, index) => (
+          <div
+            key={index}
+            className="bg-white border border-stone-200/50 rounded-2xl p-4.5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.01)] min-h-[95px] transition-all hover:scale-[1.02] hover:shadow-xs text-left"
+          >
+            <span className="text-[10px] font-bold text-stone-400 block leading-none">
+              {item.label}
+            </span>
+            <span className="text-xl font-sans font-black text-[#1A1A1A] block mt-2.5 leading-none">
+              {item.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// 3. Today's Orders (Hero Card - Main Action Zone)
+interface DailyDispatchCardProps {
+  activeCount: number;
+  onDispatch: () => void;
+  onNotify: () => void;
+}
+export const DailyDispatchCard: React.FC<DailyDispatchCardProps> = ({
+  activeCount,
+  onDispatch,
+  onNotify,
+}) => {
+  const ordersToday = activeCount || 6;
+  
+  return (
+    <div className="space-y-3">
+      <h4 className="font-sans font-black text-[13px] text-stone-800 tracking-tight pl-0.5">
+        Today's Orders
+      </h4>
+      <div className="bg-[#289E68] text-white rounded-3xl p-5.5 shadow-[0_12px_30px_rgba(40,158,104,0.15)] relative overflow-hidden">
+        {/* Abstract graphic circles matching Pune custom identity */}
+        <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 bg-white/5 rounded-full filter blur-xl pointer-events-none" />
+        <div className="absolute left-[-40px] top-[-40px] w-32 h-32 bg-white/5 rounded-full filter blur-lg pointer-events-none" />
+        
+        <div className="flex items-start justify-between relative z-10">
+          <div className="space-y-0.5">
+            <span className="text-[12.5px] font-bold text-white/95 tracking-wide uppercase leading-none">
+              Daily Dispatch
+            </span>
+            <span className="text-[10px] text-white/75 block mt-0.5">
+              Dispatch Progress
+            </span>
+            <span className="text-2xl font-black block mt-2 leading-none">
+              {ordersToday} Orders
+            </span>
+          </div>
+          
+          <div className="bg-white/12 border border-white/10 px-3 py-1.5 rounded-2xl text-[9px] font-black text-white/95 flex items-center gap-1.5 shadow-2xs backdrop-blur-xs">
+            <span>Today's Deliveries</span>
+            <span className="bg-white/20 px-2 py-0.5 rounded-lg font-mono text-[9.5px]">{ordersToday} Orders</span>
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+            </span>
+          </div>
+        </div>
+
+        {/* Dispatch Progress Stepper Line in shared image */}
+        <div className="my-7 px-2 relative z-10">
+          <div className="relative w-full h-1 bg-white/20 rounded-full flex items-center justify-between">
+            {/* Active filled progress line */}
+            <div className="absolute left-0 top-0 h-1 bg-white/90 rounded-full transition-all duration-500" style={{ width: "66%" }} />
+            
+            {["Pressed", "Packed", "Dispatched", "Arrived"].map((step, idx) => {
+              const isActive = idx <= 2;
+              const isCurrent = idx === 2;
+              return (
+                <div key={idx} className="relative flex flex-col items-center">
+                  <div
+                    className={`w-4.5 h-4.5 rounded-full border-2 border-white flex items-center justify-center transition-all shadow-xs relative z-10 ${
+                      isActive ? "bg-white text-[#289E68]" : "bg-[#289E68] text-white"
+                    }`}
+                  >
+                    {isCurrent ? (
+                      <>
+                        <span className="absolute inset-0 rounded-full bg-white animate-ping opacity-80" />
+                        <div className="w-2 h-2 rounded-full bg-[#289E68] relative z-10" />
+                      </>
+                    ) : isActive ? (
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#289E68]" />
+                    ) : (
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                    )}
+                  </div>
+                  <span className="absolute top-6.5 text-[8.5px] text-white/85 font-black tracking-wide uppercase whitespace-nowrap hidden sm:block">
+                    {step}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Action Buttons Capsule */}
+        <div className="grid grid-cols-2 gap-3.5 pt-2 relative z-10">
+          <button
+            onClick={onDispatch}
+            className="bg-[#FAF6EE] text-[#289E68] hover:bg-white active:scale-98 transition-all rounded-full py-3 px-5 font-black text-[10px] uppercase tracking-wider text-center cursor-pointer shadow-md"
+          >
+            Dispatch
+          </button>
+          <button
+            onClick={onNotify}
+            className="bg-white/10 hover:bg-white/18 active:scale-98 border border-white/30 hover:border-white/50 text-white transition-all rounded-full py-3 px-5 font-black text-[10px] uppercase tracking-wider text-center cursor-pointer"
+          >
+            Notify
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// 4. Delivery Tracker Section (Operational Queue)
+interface DeliveryTrackerSectionProps {
+  subscriptions: any[];
+  onPing: (sub: any) => void;
+  onComplete: (id: string, current: number, total: number) => void;
+  getSubscriptionItemForDay: (id: string, completed: number) => any;
+  setDeliveryCount: (id: string, count: number) => void;
+}
+export const DeliveryTrackerSection: React.FC<DeliveryTrackerSectionProps> = ({
+  subscriptions,
+  onPing,
+  onComplete,
+  getSubscriptionItemForDay,
+  setDeliveryCount,
+}) => {
+  const defaultItems = [
+    {
+      id: "sub_weekly_nutrient",
+      customerName: "Awaiting Client Setup",
+      customerPhone: "+91 xxxxx xxxxx",
+      customerAddress: "Please register your delivery address profile at the customer end (website) to see custom subscriber dispatches here.",
+      name: "Standard 6-day nutrient cycle",
+      deliveriesCompleted: 0,
+      totalDeliveries: 6,
+      status: "active",
+      selectedPlanId: "sub_weekly_nutrient",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+    }
+  ];
+
+  const activeSubs = subscriptions.filter(s => s.status === "active" && s.deliveriesCompleted < s.totalDeliveries);
+  const displayItems = activeSubs.length > 0 ? activeSubs.map((s, index) => ({
+    ...s,
+    avatar: index % 2 === 0 
+      ? "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+      : "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+  })) : defaultItems;
+
+  return (
+    <div className="space-y-3">
+      <h4 className="font-sans font-black text-[13px] text-stone-800 tracking-tight pl-0.5">
+        Delivery Tracker
+      </h4>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {displayItems.map((sub) => {
+          const todayItem = getSubscriptionItemForDay(sub.selectedPlanId || sub.id, sub.deliveriesCompleted);
+          const completedCount = sub.deliveriesCompleted || 0;
+          const totalCount = sub.totalDeliveries || 6;
+
+          return (
+            <div
+              key={sub.id}
+              className="bg-white border border-stone-200/50 rounded-3xl p-5 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.015)] hover:border-[#289E68]/30 hover:shadow-xs transition-all space-y-4 text-left"
+            >
+              {/* Header Profile Info */}
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-3">
+                  <img
+                    src={sub.avatar}
+                    alt={sub.customerName}
+                    referrerPolicy="no-referrer"
+                    className="w-10.5 h-10.5 rounded-full object-cover border border-stone-200/60 shadow-2xs"
+                  />
+                  <div>
+                    <h5 className="font-sans font-black text-[#1A1A1A] text-[13px] tracking-tight leading-none">
+                      {sub.customerName}
+                    </h5>
+                    <span className="text-[10px] text-stone-400 mt-1 block font-mono leading-none">
+                      {sub.customerPhone}
+                    </span>
+                  </div>
+                </div>
+
+                <span className="bg-[#E2F4E7] text-[#289E68] text-[9.5px] font-black px-2.5 py-0.5 rounded-full border border-emerald-500/10 tracking-wide uppercase">
+                  In Queue
+                </span>
+              </div>
+
+              {/* Sub name & Cycle days */}
+              <div className="space-y-3.5 border-t border-b border-stone-100 py-3.5 text-[11px]">
+                <div className="flex justify-between items-center">
+                  <span className="text-stone-400 font-medium">Subscription:</span>
+                  <span className="font-black text-stone-800 text-[11.5px]">
+                    {sub.selectedPlanId ? (todayItem?.juice || sub.name) : sub.name}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <div className="space-y-1 flex-1">
+                    <span className="text-stone-400 block font-medium">Cycle: Day {completedCount + 1} of {totalCount}</span>
+                    
+                    {/* Tiny visual progress bar matching the image */}
+                    <div className="flex items-center space-x-1.5 pt-1">
+                      {Array.from({ length: totalCount }).map((_, dIdx) => {
+                        const isDone = dIdx < completedCount;
+                        const isCurrent = dIdx === completedCount;
+                        return (
+                          <div
+                            key={dIdx}
+                            className={`h-1.2 rounded-full transition-all ${
+                              isDone ? "bg-[#289E68] w-4" : isCurrent ? "bg-[#289E68] w-4 animate-pulse" : "bg-stone-200 w-1.5"
+                            }`}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Circular progress badge exact 2/6 representation */}
+                  <CircularProgress completed={completedCount} total={totalCount} />
+                </div>
+              </div>
+
+              {/* Location pin address */}
+              <div className="flex items-start gap-2 text-[10.5px] text-stone-500 leading-normal">
+                <MapPin className="w-4 h-4 text-[#289E68] shrink-0 mt-0.5" />
+                <p className="line-clamp-2" title={sub.customerAddress}>
+                  {sub.customerAddress}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-2 gap-3 pt-1">
+                <button
+                  onClick={() => onPing(sub)}
+                  className="bg-[#F0F5F1] hover:bg-[#E2EBE4] active:scale-98 text-[#289E68] transition-all py-2.5 rounded-xl font-black text-[10px] uppercase tracking-wider text-center cursor-pointer"
+                >
+                  Ping
+                </button>
+                <button
+                  onClick={() => onComplete(sub.id, completedCount, totalCount)}
+                  className="bg-[#289E68] hover:bg-[#208053] active:scale-98 text-white transition-all py-2.5 rounded-xl font-black text-[10px] uppercase tracking-wider text-center cursor-pointer shadow-sm"
+                >
+                  Complete
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// 5. Subscription Manager Section
+interface SubscriptionPlanItem {
+  id: string;
+  name: string;
+  price: string;
+  status: string;
+}
+
+interface SubscriptionManagerSectionProps {
+  subManagerTab: "weekly" | "monthly" | "custom";
+  setSubManagerTab: (tab: "weekly" | "monthly" | "custom") => void;
+  onManage: (category: "weekly" | "monthly" | "custom", index: number, plan: SubscriptionPlanItem) => void;
+  plans: {
+    weekly: SubscriptionPlanItem[];
+    monthly: SubscriptionPlanItem[];
+    custom: SubscriptionPlanItem[];
+  };
+}
+export const SubscriptionManagerSection: React.FC<SubscriptionManagerSectionProps> = ({
+  subManagerTab,
+  setSubManagerTab,
+  onManage,
+  plans,
+}) => {
+  const activePlans = plans[subManagerTab] || plans.weekly || [];
+
+  return (
+    <div className="space-y-3.5 relative">
+      {/* Decorative leaf motifs identical to image */}
+      <CuteLeafIllustration className="absolute right-[-10px] -top-10 w-24 h-24 text-[#289E68]/10" />
+
+      <h4 className="font-sans font-black text-[13px] text-stone-800 tracking-tight pl-0.5">
+        Subscription Manager
+      </h4>
+
+      {/* Tabs Selector */}
+      <div className="flex bg-[#EFECE5] p-1 rounded-2xl border border-stone-200/50 shadow-inner max-w-[280px]">
+        {(["weekly", "monthly", "custom"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setSubManagerTab(tab)}
+            className={`flex-1 py-2 rounded-xl font-black uppercase tracking-wide text-[9.5px] transition-all cursor-pointer ${
+              subManagerTab === tab
+                ? "bg-white text-stone-900 shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                : "text-stone-500 hover:text-stone-900"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Plans List Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {activePlans.map((plan, index) => (
+          <div
+            key={plan.id || index}
+            className="bg-white border border-stone-200/50 rounded-3xl p-5 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.01)] hover:border-[#289E68]/30 transition-all min-h-[115px] relative overflow-hidden text-left"
+          >
+            <div className="flex justify-between items-start relative z-10">
+              <h5 className="font-sans font-black text-[#1A1A1A] text-[12.5px] uppercase tracking-wide max-w-[70%]">
+                {plan.name}
+              </h5>
+              <span className={`text-[8.5px] font-black px-2.5 py-0.5 rounded-full border border-emerald-500/5 uppercase ${
+                plan.status.toLowerCase() === "active"
+                  ? "bg-[#E2F4E7] text-[#289E68]"
+                  : "bg-stone-100 text-stone-500"
+              }`}>
+                {plan.status}
+              </span>
+            </div>
+
+            <div className="flex justify-between items-end pt-4.5 relative z-10">
+              <span className="text-xl font-sans font-black text-[#1A1A1A]">
+                ₹{plan.price}
+              </span>
+              <button
+                onClick={() => onManage(subManagerTab, index, plan)}
+                className="bg-[#289E68] hover:bg-[#208053] active:scale-98 text-white font-black text-[9.5px] uppercase tracking-wider px-5 py-2.5 rounded-xl transition-all cursor-pointer shadow-3xs hover:scale-105 active:scale-95"
+              >
+                Manage
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// 6. Analytics Section (Decision Area with Sparklines)
+interface AnalyticsSectionProps {
+  topItems: any[];
+  onExportCSV: () => void;
+  orders?: any[];
+  subscriptions?: any[];
+}
+export const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({
+  topItems,
+  onExportCSV,
+  orders = [],
+  subscriptions = [],
+}) => {
+  // Calculate dynamic statistics based on actual database/localStorage state
+  const activeOrdersCount = orders.filter((o: any) => o.status !== "cancelled").length;
+  const activeUsersCount = subscriptions.filter((s: any) => s.status === "active").length;
+  
+  // Dynamic growth calculation: default to 0% for a fresh website with no active orders
+  const growthValue = activeOrdersCount > 0 
+    ? `+${(activeOrdersCount * 12.4).toFixed(1)}%` 
+    : "0.0%";
+
+  return (
+    <div className="space-y-3.5 relative">
+      {/* Botanical leaf at bottom decoration */}
+      <CuteLeafIllustration className="absolute left-[-20px] -bottom-10 w-28 h-28 text-[#289E68]/8 rotate-180" />
+      
+      <div className="flex items-center justify-between">
+        <h4 className="font-sans font-black text-[13px] text-stone-800 tracking-tight pl-0.5">
+          Analytics
+        </h4>
+        <button
+          onClick={onExportCSV}
+          className="text-[#289E68] hover:text-[#208053] flex items-center gap-1 text-[10.5px] font-black uppercase tracking-wider cursor-pointer transition-colors"
+        >
+          <FileSpreadsheet className="w-3.5 h-3.5" />
+          <span>Export CSV</span>
+        </button>
+      </div>
+
+      <div className="bg-white border border-stone-200/50 rounded-3xl p-5 shadow-[0_4px_24px_rgba(0,0,0,0.01)] space-y-4.5 text-left">
+        <div className="flex justify-between items-center border-b border-stone-100 pb-3">
+          <h5 className="font-sans font-black text-[12px] uppercase tracking-wider text-stone-800">
+            Top Products
+          </h5>
+          <span className="text-[10px] font-bold text-[#289E68] bg-[#E2F4E7] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            {activeOrdersCount > 0 ? "Live Charts" : "Resting Charts"}
+          </span>
+        </div>
+
+        {/* Charts sparklines grid matching shared image */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 py-1">
+          
+          {/* Daily Orders Sparkline */}
+          <div className="bg-[#FAF9F5]/70 border border-stone-200/40 rounded-2xl p-3.5 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider block">Daily Orders</span>
+              <span className="text-sm font-sans font-black text-stone-800">
+                {activeOrdersCount} {activeOrdersCount === 1 ? "Unit" : "Units"}
+              </span>
+            </div>
+            
+            {/* Sparkline Path (Green) */}
+            <svg className="w-16 h-8 text-emerald-500 overflow-visible" viewBox="0 0 100 30">
+              <path
+                d={activeOrdersCount > 0 
+                  ? "M0,22 Q15,8 30,16 T60,5 T90,12 L100,6" 
+                  : "M0,15 Q50,14 100,15"
+                }
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                className="transition-all duration-500"
+              />
+            </svg>
+          </div>
+
+          {/* Active Users Sparkline */}
+          <div className="bg-[#FAF9F5]/70 border border-stone-200/40 rounded-2xl p-3.5 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider block">Active Users</span>
+              <span className="text-sm font-sans font-black text-stone-800">
+                {activeUsersCount} Active
+              </span>
+            </div>
+            
+            {/* Sparkline Path (Orange) */}
+            <svg className="w-16 h-8 text-amber-500 overflow-visible" viewBox="0 0 100 30">
+              <path
+                d={activeUsersCount > 0 
+                  ? "M0,18 Q20,4 40,20 T80,6 L100,16" 
+                  : "M0,15 Q50,16 100,15"
+                }
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                className="transition-all duration-500"
+              />
+            </svg>
+          </div>
+
+          {/* Growth Bar Chart */}
+          <div className="bg-[#FAF9F5]/70 border border-stone-200/40 rounded-2xl p-3.5 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider block">Weekly Growth</span>
+              <span className="text-sm font-sans font-black text-stone-800">
+                {growthValue}
+              </span>
+            </div>
+            
+            {/* Mini Bar Chart */}
+            <div className="flex items-end space-x-1 h-8">
+              {activeOrdersCount > 0 ? (
+                <>
+                  <div className="w-1.5 bg-[#289E68]/20 rounded-t-xs h-3.5 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/40 rounded-t-xs h-5.5 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/30 rounded-t-xs h-4.5 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/60 rounded-t-xs h-7.5 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68] rounded-t-xs h-8.5 transition-all duration-500" />
+                </>
+              ) : (
+                <>
+                  <div className="w-1.5 bg-[#289E68]/15 rounded-t-xs h-1 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/15 rounded-t-xs h-1 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/15 rounded-t-xs h-1 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/15 rounded-t-xs h-1 transition-all duration-500" />
+                  <div className="w-1.5 bg-[#289E68]/20 rounded-t-xs h-1.5 transition-all duration-500" />
+                </>
+              )}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Popular List ranking */}
+        <div className="space-y-2 pt-1 border-t border-stone-100 mt-1">
+          {(() => {
+            const displayItems = topItems.length > 0 ? topItems.slice(0, 3) : [
+              { name: "Celery Cleanse Special", icon: "🥝", quantity: 18 },
+              { name: "Immunity Booster juice", icon: "🛡️", quantity: 14 },
+              { name: "Beta Blast Glow Smoothie", icon: "🍊", quantity: 11 },
+            ];
+            
+            return displayItems.map((item, index) => (
+              <div key={item.name} className="flex items-center justify-between text-[11px] hover:bg-stone-50 p-2 rounded-xl transition-all">
+                <div className="flex items-center space-x-2">
+                  <span className="text-stone-400 font-mono text-[10px]">0{index + 1}.</span>
+                  <span className="text-base leading-none">{item.icon}</span>
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="font-bold text-stone-700 truncate max-w-[120px] sm:max-w-xs">{item.name}</span>
+                    {topItems.length === 0 && (
+                      <span className="text-[8px] font-bold text-stone-300 uppercase shrink-0">Demo</span>
+                    )}
+                  </div>
+                </div>
+                <span className="text-[10px] font-black text-[#289E68] bg-[#E2F4E7] px-2.5 py-0.5 rounded-lg font-mono">
+                  {item.quantity} Qty
+                </span>
+              </div>
+            ));
+          })()}
+        </div>
+      </div>
+    </div>
+  );
+};
