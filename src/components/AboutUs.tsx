@@ -42,25 +42,25 @@ export default function AboutUs() {
         </h2>
 
         {/* Responsive Benefits Grid */}
-        <div id="benefits-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div id="benefits-grid" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {BENEFITS.map((benefit) => (
             <div
               key={benefit.id}
               id={`card-${benefit.id}`}
-              className="bg-[#FAF9F5] rounded-3xl p-5 sm:p-6 border border-neutral-100 flex items-center justify-between gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-0.5 min-h-[145px] overflow-hidden group"
+              className="bg-[#FAF9F5] rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-neutral-100 flex flex-col xs:flex-row items-center justify-between gap-3 sm:gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-0.5 min-h-[145px] overflow-hidden group"
             >
               {/* Left text column */}
-              <div className="flex-1 text-left">
-                <h3 className="text-sm sm:text-base font-black text-gray-900 leading-tight mb-1">
+              <div className="flex-1 text-center xs:text-left">
+                <h3 className="text-xs sm:text-base font-black text-gray-900 leading-tight mb-1">
                   {benefit.title}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-gray-500 font-bold leading-normal">
+                <p className="text-[10px] sm:text-xs text-gray-500 font-bold leading-normal">
                   {benefit.desc}
                 </p>
               </div>
 
               {/* Right image circle with nice overflow/styling */}
-              <div className="relative w-18 h-18 sm:w-20 sm:h-20 rounded-full overflow-hidden shrink-0 bg-white/50 flex items-center justify-center border border-white/80 shadow-2xs group-hover:scale-105 transition-transform duration-300">
+              <div className="relative w-12 h-12 xs:w-18 xs:h-18 sm:w-20 sm:h-20 rounded-full overflow-hidden shrink-0 bg-white/50 flex items-center justify-center border border-white/80 shadow-2xs group-hover:scale-105 transition-transform duration-300">
                 <img
                   src={benefit.image}
                   alt={benefit.alt}
@@ -76,4 +76,3 @@ export default function AboutUs() {
     </section>
   );
 }
-
