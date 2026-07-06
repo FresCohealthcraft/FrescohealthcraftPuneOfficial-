@@ -38,7 +38,7 @@ import MosambiJuiceImg from "../assets/images/Mosambi_Juice.png";
 // @ts-ignore
 import AppleJuiceImg from "../assets/images/Apple-Juice.png";
 // @ts-ignore
-import PapayaJuiceImg from "../assets/images/papaya-Juice.png";
+import PapayaJuiceImg from "../assets/images/Papaya-Juice.png";
 // @ts-ignore
 import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
 
@@ -2464,4 +2464,3 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
     </section>
   );
 }
-
