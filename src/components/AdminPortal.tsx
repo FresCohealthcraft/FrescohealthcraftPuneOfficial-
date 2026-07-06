@@ -3116,7 +3116,7 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                                     <span className="font-mono font-bold">₹{costPackaging.toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between items-center">
-                                    <span>🛵 Delivery Dispatch</span>
+                                    <span>������ Delivery Dispatch</span>
                                     <span className="font-mono font-bold">₹{costDelivery.toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between items-center">
@@ -3340,6 +3340,7 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                           <option value="Fresco Power Juices">FresCo Power Juices</option>
                           <option value="Green Vitality Juice">Green Vitality Juice</option>
                           <option value="Power Cups">Power Cups</option>
+                          <option value="High Protein Meals">High Protein Meals</option>
                           <option value="Shakes">Shakes</option>
                           <option value="Specials">Specials</option>
                         </select>
