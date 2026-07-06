@@ -44,4 +44,6 @@ export interface Order {
   status: "pending" | "confirmed" | "delivered" | "cancelled";
   puneLocation: string; // Shivaji Nagar, Kalyani Nagar, Kothrud, etc.
   timestamp: string;
+  deliveryDate?: string;
+  deliveryTime?: string;
 }
