@@ -3,7 +3,6 @@ import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, Plus, Leaf, Minus } from "lucide-react";
-import PowerPackedCupPosterCard from "./PowerPackedCupPosterCard";
 
 // @ts-ignore
 import orangeJuiceImg from "../assets/images/Orange-Juice.png";
@@ -1107,4 +1106,3 @@ export default function MenuGrid({
     </section>
   );
 }
-
