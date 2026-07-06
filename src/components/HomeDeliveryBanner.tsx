@@ -87,9 +87,6 @@ export default function HomeDeliveryBanner({ onOrderNow }: HomeDeliveryBannerPro
               <h3 className="text-base sm:text-lg md:text-xl font-bold tracking-tight leading-tight text-white font-sans">
                 Free Delivery on Orders Above ₹199!              
                 </h3>
-              <p className="text-sm sm:text-base font-extrabold text-[#F7FFEB] font-sans tracking-wide">
-                Every Single Day!
-              </p>
             </div>
 
             {/* Right Column: Pill Outlined Button */}
@@ -158,4 +155,3 @@ export default function HomeDeliveryBanner({ onOrderNow }: HomeDeliveryBannerPro
     </section>
   );
 }
-
