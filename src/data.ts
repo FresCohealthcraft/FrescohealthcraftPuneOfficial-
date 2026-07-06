@@ -108,6 +108,8 @@ import AppleChocofrostImg from "./assets/images/Apple-Chocofrost.png";
 import GrapesChocofrostImg from "./assets/images/Grapes-Chocofrost.png";
 // @ts-ignore
 import MangoChocofrostImg from "./assets/images/Mango-Chocofrost.png";
+// @ts-ignore
+import chickenPowerBowlImg from "./assets/images/Chicken-Power-Bowl.png";
 
 export const MENU_CATEGORIES = [
   "Fruit Juices",
