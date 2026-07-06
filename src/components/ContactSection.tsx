@@ -183,3 +183,4 @@ export default function ContactSection({ onStartOrdering, onGeneralChat }: Conta
     </section>
   );
 }
+
