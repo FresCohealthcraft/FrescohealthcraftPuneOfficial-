@@ -222,6 +222,9 @@ export default function App() {
           onAddToCartDirectly={handleAddToCartDirectly}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          cartItems={cartItems}
+          onUpdateCartQuantity={handleUpdateCartQuantity}
+          onRemoveCartItem={handleRemoveCartItem}
         />
 
         {/* 4.5 Subscription Plans */}
