@@ -91,7 +91,7 @@ export default function OrderModal({ item, isOpen, onClose, onAddToCart }: Order
 - *Quantity:* ${quantity} serving(s)
 - *Customizations:* ${customText || "Standard/No modifications"}
 - *Price:* ₹${item.price} each (Total: ₹${overallPrice})
-- *Store Outlet:* Amanora Urban Plaza, Hadapsar, Pune
+- *Store Outlet:*FresCo HealthCraft Amanora Urban Plaza, Hadapsar, Pune
 =============================
 Please confirm my order and share payment details. Thank you!`;
 
@@ -226,7 +226,7 @@ Please confirm my order and share payment details. Thank you!`;
                   Step 3: Outlet Store Location
                 </label>
                 <div className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl bg-[#EFECE5]/30 text-[#1A1A1A]/85 font-medium">
-                  📍 Amanora Urban Plaza, Hadapsar, Pune
+                  📍 FresCo HealthCraft, Amanora Urban Plaza, Hadapsar, Pune
                 </div>
               </div>
 
