@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { MenuItem } from "../types";
+import React, { useState } from "react";
+import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, Plus, Leaf } from "lucide-react";
+import { Search, Plus, Leaf, Minus } from "lucide-react";
+import PowerPackedCupPosterCard from "./PowerPackedCupPosterCard";
 
 // @ts-ignore
 import orangeJuiceImg from "../assets/images/Orange-Juice.png";
@@ -18,6 +19,108 @@ import vitalEnergyDrinkImg from "../assets/images/Vital-Energy-Drink.png";
 import mangoShakeImg from "../assets/images/Mango-Shake.png";
 // @ts-ignore
 import grapesChocofrostImg from "../assets/images/White-Sprinkle.png";
+// @ts-ignore
+import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
+
+// @ts-ignore
+import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
+
+// @ts-ignore
+import MuskmelonShakeImg from "../assets/images/Muskmelon-Shake.png";
+
+
+const PREMIUM_ITEMS: Record<string, {
+  title: string;
+  size: string;
+  badge: string;
+  subLabel?: string;
+  bottomColor: string;
+  nutrients: Array<{ emoji: string; value: string; pillClass: string }>;
+}> = {
+  "Protein-Power-Cup": {
+    title: "Power Packed Cup",
+    size: "250G",
+    badge: "100% RAW",
+    subLabel: "VALUE CUP",
+    bottomColor: "bg-orange-500",
+    nutrients: [
+      { emoji: "🔥", value: "380 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "17G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "10G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  },
+  "Classic-Delight-Cup": {
+    title: "Classic Delight Cup",
+    size: "250G",
+    badge: "8-9 FRUITS",
+    subLabel: "FRUIT CUP",
+    bottomColor: "bg-rose-500",
+    nutrients: [
+      { emoji: "🔥", value: "160 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "3G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "6G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  },
+  "Exotic-Delight-Cup": {
+    title: "Exotic Delight Cup",
+    size: "250G",
+    badge: "13-14 FRUITS",
+    subLabel: "PREMIUM CUP",
+    bottomColor: "bg-violet-600",
+    nutrients: [
+      { emoji: "🔥", value: "210 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "4G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "8G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  },
+  "Chicken-Power-Bowl": {
+    title: "Chicken Power Bowl",
+    size: "350G",
+    badge: "KETO FRIENDLY",
+    bottomColor: "bg-[#38A325]",
+    nutrients: [
+      { emoji: "🔥", value: "420 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "38G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "8G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  },
+  "Sprouts-Bowl": {
+    title: "Superfood Sprouts Bowl",
+    size: "300G",
+    badge: "SUPERFOOD",
+    bottomColor: "bg-[#EAB308]",
+    nutrients: [
+      { emoji: "🔥", value: "240 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "14G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "12G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  },
+  "Paneer-Sprouts-Bowl": {
+    title: "Superfood Paneer Sprouts Bowl",
+    size: "320G",
+    badge: "HIGH PROTEIN",
+    
+    bottomColor: "bg-pink-500",
+    nutrients: [
+      { emoji: "🔥", value: "310 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "22G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "11G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  },
+  "Paneer-Power-Bowl": {
+    title: "Paneer Power Bowl",
+    size: "350G",
+    badge: "KETO FRIENDLY",
+    
+    bottomColor: "bg-[#38A325]",
+    nutrients: [
+      { emoji: "🔥", value: "420 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
+      { emoji: "💪", value: "38G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
+      { emoji: "🌿", value: "8G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+    ]
+  }
+};
+
 
 // Helper to provide 3 distinct, beautiful point-wise benefits for any health item
 export function getItemBenefits(item: MenuItem): string[] {
@@ -459,25 +562,52 @@ interface MenuProps {
   onAddToCartDirectly: (item: MenuItem) => void;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  cartItems: CartItem[];
+  onUpdateCartQuantity: (cartId: string, quantity: number) => void;
+  onRemoveCartItem: (cartId: string) => void;
 }
 
 const CATEGORIES = [
   { name: "Fruit Juices", image: orangeJuiceImg, value: "Fruit Juices" },
-  { name: "Power Cups", image: classicDelightCupImg, value: "Power Cups" },
-  { name: "Super Food Sprouts Bowls", image: sproutsBowlImg, value: "Super Food Sprouts Bowls" },
+  { name: "Power Cups", image: ExoticDelightCupImg, value: "Power Cups" },
+  { name: "High Protein Meals", image: chickenPowerBowlImg, value: "High Protein Meals" },
   { name: "Green Juice", image: cucumberJuiceImg, value: "Green Vitality Juice" },
   { name: "FresCo Power Juices", image: vitalEnergyDrinkImg, value: "Fresco Power Juices" },
-  { name: "Shakes", image: mangoShakeImg, value: "Shakes" },
+  { name: "Shakes", image: MuskmelonShakeImg, value: "Shakes" },
   { name: "Choco Frozen", image: grapesChocofrostImg, value: "Specials" }
 ];
 
 export default function MenuGrid({ 
   onAddToCartDirectly,
   searchTerm,
-  setSearchTerm
+  setSearchTerm,
+  cartItems,
+  onUpdateCartQuantity,
+  onRemoveCartItem
 }: MenuProps) {
  
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const getCartItemInfo = (itemId: string) => {
+    // Find a standard (non-customized) cart item first
+    const found = cartItems.find(
+      (c) => c.menuItem.id === itemId && (!c.customIngredients || c.customIngredients.length === 0)
+    );
+    if (found) {
+      return { quantity: found.quantity, cartId: found.id };
+    }
+    
+    // Fallback: sum of all quantities for this item
+    const allOfThisType = cartItems.filter((c) => c.menuItem.id === itemId);
+    if (allOfThisType.length > 0) {
+      return { 
+        quantity: allOfThisType.reduce((acc, c) => acc + c.quantity, 0), 
+        cartId: allOfThisType[0].id // use the first one's id for any updates
+      };
+    }
+    
+    return { quantity: 0, cartId: "" };
+  };
 
   const filteredItems = MENU_ITEMS.filter((item) => {
     const searchLower = searchTerm.toLowerCase().trim();
@@ -500,8 +630,43 @@ export default function MenuGrid({
   });
 
   return (
-    <section id="menu" className={`pt-8 ${selectedCategory || searchTerm ? "pb-12" : "pb-2"} bg-white scroll-mt-10 border-t border-[#1A1A1A]/10`}>
+    <section id="menu" className={`pt-2 ${selectedCategory || searchTerm ? "pb-12" : "pb-2"} bg-white scroll-mt-10 border-t border-[#1A1A1A]/10`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+         {/* Free Home Delivery Highlight Line */}
+        <div className="relative bg-gradient-to-r from-[#3AA324] via-[#32981E] to-[#247E11] text-white rounded-[16px] p-3 sm:p-4 shadow-[0_6px_24px_rgba(56,163,37,0.06)] overflow-hidden z-10 border border-[#38A325]/35">
+          <span className="inline-flex items-center justify-center gap-1.5 px-4 py-1.5 bg-[#38A325]/10 border border-[#38A325]/20 text-[#ffffff] font-black uppercase tracking-widest rounded-full shadow-xs min-w-[291px] w-auto">
+            <span className="inline-block animate-pulse rounded-full bg-[#ffffff]" style={{ fontSize: "30px", lineHeight: "32px", width: "6.7639px", height: "10px" }} />
+            <span className="pl-0 flex items-center justify-center" style={{ width: "267.139px", height: "22.5px", fontSize: "17px" }}>🚚 FREE HOME DELIVERY </span>
+          </span>
+        </div>
+
+        {/* Clean, compact search bar inside grid view - placed up side of menu */}
+        <div className="max-w-md mx-auto relative px-2 mb-6.5 mt-6">
+          <input
+            type="text"
+            placeholder="Search Healthy Juices, Bowls, High Protein..."
+            value={searchTerm}
+            onChange={(e) => {
+              const val = e.target.value;
+              setSearchTerm(val);
+              if (val.trim() !== "") {
+                setSelectedCategory(null);
+              }
+            }}
+            className="w-full pl-11 pr-10 py-3 border border-neutral-200 rounded-full focus:outline-none focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] text-sm bg-white text-[#1A1A1A] placeholder-neutral-400 shadow-sm transition-all focus:shadow-md"
+          />
+          <Search className="w-5 h-5 text-gray-400 absolute left-6 top-3.5" />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="absolute right-6 top-3.5 text-[#1A1A1A]/40 hover:text-[#1A1A1A] transition-colors focus:outline-none p-0.5 cursor-pointer text-xs font-bold"
+              title="Clear search"
+            >
+              ✕
+            </button>
+          )}
+        </div>
 
         {/* CATEGORIES CARD VIEW: Displayed beautifully as a main category selector card */}
         <motion.div
@@ -577,6 +742,25 @@ export default function MenuGrid({
                       alt={cat.name}
                       referrerPolicy="no-referrer"
                       className="w-[88%] h-[88%] rounded-full object-cover"
+                      style={
+                        cat.name === "Fruit Juices"
+                          ? { width: "102.9444px", height: "114.9444px" }
+                          : cat.name === "Power Cups"
+                          ? { width: "102.9444px", height: "114.9444px" }
+                          : cat.name === "High Protein Meals"
+                          ? { width: "94.2222px", height: "85.3056px" }
+                          : cat.name === "Super Food Sprouts Bowls"
+                          ? { width: "102.9444px", height: "114.9444px" }
+                          : cat.name === "Green Juice"
+                          ? { width: "102.9444px", height: "114.9444px" }
+                          : cat.name === "FresCo Power Juices"
+                          ? { width: "102.9444px", height: "114.9444px" }
+                          : cat.name === "Shakes"
+                          ? { width: "102.9444px", height: "115.9444px" }
+                          : cat.name === "Choco Frozen"
+                          ? { width: "102.9444px", height: "106.9444px" }
+                          : undefined
+                      }
                     />
                   </div>
                   {/* Category Label below circle */}
@@ -595,33 +779,6 @@ export default function MenuGrid({
 
         {/* Scroll anchor target for category clicks */}
         <div id="categories-results-anchor" className="scroll-mt-24 sm:scroll-mt-28" />
-
-        {/* Clean, compact search bar inside grid view */}
-        <div className={`max-w-md mx-auto relative px-2 ${selectedCategory || searchTerm ? "mb-8" : "mb-0"}`}>
-          <input
-            type="text"
-            placeholder="Search Healthy Juices, Bowls, High Protine..."
-            value={searchTerm}
-            onChange={(e) => {
-              const val = e.target.value;
-              setSearchTerm(val);
-              if (val.trim() !== "") {
-                setSelectedCategory(null);
-              }
-            }}
-            className="w-full pl-11 pr-10 py-3 border border-neutral-200 rounded-full focus:outline-none focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] text-sm bg-white text-[#1A1A1A] placeholder-neutral-400 shadow-sm transition-all focus:shadow-md"
-          />
-          <Search className="w-5 h-5 text-gray-400 absolute left-6 top-3.5" />
-          {searchTerm && (
-            <button
-              onClick={() => setSearchTerm("")}
-              className="absolute right-6 top-3.5 text-[#1A1A1A]/40 hover:text-[#1A1A1A] transition-colors focus:outline-none p-0.5 cursor-pointer text-xs font-bold"
-              title="Clear search"
-            >
-              ✕
-            </button>
-          )}
-        </div>
 
         {/* Selected Category breadcrumbs / header */}
         {(selectedCategory || searchTerm) && (
@@ -650,25 +807,166 @@ export default function MenuGrid({
               className="mt-6 sm:mt-8 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 px-1 sm:px-2 max-w-5xl mx-auto"
             >
               <AnimatePresence mode="popLayout">
-                {filteredItems.map((item, index) => (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, y: 15, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.92 }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 140, 
-                      damping: 16,
-                      delay: (index % 3) * 0.03 
-                    }}
-                    whileHover={{ 
-                      y: -4,
-                      boxShadow: "0 12px 24px -8px rgba(26,26,26,0.1)"
-                    }}
-                    key={item.id}
-                    className="bg-white border border-[#1A1A1A]/10 rounded-[18px] p-3 sm:p-4.5 shadow-[0_2px_15px_rgba(0,0,0,0.015)] hover:border-[#38A325]/45 transition-all duration-300 flex flex-col justify-between h-full text-left group"
-                  >
+                {filteredItems.map((item, index) => {
+                  const premiumInfo = PREMIUM_ITEMS[item.id];
+                  const cartItemInfo = getCartItemInfo(item.id);
+                  if (premiumInfo) {
+                    return (
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, y: 15, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.92 }}
+                        transition={{ 
+                          type: "spring", 
+                          stiffness: 140, 
+                          damping: 16,
+                          delay: (index % 3) * 0.03 
+                        }}
+                        whileHover={{ 
+                          y: -4,
+                          boxShadow: "0 12px 24px -8px rgba(26,26,26,0.12)"
+                        }}
+                        key={item.id}
+                        className="relative bg-white border border-[#1A1A1A]/10 rounded-[24px] p-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group overflow-hidden min-h-[420px] pb-6"
+                      >
+                        {/* 1. Image Container with Badges */}
+                        <div className="relative w-full h-40 sm:h-44 rounded-2xl overflow-hidden bg-neutral-50/50 flex items-center justify-center z-0 shrink-0">
+                          {item.image ? (
+                            <img 
+                              src={item.image}
+                              alt={item.name}
+                              referrerPolicy="no-referrer"
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center text-4xl">
+                              {item.icon}
+                            </div>
+                          )}
+                          
+                          {/* Badges Overlay */}
+                          <div className="absolute top-3 left-3 z-10">
+                            <span className="bg-[#38A325] text-white text-[8px] sm:text-[9.5px] font-black px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wider">
+                              {premiumInfo.badge}
+                            </span>
+                          </div>
+                          <div className="absolute top-3 right-3 z-10">
+                            <span className="bg-neutral-100/90 backdrop-blur-xs text-neutral-800 text-[8px] sm:text-[9.5px] font-black px-2 py-0.5 rounded shadow-xs uppercase tracking-wider">
+                              {premiumInfo.size}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* 2. Text Content */}
+                        <div className="flex-1 flex flex-col justify-between mt-4">
+                          <div>
+                            {/* Title with Sprout Icon */}
+                            <h3 className="text-sm sm:text-base font-black text-neutral-900 uppercase tracking-tight leading-snug flex items-center gap-1.5 flex-wrap">
+                              <span>{premiumInfo.title}</span>
+                              <span className="text-[#38A325] text-xs sm:text-sm">🌿</span>
+                            </h3>
+
+                            {/* Description */}
+                            <p className="mt-1.5 text-[10.5px] sm:text-[11.5px] text-neutral-500 font-medium leading-relaxed line-clamp-3">
+                              {item.description}
+                            </p>
+
+                            {/* Nutrition Pills */}
+                            <div className="mt-3.5 flex flex-wrap gap-1 sm:gap-1.5">
+                              {premiumInfo.nutrients.map((nut, i) => (
+                                <span 
+                                  key={i} 
+                                  className={`border ${nut.pillClass} text-[7.5px] sm:text-[8.5px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider flex items-center gap-1 shadow-2xs`}
+                                >
+                                  <span>{nut.emoji}</span>
+                                  <span>{nut.value}</span>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* 3. Bottom Row: Price, Sublabel & Button */}
+                          <div className="mt-5 pt-3.5 border-t border-neutral-100 flex items-center justify-between gap-1.5 w-full">
+                            <div className="flex flex-col">
+                              <span className="text-lg sm:text-xl font-black font-sans text-neutral-900 leading-none">
+                                ₹{item.price}
+                              </span>
+                              {premiumInfo.subLabel && (
+                                <span className="text-[8px] sm:text-[9px] font-black tracking-widest uppercase text-neutral-400 mt-1 leading-none">
+                                  {premiumInfo.subLabel}
+                                </span>
+                              )}
+                            </div>
+
+                            {cartItemInfo.quantity > 0 ? (
+                              <div className="flex items-center bg-[#38A325] text-white rounded-xl overflow-hidden shadow-md select-none shrink-0 border border-transparent h-[32px] sm:h-[38px]">
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (cartItemInfo.quantity > 1) {
+                                      onUpdateCartQuantity(cartItemInfo.cartId, cartItemInfo.quantity - 1);
+                                    } else {
+                                      onRemoveCartItem(cartItemInfo.cartId);
+                                    }
+                                  }}
+                                  className="px-2.5 sm:px-3 h-full flex items-center justify-center hover:bg-[#2c821c] active:bg-[#1a550f] cursor-pointer transition-colors"
+                                >
+                                  <Minus className="w-3 h-3 stroke-[3]" />
+                                </button>
+                                <span className="px-1 sm:px-2 text-xs sm:text-sm font-black min-w-[20px] text-center">
+                                  {cartItemInfo.quantity}
+                                </span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onAddToCartDirectly(item);
+                                  }}
+                                  className="px-2.5 sm:px-3 h-full flex items-center justify-center hover:bg-[#2c821c] active:bg-[#1a550f] cursor-pointer transition-colors"
+                                >
+                                  <Plus className="w-3 h-3 stroke-[3]" />
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onAddToCartDirectly(item);
+                                }}
+                                className="px-4 py-1.5 sm:px-5 sm:py-2.5 bg-[#38A325] hover:bg-[#2c821c] active:bg-[#1a550f] text-white font-black text-[10px] sm:text-[11px] uppercase tracking-wider rounded-xl flex items-center gap-1.5 cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-103 shrink-0"
+                              >
+                                <Plus className="w-3 h-3 stroke-[3]" />
+                                <span>Add</span>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Bottom color accent strip */}
+                        <div className={`absolute bottom-0 left-0 right-0 h-1.5 ${premiumInfo.bottomColor} rounded-b-[24px]`} />
+                      </motion.div>
+                    );
+                  }
+
+                  return (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 15, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.92 }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 140, 
+                        damping: 16,
+                        delay: (index % 3) * 0.03 
+                      }}
+                      whileHover={{ 
+                        y: -4,
+                        boxShadow: "0 12px 24px -8px rgba(26,26,26,0.1)"
+                      }}
+                      key={item.id}
+                      className="bg-white border border-[#1A1A1A]/10 rounded-[18px] p-3 sm:p-4.5 shadow-[0_2px_15px_rgba(0,0,0,0.015)] hover:border-[#38A325]/45 transition-all duration-300 flex flex-col justify-between h-full text-left group"
+                    >
                     <div>
                       
                       {/* Image/Emoji wrapper Container */}
@@ -726,7 +1024,7 @@ export default function MenuGrid({
                     
                     </div>
      
-                    {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
+                     {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
                     <div className="mt-3.5 pt-2 border-t border-[#1A1A1A]/5 flex flex-row items-center justify-between gap-1.5 w-full">
                       <div className="flex flex-col shrink-0">
                         <span className="text-sm xs:text-base sm:text-lg font-extrabold font-sans text-[#38A325] leading-none">
@@ -738,22 +1036,54 @@ export default function MenuGrid({
                       </div>
      
                       <div className="flex flex-row items-center gap-1 shrink-0">
-                        {/* Add to Cart Button */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onAddToCartDirectly(item);
-                          }}
-                          className="w-5.5 h-5.5 sm:w-7 sm:h-7 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0"
-                          title="Add to Cart"
-                        >
-                          <Plus className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" strokeWidth={2.5} />
-                        </button>
+                        {cartItemInfo.quantity > 0 ? (
+                          <div className="flex items-center bg-[#1A1A1A] hover:bg-[#2c821c]/15 hover:border-[#38A325]/20 border border-transparent text-white rounded-full overflow-hidden select-none h-5.5 sm:h-7 shadow-xs">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (cartItemInfo.quantity > 1) {
+                                  onUpdateCartQuantity(cartItemInfo.cartId, cartItemInfo.quantity - 1);
+                                } else {
+                                  onRemoveCartItem(cartItemInfo.cartId);
+                                }
+                              }}
+                              className="w-5.5 sm:w-7 h-full flex items-center justify-center hover:bg-[#38A325] cursor-pointer transition-colors"
+                              title="Decrease Quantity"
+                            >
+                              <Minus className="w-2 h-2 sm:w-2.5 sm:h-2.5" strokeWidth={2.5} />
+                            </button>
+                            <span className="px-1 text-[10px] sm:text-xs font-black min-w-[16px] text-center">
+                              {cartItemInfo.quantity}
+                            </span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onAddToCartDirectly(item);
+                              }}
+                              className="w-5.5 sm:w-7 h-full flex items-center justify-center hover:bg-[#38A325] cursor-pointer transition-colors"
+                              title="Increase Quantity"
+                            >
+                              <Plus className="w-2 h-2 sm:w-2.5 sm:h-2.5" strokeWidth={2.5} />
+                            </button>
+                          </div>
+                        ) : (
+                          /* Add to Cart Button */
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onAddToCartDirectly(item);
+                            }}
+                            className="w-5.5 h-5.5 sm:w-7 sm:h-7 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0"
+                            title="Add to Cart"
+                          >
+                            <Plus className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" strokeWidth={2.5} />
+                          </button>
+                        )}
                       </div>
                     </div>
      
                   </motion.div>
-                ))}
+                )})}
               </AnimatePresence>
             </motion.div>
 
@@ -777,4 +1107,3 @@ export default function MenuGrid({
     </section>
   );
 }
-
