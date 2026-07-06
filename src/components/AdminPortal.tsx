@@ -3520,4 +3520,3 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
     </AnimatePresence>
   );
 }
-
