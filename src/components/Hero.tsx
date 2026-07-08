@@ -11,6 +11,12 @@ import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 // @ts-ignore
 import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
 
+// @ts-ignore
+import PaneerPowerBowlImg from "../assets/images/Paneer-Power-Bowl.png";
+
+// @ts-ignore
+import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
+
 interface HeroProps {
   onExploreMenu: () => void;
 }
@@ -40,12 +46,12 @@ export default function Hero({ onExploreMenu }: HeroProps) {
       mainRotation: "rotate-3",
     },
     {
-      titleTop: "High Protein.",
-      titleBottom: "SuperFood Bowls.",
-      subtitle: "Sprout Bowl, Paneer Bowl Daily Energy.",
+      titleTop: "35g High-Quality .",
+      titleBottom: "Protein Meal.",
+      subtitle: "Chicken  Bowl, Paneer Bowl Daily Energy.",
       buttonText: "ORDER NOW",
-      mainImage: PaneerSproutsBowlImg, // Sprouts bowl
-      overlayImage: SproutsBowlImg, // Wellness green drink
+      mainImage: chickenPowerBowlImg, // Sprouts bowl
+      overlayImage: PaneerPowerBowlImg, // Wellness green drink
       overlayScale: "scale-[0.85] sm:scale-[0.9]",
       overlayOffset: "bottom-1 left-4 sm:left-6",
       mainRotation: "-rotate-2",
