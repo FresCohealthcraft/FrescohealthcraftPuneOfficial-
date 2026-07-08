@@ -1,5 +1,14 @@
-{
-  "name": "frescohealthcraft-pune",
-  "main": "dist/server.cjs",
-  "compatibility_date": "2026-07-08"
-}
+ {
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "frescohealthcraft-pune",
+    "compatibility_date": "2026-07-08",
+    "observability": {
+      "enabled": true
+    },
+    "assets": {
+      "not_found_handling": "single-page-application"
+    },
+    "compatibility_flags": [
+      "nodejs_compat"
+    ]
+  }
