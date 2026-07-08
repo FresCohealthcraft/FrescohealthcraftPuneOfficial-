@@ -337,27 +337,34 @@ export const MENU_ITEMS: MenuItem[] = [
 
   // Protein Power Fruit Cup
 
-{
-  id: "Protein-Power-Cup",
-  name: "Power packed Cups",
-  description: "A wholesome blend of fresh fruits and Protein, fiber- rich goodness.",
-  price: 119,
-  image: ProteinPowerCupImg,
-  icon: "💪",
-  category: "Power Cups",
-  popular: true,
-},
+  {
+    id: "Protein-Power-Cup",
+    name: "Power Packed Cup",
+    description: "Small Cup. Big Nutrition. Fresh Greek Yogurt, Milk, Chia Seeds, Peanut Butter, Apple, Banana, Pomegranate, Flax, Sunflower & Pumpkin Seeds with a touch of Honey.",
+    price: 119,
+    image: ProteinPowerCupImg,
+    icon: "💪",
+    category: "Power Cups",
+    popular: true,
+    benefits: [
+      "💪 18–20 g Protein*",
+      "🌾 High in Fiber",
+      "❤️ Healthy Fats & Omega-3",
+      "⚡ Long-Lasting Energy",
+      "🥜 Rich in Super Seeds",
+      "🍎 Made with Fresh Fruits"
+    ]
+  },
 
   {
-  id: "Classic-Delight-Cup",
-  name: "Classic Delight Cup",
-  description: "A colorful blend of 8–9 fresh fruits, packed with natural vitamins, antioxidants, and refreshing goodness.",
-  price: 79,
-  image: ClassicDelightCupImg,
-  icon: "🍓",
-  category: "Power Cups",
- 
-},
+    id: "Classic-Delight-Cup",
+    name: "Classic Delight Cup",
+    description: "A colorful blend of 8–9 fresh fruits, packed with natural vitamins, antioxidants, and refreshing goodness.",
+    price: 79,
+    image: ClassicDelightCupImg,
+    icon: "🍓",
+    category: "Power Cups",
+  },
 {
   id: "Exotic-Delight-Cup",
   name: "Exotic Delight Cup",
@@ -387,17 +394,22 @@ export const MENU_ITEMS: MenuItem[] = [
   ]
 },
 
-  {
-  id: "Paneer-Sprouts-Bowl",
-  name: "Super food Paneer sprouts bowl",
-  description: "Protein-rich paneer with healthy sprouts to support immunity and overall wellness.",
+ {
+  id: "Paneer-Power-Bowl",
+  name: "Paneer Power Bowl",
+  description: "A high-protein bowl packed with fresh paneer, crisp vegetables, and creamy dressing to fuel your body with clean nutrition, lasting energy, and delicious flavor.",
   price: 199,
-  image: PaneerSproutsBowlImg,
+  image: PaneerPowerBowlImg,
   icon: "🧀",
   category: "High Protein Meals",
-popular: true,
+  popular: true,
+  benefits: [
+    "30g High-Quality Protein",
+    "Balanced & Nutrient-Dense Meal",
+    "Vibrant vitamins & antioxidants from fresh organic veggies"
+  ]
+
 },
-  
 
   // Super Food Sprouts Bowl
  {
@@ -410,7 +422,8 @@ popular: true,
   category: "High Protein Meals",
   popular: true,
 },
-
+ 
+  
 
   
 // Fresco Power Juices
@@ -627,7 +640,7 @@ popular: true,
   id: "Energy-Boost-Shake",
   name: "Energy Boost Shake",
   description: "Nutritious power-packed shake crafted to keep you energized and refreshed.",
-  price: 139,
+  price: 159,
   image: EnergyBoostShakeImg,
   icon: "⚡",
   category: "Shakes",
