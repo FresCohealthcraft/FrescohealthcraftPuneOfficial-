@@ -39,37 +39,31 @@ const PREMIUM_ITEMS: Record<string, {
   "Protein-Power-Cup": {
     title: "Power Packed Cup",
     size: "250G",
-    badge: "100% RAW",
+    badge: "Nutritious",
     subLabel: "VALUE CUP",
     bottomColor: "bg-orange-500",
     nutrients: [
-      { emoji: "🔥", value: "380 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "17G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "10G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+      
     ]
   },
   "Classic-Delight-Cup": {
     title: "Classic Delight Cup",
-    size: "250G",
+    size: "350G",
     badge: "8-9 FRUITS",
     subLabel: "FRUIT CUP",
     bottomColor: "bg-rose-500",
     nutrients: [
-      { emoji: "🔥", value: "160 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "3G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "6G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+   
     ]
   },
   "Exotic-Delight-Cup": {
     title: "Exotic Delight Cup",
-    size: "250G",
+    size: "350G",
     badge: "13-14 FRUITS",
     subLabel: "PREMIUM CUP",
     bottomColor: "bg-violet-600",
     nutrients: [
-      { emoji: "🔥", value: "210 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "4G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "8G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+
     ]
   },
   "Chicken-Power-Bowl": {
@@ -573,7 +567,7 @@ const CATEGORIES = [
   { name: "Green Juice", image: cucumberJuiceImg, value: "Green Vitality Juice" },
   { name: "FresCo Power Juices", image: vitalEnergyDrinkImg, value: "Fresco Power Juices" },
   { name: "Shakes", image: MuskmelonShakeImg, value: "Shakes" },
-  { name: "Choco Frozen", image: grapesChocofrostImg, value: "Specials" }
+  { name: "Choco Frozen Banana", image: grapesChocofrostImg, value: "Specials" }
 ];
 
 export default function MenuGrid({ 
@@ -827,7 +821,9 @@ export default function MenuGrid({
                           boxShadow: "0 12px 24px -8px rgba(26,26,26,0.12)"
                         }}
                         key={item.id}
-                        className="relative bg-white border border-[#1A1A1A]/10 rounded-[24px] p-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group overflow-hidden min-h-[420px] pb-6"
+                        className={`relative bg-white border border-[#1A1A1A]/10 rounded-[24px] p-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group overflow-hidden pb-6 ${
+                          item.category === "High Protein Meals" ? "min-h-[420px]" : "min-h-[510px]"
+                        }`}
                       >
                         {/* 1. Image Container with Badges */}
                         <div className="relative w-full h-40 sm:h-44 rounded-2xl overflow-hidden bg-neutral-50/50 flex items-center justify-center z-0 shrink-0">
@@ -863,7 +859,7 @@ export default function MenuGrid({
                             {/* Title with Sprout Icon */}
                             <h3 className="text-sm sm:text-base font-black text-neutral-900 uppercase tracking-tight leading-snug flex items-center gap-1.5 flex-wrap">
                               <span>{premiumInfo.title}</span>
-                              <span className="text-[#38A325] text-xs sm:text-sm">🌿</span>
+                              <span className="text-[#38A325] text-xs sm:text-sm"></span>
                             </h3>
 
                             {/* Description */}
@@ -872,17 +868,34 @@ export default function MenuGrid({
                             </p>
 
                             {/* Nutrition Pills */}
-                            <div className="mt-3.5 flex flex-wrap gap-1 sm:gap-1.5">
-                              {premiumInfo.nutrients.map((nut, i) => (
-                                <span 
-                                  key={i} 
-                                  className={`border ${nut.pillClass} text-[7.5px] sm:text-[8.5px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider flex items-center gap-1 shadow-2xs`}
-                                >
-                                  <span>{nut.emoji}</span>
-                                  <span>{nut.value}</span>
+                            {premiumInfo.nutrients && premiumInfo.nutrients.length > 0 && (
+                              <div className="mt-3.5 flex flex-wrap gap-1 sm:gap-1.5">
+                                {premiumInfo.nutrients.map((nut, i) => (
+                                  <span 
+                                    key={i} 
+                                    className={`border ${nut.pillClass} text-[7.5px] sm:text-[8.5px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider flex items-center gap-1 shadow-2xs`}
+                                  >
+                                    <span>{nut.emoji}</span>
+                                    <span>{nut.value}</span>
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            {/* Dynamic Point-wise Benefits for Premium Items */}
+                            {item.category !== "High Protein Meals" && (
+                              <div className="mt-2 pt-2 border-t border-[#1A1A1A]/5 space-y-1">
+                                <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-0.5">
+                                  Key Benefits
                                 </span>
-                              ))}
-                            </div>
+                                {getItemBenefits(item).map((benefit, idx) => (
+                                  <div key={idx} className="flex items-center space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
+                                    <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0" />
+                                    <span className="truncate">{benefit}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
 
                           {/* 3. Bottom Row: Price, Sublabel & Button */}
@@ -940,9 +953,6 @@ export default function MenuGrid({
                             )}
                           </div>
                         </div>
-
-                        {/* Bottom color accent strip */}
-                        <div className={`absolute bottom-0 left-0 right-0 h-1.5 ${premiumInfo.bottomColor} rounded-b-[24px]`} />
                       </motion.div>
                     );
                   }
