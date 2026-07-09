@@ -36,7 +36,7 @@ export default function Hero({ onExploreMenu }: HeroProps) {
     {
       titleTop: "Nourish Your Body with",
       titleBottom: "Pure Wellness.",
-      subtitle: "Fresh, healthy meals delivered daily.",
+      subtitle: "Fresh juices, protein bowls, fruit cups, sprouts, and wholesome meals.",
       buttonText: "ORDER NOW",
       // Image configuration
       mainImage: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=500&fit=crop&auto=format&q=80", // Salad bowl
@@ -47,8 +47,9 @@ export default function Hero({ onExploreMenu }: HeroProps) {
     },
     {
       titleTop: "35g High-Quality .",
-      titleBottom: "Protein Meal.",
-      subtitle: "Chicken  Bowl, Paneer Bowl Daily Energy.",
+      titleBottom: "Protein Meals.",
+      subtitle: "Chicken  Bowl, Paneer Bowl, Sprouts Bowl Daily Energy.",
+      benifits: ["💪 35g Protein • 🥗 Fresh Daily • 🌿 Clean Ingredients"],
       buttonText: "ORDER NOW",
       mainImage: chickenPowerBowlImg, // Sprouts bowl
       overlayImage: PaneerPowerBowlImg, // Wellness green drink
