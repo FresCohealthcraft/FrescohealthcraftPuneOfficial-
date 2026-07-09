@@ -22,7 +22,7 @@ import grapesChocofrostImg from "../assets/images/White-Sprinkle.png";
 import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
 
 // @ts-ignore
-import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
+import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
 
 // @ts-ignore
 import MuskmelonShakeImg from "../assets/images/Muskmelon-Shake.png";
@@ -67,14 +67,12 @@ const PREMIUM_ITEMS: Record<string, {
     ]
   },
   "Chicken-Power-Bowl": {
-    title: "Chicken Power Bowl",
-    size: "350G",
-    badge: "KETO FRIENDLY",
+    title: "35g Protein Chicken Bowl",
+    size: "400G",
+    badge: "HIGH PROTEIN",
     bottomColor: "bg-[#38A325]",
     nutrients: [
-      { emoji: "🔥", value: "420 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "38G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "8G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+      
     ]
   },
   "Sprouts-Bowl": {
@@ -83,33 +81,18 @@ const PREMIUM_ITEMS: Record<string, {
     badge: "SUPERFOOD",
     bottomColor: "bg-[#EAB308]",
     nutrients: [
-      { emoji: "🔥", value: "240 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "14G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "12G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+      
     ]
   },
-  "Paneer-Sprouts-Bowl": {
-    title: "Superfood Paneer Sprouts Bowl",
-    size: "320G",
+  
+  "Paneer-Power-Bowl": {
+    title: "30G Protein Paneer Bowl",
+    size: "400G",
     badge: "HIGH PROTEIN",
     
     bottomColor: "bg-pink-500",
     nutrients: [
-      { emoji: "🔥", value: "310 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "22G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "11G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
-    ]
-  },
-  "Paneer-Power-Bowl": {
-    title: "Paneer Power Bowl",
-    size: "350G",
-    badge: "KETO FRIENDLY",
-    
-    bottomColor: "bg-[#38A325]",
-    nutrients: [
-      { emoji: "🔥", value: "420 KCAL", pillClass: "border-orange-200 bg-orange-50/60 text-orange-600" },
-      { emoji: "💪", value: "38G PRO", pillClass: "border-blue-200 bg-blue-50/60 text-blue-600" },
-      { emoji: "🌿", value: "8G FIB", pillClass: "border-green-200 bg-green-50/60 text-green-700" }
+     
     ]
   }
 };
@@ -562,7 +545,7 @@ interface MenuProps {
 
 const CATEGORIES = [
   { name: "Fruit Juices", image: orangeJuiceImg, value: "Fruit Juices" },
-  { name: "Power Cups", image: ExoticDelightCupImg, value: "Power Cups" },
+  { name: "Power Cups", image: ProteinPowerCupImg, value: "Power Cups" },
   { name: "High Protein Meals", image: chickenPowerBowlImg, value: "High Protein Meals" },
   { name: "Green Juice", image: cucumberJuiceImg, value: "Green Vitality Juice" },
   { name: "FresCo Power Juices", image: vitalEnergyDrinkImg, value: "Fresco Power Juices" },
@@ -634,32 +617,7 @@ export default function MenuGrid({
           </span>
         </div>
 
-        {/* Clean, compact search bar inside grid view - placed up side of menu */}
-        <div className="max-w-md mx-auto relative px-2 mb-6.5 mt-6">
-          <input
-            type="text"
-            placeholder="Search Healthy Juices, Bowls, High Protein..."
-            value={searchTerm}
-            onChange={(e) => {
-              const val = e.target.value;
-              setSearchTerm(val);
-              if (val.trim() !== "") {
-                setSelectedCategory(null);
-              }
-            }}
-            className="w-full pl-11 pr-10 py-3 border border-neutral-200 rounded-full focus:outline-none focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] text-sm bg-white text-[#1A1A1A] placeholder-neutral-400 shadow-sm transition-all focus:shadow-md"
-          />
-          <Search className="w-5 h-5 text-gray-400 absolute left-6 top-3.5" />
-          {searchTerm && (
-            <button
-              onClick={() => setSearchTerm("")}
-              className="absolute right-6 top-3.5 text-[#1A1A1A]/40 hover:text-[#1A1A1A] transition-colors focus:outline-none p-0.5 cursor-pointer text-xs font-bold"
-              title="Clear search"
-            >
-              ✕
-            </button>
-          )}
-        </div>
+
 
         {/* CATEGORIES CARD VIEW: Displayed beautifully as a main category selector card */}
         <motion.div
@@ -821,9 +779,7 @@ export default function MenuGrid({
                           boxShadow: "0 12px 24px -8px rgba(26,26,26,0.12)"
                         }}
                         key={item.id}
-                        className={`relative bg-white border border-[#1A1A1A]/10 rounded-[24px] p-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group overflow-hidden pb-6 ${
-                          item.category === "High Protein Meals" ? "min-h-[420px]" : "min-h-[510px]"
-                        }`}
+                        className="relative bg-white border border-[#1A1A1A]/10 rounded-[24px] p-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-[#38A325]/30 transition-all duration-300 flex flex-col justify-between h-full text-left group overflow-hidden pb-6 min-h-[510px]"
                       >
                         {/* 1. Image Container with Badges */}
                         <div className="relative w-full h-40 sm:h-44 rounded-2xl overflow-hidden bg-neutral-50/50 flex items-center justify-center z-0 shrink-0">
@@ -882,20 +838,18 @@ export default function MenuGrid({
                               </div>
                             )}
 
-                            {/* Dynamic Point-wise Benefits for Premium Items */}
-                            {item.category !== "High Protein Meals" && (
-                              <div className="mt-2 pt-2 border-t border-[#1A1A1A]/5 space-y-1">
-                                <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-0.5">
-                                  Key Benefits
-                                </span>
-                                {getItemBenefits(item).map((benefit, idx) => (
-                                  <div key={idx} className="flex items-center space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
-                                    <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0" />
-                                    <span className="truncate">{benefit}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
+                             {/* Dynamic Point-wise Benefits for Premium Items */}
+                             <div className="mt-2 pt-2 border-t border-[#1A1A1A]/5 space-y-1">
+                               <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-0.5">
+                                 Key Benefits
+                               </span>
+                               {getItemBenefits(item).map((benefit, idx) => (
+                                 <div key={idx} className="flex items-center space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
+                                   <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0" />
+                                   <span className="truncate">{benefit}</span>
+                                 </div>
+                               ))}
+                             </div>
                           </div>
 
                           {/* 3. Bottom Row: Price, Sublabel & Button */}
@@ -1116,4 +1070,3 @@ export default function MenuGrid({
     </section>
   );
 }
-
