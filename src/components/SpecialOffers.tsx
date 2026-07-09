@@ -7,6 +7,8 @@ import { Plus, Star, Sparkles, Flame, CheckCircle, Heart } from "lucide-react";
 // @ts-ignore
 import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 // @ts-ignore
+import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
+// @ts-ignore
 import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
 // @ts-ignore
 import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
@@ -82,11 +84,11 @@ const DYNAMIC_ITEM_COMBOS = [
     name: "Muscle-Refill Special",
     icon: "💪",
     image1: FatBurnerImg,
-    image2: PaneerSproutsBowlImg,
-    subtitle: "Fat-Burning + Paneer Sprouts Bowl",
-    description: "A fitness-focused pairing of our Fat-Burning Juice and fresh Paneer Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",
-    originalPrice: 198,
-    price: 179,
+    image2: chickenPowerBowlImg,
+    subtitle: "Fat-Burning + 35g Protein Chicken Bowl",
+    description: "A fitness-focused pairing of our Fat-Burning Juice and fresh high-protein Chicken Sprouts Bowl, delivering protein, fiber, and nutrient-rich ingredients to keep you energized and satisfied throughout the day.",
+    originalPrice: 318,
+    price: 299,
     category: "Detox & Wellness",
     tag: "ATHLETE PREP",
     rating: "4.8",
@@ -120,10 +122,10 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
 
   return (
     <section id="offers" className="pt-4 pb-8 bg-gradient-to-tr from-[#FCFDFC] via-white to-[#F2FAED] scroll-mt-20 border-y border-[#1A1A1A]/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-8 text-center">
         
         {/* Special Offers Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-white bg-[#e47200] px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-2 shadow-sm select-none">
+        <div className="inline-flex items-center justify-center border border-[#FFFF00]/30 text-white bg-[#e47200] px-2.5 py-0.5 rounded-full text-[8px] sm:text-xs font-semibold uppercase tracking-wider mb-2 shadow-sm select-none">
           Daily Special Combos
         </div>
 
