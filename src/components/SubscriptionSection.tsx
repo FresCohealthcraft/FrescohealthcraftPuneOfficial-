@@ -23,7 +23,7 @@ import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
 import FatBurnerImg from "../assets/images/Fat-Burner.png";
 // @ts-ignore
-import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
+import PaneerSproutsBowlImg from "../assets/images/Paneer-Power-Bowl.png";
 // @ts-ignore
 import ABCDriknImg from "../assets/images/ABC-Drink.png";
 // @ts-ignore
