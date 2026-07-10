@@ -23,11 +23,14 @@ import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
 import FatBurnerImg from "../assets/images/Fat-Burner.png";
 // @ts-ignore
-import PaneerSproutsBowlImg from "../assets/images/Paneer-Power-Bowl.png";
+import PaneerSproutsBowlImg from "../assets/images/Paneer-Bowl.png";
 // @ts-ignore
 import ABCDriknImg from "../assets/images/ABC-Drink.png";
 // @ts-ignore
 import EnergyBoostShakeImg from "../assets/images/Energy-Boost-Shake.png";
+
+// @ts-ignore
+import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
 
 // @ts-ignore
 import OrangeJuiceImg from "../assets/images/Orange-Juice.png";
@@ -38,7 +41,7 @@ import MosambiJuiceImg from "../assets/images/Mosambi_Juice.png";
 // @ts-ignore
 import AppleJuiceImg from "../assets/images/Apple-Juice.png";
 // @ts-ignore
-import PapayaJuiceImg from "../assets/images/papaya-Juice.png";
+import PapayaJuiceImg from "../assets/images/Papaya-Juice.png";
 // @ts-ignore
 import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
 
@@ -343,7 +346,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "⚡",
       image1: VitalEnergyDrinkImg,
       image2: ProteinPowerCupImg,
-      subtitle: "Vital Energy Drink + Protein Power Cup",
+      subtitle: "Vital Energy Drink + Protein Packed Cup",
       tags: ["Detox", "Full Day"],
       price: 218,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-800",
@@ -367,7 +370,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "💪",
       image1: FatBurnerImg,
       image2: PaneerSproutsBowlImg,
-      subtitle: "Fat Burner Drink + Paneer Sprouts Bowl",
+      subtitle: "Fat Burner Drink + 30G Protein Paneer Bowl",
       tags: ["Active High", "Low Carb"],
       price: 198,
       bgColor: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10 hover:border-blue-500/30 text-blue-800",
@@ -463,8 +466,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       name: "Fat Burn Monday",
       icon: "🔥",
       image1: FatBurnerImg,
-      image2: PaneerSproutsBowlImg,
-      subtitle: "Fat Burner Juice + Paneer Sprout Bowl",
+      image2: chickenPowerBowlImg,
+      subtitle: "Fat Burner Juice + 35g Protein Chicken Bowl",
       price: 198,
       bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
       accentColor: "#10b981"
@@ -485,8 +488,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       name: "Gut Reset Wednesday",
       icon: "🥒",
       image1: GutResetImg,
-      image2: ProteinPowerCupImg,
-      subtitle: "Gut Reset Juice + Power Packed Cup",
+      image2: PaneerSproutsBowlImg,
+      subtitle: "Gut Reset Juice + 30G Protein Paneer Bowl",
       price: 218,
       bgColor: "bg-green-500/5 hover:bg-green-500/10 border-green-500/10 hover:border-green-500/30 text-green-800",
       accentColor: "#22c55e"
@@ -496,8 +499,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       name: "Fat Burn Thursday",
       icon: "🔥",
       image1: FatBurnerImg,
-      image2: SproutsBowlImg,
-      subtitle: "Fat Burner Juice + Sprout Bowl",
+      image2: chickenPowerBowlImg,
+      subtitle: "Fat Burner Juice + 35g Protein Chicken Bowl",
       price: 178,
       bgColor: "bg-orange-500/5 hover:bg-orange-500/10 border-orange-500/10 hover:border-orange-500/30 text-orange-800",
       accentColor: "#f97316"
@@ -507,11 +510,11 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       name: "Detox Friday",
       icon: "🍃",
       image1: DetoxBodyImg,
-      image2: PaneerSproutsBowlImg,
-      subtitle: "Detox Body Juice + Paneer Sprout Bowl",
-      price: 198,
-      bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
-      accentColor: "#f43f5e"
+      image2: SproutsBowlImg,
+      subtitle: "Detox Body Juice + Sprout Bowl",
+      price: 178,
+      bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
+      accentColor: "#eab308"      
     },
     {
       id: "sub_fb_saturday",
@@ -530,7 +533,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       icon: "🌱",
       image1: GutResetImg,
       image2: PaneerSproutsBowlImg,
-      subtitle: "Gut Reset Juice + Paneer Sprout Bowl",
+      subtitle: "Gut Reset Juice + 30G Protein Paneer Bowl",
       price: 198,
       bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
       accentColor: "#ef4444"
@@ -648,7 +651,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_nutrient",
       name: "FrsCo 6-Day Wellness Cycle",
       type: "weekly",
-      price: 1099,
+      price: 1199,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -704,7 +707,7 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
       id: "sub_weekly_fat_burn",
       name: "7 days weight loss transformation",
       type: "weekly",
-      price: 1249,
+      price: 1666,
       startDate: new Date().toISOString().split("T")[0],
       renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
       deliveriesCompleted: 0,
@@ -1644,8 +1647,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   <div className="text-left font-sans">
                     <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
-                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1099</span>
-                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1208</span>
+                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1199</span>
+                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1308</span>
                     </div>
                   </div>
                   <button
@@ -1864,8 +1867,8 @@ export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCa
                   <div className="text-left font-sans">
                     <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
                     <div className="flex items-baseline space-x-1.5 mt-1">
-                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1249</span>
-                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1386</span>
+                      <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1666</span>
+                      <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1806</span>
                     </div>
                   </div>
                   <button
