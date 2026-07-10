@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, ShoppingCart, Sparkles, ShieldAlert, PhoneCall, Home, ClipboardList, Calendar, Percent, Users, MessageSquare } from "lucide-react";
+import { Menu, X, ShoppingCart, Search, Sparkles, ShieldAlert, PhoneCall, Home, ClipboardList, Calendar, Percent, Users, MessageSquare } from "lucide-react";
 import Logo from "./Logo";
 
 interface NavbarProps {
@@ -10,6 +10,8 @@ interface NavbarProps {
   onCartClick: () => void;
   isOpen?: boolean;
   setIsOpen?: (open: boolean) => void;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
 export default function Navbar({
@@ -19,9 +21,12 @@ export default function Navbar({
   onCartClick,
   isOpen: propsIsOpen,
   setIsOpen: propsSetIsOpen,
+  searchTerm,
+  setSearchTerm,
 }: NavbarProps) {
   // Use state if props are not supplied, otherwise use controlled props
   const [localIsOpen, setLocalIsOpen] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
   
   const isOpen = propsIsOpen !== undefined ? propsIsOpen : localIsOpen;
   const setIsOpen = propsSetIsOpen !== undefined ? propsSetIsOpen : setLocalIsOpen;
@@ -52,14 +57,44 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#1A1A1A]/10 shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-3 items-center h-15">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid grid-cols-3 items-center h-15 relative">
           
-          {/* Left Column: Add to Cart (Shopping Cart) Icon */}
+          {/* Left Column: 3 Line Menu Icon */}
           <div className="flex items-center justify-start">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2.5 text-[#1A1A1A] hover:text-[#38A325] hover:bg-[#1A1A1A]/5 rounded-full transition-all cursor-pointer"
+              title="Menu"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Center Column: Logo (FresCo HealthCraft) */}
+          <div 
+            className="flex items-center justify-center cursor-pointer group"
+            onClick={() => handleLinkClick("home")}
+          >
+            <Logo size="sm" showTagline={true} />
+          </div>
+
+          {/* Right Column: Search Icon & Add to Cart (Shopping Cart) Icon */}
+          <div className="flex items-center justify-end gap-1.5 sm:gap-2">
+            {/* Search Icon */}
+            <button
+              onClick={() => setIsSearchActive(true)}
+              className="p-2.5 text-[#1A1A1A] hover:text-[#38A325] hover:bg-[#1A1A1A]/5 rounded-full transition-all cursor-pointer"
+              title="Search"
+            >
+              <Search className="w-5.5 h-5.5" />
+            </button>
+
+            {/* Cart Icon */}
             <button
               onClick={onCartClick}
               className="relative p-2.5 text-[#1A1A1A] hover:text-[#38A325] hover:bg-[#1A1A1A]/5 rounded-full transition-all cursor-pointer"
+              title="Cart"
             >
               <ShoppingCart className="w-5.5 h-5.5" />
               <AnimatePresence>
@@ -77,23 +112,45 @@ export default function Navbar({
             </button>
           </div>
 
-          {/* Center Column: Logo (FresCo HealthCraft) */}
-          <div 
-            className="flex items-center justify-center cursor-pointer group"
-            onClick={() => handleLinkClick("home")}
-          >
-            <Logo size="sm" showTagline={true} />
-          </div>
-
-          {/* Right Column: 3 Line Menu Icon */}
-          <div className="flex items-center justify-end">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2.5 text-[#1A1A1A] hover:text-[#38A325] hover:bg-[#1A1A1A]/5 rounded-full transition-all cursor-pointer"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          {/* Beautiful Absolute Search Overlay */}
+          <AnimatePresence>
+            {isSearchActive && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute inset-0 bg-white z-20 flex items-center px-2 sm:px-4"
+              >
+                <div className="relative w-full flex items-center">
+                  <Search className="w-5 h-5 text-gray-400 absolute left-4" />
+                  <input
+                    type="text"
+                    placeholder="Search Healthy Juices, Bowls, High Protein..."
+                    value={searchTerm}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      const menuEl = document.getElementById("menu");
+                      if (menuEl) {
+                        menuEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }
+                    }}
+                    autoFocus
+                    className="w-full pl-11 pr-12 py-2.5 border border-neutral-200 focus:border-[#38A325] focus:ring-1 focus:ring-[#38A325] rounded-full text-sm outline-none transition-all shadow-xs"
+                  />
+                  <button
+                    onClick={() => {
+                      setIsSearchActive(false);
+                      setSearchTerm("");
+                    }}
+                    className="absolute right-4 text-gray-400 hover:text-gray-600 font-bold text-sm cursor-pointer"
+                    title="Close search"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
         </div>
       </div>
@@ -143,4 +200,3 @@ export default function Navbar({
     </header>
   );
 }
-
