@@ -13,7 +13,7 @@ import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
 // @ts-ignore
 import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
-import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
+import ProteinPowerCupImg from "../assets/images/Protein-Cup.png";
 // @ts-ignore
 import ABCDriknImg from "../assets/images/ABC-Drink.png";
 // @ts-ignore
