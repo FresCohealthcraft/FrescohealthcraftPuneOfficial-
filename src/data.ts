@@ -359,54 +359,72 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     id: "Classic-Delight-Cup",
     name: "Classic Delight Cup",
-    description: "A colorful blend of 8–9 fresh fruits, packed with natural vitamins, antioxidants, and refreshing goodness.",
+    description: "Fresh Fruits. Daily Goodness. A refreshing blend of 8–9 seasonal fruits, naturally rich in vitamins, antioxidants, and fiber for a healthy energy boost.",
     price: 79,
     image: ClassicDelightCupImg,
     icon: "🍓",
     category: "Power Cups",
+     benefits: [
+      "🍎 Rich in Essential Vitamins",
+      "🌿 High in Natural Fiber",
+      "⚡ Refreshing & Energizing",
+      "🍊 Packed with Fresh Seasonal Fruits",
+      "💚 Supports Everyday Wellness"
+    ]
   },
 {
   id: "Exotic-Delight-Cup",
   name: "Exotic Delight Cup",
-  description: "A luxurious mix of 13–14 premium fruits bursting with freshness and natural goodness.",
+  description: "Premium Cup. Exotic Flavors. Ultimate Freshness. A luxurious mix of 13–14 premium fruits packed with antioxidants, vitamins, and tropical goodness in every bite..",
   price: 99,
   image: ExoticDelightCupImg,
   icon: "✨",
   category: "Power Cups",
  popular: true,
+ benefits: [
+     "🥭 Loaded with Premium Fruits",
+     "💪 Rich in Vitamins & Antioxidants",
+     "🍍 Naturally Refreshing & Hydrating",
+     "❤️ Supports Immunity & Wellness",
+     "✨ Bursting with Tropical Goodness"
+    ]
 },
 
 
   // High Protein Meals
  {
   id: "Chicken-Power-Bowl",
-  name: "Chicken Power Bowl",
-  description: "High-protein premium grilled chicken breast served with crisp lettuce, shredded red cabbage, diced fresh mango, red and green bell peppers, cucumber, cherry tomatoes, fresh carrots, and our clean signature dressing.",
-  price: 199,
+  name: "35g Protein Chicken Bowl",
+  description: "Lean Protein. Fresh Veggies. Complete Nutrition. Premium tossed chicken served with crisp vegetables and creamy Greek yogurt Paneer dressing for a wholesome, protein-rich meal.",
+  price: 219,
   image: chickenPowerBowlImg,
   icon: "🍗",
   category: "High Protein Meals",
   popular: true,
   benefits: [
-    "High-grade clean muscle protein",
-    "Rich in dietary fiber & complex carbs",
-    "Vibrant vitamins & antioxidants from fresh organic veggies"
+    "💪 35g High-Quality Protein",
+    "🥗 Rich in Fiber & Fresh Veggies",
+    "⚡ Long-Lasting Energy",
+    "❤️ Supports Muscle Growth & Recovery",
+    "🌿 Made with Clean Ingredients"  
   ]
 },
 
  {
   id: "Paneer-Power-Bowl",
   name: "Paneer Power Bowl",
-  description: "A high-protein bowl packed with fresh paneer, crisp vegetables, and creamy dressing to fuel your body with clean nutrition, lasting energy, and delicious flavor.",
+  description: "High Protein. Fresh Paneer. Balanced Nutrition. Tossed paneer paired with colorful vegetables and creamy Greek yogurt dressing for a delicious, wholesome meal.",
   price: 199,
   image: PaneerPowerBowlImg,
   icon: "🧀",
   category: "High Protein Meals",
   popular: true,
   benefits: [
-    "30g High-Quality Protein",
-    "Balanced & Nutrient-Dense Meal",
-    "Vibrant vitamins & antioxidants from fresh organic veggies"
+    "💪 30g High-Quality Protein",
+    "🥬 Rich in Fiber & Vitamins",
+    "⚡ Balanced & Filling Meal",
+    "❤️ Supports Muscle Health",
+    "🌱 Fresh Farm Ingredients"
   ]
 
 },
@@ -415,12 +433,19 @@ export const MENU_ITEMS: MenuItem[] = [
  {
   id: "Sprouts-Bowl",
   name: "Super food sprouts bowl",
-  description: "A refreshing mix of sprouts, veggies, and spices for everyday wellness.",
+  description: "Fresh Sprouts. Natural Nutrition. Everyday Wellness. A refreshing mix of protein-rich sprouts, fresh vegetables, herbs, and spices for a light yet satisfying meal.",
   price: 79,
   image: SproutsBowlImg,
   icon: "🌱",
   category: "High Protein Meals",
   popular: true,
+  benefits: [
+    "🌱 Rich in Plant Protein",
+    "🥗 High in Fiber & Antioxidants",
+    "💚 Supports Digestion & Immunity",
+    "⚡ Naturally Energizing",
+    "🌿 Freshly Prepared Daily"
+  ]
 },
  
   
@@ -816,4 +841,3 @@ export const SAMPLE_TESTIMONIALS = [
     date: "Yesterday"
   }
 ];
-
