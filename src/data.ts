@@ -49,7 +49,7 @@ import ExoticDelightCupImg from "./assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
 import SproutsBowlImg from "./assets/images/Sprouts-Bowl.png";
 // @ts-ignore
-import PaneerPowerBowlImg from "./assets/images/Paneer-Bowl.png";
+import PaneerPowerBowlImg from "./assets/images/Paneer-Power-Bowl.png";
 // @ts-ignore
 import ABCDrinkImg from "./assets/images/ABC-Drink.png";
 // @ts-ignore
