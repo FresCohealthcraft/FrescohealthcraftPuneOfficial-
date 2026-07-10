@@ -12,7 +12,7 @@ import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
 
 // @ts-ignore
-import PaneerPowerBowlImg from "../assets/images/Paneer-Power-Bowl.png";
+import PaneerPowerBowlImg from "../assets/images/Paneer-Bowl.png";
 
 // @ts-ignore
 import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
@@ -36,7 +36,7 @@ export default function Hero({ onExploreMenu }: HeroProps) {
     {
       titleTop: "Nourish Your Body with",
       titleBottom: "Pure Wellness.",
-      subtitle: "Fresh juices, protein bowls, fruit cups, sprouts, and wholesome meals.",
+      subtitle: "Fresh Juices, Protein Bowls, Fruit Cups, Sprouts, and Wholesome Meals.",
       buttonText: "ORDER NOW",
       // Image configuration
       mainImage: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=500&fit=crop&auto=format&q=80", // Salad bowl
