@@ -15,7 +15,7 @@ import ClassicDelightCupImg from "../assets/images/Classic-Delight-Cup.png";
 // @ts-ignore
 import VitalEnergyDrinkImg from "../assets/images/Vital-Energy-Drink.png";
 // @ts-ignore
-import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
+import ProteinPowerCupImg from "../assets/images/Protein-Cup.png";
 // @ts-ignore
 import SkinGlowUpImg from "../assets/images/Skin-Glow-up.png";
 // @ts-ignore
