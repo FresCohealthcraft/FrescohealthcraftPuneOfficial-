@@ -39,7 +39,7 @@ import CarrotJuiceImg from "./assets/images/Carrot-Juice.png";
 // @ts-ignore
 import AshGourdJuiceImg from "./assets/images/Ash-Gourd-Juice.png";
 // @ts-ignore
-import ProteinPowerCupImg from "./assets/images/Protein-Power-Cup.png";
+import ProteinPowerCupImg from "./assets/images/Protein-Cup.png";
 // @ts-ignore
 import ClassicDelightCupImg from "./assets/images/Classic-Delight-Cup.png";
 
