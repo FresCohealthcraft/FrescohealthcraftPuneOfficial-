@@ -204,6 +204,8 @@ export default function App() {
         onCartClick={() => setIsCartOpen(true)}
         isOpen={isMobileMenuOpen}
         setIsOpen={setIsMobileMenuOpen}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
 
       {/* Main Sections */}
