@@ -83,7 +83,15 @@ export default function Navbar({
           <div className="flex items-center justify-end gap-1.5 sm:gap-2">
             {/* Search Icon */}
             <button
-              onClick={() => setIsSearchActive(true)}
+              onClick={() => {
+                setIsSearchActive(true);
+                setTimeout(() => {
+                  const menuEl = document.getElementById("menu");
+                  if (menuEl) {
+                    menuEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }, 100);
+              }}
               className="p-2.5 text-[#1A1A1A] hover:text-[#38A325] hover:bg-[#1A1A1A]/5 rounded-full transition-all cursor-pointer"
               title="Search"
             >
