@@ -44,7 +44,6 @@ import AppleJuiceImg from "../assets/images/Apple-Juice.png";
 import PapayaJuiceImg from "../assets/images/papaya-Juice.png";
 // @ts-ignore
 import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
-
 // @ts-ignore
 import GutResetImg from "../assets/images/Gut-Reset.png";
 
