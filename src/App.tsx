@@ -20,7 +20,6 @@ import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Check } from "lucide
 
 
 
-
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -229,15 +228,15 @@ export default function App() {
           onRemoveCartItem={handleRemoveCartItem}
         />
 
+        {/* 5. Special promotional offers Deals list (matching Image 2) */}
+        <SpecialOffers
+          onAddToCartDirectly={handleAddToCartDirectly}
+        />
+
         {/* 4.5 Subscription Plans */}
         <SubscriptionSection
           onAddToCartDirectly={handleAddToCartDirectly}
           onAddBulkToCartDirectly={handleBulkAddToCart}
-        />
-
-        {/* 5. Special promotional offers Deals list (matching Image 2) */}
-        <SpecialOffers
-          onAddToCartDirectly={handleAddToCartDirectly}
         />
 
         {/* 6. Rounded free delivery announcement banner */}
