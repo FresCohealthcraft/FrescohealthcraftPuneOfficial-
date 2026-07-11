@@ -3116,7 +3116,7 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                                     <span className="font-mono font-bold">₹{costPackaging.toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between items-center">
-                                    <span>������ Delivery Dispatch</span>
+                                    <span>🛵 Delivery Dispatch</span>
                                     <span className="font-mono font-bold">₹{costDelivery.toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between items-center">
