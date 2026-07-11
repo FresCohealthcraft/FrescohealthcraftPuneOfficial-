@@ -713,7 +713,7 @@ export default function MenuGrid({
                           ? { width: "102.9444px", height: "114.9444px" }
                           : cat.name === "Shakes"
                           ? { width: "102.9444px", height: "115.9444px" }
-                          : cat.name === "Choco Frozen"
+                          : cat.name === "Choco Frozen Banana"
                           ? { width: "102.9444px", height: "106.9444px" }
                           : undefined
                       }
@@ -849,9 +849,9 @@ export default function MenuGrid({
                                  Key Benefits
                                </span>
                                {getItemBenefits(item).map((benefit, idx) => (
-                                 <div key={idx} className="flex items-center space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
-                                   <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0" />
-                                   <span className="truncate">{benefit}</span>
+                                 <div key={idx} className="flex items-start space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
+                                   <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0 mt-1" />
+                                   <span className="whitespace-normal break-words">{benefit}</span>
                                  </div>
                                ))}
                              </div>
@@ -975,20 +975,20 @@ export default function MenuGrid({
                         {item.description}
                       </p>
 
-                      {/* Dynamic Point-wise Benefits */}
-                      {!["Shakes", "Specials", "Fruit Juices", "Green Vitality Juice"].includes(item.category || "") && (
-                        <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-1">
-                          <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-1">
-                            Key Benefits
-                          </span>
-                          {getItemBenefits(item).map((benefit, idx) => (
-                            <div key={idx} className="flex items-center space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
-                              <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0" />
-                              <span className="truncate">{benefit}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                       {/* Dynamic Point-wise Benefits */}
+                       {!["Shakes", "Specials", "Fruit Juices", "Green Vitality Juice"].includes(item.category || "") && (
+                         <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-1">
+                           <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-1">
+                             Key Benefits
+                           </span>
+                           {getItemBenefits(item).map((benefit, idx) => (
+                             <div key={idx} className="flex items-start space-x-1.5 text-[8.5px] xs:text-[9px] sm:text-[9.5px] text-emerald-800/80 font-semibold leading-tight">
+                               <span className="w-1 h-1 rounded-full bg-[#38A325] shrink-0 mt-1" />
+                               <span className="whitespace-normal break-words">{benefit}</span>
+                             </div>
+                           ))}
+                         </div>
+                       )}
                     
                     </div>
      
@@ -1075,4 +1075,5 @@ export default function MenuGrid({
     </section>
   );
 }
+
 
