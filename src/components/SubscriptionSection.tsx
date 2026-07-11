@@ -47,8 +47,7 @@ import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
 // @ts-ignore
 import GutResetImg from "../assets/images/Gut-Reset.png";
 
-
-  interface SubscriptionSectionProps {
+ interface SubscriptionSectionProps {
     onAddToCartDirectly: (item: MenuItem) => void;
     onAddBulkToCartDirectly: (items: MenuItem[]) => void;
   }
@@ -65,7 +64,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
   }));
 
   const SNACK_OPTIONS = MENU_ITEMS.filter(item =>
-      ["Power Cups", "Super Food Sprouts Bowls", "Specials"].includes(item.category)
+      ["Power Cups", "High Protein Meals", "Super Food Sprouts Bowls", "Specials"].includes(item.category)
     ).map(item => ({
       id: item.id,
       name: item.name,
@@ -550,12 +549,12 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
         savings: "Save ₹518 off standard menu",
         price: 4222,
         benefits: [
-          "1 Fresh Organic Fruit Juice Daily",
-          "1 Sprouts Bowl / Classic Delight Cup on Alternate Days",
-          "Supports digestion and natural detox",
-          "Boosts daily vitamin and mineral intake",
-          "Fixed delivery time (e.g., 7 AM–10 AM)",
-          "Free doorstep Delivery"
+          "🍹 30 Fresh Juices",
+          "🥗 15 Sprouts Bowls + 15 Classic Delight Cups",
+          "🌿 Supports Natural Detox",
+          "💪 Rich in Vitamins & Minerals",
+          "🚚 Free Delivery",
+          "📱  WhatsApp Support"
         ],
         popular: false,
         bgColor: "bg-white",
@@ -568,17 +567,17 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
         icon: "💪",
         subtitle: "30 Days of Strength & Wellness",
         deliveries: "30 deliveries / month (Free Delivery)",
-        savings: "Save ₹661 off standard menu",
-        price: 5799,
+        savings: "Save ₹683 off standard menu",
+        price: 8777,
         benefits: [
-          "30 Paneer Sprouts Bowl / Month",
-          "26 Power Packed Cups / Month",
-          "1 Premium Fruit Cup Every Sunday",
-          "High-Protein, Fiber-Rich Nutrition For Active Lifestyles",
-          "Priority morning delivery (7–10 AM)",
-          "Pause subscription anytime via WhatsApp",
-          "Keeps You Full Longer",
-          "Rich in Omega-3, Vitamins, and Minerals",
+          "🥣 30 30G Protein Paneer Bowl",
+          "🍓 26 Power Packed Cups",
+          "🍍 Premium Fruit Cup Every Sunday",
+          "⚡ High Protein & Fiber",
+          "🚚 Priority Morning Delivery",
+          "⏸  Pause Anytime",
+          "📱  Priority WhatsApp Support",
+          "💪 Rich in Omega-3, Vitamins, and Minerals",
           
         ],
         popular: true,
@@ -592,17 +591,18 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
         icon: "👑",
     subtitle: "Complete 30-Day Nutrition Journey",
         deliveries: "30 deliveries / month (Free Delivery)",
-        savings: "Save ₹712 off standard retail menu",
-        price: 6888,
+        savings: "Save ₹983 off standard retail menu",
+        price: 7999 ,
         benefits: [
-          "1 Fruit Juice or Green vitality juice / Day",
-          "1 Sprouts Bowl / Day",
-          "1 Premium Fruit Cup / Day",
-          "1 Power Packed Cup every Sunday",
-          "1 Paneer Sprouts Bowl every Sunday",
-          "Maximum variety for complete daily nutrition",
-          "Priority order support and delivery assistance",
-          "Pause or reschedule deliveries anytime",
+          "🍹 Daily Juice",
+          "🥗 Daily Sprouts Bowl",
+          "🍓 Daily Premium Fruit Cup",
+          "💪 Weekly Power Packed Cup",
+          "🥣 Weekly Paneer Bowl",
+          "📱  WhatsApp Support",
+          "🚚 Free Delivery",
+          "⭐ Priority Order Handling",
+          "📅 Pause or Reschedule Anytime"
         ],
         popular: false,
         bgColor: "bg-white",
@@ -750,7 +750,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
       return customCycleType === "monthly" ? subtotal * 4 : subtotal;
     };
 
-    const customDiscountPercentage = customCycleType === "monthly" ? 20 : 10;
+    const customDiscountPercentage = 8;
     const customSubtotal = calculateCustomSubtotal();
     const customSavings = Math.round(customSubtotal * (customDiscountPercentage / 100));
     const customFinalPrice = customSubtotal - customSavings;
@@ -1007,7 +1007,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
           {/* Subscription Badge */}
-          <div className="inline-flex items-center justify-center text-white bg-[#F26419] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-3 shadow-xs">
+          <div className="inline-flex items-center justify-center text-white bg-[#F26419] px-6 py-2.5 rounded-full text-xs sm:text-sm font-black uppercase tracking-widest mb-4 shadow-xs">
             Wellness Subscriptions Plan's
           </div>
 
@@ -1031,13 +1031,13 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
           )}
 
           {!activePlan && (
-            <div className="flex justify-center mt-4 mb-6">
+            <div className="flex justify-center mt-5 mb-8">
               <button
                 onClick={handleJumpToExplore}
-                className="flex items-center space-x-2 bg-[#38A325] hover:bg-[#2F891F] text-white py-3.5 px-8 rounded-full font-extrabold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
+                className="flex items-center space-x-3 bg-[#38A325] hover:bg-[#2F891F] text-white py-4.5 sm:py-5 px-10 sm:px-12 rounded-full font-black text-sm sm:text-base uppercase tracking-widest transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
               >
                 <span>{showSubscriptionItems ? "Hide Wellness Subscription Plans" : "Explore Wellness Subscription Plans"}</span>
-                <ChevronDown className={`w-4.5 h-4.5 transition-transform duration-300 ${showSubscriptionItems ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${showSubscriptionItems ? "rotate-180" : ""}`} />
               </button>
             </div>
           )}
@@ -1309,7 +1309,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                             {getTodayItemForPlan(activePlan.id).icon}
                           </div>
                           <div className="min-w-0 text-left">
-                            <span className="font-bold text-[11.5px] text-gray-950 block leading-tight truncate">
+                            <span className="font-bold text-[11.5px] text-gray-950 block leading-tight whitespace-normal break-words">
                               {getTodayItemForPlan(activePlan.id).juice}
                             </span>
                             <p className="text-[9px] text-[#38A325] font-semibold mt-0.5 flex items-center gap-1">
@@ -1954,8 +1954,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                           </p>
                           <ul className="space-y-1 text-[8.5px] sm:text-[9.5px]">
                             {sub.benefits.map((b, i) => (
-                              <li key={i} className="flex items-start space-x-1.5 text-[#1A1A1A]/85">
-                                <CheckCircle2 className="w-3 h-3 text-[#38A325] shrink-0 mt-0.5" />
+                              <li key={i} className="flex items-start text-[#1A1A1A]/85">
                                 <span className="leading-tight">{b}</span>
                               </li>
                             ))}
@@ -2048,10 +2047,10 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                               </span>
                               {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#38A325]" />}
                             </div>
-                            <div className="mt-0.5 text-[8.5px] text-gray-500 truncate leading-tight">
+                            <div className="mt-0.5 text-[8.5px] text-gray-500 whitespace-normal break-words leading-tight">
                               {juicesDisplay}
                             </div>
-                            <div className="text-[8.5px] text-gray-400 truncate mt-0.5 leading-tight">
+                            <div className="text-[8.5px] text-gray-400 whitespace-normal break-words mt-0.5 leading-tight">
                               + {snacksDisplay}
                             </div>
                           </button>
@@ -2113,9 +2112,9 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                                 <span className="text-base select-none mt-0.5">{j.icon}</span>
                               )}
                               <div className="flex-1 min-w-0">
-                                <span className="font-bold text-[10px] text-gray-900 block truncate leading-tight">{j.name}</span>
+                                <span className="font-bold text-[10px] text-gray-900 block whitespace-normal break-words leading-tight">{j.name}</span>
                                 <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5 font-sans">₹{j.price}</span>
-                                <p className="text-[8px] text-gray-500 mt-0.5 leading-tight line-clamp-1">{j.desc}</p>
+                                <p className="text-[8px] text-gray-500 mt-0.5 leading-tight">{j.desc}</p>
                               </div>
                               {isActive && (
                                 <span className="absolute top-1.5 right-1.5 text-[#38A325]">
@@ -2131,7 +2130,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                     {/* Option B: Healthy Snacks */}
                     <div className="space-y-1.5 pt-1.5 border-t border-[#1A1A1A]/5">
                       <label className="text-[11px] font-bold text-[#1A1A1A] flex items-center justify-between">
-                        <span>2. Choose Superfood Bowl / Fruits / Addon</span>
+                        <span>2. Choose Bowl / Fruits up/ Addon</span>
                         <span className="text-[9px] text-[#38A325] font-bold">Select Multiple</span>
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
@@ -2169,11 +2168,11 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                                 <span className="text-base select-none mt-0.5">{s.icon}</span>
                               )}
                               <div className="flex-1 min-w-0">
-                                <span className="font-bold text-[10px] text-gray-900 block truncate leading-tight">{s.name}</span>
+                                <span className="font-bold text-[10px] text-gray-900 block whitespace-normal break-words leading-tight">{s.name}</span>
                                 <span className="text-[8.5px] text-[#38A325] font-bold block mt-0.5 font-sans">
                                   {s.price === 0 ? "Included" : `+₹${s.price}`}
                                 </span>
-                                <p className="text-[8px] text-gray-500 mt-0.5 leading-tight line-clamp-1">{s.desc}</p>
+                                <p className="text-[8px] text-gray-500 mt-0.5 leading-tight">{s.desc}</p>
                               </div>
                               {isActive && (
                                 <span className="absolute top-1.5 right-1.5 text-[#38A325]">
@@ -2302,7 +2301,7 @@ import GutResetImg from "../assets/images/Gut-Reset.png";
                           <span className="font-mono text-[10px]">₹{customSubtotal}</span>
                         </div>
                         <div className="flex justify-between text-emerald-400">
-                          <span className="text-[10px] font-bold">{customDiscountPercentage}% Discount</span>
+                          <span className="text-[10px] font-bold"> Discount</span>
                           <span className="font-mono text-[10px] font-bold">-₹{customSavings}</span>
                         </div>
                         
