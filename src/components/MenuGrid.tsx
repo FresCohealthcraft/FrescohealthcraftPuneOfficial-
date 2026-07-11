@@ -28,6 +28,7 @@ import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
 import MuskmelonShakeImg from "../assets/images/Muskmelon-Shake.png";
 
 
+
 const PREMIUM_ITEMS: Record<string, {
   title: string;
   size: string;
@@ -563,6 +564,12 @@ export default function MenuGrid({
 }: MenuProps) {
  
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (searchTerm && searchTerm.trim() !== "") {
+      setSelectedCategory(null);
+    }
+  }, [searchTerm]);
 
   const getCartItemInfo = (itemId: string) => {
     // Find a standard (non-customized) cart item first
