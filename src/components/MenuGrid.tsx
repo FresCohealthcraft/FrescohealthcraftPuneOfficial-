@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, Plus, Leaf, Minus } from "lucide-react";
-
 // @ts-ignore
 import orangeJuiceImg from "../assets/images/Orange-Juice.png";
 // @ts-ignore
@@ -26,7 +25,6 @@ import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
 
 // @ts-ignore
 import MuskmelonShakeImg from "../assets/images/Muskmelon-Shake.png";
-
 
 
 const PREMIUM_ITEMS: Record<string, {
@@ -1077,3 +1075,4 @@ export default function MenuGrid({
     </section>
   );
 }
+
