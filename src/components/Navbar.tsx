@@ -10,8 +10,8 @@ interface NavbarProps {
   onCartClick: () => void;
   isOpen?: boolean;
   setIsOpen?: (open: boolean) => void;
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
+  searchTerm?: string;
+  setSearchTerm?: (term: string) => void;
 }
 
 export default function Navbar({
@@ -21,8 +21,8 @@ export default function Navbar({
   onCartClick,
   isOpen: propsIsOpen,
   setIsOpen: propsSetIsOpen,
-  searchTerm,
-  setSearchTerm,
+  searchTerm = "",
+  setSearchTerm = () => {},
 }: NavbarProps) {
   // Use state if props are not supplied, otherwise use controlled props
   const [localIsOpen, setLocalIsOpen] = useState(false);
