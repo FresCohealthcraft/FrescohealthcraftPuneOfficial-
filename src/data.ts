@@ -111,6 +111,7 @@ import MangoChocofrostImg from "./assets/images/Mango-Chocofrost.png";
 // @ts-ignore
 import chickenPowerBowlImg from "./assets/images/Chicken-Power-Bowl.png";
 
+
 export const MENU_CATEGORIES = [
   "Fruit Juices",
   "Power Cups",
@@ -412,7 +413,7 @@ export const MENU_ITEMS: MenuItem[] = [
 
  {
   id: "Paneer-Power-Bowl",
-  name: "Paneer Power Bowl",
+  name: "30G Protein Paneer Bowl",
   description: "High Protein. Fresh Paneer. Balanced Nutrition. Tossed paneer paired with colorful vegetables and creamy Greek yogurt dressing for a delicious, wholesome meal.",
   price: 199,
   image: PaneerPowerBowlImg,
@@ -740,38 +741,6 @@ popular: true,
   category: "Specials",
 },
 
-{
-  id: "Apple-Chocofrost",
-  name: "Apple Chocofrost Candy",
-  description: "Frozen apple treat coated with rich and creamy chocolate flavor.",
-  price: 49,
-  image: AppleChocofrostImg,
-  icon: "🍎",
-  category: "Specials",
-  popular: true,
-},
-
-{
-  id: "Grapes-Chocofrost",
-  name: "Grapes Chocofrost Candy",
-  description: "Frozen grapes coated with smooth chocolate for a refreshing bite.",
-  price: 39,
-  image: GrapesChocofrostImg,
-  icon: "🍇",
-  category: "Specials",
- 
-},
-
-{
-  id: "Mango-Chocofrost",
-  name: "Mango Chocofrost Candy",
-  description: "Frozen mango delight blended with rich chocolate goodness.",
-  price: 49,
-  image: MangoChocofrostImg,
-  icon: "🥭",
-  category: "Specials",
-  popular: true,
-},  
 
 ];
 
@@ -841,3 +810,5 @@ export const SAMPLE_TESTIMONIALS = [
     date: "Yesterday"
   }
 ];
+
+
