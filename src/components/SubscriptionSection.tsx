@@ -23,7 +23,7 @@ import { motion, AnimatePresence } from "motion/react";
   // @ts-ignore
   import FatBurnerImg from "../assets/images/Fat-Burner.png";
   // @ts-ignore
-  import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
+  import PaneerSproutsBowlImg from "../assets/images/Paneer-Power-Bowl.png";
   // @ts-ignore
   import ABCDriknImg from "../assets/images/ABC-Drink.png";
   // @ts-ignore
@@ -41,7 +41,7 @@ import { motion, AnimatePresence } from "motion/react";
   // @ts-ignore
   import AppleJuiceImg from "../assets/images/Apple-Juice.png";
   // @ts-ignore
-  import PapayaJuiceImg from "../assets/images/Papaya-Juice.png";
+  import PapayaJuiceImg from "../assets/images/papaya-Juice.png";
   // @ts-ignore
   import PomegranateJuiceImg from "../assets/images/Pomegranate-Juice.png";
 
