@@ -3,6 +3,7 @@ import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, Plus, Leaf, Minus } from "lucide-react";
+
 // @ts-ignore
 import orangeJuiceImg from "../assets/images/Orange-Juice.png";
 // @ts-ignore
@@ -19,10 +20,8 @@ import mangoShakeImg from "../assets/images/Mango-Shake.png";
 import grapesChocofrostImg from "../assets/images/White-Sprinkle.png";
 // @ts-ignore
 import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
-
 // @ts-ignore
-import ProteinPowerCupImg from "../assets/images/Protein-Power-Cup.png";
-
+import ProteinPowerCupImg from "../assets/images/Protein-Cup.png";
 // @ts-ignore
 import MuskmelonShakeImg from "../assets/images/Muskmelon-Shake.png";
 
@@ -1076,6 +1075,4 @@ export default function MenuGrid({
     </section>
   );
 }
-
-
 
