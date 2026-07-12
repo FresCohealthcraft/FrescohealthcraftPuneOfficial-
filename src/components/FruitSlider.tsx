@@ -289,3 +289,4 @@ export default function FruitSlider({ onSelectItem }: FruitSliderProps) {
     </section>
   );
 }
+
