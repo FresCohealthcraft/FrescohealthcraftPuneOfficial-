@@ -686,4 +686,3 @@ export const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({
     </div>
   );
 };
-
