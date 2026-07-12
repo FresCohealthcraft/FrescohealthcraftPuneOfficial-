@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MenuItem } from "../types";
-import { Plus, Star, Sparkles, Flame, CheckCircle, Heart } from "lucide-react";
+import { Plus, Star, Sparkles, Flame, CheckCircle, Heart, Zap, Shield, Dumbbell, Activity, Leaf } from "lucide-react";
 
 // Import local premium images
 // @ts-ignore
@@ -22,7 +22,6 @@ import ImmunityBoosterImg from "../assets/images/Immunity-Booster.png";
 import SkinGlowUpImg from "../assets/images/Skin-Glow-up.png";
 // @ts-ignore
 import FatBurnerImg from "../assets/images/Fat-Burner.png";
-
 
 interface SpecialOffersProps {
   onAddToCartDirectly: (item: MenuItem) => void;
@@ -302,4 +301,3 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
     </section>
   );
 }
-
