@@ -302,3 +302,4 @@ export default function SpecialOffers({ onAddToCartDirectly }: SpecialOffersProp
     </section>
   );
 }
+
