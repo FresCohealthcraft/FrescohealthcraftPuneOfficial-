@@ -323,4 +323,3 @@ Please confirm my order and share payment details. Thank you!`;
     </AnimatePresence>
   );
 }
-
