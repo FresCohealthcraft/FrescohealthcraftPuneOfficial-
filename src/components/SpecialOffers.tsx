@@ -9,7 +9,7 @@ import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 // @ts-ignore
 import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
 // @ts-ignore
-import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
+import PaneerSproutsBowlImg from "../assets/images/Paneer-Power-Bowl.png";
 // @ts-ignore
 import ExoticDelightCupImg from "../assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
