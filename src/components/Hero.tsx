@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight } from "lucide-react";
 
-
 // @ts-ignore
 import ClassicDelightCupImg from "../assets/images/Classic-Delight-Cup.png";
 // @ts-ignore
@@ -13,11 +12,10 @@ import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 import PaneerSproutsBowlImg from "../assets/images/Paneer-Sprouts-Bowl.png";
 
 // @ts-ignore
-import PaneerPowerBowlImg from "../assets/images/Paneer-Power-Bowl.png";
+import PaneerPowerBowlImg from "../assets/images/Paneer-Bowl.png";
 
 // @ts-ignore
 import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
-
 
 interface HeroProps {
   onExploreMenu: () => void;
