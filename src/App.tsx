@@ -20,6 +20,7 @@ import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Check } from "lucide
 
 
 
+
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
