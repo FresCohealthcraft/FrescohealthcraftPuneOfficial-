@@ -58,7 +58,8 @@ import { motion, AnimatePresence } from "motion/react";
   // @ts-ignore
   import GutResetImg from "../assets/images/Gut-Reset.png";
 
-interface SubscriptionSectionProps {
+
+  interface SubscriptionSectionProps {
     onAddToCartDirectly: (item: MenuItem) => void;
     onAddBulkToCartDirectly: (items: MenuItem[]) => void;
     cartItems?: CartItem[];
