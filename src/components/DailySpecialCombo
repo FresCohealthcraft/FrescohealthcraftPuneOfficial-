@@ -222,10 +222,20 @@ export default function DailySpecialCombo({ onAddToCartDirectly }: DailySpecialC
                 <span className="block text-[8.5px] font-black text-neutral-400 uppercase tracking-wider mb-0.5">
                   BUNDLE SPECIAL PRICE
                 </span>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-black font-mono text-neutral-900">
+                <div className="flex items-center flex-wrap gap-1.5">
+                  <span className="text-2xl font-black font-mono text-neutral-900 leading-none">
                     ₹{combo.price}
                   </span>
+                  {combo.originalPrice && combo.originalPrice > combo.price && (
+                    <span className="text-stone-400 line-through text-sm font-semibold font-mono leading-none">
+                      ₹{combo.originalPrice}
+                    </span>
+                  )}
+                  {combo.originalPrice && combo.originalPrice > combo.price && (
+                    <span className="text-[9px] font-black bg-[#E1EAE3] text-[#1E4620] px-1.5 py-0.5 rounded uppercase tracking-wider leading-none">
+                      Save ₹{combo.originalPrice - combo.price}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -257,5 +267,3 @@ export default function DailySpecialCombo({ onAddToCartDirectly }: DailySpecialC
     </div>
   );
 }
-
-
