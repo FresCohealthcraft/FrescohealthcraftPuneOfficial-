@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
   import { MenuItem, CartItem } from "../types";
   import { MENU_ITEMS } from "../data";
-  import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check, MessageSquare, ShieldCheck, Truck } from "lucide-react";
+  import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, ChevronLeft, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, Minus, ChevronDown, Check, MessageSquare, ShieldCheck, Truck } from "lucide-react";
 
  // @ts-ignore
   import WeeklyFruitJuiceMockup from "../assets/images/weekly_fruit_juice.png";
