@@ -614,18 +614,82 @@ export default function MenuGrid({
     <section id="menu" className={`pt-2 ${selectedCategory || searchTerm ? "pb-12" : "pb-2"} bg-white scroll-mt-10 border-t border-[#1A1A1A]/10`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-         {/* Free Home Delivery Highlight Line */}
-        <div className="relative bg-gradient-to-r from-[#3AA324] via-[#32981E] to-[#247E11] text-white rounded-[16px] p-3 sm:p-4 shadow-[0_6px_24px_rgba(56,163,37,0.06)] overflow-hidden z-10 border border-[#38A325]/35">
-          <span className="inline-flex items-center justify-center gap-1.5 px-4 py-1.5 bg-[#38A325]/10 border border-[#38A325]/20 text-[#ffffff] font-black uppercase tracking-widest rounded-full shadow-xs min-w-[291px] w-auto">
-            <span className="inline-block animate-pulse rounded-full bg-[#ffffff]" style={{ fontSize: "30px", lineHeight: "32px", width: "6.7639px", height: "10px" }} />
-            <span className="pl-0 flex items-center justify-center" style={{ width: "267.139px", height: "22.5px", fontSize: "17px" }}>🚚 FREE HOME DELIVERY </span>
-          </span>
-        </div>
+        {/* Free Home Delivery Highlight Card - as requested */}
+        <motion.div
+          initial={{ opacity: 0, y: 15, scale: 0.99 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 120, damping: 16 }}
+          className="mt-4 bg-gradient-to-b from-[#1C9014] to-[#12640A] text-white rounded-[20px] p-3.5 sm:p-4.5 max-w-[280px] sm:max-w-[310px] mx-auto shadow-[0_10px_30px_-8px_rgba(28,144,20,0.22)] flex flex-col items-center text-center relative overflow-hidden mb-5 group hover:scale-[1.01] transition-all duration-300"
+        >
+          {/* Ambient inner glows */}
+          <div className="absolute -top-16 -left-16 w-20 h-20 rounded-full bg-white/5 blur-xl pointer-events-none" />
+          <div className="absolute -bottom-16 -right-16 w-20 h-20 rounded-full bg-white/5 blur-xl pointer-events-none" />
 
+          {/* Delivery Scooter Animation Illustration */}
+          <div className="w-full relative select-none">
+            <svg className="w-16 h-11 mx-auto drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)] animate-bounce" style={{ animationDuration: '3s' }} viewBox="0 0 120 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Motion lines behind */}
+              <g stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.8">
+                <line className="animate-pulse" x1="12" y1="28" x2="22" y2="28" />
+                <line className="animate-pulse" style={{ animationDelay: '0.2s' }} x1="6" y1="34" x2="16" y2="34" />
+                <line className="animate-pulse" style={{ animationDelay: '0.4s' }} x1="14" y1="40" x2="24" y2="40" />
+              </g>
+              
+              {/* Shadow */}
+              <ellipse cx="65" cy="62" rx="32" ry="3.5" fill="#063004" opacity="0.6" />
+              
+              {/* Scooter Body */}
+              <path d="M48 50 H82 L86 35 H65 L48 50" fill="#FFFFFF" />
+              <rect x="44" y="38" width="16" height="5" rx="2" fill="#37474F" />
+              
+              {/* Back Carrier Box */}
+              <rect x="29" y="24" width="15" height="15" rx="1" fill="#FFFFFF" />
+              <line x1="29" y1="31.5" x2="44" y2="31.5" stroke="#E0E0E0" strokeWidth="1" />
+              <line x1="36.5" y1="24" x2="36.5" y2="39" stroke="#E0E0E0" strokeWidth="1" />
+              
+              {/* Front Fork & Steering */}
+              <line x1="82" y1="52" x2="88" y2="28" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
+              <line x1="85" y1="28" x2="92" y2="28" stroke="#37474F" strokeWidth="2.5" strokeLinecap="round" />
+              
+              {/* Rider */}
+              <path d="M50 42 L62 26 L73 34 L66 48 Z" fill="#FFA726" /> {/* Rider Body */}
+              <path d="M60 48 L65 52 L78 52" stroke="#E65100" strokeWidth="3" strokeLinecap="round" fill="none" /> {/* Rider Leg */}
+              <path d="M62 28 L84 28" stroke="#FFA726" strokeWidth="3" strokeLinecap="round" fill="none" /> {/* Rider Arm */}
+              <circle cx="62" cy="19" r="6" fill="#FF5722" /> {/* Rider Helmet */}
+              <path d="M61 17 H66 V21 H61 Z" fill="#37474F" /> {/* Helmet Visor */}
+              
+              {/* Wheels */}
+              <circle cx="43" cy="54" r="8" fill="#37474F" stroke="#FFFFFF" strokeWidth="3" />
+              <circle cx="43" cy="54" r="2" fill="#E0E0E0" />
+              <circle cx="85" cy="54" r="8" fill="#37474F" stroke="#FFFFFF" strokeWidth="3" />
+              <circle cx="85" cy="54" r="2" fill="#E0E0E0" />
+            </svg>
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-xs sm:text-sm font-black tracking-tight text-white mt-1.5 mb-2.5 leading-tight max-w-xs mx-auto">
+            Free Delivery on Orders Above ₹199!
+          </h2>
+
+          {/* Button */}
+          <button
+            onClick={() => {
+              const el = document.getElementById("categories-card") || document.getElementById("categories-results-anchor");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="border border-white/80 hover:border-white text-white rounded-full px-4 py-1.5 text-[9.5px] font-extrabold uppercase tracking-wider flex items-center justify-center gap-1 hover:bg-white/10 active:scale-[0.97] transition-all cursor-pointer shadow-xs select-none"
+          >
+            <span>ORDER NOW</span>
+            <span className="text-[10px] font-bold">→</span>
+          </button>
+        </motion.div>
 
 
         {/* CATEGORIES CARD VIEW: Displayed beautifully as a main category selector card */}
         <motion.div
+          id="categories-card"
           initial={{ opacity: 0, y: 15, scale: 0.99 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ type: "spring", stiffness: 120, damping: 16 }}
