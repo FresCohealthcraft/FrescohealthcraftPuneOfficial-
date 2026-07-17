@@ -232,12 +232,18 @@ export default function App() {
         {/* 5. Special promotional offers Deals list (matching Image 2) */}
         <SpecialOffers
           onAddToCartDirectly={handleAddToCartDirectly}
+          cartItems={cartItems}
+          onUpdateCartQuantity={handleUpdateCartQuantity}
+          onRemoveCartItem={handleRemoveCartItem}
         />
 
         {/* 4.5 Subscription Plans */}
         <SubscriptionSection
           onAddToCartDirectly={handleAddToCartDirectly}
           onAddBulkToCartDirectly={handleBulkAddToCart}
+          cartItems={cartItems}
+          onUpdateCartQuantity={handleUpdateCartQuantity}
+          onRemoveCartItem={handleRemoveCartItem}
         />
 
         {/* 6. Rounded free delivery announcement banner */}
