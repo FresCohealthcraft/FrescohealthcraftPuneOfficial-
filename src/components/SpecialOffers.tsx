@@ -101,7 +101,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     icon: "🌱",
     image1: ABCWellnessComboImg,
     subtitle: "ABC JUICE + SPROUTS BOWL",
-    description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with a protein-rich sprouts bowl, naturally rich in vitamins, antioxidants, and fiber for complete wellness. Limited to a 2 | lines with a fade effect.",
+    description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with a protein-rich sprouts bowl, naturally rich in vitamins, antioxidants, and fiber for complete daily wellness. Limited to a 2 | lines with a fade effect.",
     originalPrice: 179,
     price: 161,
     category: "Detox & Wellness",
@@ -388,9 +388,17 @@ export default function SpecialOffers({
 
                     {/* Bottom pricing & add to cart button */}
                     <div className="mt-4.5 pt-3.5 border-t border-neutral-100 flex flex-col gap-3">
-                      {/* Price display */}
-                      <div className="flex items-center space-x-2.5">
+                      {/* Price display with originalPrice struck through and savings badge */}
+                      <div className="flex items-center flex-wrap gap-2">
                         <span className="text-[18px] font-sans font-black text-neutral-900 leading-none">₹{combo.price}</span>
+                        {combo.originalPrice && combo.originalPrice > combo.price && (
+                          <span className="text-neutral-400 line-through text-[14px] font-sans font-semibold">₹{combo.originalPrice}</span>
+                        )}
+                        {combo.originalPrice && combo.originalPrice > combo.price && (
+                          <span className="text-[9px] bg-[#E1EAE3] text-[#1E4620] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                            Save ₹{combo.originalPrice - combo.price}
+                          </span>
+                        )}
                       </div>
 
                       {/* Add to Cart button stretching full-width of card */}
