@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CartItem, PromoCoupon } from "../types";
 import { PROMO_COUPONS } from "../data";
-import { X, Trash2, Plus, Minus, ShoppingCart, Compass } from "lucide-react";
+import { X, Trash2, Plus, Minus, ShoppingCart, Compass, Leaf, User, Phone, MapPin, Truck, Clock, Calendar, ChevronDown, ArrowRight } from "lucide-react";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -40,6 +40,15 @@ export default function CartDrawer({
   });
   const [deliveryTime, setDeliveryTime] = useState("Morning (08:00 AM - 11:00 AM)");
   const [customTime, setCustomTime] = useState("");
+
+  const getShortDescription = (desc: string) => {
+    if (!desc) return "";
+    const parts = desc.split("•").map(p => p.trim());
+    if (parts.length > 1) {
+      return parts.slice(0, 2).join(" • ");
+    }
+    return desc.length > 35 ? desc.slice(0, 32) + "..." : desc;
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -205,9 +214,11 @@ Please accept my order request and share tracking updates on WhatsApp!`;
       console.error("Error pushing customer to server database:", err);
     }
 
+    // First, open WhatsApp immediately so it's a direct user-initiated action (prevents browser popup blocker)
+    window.open(`https://wa.me/918983363146?text=${encoded}`, "_blank");
+
     onClearCart();
     onClose();
-    window.open(`https://wa.me/918983363146?text=${encoded}`, "_blank");
   };
 
   return (
@@ -234,39 +245,41 @@ Please accept my order request and share tracking updates on WhatsApp!`;
           >
             
             {/* Header */}
-            <div className="p-5 border-b border-[#1A1A1A]/5 flex items-center justify-between bg-[#EFECE5]/40">
-              <div className="flex items-center space-x-2.5">
-                <ShoppingCart className="w-5 h-5 text-[#38A325]" />
+            <div className="p-4.5 border-b border-stone-100 flex items-center justify-between bg-white shrink-0">
+              <div className="flex items-center space-x-3 text-left">
+                <div className="w-12 h-12 rounded-2xl bg-[#E8F5E9] flex items-center justify-center text-[#38A325] shrink-0 shadow-sm border border-[#E8F5E9]/80">
+                  <ShoppingCart className="w-5 h-5 text-[#38A325]" />
+                </div>
                 <div>
-                  <h3 className="font-serif italic text-lg text-[#1A1A1A] leading-tight">
+                  <h3 className="font-extrabold text-[15px] text-stone-900 leading-tight">
                     Your Wellness Cart
                   </h3>
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-[#38A325] mt-1">
-                    Freshness Prepared Upon Checkout
+                  <p className="text-[11.5px] text-stone-550 font-medium mt-0.5">
+                    Freshness prepared upon checkout
                   </p>
                 </div>
               </div>
 
               <button
                 onClick={onClose}
-                className="p-1.5 hover:bg-[#EFECE5] rounded-full text-gray-400 hover:text-gray-750 transition-colors cursor-pointer"
+                className="p-2 hover:bg-stone-50 border border-stone-100 rounded-full text-stone-400 hover:text-stone-700 transition-colors cursor-pointer shadow-xs"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Main scrollable body */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-6">
+            <div className="flex-1 overflow-y-auto p-5 space-y-6 bg-white">
               {cartItems.length === 0 ? (
-                <div className="text-center py-16 flex flex-col items-center">
+                <div className="text-center py-20 flex flex-col items-center">
                   <span className="text-6.5xl select-none animate-pulse">🥤</span>
-                  <h4 className="font-bold text-[#1A1A1A] mt-4 text-[15px]">Our blender is waiting!</h4>
-                  <p className="text-xs text-gray-400 mt-1.5 max-w-xs leading-normal mx-auto">
+                  <h4 className="font-bold text-stone-900 mt-4 text-[15px]">Our blender is waiting!</h4>
+                  <p className="text-xs text-stone-500 mt-1.5 max-w-xs leading-normal mx-auto font-medium">
                     Your cart is completely empty. Head into our fresh menu options and add natural boosters to personalize your order.
                   </p>
                   <button
                     onClick={onClose}
-                    className="mt-6 bg-[#1A1A1A] hover:bg-[#38A325] text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                    className="mt-6 bg-[#121212] hover:bg-[#38A325] text-white px-6 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-xs"
                   >
                     Start Browsing
                   </button>
@@ -276,45 +289,64 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                   {/* Cart items list */}
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                        Selected Juices ({cartItems.length})
+                      <span className="text-xs font-bold text-stone-850 flex items-center gap-1.5">
+                        <Leaf className="w-4 h-4 text-[#38A325] fill-[#38A325]/10 shrink-0" />
+                        <span>Selected Juices</span>
                       </span>
                       <button
                         onClick={onClearCart}
-                        className="text-xs font-bold text-red-600 hover:text-red-700 hover:underline cursor-pointer flex items-center space-x-1"
+                        className="text-xs font-bold text-stone-400 hover:text-stone-650 transition-colors flex items-center space-x-1 cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                         <span>Clear All</span>
                       </button>
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {cartItems.map((item) => (
                         <div
                           key={item.id}
-                          className="bg-white border border-[#1A1A1A]/10 p-2.5 rounded-xl flex items-center justify-between gap-2.5 transition-all hover:border-[#1A1A1A]/20"
+                          className="bg-white border border-stone-100 p-3 rounded-2xl flex items-start justify-between gap-3 transition-all hover:shadow-xs"
                         >
                           {/* Left Item Graphic */}
-                          <div className="w-9 h-9 rounded-lg bg-[#EFECE5]/55 select-none flex items-center justify-center text-xl shrink-0">
-                            {item.menuItem.icon}
-                          </div>
+                          {item.menuItem.image ? (
+                            <img
+                              src={item.menuItem.image}
+                              className="w-14 h-14 rounded-2xl object-cover shrink-0 bg-stone-50 border border-stone-100 shadow-2xs"
+                              alt={item.menuItem.name}
+                              referrerPolicy="no-referrer"
+                            />
+                          ) : (
+                            <div className="w-14 h-14 rounded-2xl bg-[#EFECE5]/55 select-none flex items-center justify-center text-2xl shrink-0 border border-stone-100">
+                              {item.menuItem.icon}
+                            </div>
+                          )}
 
-                          {/* Center meta Details */}
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-bold text-xs text-[#1A1A1A] truncate leading-tight">
-                              {item.menuItem.name}
-                            </h4>
-                            <p className="font-mono text-[11px] font-bold text-[#38A325] mt-0.5">
-                              ₹{item.finalPrice}
+                          {/* Details Content */}
+                          <div className="flex-1 min-w-0 text-left">
+                            <div className="flex items-start justify-between gap-1">
+                              <h4 className="font-extrabold text-[13px] text-stone-900 leading-snug">
+                                {item.menuItem.name}
+                              </h4>
+                              <button
+                                onClick={() => onRemoveItem(item.id)}
+                                className="text-stone-300 hover:text-stone-500 p-0.5 rounded-md transition-colors cursor-pointer mt-0.5 shrink-0"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+
+                            <p className="text-[11px] text-stone-400 mt-0.5 font-semibold leading-tight">
+                              {getShortDescription(item.menuItem.description)}
                             </p>
                             
                             {/* Customizable additives lists */}
                             {item.customIngredients && item.customIngredients.length > 0 && (
-                              <div className="flex flex-wrap gap-1 mt-1">
+                              <div className="flex flex-wrap gap-1 mt-1.5">
                                 {item.customIngredients.map((ing, k) => (
                                   <span
                                     key={k}
-                                    className="bg-[#EFECE5]/40 text-[#1A1A1A]/70 text-[9px] font-medium px-1.5 py-0.5 rounded border border-[#1A1A1A]/5"
+                                    className="bg-neutral-50 text-stone-600 text-[9px] font-semibold px-2 py-0.5 rounded-lg border border-stone-100"
                                   >
                                     {ing}
                                   </span>
@@ -322,105 +354,111 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                               </div>
                             )}
 
-                            {/* Quantity togglers */}
-                            <div className="flex items-center space-x-1.5 mt-1">
-                              <button
-                                onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                                className="p-0.5 bg-[#F9F8F4] hover:bg-[#EFECE5] rounded text-gray-400 transition-colors cursor-pointer"
-                              >
-                                <Minus className="w-2.5 h-2.5" />
-                              </button>
-                              <span className="w-4 text-center text-[10px] font-extrabold text-gray-800">
-                                {item.quantity}
+                            {/* Quantity and Price Row */}
+                            <div className="flex items-center justify-between mt-2.5">
+                              <div className="flex items-center space-x-3 bg-stone-100/65 rounded-full px-2 py-0.5">
+                                <button
+                                  onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                                  className="w-5 h-5 rounded-full bg-white flex items-center justify-center border border-stone-100/40 hover:bg-stone-50 shadow-2xs transition-colors cursor-pointer"
+                                >
+                                  <Minus className="w-2.5 h-2.5 text-stone-500" />
+                                </button>
+                                <span className="w-4 text-center text-xs font-black text-stone-850">
+                                  {item.quantity}
+                                </span>
+                                <button
+                                  onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                                  className="w-5 h-5 rounded-full bg-white flex items-center justify-center border border-stone-100/40 hover:bg-stone-50 shadow-2xs transition-colors cursor-pointer"
+                                >
+                                  <Plus className="w-2.5 h-2.5 text-stone-500" />
+                                </button>
+                              </div>
+                              <span className="font-extrabold text-[13.5px] text-[#1E4620]">
+                                ₹{item.finalPrice * item.quantity}
                               </span>
-                              <button
-                                onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                                className="p-0.5 bg-[#F9F8F4] hover:bg-[#EFECE5] rounded text-gray-400 transition-colors cursor-pointer"
-                              >
-                                <Plus className="w-2.5 h-2.5" />
-                              </button>
                             </div>
 
                           </div>
-
-                          {/* Absolute Delete single item button */}
-                          <button
-                            onClick={() => onRemoveItem(item.id)}
-                            className="text-gray-300 hover:text-red-550 p-1 rounded-md transition-colors cursor-pointer mt-0.5 shrink-0"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Delivery Location & Field Detail inputs */}
-                  <div className="border-t border-gray-105 pt-5 space-y-3 text-left">
-                    <span className="text-xs font-bold text-[#1A1A1A]/80 uppercase tracking-widest flex items-center space-x-1.5">
+                  {/* Delivery Details & Form input fields */}
+                  <div className="border-t border-stone-100 pt-5 space-y-3 text-left">
+                    <span className="text-xs font-bold text-stone-850 uppercase tracking-widest flex items-center space-x-1.5">
                       <Compass className="w-4 h-4 text-[#38A325] shrink-0" />
-                      <span>Delivery Details &amp; Address</span>
+                      <span>Delivery &amp; Address</span>
                     </span>
 
-                    <div className="space-y-2.5">
-                      <input
-                        type="text"
-                        placeholder="Your Name (e.g. Name)"
-                        value={customerName}
-                        onChange={(e) => setCustomerName(e.target.value)}
-                        className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
-                        required
-                      />
+                    <div className="space-y-3">
+                      {/* Name input */}
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                        <input
+                          type="text"
+                          placeholder="Your Name"
+                          value={customerName}
+                          onChange={(e) => setCustomerName(e.target.value)}
+                          className="w-full text-xs pl-11 pr-4 py-3.5 border border-neutral-200/90 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] focus:outline-none bg-white placeholder:text-stone-400 text-stone-800 font-medium transition-all"
+                          required
+                        />
+                      </div>
 
-                      <input
-                        type="tel"
-                        placeholder="WhatsApp Number"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
-                        required
-                      />
+                      {/* WhatsApp number */}
+                      <div className="relative">
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                        <input
+                          type="tel"
+                          placeholder="WhatsApp Number"
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                          className="w-full text-xs pl-11 pr-4 py-3.5 border border-neutral-200/90 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] focus:outline-none bg-white placeholder:text-stone-400 text-stone-800 font-medium transition-all"
+                          required
+                        />
+                      </div>
 
-                      <textarea
-                        placeholder="Complete Street Address, Wing/Flat No, Landmark next to..."
-                        value={addressDetails}
-                        onChange={(e) => setAddressDetails(e.target.value)}
-                        rows={2}
-                        className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 placeholder:text-gray-400"
-                        required
-                      />
+                      {/* Complete Address */}
+                      <div className="relative">
+                        <MapPin className="absolute left-4 top-[18px] w-4 h-4 text-stone-400" />
+                        <textarea
+                          placeholder="Complete Street Address, Wing/Flat, Landmark..."
+                          value={addressDetails}
+                          onChange={(e) => setAddressDetails(e.target.value)}
+                          rows={2}
+                          className="w-full text-xs pl-11 pr-4 py-3.5 border border-neutral-200/90 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] focus:outline-none bg-white placeholder:text-stone-400 text-stone-800 font-medium resize-none leading-relaxed transition-all"
+                          required
+                        />
+                      </div>
 
-                      {/* Delivery Date & Time Slot Column */}
-                      <div className="grid grid-cols-2 gap-2.5">
-                        <div className="space-y-1">
-                          <label className="text-[10px] font-black uppercase tracking-wider text-neutral-400 pl-1 block text-left">
-                            Delivery Date
-                          </label>
+                      {/* Delivery Date & Time */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="relative">
                           <input
                             type="date"
                             value={deliveryDate}
                             onChange={(e) => setDeliveryDate(e.target.value)}
                             min={new Date().toISOString().split("T")[0]}
-                            className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 cursor-pointer text-left"
+                            className="w-full text-xs pl-4 pr-10 py-3.5 border border-neutral-200/90 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] focus:outline-none bg-white text-stone-800 font-medium cursor-pointer transition-all"
                             required
                           />
+                          <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-[10px] font-black uppercase tracking-wider text-neutral-400 pl-1 block text-left">
-                            Delivery Time
-                          </label>
+
+                        <div className="relative">
                           <select
                             value={deliveryTime}
                             onChange={(e) => setDeliveryTime(e.target.value)}
-                            className="w-full text-xs p-3.5 border border-[#1A1A1A]/10 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-[#F9F8F4]/50 cursor-pointer text-left"
+                            className="w-full text-xs pl-4 pr-10 py-3.5 border border-neutral-200/90 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:border-[#38A325] focus:outline-none bg-white text-stone-800 font-medium appearance-none cursor-pointer transition-all"
                             required
                           >
-                            <option value="Morning (08:00 AM - 11:00 AM)">Morning (08:00 AM - 11:00 AM)</option>
-                            <option value="Noon (11:00 AM - 02:00 PM)">Noon (11:00 AM - 02:00 PM)</option>
-                            <option value="Afternoon (02:00 PM - 05:00 PM)">Afternoon (02:00 PM - 05:00 PM)</option>
-                            <option value="Evening (05:00 PM - 08:00 PM)">Evening (05:00 PM - 08:00 PM)</option>
+                            <option value="Morning (08:00 AM - 11:00 AM)">Morning</option>
+                            <option value="Noon (11:00 AM - 02:00 PM)">Noon</option>
+                            <option value="Afternoon (02:00 PM - 05:00 PM)">Afternoon</option>
+                            <option value="Evening (05:00 PM - 08:00 PM)">Evening</option>
                             <option value="Custom Time">Custom Time...</option>
                           </select>
+                          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                         </div>
                       </div>
 
@@ -435,7 +473,7 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                             placeholder="e.g., 04:30 PM, or As soon as possible"
                             value={customTime}
                             onChange={(e) => setCustomTime(e.target.value)}
-                            className="w-full text-xs p-3.5 border border-[#38A325]/30 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-white placeholder:text-gray-400 text-left"
+                            className="w-full text-xs p-3.5 border border-[#38A325]/30 rounded-2xl focus:ring-1 focus:ring-[#38A325] focus:outline-none bg-white placeholder:text-gray-400 text-stone-800 font-medium text-left"
                             required
                           />
                         </div>
@@ -443,22 +481,22 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                     </div>
                   </div>
                 </>
-            )}
+              )}
             </div>
 
             {/* Checkout Sticky Bottom Section */}
             {cartItems.length > 0 && (
-              <div className="p-5 border-t border-[#1A1A1A]/10 bg-gradient-to-t from-[#F2FAED] to-white space-y-4">
+              <div className="p-5 border-t border-stone-100 bg-white space-y-4 shrink-0">
                 
                 {/* Calculations summary lines */}
-                <div className="space-y-2 text-xs">
-                  <div className="flex justify-between text-gray-500">
-                    <span>Items Total Subtotal:</span>
-                    <span className="font-semibold text-gray-800">₹{totalBeforePromo}</span>
+                <div className="space-y-3.5 text-xs text-stone-500 font-medium">
+                  <div className="flex justify-between items-center px-1">
+                    <span>Subtotal</span>
+                    <span className="font-extrabold text-stone-850 text-[13px]">₹{totalBeforePromo}</span>
                   </div>
 
                   {appliedCoupon && (
-                    <div className="flex flex-col gap-1.5 bg-[#38A325]/5 p-2.5 rounded-xl border border-[#38A325]/10 text-[#38A325]">
+                    <div className="flex flex-col gap-1 bg-[#38A325]/5 p-2.5 rounded-xl border border-[#38A325]/10 text-[#38A325]">
                       <div className="flex justify-between font-bold">
                         <span>Applied Offer:</span>
                         <span>{appliedCoupon.label}</span>
@@ -472,48 +510,65 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                     </div>
                   )}
 
-                  <div className="flex justify-between text-gray-500">
-                    <div>
-                      <span>Pune Express Delivery:</span>
-                      {isFreeDelivery && (
-                        <span className="text-[9px] text-[#38A325] font-bold ml-1.5 uppercase bg-[#38A325]/10 px-1.5 py-0.5 rounded-md border border-[#38A325]/10">
-                          Free
-                        </span>
-                      )}
-                    </div>
-                    <span className="font-semibold text-gray-800">
+                  <div className="flex justify-between items-center px-1">
+                    <span>Express Delivery</span>
+                    <span className="font-extrabold text-stone-850 text-[13px]">
                       {isFreeDelivery ? "₹0" : `₹${deliveryCharge}`}
                     </span>
                   </div>
 
-                  {!isFreeDelivery && (
-                    <p className="text-[10px] text-amber-600 font-bold leading-normal">
-                      Add ₹{199 - totalBeforePromo} more of booster items to unlock FREE Pune Delivery!
-                    </p>
-                  )}
+                  {/* Progress Banner card */}
+                  <div className="bg-[#F6FAF7] border border-[#1E4620]/5 p-3.5 rounded-2xl">
+                    <div className="flex justify-between items-center text-[11px] font-bold text-stone-700 mb-2">
+                      <div className="flex items-center gap-1.5 text-stone-800">
+                        <Truck className="w-4 h-4 text-[#38A325]" />
+                        <span>
+                          {isFreeDelivery 
+                            ? "You have unlocked FREE delivery!" 
+                            : `₹${199 - totalBeforePromo} away from FREE delivery`
+                          }
+                        </span>
+                      </div>
+                      <span className="text-stone-400">
+                        {isFreeDelivery ? "100%" : `${Math.round(Math.min(100, (totalBeforePromo / 199) * 100))}%`}
+                      </span>
+                    </div>
+                    
+                    {/* Progress Bar Track & Fill */}
+                    <div className="w-full h-1.5 bg-[#E2ECE5] rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-[#38A325] rounded-full transition-all duration-500 ease-out" 
+                        style={{ width: `${Math.min(100, (totalBeforePromo / 199) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
 
-                  <div className="h-px bg-gray-200 my-2" />
-
-                  <div className="flex justify-between text-sm items-center">
-                    <span className="font-bold uppercase tracking-wider text-xs text-[#1A1A1A]">Total Payable Amount:</span>
-                    <span className="text-2xl font-sans font-extrabold text-[#38A325]">
-                      ₹{payableAmount.toFixed(0)}
-                    </span>
+                  {/* Total Payable Row */}
+                  <div className="flex justify-between items-center py-2.5 px-1 border-t border-b border-stone-100 my-4">
+                    <span className="font-black text-stone-900 text-[13px] uppercase tracking-wider">Total Payable</span>
+                    <div className="flex items-center gap-1.5 text-[#38A325]">
+                      <Clock className="w-4 h-4" />
+                      <span className="text-2xl font-black tracking-tight">
+                        ₹{payableAmount.toFixed(0)}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 {/* Confirm & checkout button */}
                 <button
                   onClick={handleCheckoutWhatsAppSubmit}
-                  className="w-full bg-[#1A1A1A] hover:bg-[#38A325] text-white py-4 rounded-xl font-bold text-xs uppercase tracking-widest cursor-pointer shadow-md flex items-center justify-center space-x-2 transition-transform active:scale-98"
+                  className="w-full bg-[#121212] hover:bg-black text-white p-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider cursor-pointer shadow-lg flex items-center justify-between transition-all active:scale-[0.99] group"
                 >
-                  <svg
-                    className="w-4 h-4 fill-current mr-1"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
-                  </svg>
-                  <span>Send Order On WhatsApp</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center text-[#121212] transition-colors shrink-0 shadow-2xs">
+                      <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                      </svg>
+                    </div>
+                    <span className="font-extrabold text-[13px] tracking-wide">Send Order on WhatsApp</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 mr-3 transition-transform group-hover:translate-x-1" />
                 </button>
 
               </div>
