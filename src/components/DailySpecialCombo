@@ -226,12 +226,6 @@ export default function DailySpecialCombo({ onAddToCartDirectly }: DailySpecialC
                   <span className="text-2xl font-black font-mono text-neutral-900">
                     ₹{combo.price}
                   </span>
-                  <span className="text-xs text-neutral-450 font-bold line-through font-mono">
-                    ₹{combo.originalPrice}
-                  </span>
-                  <span className="text-[9.5px] font-extrabold text-[#38A325] bg-[#38A325]/10 px-1.5 py-0.2 rounded font-sans leading-none">
-                    Save ₹{combo.originalPrice - combo.price}
-                  </span>
                 </div>
               </div>
 
@@ -263,4 +257,5 @@ export default function DailySpecialCombo({ onAddToCartDirectly }: DailySpecialC
     </div>
   );
 }
+
 
