@@ -4,6 +4,16 @@ import { motion, AnimatePresence } from "motion/react";
   import { MENU_ITEMS } from "../data";
   import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, ChevronDown, Check, MessageSquare, ShieldCheck, Truck } from "lucide-react";
 
+ // @ts-ignore
+  import WeeklyFruitJuiceMockup from "../assets/images/weekly_fruit_juice.png";
+  // @ts-ignore
+  import FrescoWellnessMockup from "../assets/images/fresco_wellness_flatlay.png";
+  // @ts-ignore
+  import WeightLossMockup from "../assets/images/weight_loss.png";
+  // @ts-ignore
+  import HeroHealthySelection from "../assets/images/hero_healthy_selection.png";
+
+
   // @ts-ignore
   import DetoxBodyImg from "../assets/images/Detox-Body.png";
   // @ts-ignore
@@ -48,9 +58,12 @@ import { motion, AnimatePresence } from "motion/react";
   // @ts-ignore
   import GutResetImg from "../assets/images/Gut-Reset.png";
 
-  interface SubscriptionSectionProps {
+interface SubscriptionSectionProps {
     onAddToCartDirectly: (item: MenuItem) => void;
     onAddBulkToCartDirectly: (items: MenuItem[]) => void;
+    cartItems?: CartItem[];
+    onUpdateCartQuantity?: (cartId: string, quantity: number) => void;
+    onRemoveCartItem?: (cartId: string) => void;
   }
 
   const JUICE_OPTIONS = MENU_ITEMS.filter(item =>
@@ -75,8 +88,43 @@ import { motion, AnimatePresence } from "motion/react";
       desc: item.description
     }));
 
-  export default function SubscriptionSection({ onAddToCartDirectly, onAddBulkToCartDirectly }: SubscriptionSectionProps) {
-    const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "custom" | null>("monthly");
+  const LeafSVG = ({ className }: { className?: string }) => (
+    <svg
+      className={className}
+      viewBox="0 0 100 100"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Elegant branch line */}
+      <path
+        d="M30 85C45 70 52 45 55 15"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+      />
+      {/* Left Leaflets */}
+      <path d="M42 65C30 63 18 70 12 66C20 57 35 58 42 65Z" fill="currentColor" />
+      <path d="M46 50C35 45 25 50 18 45C27 38 38 41 46 50Z" fill="currentColor" />
+      <path d="M50 35C40 28 32 32 26 26C34 22 43 26 50 35Z" fill="currentColor" />
+      {/* Right Leaflets */}
+      <path d="M44 73C54 75 64 68 70 71C62 77 50 75 44 73Z" fill="currentColor" />
+      <path d="M48 57C58 59 66 52 72 54C64 60 54 59 48 57Z" fill="currentColor" />
+      <path d="M51 41C61 40 68 33 74 35C67 40 58 41 51 41Z" fill="currentColor" />
+      <path d="M54 25C62 21 66 14 71 16C66 21 60 23 54 25Z" fill="currentColor" />
+    </svg>
+  );
+
+  export default function SubscriptionSection({
+    onAddToCartDirectly,
+    onAddBulkToCartDirectly,
+    cartItems = [],
+    onUpdateCartQuantity,
+    onRemoveCartItem
+  }: SubscriptionSectionProps) {
+    const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "custom" | null>("weekly");
+    const [selectedWeeklyPlanId, setSelectedWeeklyPlanId] = useState<"fresco" | "fruit" | "fatburn">("fresco");
+    const [selectedWeeklyDayIndex, setSelectedWeeklyDayIndex] = useState<number>(0);
     const [showSubscriptionSuccess, setShowSubscriptionSuccess] = useState<string | null>(null);
     const [showSubscriptionItems, setShowSubscriptionItems] = useState(true);
 
@@ -106,14 +154,6 @@ import { motion, AnimatePresence } from "motion/react";
       }
     };
 
-    // Interactive Onboarding Profile Modal
-    const [showProfileModal, setShowProfileModal] = useState(false);
-    const [profileForm, setProfileForm] = useState({
-      name: "",
-      phone: "",
-      location: "Pune",
-      address: ""
-    });
     const [pendingPlan, setPendingPlan] = useState<any>(null);
     const [showTerminateConfirm, setShowTerminateConfirm] = useState(false);
 
@@ -201,58 +241,6 @@ import { motion, AnimatePresence } from "motion/react";
       };
     }, []);
 
-    const handleSaveProfile = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!profileForm.name.trim() || !profileForm.phone.trim() || !profileForm.address.trim()) {
-        alert("Please enter Name, Phone/WhatsApp, and Delivery Address to continue.");
-        return;
-      }
-
-      const finalPlanDetails = {
-        ...pendingPlan,
-        customerName: profileForm.name.trim(),
-        customerPhone: profileForm.phone.trim(),
-        customerLocation: "Pune",
-        customerAddress: profileForm.address.trim()
-      };
-
-      // Extract temporary checkout helpers
-      const { bulkItems, singleItem, whatsappText, isWhatsApp, customWhatsAppTemplate, ...cleanPlan } = finalPlanDetails;
-
-      // Set active plan!
-      updateActivePlan(cleanPlan);
-
-      // Add items directly to cart state
-      if (bulkItems) {
-        onAddBulkToCartDirectly(bulkItems);
-      }
-      if (singleItem) {
-        onAddToCartDirectly(singleItem);
-      }
-
-      setShowProfileModal(false);
-      setPendingPlan(null);
-
-      // Show custom success screen with plan name
-      setShowSubscriptionSuccess(cleanPlan.name);
-
-      setTimeout(() => {
-        let coreMessage = "";
-        if (customWhatsAppTemplate) {
-          coreMessage = customWhatsAppTemplate;
-        } else if (whatsappText) {
-          coreMessage = whatsappText;
-        } else {
-          coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo HealthrCaft. Please activate my cycle dispatch immediately!`;
-        }
-
-        const textWithUser = `*Hello FresCo HealthCraft! I'd like to place an order:* 🥤\n\n${coreMessage}\n\n*My Delivery Address Profile*:\n👤 Name: ${profileForm.name.trim()}\n📞 WhatsApp: ${profileForm.phone.trim()}\n🛵 Address: ${profileForm.address.trim()}\n\nPlease dispatch this subscription directly to my doorstep!`;
-        const encodedText = encodeURIComponent(textWithUser);
-        window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
-        setShowSubscriptionSuccess(null);
-      }, 1200);
-    };
-
     // Selected daily customization options for Monday to Saturday (allowing multiple selection)
     const [customDays, setCustomDays] = useState<Record<string, { juiceIds: string[]; snackIds: string[] }>>({
       sub_monday: { juiceIds: [], snackIds: [] },
@@ -315,7 +303,7 @@ import { motion, AnimatePresence } from "motion/react";
       };
     };
 
-    const weeklyPlans: WeeklyCyclePlanItem[] = [
+     const weeklyPlans: WeeklyCyclePlanItem[] = [
         {
         id: "sub_monday",
         name: "Detox Monday",
@@ -324,11 +312,12 @@ import { motion, AnimatePresence } from "motion/react";
         image2: SproutsBowlImg,
         subtitle: "Detox Body Drink + Sprouts Bowl",
         tags: ["Value Pack", "Immunity"],
-        price: 178,
+        price: 164,
+        originalPrice: 178,
         bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
         accentColor: "#10b981"
       },
-      {
+     {
         id: "sub_tuesday",
         name: "Immunity Tuesday",
         icon: "🛡️",
@@ -336,7 +325,8 @@ import { motion, AnimatePresence } from "motion/react";
         image2: ClassicDelightCupImg,
         subtitle: "Immunity Booster Drink+ Classic Delight Cup",
         tags: ["Detox", "Full Day"],
-        price: 178,
+        price: 164,
+        originalPrice: 178,
         bgColor: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10 hover:border-amber-500/30 text-amber-800",
         accentColor: "#f59e0b"
       },
@@ -348,7 +338,8 @@ import { motion, AnimatePresence } from "motion/react";
         image2: ProteinPowerCupImg,
         subtitle: "Vital Energy Drink + Protein Packed Cup",
         tags: ["Detox", "Full Day"],
-        price: 218,
+        price: 201,
+        originalPrice: 218,
         bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-800",
         accentColor: "#ef4444"
       },
@@ -360,7 +351,8 @@ import { motion, AnimatePresence } from "motion/react";
         image2: ExoticDelightCupImg,
         subtitle: "Skin Glow-up Drink + Exotic Delight Cup",
         tags: ["Detox", "Full Day"],
-        price: 198,
+        price: 182,
+        originalPrice: 198,
         bgColor: "bg-fuchsia-100/40 hover:bg-fuchsia-100/70 border-fuchsia-400/10 hover:border-fuchsia-400/30 text-fuchsia-800",
         accentColor: "#d946ef"
       },
@@ -372,7 +364,8 @@ import { motion, AnimatePresence } from "motion/react";
         image2: PaneerSproutsBowlImg,
         subtitle: "Fat Burner Drink + 30G Protein Paneer Bowl",
         tags: ["Active High", "Low Carb"],
-        price: 198,
+        price: 182,
+        originalPrice: 198,
         bgColor: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10 hover:border-blue-500/30 text-blue-800",
         accentColor: "#3b82f6"
       },
@@ -384,7 +377,8 @@ import { motion, AnimatePresence } from "motion/react";
         image2: EnergyBoostShakeImg,
         subtitle: "ABC Drink + Energy Boost Shake",
         tags: ["Weekend Prep", "Hydration"],
-        price: 238,
+        price: 219,
+        originalPrice: 238,
         bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
         accentColor: "#8b5cf6"
       }
@@ -398,7 +392,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: OrangeJuiceImg,
         image2: OrangeJuiceImg,
         subtitle: "Fresh Sweet Orange Juice",
-        price: 79,
+        price: 73,
+        originalPrice: 79,
         bgColor: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10 hover:border-amber-500/30 text-amber-800",
         accentColor: "#f59e0b"
       },
@@ -410,7 +405,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: PineappleJuiceImg,
         image2: PineappleJuiceImg,
         subtitle: "Bromelain-Rich Refreshing Pineapple Juice",
-        price: 69,
+        price: 64,
+        originalPrice: 69,
         bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
         accentColor: "#eab308"
       },
@@ -421,7 +417,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: MosambiJuiceImg,
         image2: MosambiJuiceImg,
         subtitle: "Sweet Lime Natural Immunity Extract",
-        price: 69,
+        price: 64,
+        originalPrice: 69,
         bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
         accentColor: "#10b981"
       },
@@ -432,7 +429,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: AppleJuiceImg,
         image2: AppleJuiceImg,
         subtitle: "Provides hydration and essential nutrients.",
-        price: 79,
+        price: 73,
+        originalPrice: 79,
         bgColor: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10 hover:border-rose-500/30 text-rose-800",
         accentColor: "#f43f5e"
       },
@@ -443,7 +441,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: PapayaJuiceImg,
         image2: PapayaJuiceImg,
         subtitle: "Rich in digestive enzymes and nutrients.",
-        price: 69,
+        price: 64,
+        originalPrice: 69,
         bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
         accentColor: "#8b5cf6"
       },
@@ -454,7 +453,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: PomegranateJuiceImg,
         image2: PomegranateJuiceImg,
         subtitle: "Rich in antioxidants, helping support heart health and overall wellness.",
-        price: 149,
+        price: 137,
+        originalPrice: 149,
         bgColor: "bg-purple-500/5 hover:bg-purple-500/10 border-purple-500/10 hover:border-purple-500/30 text-purple-800",
         accentColor: "#8b5cf6"
       }
@@ -468,7 +468,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: FatBurnerImg,
         image2: chickenPowerBowlImg,
         subtitle: "Fat Burner Juice + 35g Protein Chicken Bowl",
-        price: 198,
+        price: 182,
+        originalPrice: 198,
         bgColor: "bg-emerald-500/5 hover:bg-emerald-500/10 border-emerald-500/10 hover:border-emerald-500/30 text-emerald-800",
         accentColor: "#10b981"
       },
@@ -479,7 +480,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: DetoxBodyImg,
         image2: SproutsBowlImg,
         subtitle: "Detox Body Juice + Sprout Bowl",
-        price: 178,
+        price: 164,
+        originalPrice: 178,
         bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
         accentColor: "#eab308"
       },
@@ -490,7 +492,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: GutResetImg,
         image2: PaneerSproutsBowlImg,
         subtitle: "Gut Reset Juice + 30G Protein Paneer Bowl",
-        price: 218,
+        price: 201,
+        originalPrice: 218,
         bgColor: "bg-green-500/5 hover:bg-green-500/10 border-green-500/10 hover:border-green-500/30 text-green-800",
         accentColor: "#22c55e"
       },
@@ -501,7 +504,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: FatBurnerImg,
         image2: chickenPowerBowlImg,
         subtitle: "Fat Burner Juice + 35g Protein Chicken Bowl",
-        price: 178,
+        price: 164,
+        originalPrice: 178,
         bgColor: "bg-orange-500/5 hover:bg-orange-500/10 border-orange-500/10 hover:border-orange-500/30 text-orange-800",
         accentColor: "#f97316"
       },
@@ -512,7 +516,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: DetoxBodyImg,
         image2: SproutsBowlImg,
         subtitle: "Detox Body Juice + Sprout Bowl",
-        price: 178,
+        price: 164,
+        originalPrice: 178,
         bgColor: "bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/10 hover:border-yellow-500/30 text-yellow-800",
         accentColor: "#eab308"      
       },
@@ -523,7 +528,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: ABCDriknImg,
         image2: ProteinPowerCupImg,
         subtitle: "ABC Juice + Power Packed Cup",
-        price: 218,
+        price: 201,
+        originalPrice: 218,
         bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
         accentColor: "#ef4444"
       },
@@ -534,7 +540,8 @@ import { motion, AnimatePresence } from "motion/react";
         image1: GutResetImg,
         image2: PaneerSproutsBowlImg,
         subtitle: "Gut Reset Juice + 30G Protein Paneer Bowl",
-        price: 198,
+        price: 182,
+        originalPrice: 198,
         bgColor: "bg-red-500/5 hover:bg-red-500/10 border-red-500/10 hover:border-red-500/30 text-red-100",
         accentColor: "#ef4444"
       }
@@ -545,46 +552,53 @@ import { motion, AnimatePresence } from "motion/react";
         id: "month_green_taster",
         name: "Daily Fresh Wellness Plan",
         icon: "🌿",
-        subtitle: "30 Days of Fresh Nutrition",
+        subtitle: "Complete 30-Day Nutrition Journey",
         deliveries: "30 deliveries / month (Free Delivery)",
-        savings: "Save ₹518 off standard menu",
-        price: 4222,
+        savings: "Save ₹983 off standard retail menu",
+        price: 7359,
+        originalPrice: 7999,
+        image: WeightLossMockup,
         benefits: [
-          "🍹 30 Fresh Juices",
-          "🥗 15 Sprouts Bowls + 15 Classic Delight Cups",
-          "🌿 Supports Natural Detox",
-          "💪 Rich in Vitamins & Minerals",
+          "🍹 Daily Juice",
+          "🥗 Daily Sprouts Bowl",
+          "🍓 Daily Premium Fruit Cup",
+          "💪 Weekly Power Packed Cup",
+          "🥣 Weekly Paneer Bowl",
+          "📱  WhatsApp Support",
           "🚚 Free Delivery",
-          "📱  WhatsApp Support"
+          "⭐ Priority Order Handling",
+          "📅 Pause or Reschedule Anytime"
         ],
         popular: false,
         bgColor: "bg-white",
         accentColor: "#38A325",
-        whatsappText: "Hi! I want to subscribe to the Daily fresh plan (₹4222) on FresCo HealthCraft."
+        whatsappText: "Hi! I want to subscribe to the Daily Fresh Wellness Plan (₹7359) on FresCo HealthCraft."
       },
       {
         id: "month_balanced_cleanse",
         name: "Protein Power Plan",
         icon: "💪",
-        subtitle: "30 Days of Strength & Wellness",
+        subtitle: "Complete 30-Day Nutrition Journey",
         deliveries: "30 deliveries / month (Free Delivery)",
-        savings: "Save ₹683 off standard menu",
-        price: 8777,
+        savings: "Save ₹983 off standard retail menu",
+        price: 7359,
+        originalPrice: 7999,
+        image: FrescoWellnessMockup,
         benefits: [
-          "🥣 30 30G Protein Paneer Bowl",
-          "🍓 26 Power Packed Cups",
-          "🍍 Premium Fruit Cup Every Sunday",
-          "⚡ High Protein & Fiber",
-          "🚚 Priority Morning Delivery",
-          "⏸  Pause Anytime",
-          "📱  Priority WhatsApp Support",
-          "💪 Rich in Omega-3, Vitamins, and Minerals",
-          
+          "🍹 Daily Juice",
+          "🥗 Daily Sprouts Bowl",
+          "🍓 Daily Premium Fruit Cup",
+          "💪 Weekly Power Packed Cup",
+          "🥣 Weekly Paneer Bowl",
+          "📱  WhatsApp Support",
+          "🚚 Free Delivery",
+          "⭐ Priority Order Handling",
+          "📅 Pause or Reschedule Anytime"
         ],
         popular: true,
         bgColor: "bg-gradient-to-b from-white to-[#38A325]/5",
         accentColor: "#38A325",
-        whatsappText: "Hi! I want to subscribe to the protein power plan (₹5799) on FresCo HealthCraft."
+        whatsappText: "Hi! I want to subscribe to the Protein Power Plan (₹7359) on FresCo HealthCraft."
       },
       {
         id: "month_wellness_overhaul",
@@ -593,7 +607,9 @@ import { motion, AnimatePresence } from "motion/react";
     subtitle: "Complete 30-Day Nutrition Journey",
         deliveries: "30 deliveries / month (Free Delivery)",
         savings: "Save ₹983 off standard retail menu",
-        price: 7999 ,
+        price: 7359,
+        originalPrice: 7999,
+        image: HeroHealthySelection,
         benefits: [
           "🍹 Daily Juice",
           "🥗 Daily Sprouts Bowl",
@@ -608,7 +624,7 @@ import { motion, AnimatePresence } from "motion/react";
         popular: false,
         bgColor: "bg-white",
         accentColor: "#F26419",
-        whatsappText: "Hi! I want to subscribe to the full Ultimate Wellness Elite Plan (₹7481) on FresCo HealthCraft."
+        whatsappText: "Hi! I want to subscribe to the full Ultimate Wellness Elite Plan (₹7359) on FresCo HealthCraft."
       }
     ];
 
@@ -626,17 +642,63 @@ import { motion, AnimatePresence } from "motion/react";
     };
 
     const promptRegistrationForPlan = (planData: any, options?: { bulkItems?: MenuItem[], singleItem?: MenuItem, isWhatsApp?: boolean, whatsappText?: string, customWhatsAppTemplate?: string }) => {
-      setPendingPlan({
+      let savedUser: any = null;
+      try {
+        const u = localStorage.getItem("fresco_logged_in_user");
+        if (u) savedUser = JSON.parse(u);
+      } catch (e) {}
+
+      const name = savedUser?.name || activePlan?.customerName || "Subscriber";
+      const phone = savedUser?.phone || activePlan?.customerPhone || "";
+      const address = savedUser?.address || activePlan?.customerAddress || "";
+
+      const finalPlanDetails = {
         ...planData,
-        ...options
-      });
-      setProfileForm({
-        name: activePlan?.customerName || "Enter your name",
-        phone: activePlan?.customerPhone || "Contact Number",
-        location: "Pune",
-        address: activePlan?.customerAddress || "Enter Address"
-      });
-      setShowProfileModal(true);
+        ...options,
+        customerName: name,
+        customerPhone: phone,
+        customerLocation: "Pune",
+        customerAddress: address
+      };
+
+      // Extract temporary checkout helpers
+      const { bulkItems, singleItem, whatsappText, isWhatsApp, customWhatsAppTemplate, ...cleanPlan } = finalPlanDetails;
+
+      // Set active plan!
+      updateActivePlan(cleanPlan);
+
+      // Add items directly to cart state
+      if (bulkItems) {
+        onAddBulkToCartDirectly(bulkItems);
+      }
+      if (singleItem) {
+        onAddToCartDirectly(singleItem);
+      }
+
+      // If it's a WhatsApp flow, or they requested whatsapp
+      if (isWhatsApp || customWhatsAppTemplate || whatsappText) {
+        let coreMessage = "";
+        if (customWhatsAppTemplate) {
+          coreMessage = customWhatsAppTemplate;
+        } else if (whatsappText) {
+          coreMessage = whatsappText;
+        } else {
+          coreMessage = `Hi! I want to subscribe to ${cleanPlan.name} (Price: ₹${cleanPlan.price}) on FresCo HealthrCaft. Please activate my cycle dispatch immediately!`;
+        }
+
+        const textWithUser = `*Hello FresCo HealthCraft! I'd like to place an order:* 🥤\n\n${coreMessage}${phone ? `\n\n*My Delivery Address Profile*:\n👤 Name: ${name}\n📞 WhatsApp: ${phone}\n🛵 Address: ${address}` : ""}\n\nPlease dispatch this subscription!`;
+        const encodedText = encodeURIComponent(textWithUser);
+        
+        // Open WhatsApp
+        window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
+      }
+
+      // Show custom success screen with plan name
+      setShowSubscriptionSuccess(cleanPlan.name);
+
+      setTimeout(() => {
+        setShowSubscriptionSuccess(null);
+      }, 2500);
     };
 
     const handleAddAllWeeklyDays = () => {
@@ -652,7 +714,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_nutrient",
         name: "FrsCo 6-Day Wellness Cycle",
         type: "weekly",
-        price: 1199,
+        price: 1103,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -686,7 +748,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_fruit_juice",
         name: "weekly fruit juice",
         type: "weekly",
-        price: 469,
+        price: 431,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -708,7 +770,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_fat_burn",
         name: "7 days weight loss transformation",
         type: "weekly",
-        price: 1666,
+        price: 1533,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -751,10 +813,8 @@ import { motion, AnimatePresence } from "motion/react";
       return customCycleType === "monthly" ? subtotal * 4 : subtotal;
     };
 
-    const customDiscountPercentage = 8;
     const customSubtotal = calculateCustomSubtotal();
-    const customSavings = Math.round(customSubtotal * (customDiscountPercentage / 100));
-    const customFinalPrice = customSubtotal - customSavings;
+    const customFinalPrice = Math.round(customSubtotal * 0.92);
 
     const handleAddCustomPlanToCart = () => {
       const scheduleSummary = Object.keys(customDays).map(dayId => {
@@ -796,7 +856,7 @@ import { motion, AnimatePresence } from "motion/react";
         return `- ${day}: ${juicesStr || "None"} + ${snacksStr || "None"}`;
       }).join("\n");
 
-      const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo HealthrCaft.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nSubtotal: ₹${customSubtotal}\nDiscount (${customDiscountPercentage}%): -₹${customSavings}\nTotal Payable: ₹${customFinalPrice}`;
+      const message = `Hi! I want to activate a Custom ${customCycleType === "monthly" ? "Monthly (24-Day)" : "Weekly (6-Day)"} Wellness Plan of ₹${customFinalPrice} on FresCo HealthrCaft.\n\nMy Custom Schedule:\n${scheduleDetails}\n\nTotal Payable: ₹${customFinalPrice}`;
 
       promptRegistrationForPlan({
         id: `custom_plan_${customCycleType}`,
@@ -892,20 +952,18 @@ import { motion, AnimatePresence } from "motion/react";
     const handleSendActivePlanWhatsApp = () => {
       if (!activePlan) return;
       
-      if (!activePlan.customerName) {
-        setPendingPlan(activePlan);
-        setProfileForm({
-          name: "",
-          phone: "",
-          location: "Pune",
-          address: ""
-        });
-        setShowProfileModal(true);
-        return;
-      }
+      let savedUser: any = null;
+      try {
+        const u = localStorage.getItem("fresco_logged_in_user");
+        if (u) savedUser = JSON.parse(u);
+      } catch (e) {}
 
-      const { name, type, price, customerName, customerPhone, customerAddress } = activePlan;
-      const message = `*Hello FresCo HealthCraft! I'd like to place an order:* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${name}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${customerName}\n📞 WhatsApp: ${customerPhone}\n🛵 Address: ${customerAddress}\n\nPlease dispatch this subscription directly to my doorstep!`;
+      const name = savedUser?.name || activePlan.customerName || "Subscriber";
+      const phone = savedUser?.phone || activePlan.customerPhone || "";
+      const address = savedUser?.address || activePlan.customerAddress || "";
+
+      const { name: planName, type, price } = activePlan;
+      const message = `*Hello FresCo HealthCraft! I'd like to place an order:* \n\nI just selected and activated this Subscription Plan on the website!\n\n📋 *Subscription Plan:* ${planName}\n💳 *Billing Cycle:* ${type === "monthly" ? "Monthly" : "Weekly"}\n💰 *Price:* ₹${price}\n📍 *Status:* Active / Confirmed\n\n👤 *Subscriber Delivery Profile*:\n👤 Name: ${name}${phone ? `\n📞 WhatsApp: ${phone}` : ""}${address ? `\n🛵 Address: ${address}` : ""}\n\nPlease dispatch this subscription directly!`;
 
       const encodedText = encodeURIComponent(message);
       window.open(`https://wa.me/918983363146?text=${encodedText}`, "_blank");
@@ -945,9 +1003,9 @@ import { motion, AnimatePresence } from "motion/react";
       } else if (val === "month_green_taster") {
         planData = {
           id: "month_green_taster",
-          name: "7-Days Weight Loss Transformation",
+          name: "Daily Fresh Wellness Plan",
           type: "monthly",
-          price: 4023,
+          price: 7359,
           startDate: new Date().toISOString().split("T")[0],
           renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
           deliveriesCompleted: 0,
@@ -957,9 +1015,9 @@ import { motion, AnimatePresence } from "motion/react";
       } else if (val === "month_balanced_cleanse") {
         planData = {
           id: "month_balanced_cleanse",
-          name: "Daily Fresh Wellness Plan",
+          name: "Protein Power Plan",
           type: "monthly",
-          price: 6242,
+          price: 7359,
           startDate: new Date().toISOString().split("T")[0],
           renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
           deliveriesCompleted: 0,
@@ -969,9 +1027,9 @@ import { motion, AnimatePresence } from "motion/react";
       } else if (val === "month_wellness_overhaul") {
         planData = {
           id: "month_wellness_overhaul",
-          name: "Protein Power Plan",
+          name: "Ultimate Wellness Elite Plan",
           type: "monthly",
-          price: 7481,
+          price: 7359,
           startDate: new Date().toISOString().split("T")[0],
           renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
           deliveriesCompleted: 0,
@@ -1007,58 +1065,53 @@ import { motion, AnimatePresence } from "motion/react";
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
-          {/* Subscription Badge */}
-          <div className="inline-flex items-center justify-center text-white bg-[#F26419] px-6 py-2.5 rounded-full text-xs sm:text-sm font-black uppercase tracking-widest mb-4 shadow-xs">
-            Wellness Subscriptions Plan's
+          {/* Elegant Heading strictly matching the shared image */}
+          <div className="pt-6 pb-2">
+            <h2 className="font-serif text-[28px] sm:text-[34px] md:text-[38px] text-[#1E4620] font-medium tracking-normal leading-tight">
+              Choose Your Wellness Journey
+            </h2>
+            <p className="mt-2 text-[#1A1A1A]/60 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed font-sans font-medium">
+              Transform your daily wellness and save big with scheduled raw nourishment.
+              Freshly prepared and delivered daily.
+            </p>
           </div>
-
-          {/* Dynamic Headings */}
-          <p className="mt-2 mb-4 text-[#1A1A1A]/75 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
-            Transform your daily wellness and save big with scheduled raw nourishment.
-            <br />
-            Freshly prepared and delivered daily to your doorstep.
-          </p>
 
           <div id="explore-plans-container" className="scroll-mt-24">
-            {/* Tabs for switching between Weekly and Monthly subscriptions (Matched to user visual references) */}
-            <div className="mt-5 mb-6 flex justify-center">
-            <div className="bg-[#EFECE5] p-1 rounded-3xl sm:rounded-full inline-flex flex-col sm:flex-row gap-1 border border-[#1A1A1A]/5 shadow-inner">
-              <button
-                onClick={() => setActiveTab("weekly")}
-                className={`py-1.5 px-4 sm:px-6 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
-                  activeTab === "weekly"
-                    ? "bg-[#38A325] text-white shadow-md font-extrabold"
-                    : "text-[#1A1A1A]/70 hover:text-[#1A1A1A]"
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Weekly Subscription Plan</span>
-              </button>
-              <button
-                onClick={() => setActiveTab("monthly")}
-                className={`py-1.5 px-4 sm:px-6 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
-                  activeTab === "monthly"
-                    ? "bg-[#38A325] text-white shadow-md font-extrabold"
-                    : "text-[#1A1A1A]/70 hover:text-[#1A1A1A]"
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Monthly Subscription Plan</span>
-              </button>
-              <button
-                onClick={() => setActiveTab("custom")}
-                className={`py-1.5 px-4 sm:px-6 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center space-x-1.5 ${
-                  activeTab === "custom"
-                    ? "bg-[#38A325] text-white shadow-md font-extrabold"
-                    : "text-[#1A1A1A]/70 hover:text-[#1A1A1A]"
-                }`}
-              >
-                <Sliders className="w-3.5 h-3.5" />
-                <span>Customize Your Plan</span>
-                <span className="bg-[#F26419]/95 text-white text-[7px] font-black px-1.5 py-0.5 rounded ml-1 tracking-widest leading-none">BUILDER</span>
-              </button>
+            {/* Tabs for switching between Weekly, Monthly and Custom subscriptions (Styled exactly as per shared image) */}
+            <div className="mt-5 mb-8 flex justify-center">
+              <div className="bg-[#FAF8F5]/90 backdrop-blur-md p-1.5 rounded-full inline-flex flex-row items-center gap-1.5 border border-stone-200/40 shadow-[inset_0_1px_3px_rgba(0,0,0,0.02)]">
+                <button
+                  onClick={() => setActiveTab("weekly")}
+                  className={`py-2 px-6 sm:px-8 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer flex items-center justify-center space-x-1.5 ${
+                    activeTab === "weekly"
+                      ? "bg-[#2E7D32] text-white shadow-[0_4px_16px_rgba(46,125,50,0.35)] font-bold"
+                      : "text-[#2E3A2F]/80 hover:text-[#2E7D32] hover:bg-stone-100/50"
+                  }`}
+                >
+                  <span>Weekly</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("monthly")}
+                  className={`py-2 px-6 sm:px-8 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer flex items-center justify-center space-x-1.5 ${
+                    activeTab === "monthly"
+                      ? "bg-[#2E7D32] text-white shadow-[0_4px_16px_rgba(46,125,50,0.35)] font-bold"
+                      : "text-[#2E3A2F]/80 hover:text-[#2E7D32] hover:bg-stone-100/50"
+                  }`}
+                >
+                  <span>Monthly</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("custom")}
+                  className={`py-2 px-6 sm:px-8 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer flex items-center justify-center space-x-1.5 ${
+                    activeTab === "custom"
+                      ? "bg-[#2E7D32] text-white shadow-[0_4px_16px_rgba(46,125,50,0.35)] font-bold"
+                      : "text-[#2E3A2F]/80 hover:text-[#2E7D32] hover:bg-stone-100/50"
+                  }`}
+                >
+                  <span>Customize</span>
+                </button>
+              </div>
             </div>
-          </div>
 
           <AnimatePresence mode="wait">
             {activeTab === null && (
@@ -1088,337 +1141,294 @@ import { motion, AnimatePresence } from "motion/react";
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3 }}
-                className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4 px-2"
+                className="max-w-6xl mx-auto px-2"
               >
-                {/* Card 1: Standard 6-Day Nutrient Cycle Schedule */}
-                <div className="bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4.5 shadow-sm text-left flex flex-col justify-between h-full">
-                  <div>
-                    {/* Master Header */}
-                    <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-2xl select-none">🌱</span>
+                {/* Plan Selector Buttons at the top */}
+                <div className="flex flex-wrap justify-center gap-2 mb-8 max-w-xl mx-auto">
+                  <button
+                    onClick={() => { setSelectedWeeklyPlanId("fresco"); setSelectedWeeklyDayIndex(0); }}
+                    className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer border ${
+                      selectedWeeklyPlanId === "fresco"
+                        ? "bg-[#1E4620]/10 text-[#1E4620] border-[#1E4620]/30 shadow-xs"
+                        : "text-[#1A1A1A]/60 hover:text-[#1A1A1A] bg-[#FAF8F5]/80 border-stone-200"
+                    }`}
+                  >
+                    <span>🌿 6-Day Wellness Cycle</span>
+                  </button>
+                  <button
+                    onClick={() => { setSelectedWeeklyPlanId("fruit"); setSelectedWeeklyDayIndex(0); }}
+                    className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer border ${
+                      selectedWeeklyPlanId === "fruit"
+                        ? "bg-[#1E4620]/10 text-[#1E4620] border-[#1E4620]/30 shadow-xs"
+                        : "text-[#1A1A1A]/60 hover:text-[#1A1A1A] bg-[#FAF8F5]/80 border-stone-200"
+                    }`}
+                  >
+                    <span>🍹 Weekly Fruit Juice</span>
+                  </button>
+                  <button
+                    onClick={() => { setSelectedWeeklyPlanId("fatburn"); setSelectedWeeklyDayIndex(0); }}
+                    className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer border ${
+                      selectedWeeklyPlanId === "fatburn"
+                        ? "bg-[#1E4620]/10 text-[#1E4620] border-[#1E4620]/30 shadow-xs"
+                        : "text-[#1A1A1A]/60 hover:text-[#1A1A1A] bg-[#FAF8F5]/80 border-stone-200"
+                    }`}
+                  >
+                    <span>🔥 7-Day Weight Loss</span>
+                  </button>
+                </div>
+
+                {(() => {
+                  const activePlanDetails = {
+                    fresco: {
+                      title: "FresCo 6-Day Wellness Cycle",
+                      subtitle: "A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.",
+                      price: 1103,
+                      originalPrice: 1199,
+                      showcaseImg: FrescoWellnessMockup,
+                      icon: "🌿",
+                      onSubscribe: handleAddAllWeeklyDays,
+                      days: [
+                        { dayLabel: "MONDAY", shortName: "Detox", emoji: "🍃", bgClass: "bg-[#F4F9F2]", borderClass: "border-green-100/60", labelColorClass: "text-[#4C9E2F]", leafColorClass: "text-[#4C9E2F]/8", iconBgClass: "bg-green-100/30", subtitle: "Detox Body Drink + Sprouts Bowl" },
+                        { dayLabel: "TUESDAY", shortName: "Immunity", emoji: "🍊", bgClass: "bg-[#FFF6F0]", borderClass: "border-orange-100/80", labelColorClass: "text-[#ED8B42]", leafColorClass: "text-[#ED8B42]/8", iconBgClass: "bg-orange-100/30", subtitle: "Immunity Booster Drink + Classic Delight Cup" },
+                        { dayLabel: "WEDNESDAY", shortName: "Energy", emoji: "⚡", bgClass: "bg-[#FFFDF0]", borderClass: "border-amber-100/80", labelColorClass: "text-[#D4A300]", leafColorClass: "text-[#D4A300]/8", iconBgClass: "bg-amber-100/30", subtitle: "Vital Energy Drink + Protein Packed Cup" },
+                        { dayLabel: "THURSDAY", shortName: "Glow", emoji: "☀️", bgClass: "bg-[#FFF5F6]", borderClass: "border-rose-100/80", labelColorClass: "text-[#ED5353]", leafColorClass: "text-[#ED5353]/8", iconBgClass: "bg-rose-100/30", subtitle: "Skin Glow-up Drink + Exotic Delight Cup" },
+                        { dayLabel: "FRIDAY", shortName: "Fitness", emoji: "💪", bgClass: "bg-[#EEF7F5]", borderClass: "border-teal-100/60", labelColorClass: "text-[#2E8B75]", leafColorClass: "text-[#2E8B75]/8", iconBgClass: "bg-teal-100/40", subtitle: "Fat Burner Drink + 30G Protein Paneer Bowl" },
+                        { dayLabel: "SATURDAY", shortName: "Refresh", emoji: "🍇", bgClass: "bg-[#FAF2FA]", borderClass: "border-purple-100/60", labelColorClass: "text-[#7A1FA2]", leafColorClass: "text-[#7A1FA2]/8", iconBgClass: "bg-purple-100/40", subtitle: "ABC Drink + Energy Boost Shake" }
+                      ]
+                    },
+                    fruit: {
+                      title: "Weekly Fruit Juice",
+                      subtitle: "A curated Monday-to-Saturday pure organic fresh juices.",
+                      price: 431,
+                      originalPrice: 469,
+                      showcaseImg: WeeklyFruitJuiceMockup,
+                      icon: "🍹",
+                      onSubscribe: handleAddAllFruitJuiceDays,
+                      days: [
+                        { dayLabel: "MONDAY", shortName: "Orange", emoji: "🍊", bgClass: "bg-[#FFF6F0]", borderClass: "border-orange-100/80", labelColorClass: "text-[#ED8B42]", leafColorClass: "text-[#ED8B42]/8", iconBgClass: "bg-orange-100/30", hasBigImg: true, subtitle: "Fresh Sweet Orange Juice" },
+                        { dayLabel: "TUESDAY", shortName: "Pineapple", emoji: "🍍", bgClass: "bg-[#FFFDF0]", borderClass: "border-amber-100/80", labelColorClass: "text-[#C19302]", leafColorClass: "text-[#C19302]/8", iconBgClass: "bg-amber-100/30", hasBigImg: true, subtitle: "Bromelain-Rich Refreshing Pineapple Juice" },
+                        { dayLabel: "WEDNESDAY", shortName: "Mosambi", emoji: "🍋", bgClass: "bg-[#F3FAF2]", borderClass: "border-emerald-100/50", labelColorClass: "text-[#529E3C]", leafColorClass: "text-[#529E3C]/8", iconBgClass: "bg-emerald-100/30", hasBigImg: true, subtitle: "Sweet Lime Natural Immunity Extract" },
+                        { dayLabel: "THURSDAY", shortName: "Apple", emoji: "🍎", bgClass: "bg-[#FFF5F6]", borderClass: "border-rose-100/80", labelColorClass: "text-[#D32F2F]", leafColorClass: "text-[#D32F2F]/8", iconBgClass: "bg-rose-100/30", hasBigImg: true, subtitle: "Provides hydration and essential nutrients" },
+                        { dayLabel: "FRIDAY", shortName: "Papaya", emoji: "🍑", bgClass: "bg-[#FFF7F2]", borderClass: "border-orange-100/70", labelColorClass: "text-[#ED8B42]", leafColorClass: "text-[#ED8B42]/8", iconBgClass: "bg-orange-100/20", hasBigImg: true, subtitle: "Rich in digestive enzymes and nutrients" },
+                        { dayLabel: "SATURDAY", shortName: "Pomegranate", emoji: "🍇", bgClass: "bg-[#FAF2F5]", borderClass: "border-fuchsia-100/70", labelColorClass: "text-[#AA336A]", leafColorClass: "text-[#AA336A]/8", iconBgClass: "bg-fuchsia-100/30", hasBigImg: true, subtitle: "Rich in antioxidants, helping support heart health and overall wellness" }
+                      ]
+                    },
+                    fatburn: {
+                      title: "7-Days Weight Loss Transformation",
+                      subtitle: "Scientifically curated juice & protein bowl plan to support healthy weight management.",
+                      price: 1533,
+                      originalPrice: 1666,
+                      showcaseImg: WeightLossMockup,
+                      icon: "🔥",
+                      onSubscribe: handleAddAllFatBurnDays,
+                      days: [
+                        { dayLabel: "MONDAY", shortName: "Fat Burn", emoji: "🔥", bgClass: "bg-[#FFF4F2]", borderClass: "border-rose-100/80", labelColorClass: "text-[#E14343]", leafColorClass: "text-[#E14343]/8", iconBgClass: "bg-rose-100/35", subtitle: "Fat Burner Juice + 35g Protein Chicken Bowl" },
+                        { dayLabel: "TUESDAY", shortName: "Detox", emoji: "🍃", bgClass: "bg-[#F4F9F2]", borderClass: "border-green-100/60", labelColorClass: "text-[#4C9E2F]", leafColorClass: "text-[#4C9E2F]/8", iconBgClass: "bg-green-100/30", subtitle: "Detox Body Juice + Sprout Bowl" },
+                        { dayLabel: "WEDNESDAY", shortName: "Gut Reset", emoji: "🥒", bgClass: "bg-[#FFF9F0]", borderClass: "border-amber-100/60", labelColorClass: "text-[#D4A300]", leafColorClass: "text-[#D4A300]/8", iconBgClass: "bg-amber-100/35", subtitle: "Gut Reset Juice + 30G Protein Paneer Bowl" },
+                        { dayLabel: "THURSDAY", shortName: "Fat Burn", emoji: "🔥", bgClass: "bg-[#FFF4F2]", borderClass: "border-rose-100/80", labelColorClass: "text-[#E14343]", leafColorClass: "text-[#E14343]/8", iconBgClass: "bg-rose-100/35", subtitle: "Fat Burner Juice + 35g Protein Chicken Bowl" },
+                        { dayLabel: "FRIDAY", shortName: "Fitness", emoji: "💪", bgClass: "bg-[#EEF5FC]", borderClass: "border-blue-100/60", labelColorClass: "text-[#1976D2]", leafColorClass: "text-[#1976D2]/8", iconBgClass: "bg-blue-100/40", subtitle: "Detox Body Juice + Sprout Bowl" },
+                        { dayLabel: "SATURDAY", shortName: "ABC Booster", emoji: "🍓", bgClass: "bg-[#FAF2F9]", borderClass: "border-purple-100/60", labelColorClass: "text-[#7B1FA2]", leafColorClass: "text-[#7B1FA2]/8", iconBgClass: "bg-purple-100/35", subtitle: "ABC Juice + Power Packed Cup" },
+                        { dayLabel: "SUNDAY", shortName: "Gut Reset", emoji: "🥒", bgClass: "bg-[#FFF9F0]", borderClass: "border-amber-100/60", labelColorClass: "text-[#D4A300]", leafColorClass: "text-[#D4A300]/8", iconBgClass: "bg-amber-100/35", subtitle: "Gut Reset Juice + 30G Protein Paneer Bowl" }
+                      ]
+                    }
+                  };
+
+                  const currentPlan = activePlanDetails[selectedWeeklyPlanId] || activePlanDetails.fresco;
+
+                  return (
+                    <div className="bg-[#FAF9F5] border border-stone-200/40 rounded-[36px] overflow-hidden shadow-2xl shadow-stone-900/5 text-left flex flex-col relative p-6 sm:p-8 max-w-4xl mx-auto transition-all duration-300">
+                      
+                      
+
+                      {/* Header with Circle Icon Avatar */}
+                      <div className="flex items-center gap-4.5 mb-6">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border border-stone-200/50 shadow-xs flex items-center justify-center shrink-0">
+                          <span className="text-2xl sm:text-3xl select-none">{currentPlan.icon}</span>
+                        </div>
                         <div>
-                          <h3 className="font-serif italic text-sm sm:text-base text-gray-900 font-bold leading-tight">
-                            FresCo 6-Day Wellness Cycle
+                          <h3 className="font-serif italic text-xl sm:text-2xl text-[#1A253C] font-extrabold leading-tight tracking-tight">
+                            {currentPlan.title}
                           </h3>
-                          <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-normal">
-                            A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.
+                          <p className="text-xs sm:text-sm text-stone-500 font-medium mt-1 leading-normal">
+                            {currentPlan.subtitle}
                           </p>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Internal Days Layout - Unified elegant rows inside ONE card */}
-                    <div className="divide-y divide-[#1A1A1A]/5">
-                      {weeklyPlans.map((plan) => {
-                        const { day, label } = getPlanDisplay(plan.name);
-                        return (
-                          <div
-                            key={plan.id}
-                            className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
-                          >
-                            {/* Day indicator & title */}
-                            <div className="flex items-center space-x-3 shrink-0 w-[125px] xs:w-[150px] sm:w-[170px]">
-                              {/* Two overlapping images representing the combo, or one single centered image */}
-                              <div className="relative w-11 h-11 sm:w-13 sm:h-13 shrink-0 select-none">
-                                {plan.image1 && plan.image2 && plan.image1 !== plan.image2 ? (
-                                  <>
-                                    <div className="absolute top-0 left-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm z-10 flex items-center justify-center p-0.5">
-                                      <img
-                                        src={plan.image1}
-                                        alt="item 1"
-                                        referrerPolicy="no-referrer"
-                                        className="w-full h-full rounded-full object-cover"
-                                      />
-                                    </div>
-                                    <div className="absolute bottom-0 right-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow z-0 flex items-center justify-center p-0.5">
-                                      <img
-                                        src={plan.image2}
-                                        alt="item 2"
-                                        referrerPolicy="no-referrer"
-                                        className="w-full h-full rounded-full object-cover"
-                                      />
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm flex items-center justify-center p-0.5 mx-auto">
-                                    <img
-                                      src={plan.image1}
-                                      alt="item"
-                                      referrerPolicy="no-referrer"
-                                      className="w-full h-full rounded-full object-cover"
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="min-w-0">
-                                {label ? (
-                                  <>
-                                    <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
-                                      {day}
-                                    </span>
-                                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight mt-0.5">
-                                      {label}
-                                    </h4>
-                                  </>
-                                ) : (
-                                  <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight">
-                                    {day}
-                                  </h4>
-                                )}
-                              </div>
-                            </div>
-
-                            {/* Combo details */}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-gray-650 text-xs sm:text-sm font-medium leading-normal">
-                                {plan.subtitle}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Bulk Add Action Button Container */}
-                  <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
-                    <div className="text-left font-sans">
-                      <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
-                      <div className="flex items-baseline space-x-1.5 mt-1">
-                        <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1199</span>
-                        <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1308</span>
+                      {/* Large Centerpiece Image Showcase */}
+                      <div className="relative w-full aspect-[2.1/1] rounded-[24px] overflow-hidden border border-stone-200/20 shadow-xs mb-6">
+                        <img
+                          src={currentPlan.showcaseImg}
+                          alt={currentPlan.title}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    </div>
-                    <button
-                      onClick={handleAddAllWeeklyDays}
-                      className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>Subscribe Now</span>
-                    </button>
-                  </div>
-                </div>
 
-                {/* Card 2: Weekly Fruit Juice */}
-                <div className="bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4.5 shadow-sm text-left flex flex-col justify-between h-full">
-                  <div>
-                    {/* Master Header */}
-                    <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-2xl select-none">🍹</span>
-                        <div>
-                          <h3 className="font-serif italic text-sm sm:text-base text-gray-900 font-bold leading-tight">
-                            Weekly Fruit Juice
-                          </h3>
-                          <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-normal">
-                            A curated Monday-to-Saturday pure organic fresh juices.
-                          </p>
+                      {/* Beautifully Designed Day Cards styled exactly like the shared image */}
+                      <div className="grid grid-cols-3 gap-1.5 xs:gap-3 sm:gap-4.5 my-2">
+                        {currentPlan.days.map((day, idx) => {
+                          const isFruit = selectedWeeklyPlanId === "fruit";
+                          
+                          return (
+                            <motion.div
+                              whileHover={{ y: -3, scale: 1.01 }}
+                              transition={{ duration: 0.2 }}
+                              key={idx}
+                              className={`rounded-[12px] xs:rounded-[18px] sm:rounded-[24px] p-1.5 xs:p-2.5 sm:p-4 flex flex-col xs:flex-row items-center text-center xs:text-left gap-1 xs:gap-2 sm:gap-4.5 border relative overflow-hidden transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.015)] bg-white/45 ${day.bgClass} ${day.borderClass}`}
+                            >
+                              {/* Absolute watermark leaf decoration */}
+                              <LeafSVG className={`absolute right-1 bottom-[-4px] w-10 h-10 xs:w-16 xs:h-16 sm:w-20 sm:h-20 pointer-events-none opacity-[0.14] rotate-[15deg] ${day.leafColorClass}`} />
+
+                              {/* Left Icon Display */}
+                              {isFruit ? (
+                                <div className="text-xl xs:text-2.5xl sm:text-4.5xl select-none shrink-0 transform -rotate-12 transition-transform hover:rotate-0 duration-300 drop-shadow-xs">
+                                  {day.emoji}
+                                </div>
+                              ) : (
+                                <div className={`w-6 h-6 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shrink-0 border border-white/60 shadow-[0_2px_10px_rgba(0,0,0,0.03)] ${day.iconBgClass}`}>
+                                  <span className="text-xs xs:text-base sm:text-2xl select-none">{day.emoji}</span>
+                                </div>
+                              )}
+
+                              {/* Text Block */}
+                              <div className="flex-1 min-w-0 z-10 w-full text-left">
+                                <span className={`text-[7px] xs:text-[8px] sm:text-[9.5px] uppercase tracking-[0.05em] xs:tracking-[0.1em] sm:tracking-[0.12em] font-extrabold block leading-none mb-1 xs:mb-1.5 ${day.labelColorClass}`}>
+                                  {day.dayLabel}
+                                </span>
+                                <h4 className="text-stone-900 font-black text-[10px] xs:text-[12.5px] sm:text-[15.5px] tracking-tight leading-tight">
+                                  {day.shortName}
+                                </h4>
+                                {day.subtitle && (
+                                  <p className="text-[7.5px] xs:text-[9.5px] sm:text-[11px] text-stone-500 font-medium mt-0.5 xs:mt-1 leading-normal line-clamp-2">
+                                    {day.subtitle}
+                                  </p>
+                                )}
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Separator line */}
+                      <div className="w-full h-[1px] bg-stone-200/40 my-6" />
+
+                      {/* Footer Actions Panel */}
+                      <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
+                        <div className="text-left shrink-0">
+                          <span className="text-[10px] uppercase tracking-widest text-stone-400 font-extrabold block leading-none">COMBO PRICE:</span>
+                          <div className="flex items-baseline gap-2 mt-2">
+                            <span className="text-2xl sm:text-3xl font-black text-[#2B6323] leading-none">
+                              ₹{currentPlan.price}
+                            </span>
+                            {currentPlan.originalPrice && (
+                              <span className="text-stone-400 line-through text-sm sm:text-base font-semibold leading-none">
+                                ₹{currentPlan.originalPrice}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col items-center sm:items-end w-full sm:w-auto">
+                          {(() => {
+                            const planItemMap: Record<string, MenuItem> = {
+                              fresco: {
+                                id: "sub_weekly_nutrient",
+                                name: "FrsCo 6-Day Wellness Cycle",
+                                price: 1103,
+                                category: "Subscription Plans",
+                                description: "A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.",
+                                icon: "🌿"
+                              },
+                              fruit: {
+                                id: "sub_weekly_fruit_juice",
+                                name: "Weekly Fruit Juice",
+                                price: 431,
+                                category: "Subscription Plans",
+                                description: "A curated Monday-to-Saturday pure organic fresh juices.",
+                                icon: "🍹"
+                              },
+                              fatburn: {
+                                id: "sub_weekly_fat_burn",
+                                name: "7 Days Weight Loss Transformation",
+                                price: 1533,
+                                category: "Subscription Plans",
+                                description: "A high-efficacy 7-day caloric deficit fresh nutrition plan designed to boost metabolic activity.",
+                                icon: "🔥"
+                              }
+                            };
+
+                            const matchingItem = planItemMap[selectedWeeklyPlanId];
+                            const existingCartItem = cartItems.find(
+                              (c) => c.menuItem.id === matchingItem.id && (!c.customIngredients || c.customIngredients.length === 0)
+                            );
+
+                            if (existingCartItem) {
+                              return (
+                                <div className="w-full sm:w-[240px] flex items-center justify-between bg-[#F1F6F2] text-[#1E4620] border border-[#1E4620]/30 rounded-full h-[48px] px-2 select-none transition-all duration-300">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (existingCartItem.quantity > 1) {
+                                        onUpdateCartQuantity?.(existingCartItem.id, existingCartItem.quantity - 1);
+                                      } else {
+                                        onRemoveCartItem?.(existingCartItem.id);
+                                      }
+                                    }}
+                                    className="w-9 h-9 flex items-center justify-center bg-white border border-[#1E4620]/25 hover:bg-[#1E4620]/10 rounded-full text-[#1E4620] cursor-pointer transition-colors active:scale-95 shadow-xs"
+                                    title="Decrease Quantity"
+                                  >
+                                    <Minus className="w-4 h-4" strokeWidth={3} />
+                                  </button>
+                                  
+                                  <div className="flex flex-col items-center justify-center">
+                                    <span className="text-[12px] font-black tracking-wider uppercase text-[#1E4620]">
+                                      {existingCartItem.quantity} Added
+                                    </span>
+                                  </div>
+
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onAddToCartDirectly(matchingItem);
+                                    }}
+                                    className="w-9 h-9 flex items-center justify-center bg-white border border-[#1E4620]/25 hover:bg-[#1E4620]/10 rounded-full text-[#1E4620] cursor-pointer transition-colors active:scale-95 shadow-xs"
+                                    title="Increase Quantity"
+                                  >
+                                    <Plus className="w-4 h-4" strokeWidth={3} />
+                                  </button>
+                                </div>
+                              );
+                            }
+
+                            return (
+                              <button
+                                onClick={() => onAddToCartDirectly(matchingItem)}
+                                className="w-full sm:w-auto bg-gradient-to-r from-[#2B6323] to-[#1E4620] hover:from-[#35752C] hover:to-[#2B6323] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider py-3.5 px-10 rounded-full shadow-md shadow-green-900/10 hover:shadow-lg hover:shadow-green-900/15 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer border border-white/10"
+                              >
+                                <svg 
+                                  className="w-4 h-4 text-white/90" 
+                                  fill="none" 
+                                  stroke="currentColor" 
+                                  strokeWidth="2.5" 
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                <span>ADD TO CART</span>
+                              </button>
+                            );
+                          })()}
+                          <span className="text-[9px] text-stone-400 hover:text-stone-600 block mt-2 underline cursor-pointer">
+                            Terms & Conditions Apply
+                          </span>
                         </div>
                       </div>
+
                     </div>
+                  );
+                })()}
 
-                    {/* Internal Days Layout - Pure juices elegant rows */}
-                    <div className="divide-y divide-[#1A1A1A]/5">
-                      {fruitJuicePlans.map((plan) => {
-                        const { day, label } = getPlanDisplay(plan.name);
-                        return (
-                          <div
-                            key={plan.id}
-                            className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
-                          >
-                            {/* Day indicator & title */}
-                            <div className="flex items-center space-x-3 shrink-0 w-[125px] xs:w-[150px] sm:w-[170px]">
-                              {/* Two overlapping images representing the combo, or one single centered image */}
-                              <div className="relative w-11 h-11 sm:w-13 sm:h-13 shrink-0 select-none">
-                                {plan.image1 && plan.image2 && plan.image1 !== plan.image2 ? (
-                                  <>
-                                    <div className="absolute top-0 left-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm z-10 flex items-center justify-center p-0.5">
-                                      <img
-                                        src={plan.image1}
-                                        alt="item 1"
-                                        referrerPolicy="no-referrer"
-                                        className="w-full h-full rounded-full object-cover"
-                                      />
-                                    </div>
-                                    <div className="absolute bottom-0 right-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow z-0 flex items-center justify-center p-0.5">
-                                      <img
-                                        src={plan.image2}
-                                        alt="item 2"
-                                        referrerPolicy="no-referrer"
-                                        className="w-full h-full rounded-full object-cover"
-                                      />
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm flex items-center justify-center p-0.5 mx-auto">
-                                    <img
-                                      src={plan.image1}
-                                      alt="item"
-                                      referrerPolicy="no-referrer"
-                                      className="w-full h-full rounded-full object-cover"
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="min-w-0">
-                                {label ? (
-                                  <>
-                                    <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
-                                      {day}
-                                    </span>
-                                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight mt-0.5">
-                                      {label}
-                                    </h4>
-                                  </>
-                                ) : (
-                                  <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight">
-                                    {day}
-                                  </h4>
-                                )}
-                              </div>
-                            </div>
-
-                            {/* Combo details */}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-gray-650 text-xs sm:text-sm font-medium leading-normal">
-                                {plan.subtitle}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Bulk Add Action Button Container */}
-                  <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
-                    <div className="text-left font-sans">
-                      <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
-                      <div className="flex items-baseline space-x-1.5 mt-1">
-                        <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹469</span>
-                        <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹514</span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={handleAddAllFruitJuiceDays}
-                      className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>Subscribe Now</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Card 3: Weekly Fat Burn */}
-                <div className="bg-white border border-[#1A1A1A]/10 rounded-xl p-3 sm:p-4.5 shadow-sm text-left flex flex-col justify-between h-full">
-                  <div>
-                    {/* Master Header */}
-                    <div className="flex flex-row items-center justify-between border-b border-[#1A1A1A]/10 pb-2.5 mb-2.5 gap-3">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-2xl select-none">🔥</span>
-                        <div>
-                          <h3 className="font-serif italic text-sm sm:text-base text-gray-900 font-bold leading-tight">
-                            7-Days Weight Loss Transformation
-                          </h3>
-                          <p className="text-xs sm:text-sm text-gray-500 mt-0.5 leading-normal">
-                            Scientifically curated juice & protein bowl plan to support healthy weight management.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Internal Days Layout - Fat burn elegant rows */}
-                    <div className="divide-y divide-[#1A1A1A]/5">
-                      {fatBurnPlans.map((plan) => {
-                        const { day, label } = getPlanDisplay(plan.name);
-                        return (
-                          <div
-                            key={plan.id}
-                            className="py-2 flex flex-row items-center justify-between gap-3 text-left transition-all hover:bg-neutral-50/70 px-1 sm:px-2 rounded-lg"
-                          >
-                            {/* Day indicator & title */}
-                            <div className="flex items-center space-x-3 shrink-0 w-[125px] xs:w-[150px] sm:w-[170px]">
-                              {/* Two overlapping images representing the combo, or one single centered image */}
-                              <div className="relative w-11 h-11 sm:w-13 sm:h-13 shrink-0 select-none">
-                                {plan.image1 && plan.image2 && plan.image1 !== plan.image2 ? (
-                                  <>
-                                    <div className="absolute top-0 left-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm z-10 flex items-center justify-center p-0.5">
-                                      <img
-                                        src={plan.image1}
-                                        alt="item 1"
-                                        referrerPolicy="no-referrer"
-                                        className="w-full h-full rounded-full object-cover"
-                                      />
-                                    </div>
-                                    <div className="absolute bottom-0 right-0 w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full overflow-hidden bg-white border border-neutral-100 shadow z-0 flex items-center justify-center p-0.5">
-                                      <img
-                                        src={plan.image2}
-                                        alt="item 2"
-                                        referrerPolicy="no-referrer"
-                                        className="w-full h-full rounded-full object-cover"
-                                      />
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-neutral-100 shadow-sm flex items-center justify-center p-0.5 mx-auto">
-                                    <img
-                                      src={plan.image1}
-                                      alt="item"
-                                      referrerPolicy="no-referrer"
-                                      className="w-full h-full rounded-full object-cover"
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="min-w-0">
-                                {label ? (
-                                  <>
-                                    <span className="inline-block bg-[#38A325]/12 text-[#38A325] text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded font-black uppercase tracking-wider leading-none">
-                                      {day}
-                                    </span>
-                                    <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight mt-0.5">
-                                      {label}
-                                    </h4>
-                                  </>
-                                ) : (
-                                  <h4 className="font-sans text-xs sm:text-[13px] font-bold text-gray-900 leading-tight">
-                                    {day}
-                                  </h4>
-                                )}
-                              </div>
-                            </div>
-
-                            {/* Combo details */}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-gray-650 text-xs sm:text-sm font-medium leading-normal">
-                                {plan.subtitle}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Bulk Add Action Button Container */}
-                  <div className="border-t border-[#1A1A1A]/10 pt-3 mt-3 flex items-center justify-between gap-3">
-                    <div className="text-left font-sans">
-                      <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block leading-none">Combo Price</span>
-                      <div className="flex items-baseline space-x-1.5 mt-1">
-                        <span className="text-sm sm:text-lg font-extrabold text-[#38A325] leading-none">₹1666</span>
-                        <span className="text-[13px] text-gray-400 line-through leading-none font-medium">₹1806</span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={handleAddAllFatBurnDays}
-                      className="bg-[#38A325] hover:bg-[#2F891F] active:scale-95 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all duration-300 shadow-xs hover:shadow-sm flex items-center justify-center space-x-1.5 cursor-pointer shrink-0"
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>Subscribe Now</span>
-                    </button>
-                  </div>
-                </div>
               </motion.div>
             )}
 
@@ -1432,93 +1442,205 @@ import { motion, AnimatePresence } from "motion/react";
                 transition={{ duration: 0.3 }}
                 className="space-y-4"
               >
-                {/* Monthly Packages layout with highlights and custom benefits checklist */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 max-w-5xl mx-auto text-left">
-                  {monthlySubscriptions.map((sub) => (
-                    <motion.div
-                      whileHover={{ y: -3 }}
-                      transition={{ duration: 0.2 }}
-                      key={sub.id}
-                      className={`rounded-xl p-3 sm:p-3.5 border hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative ${sub.bgColor} ${
-                        sub.popular 
-                          ? "border-[#38A325] shadow-md ring-2 ring-[#38A325]/10" 
-                          : "border-[#1A1A1A]/10 shadow-sm"
-                      }`}
-                    >
-                      {/* Popular Badge recommendation */}
-                      {sub.popular && (
-                        <span className="absolute -top-2 right-3 bg-[#38A325] text-white text-[7px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest shadow-md">
-                          Best Seller
-                        </span>
-                      )}
+                {/* Monthly Packages layout matching shared mockup image */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-5xl mx-auto text-left">
+                  {monthlySubscriptions.map((sub) => {
+                    const isCard1 = sub.id === "month_green_taster";
+                    const isCard2 = sub.id === "month_balanced_cleanse";
+                    const isCard3 = sub.id === "month_wellness_overhaul";
 
-                      <div>
-                        {/* Icon & Title */}
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg sm:text-xl select-none shrink-0">{sub.icon}</span>
-                          <div>
-                            <h3 className="font-bold text-[12px] sm:text-sm text-[#1A1A1A] leading-tight">
-                              {sub.name}
-                            </h3>
-                            <p className="text-[8px] sm:text-[9.2px] text-gray-500 font-semibold uppercase tracking-wider mt-0.5">
-                              {sub.subtitle}
-                            </p>
+                    return (
+                      <motion.div
+                        whileHover={{ y: -5 }}
+                        transition={{ duration: 0.2 }}
+                        key={sub.id}
+                        className={`rounded-3xl p-5 border bg-white shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative ${
+                          isCard2 
+                            ? "border-emerald-500/30 ring-4 ring-emerald-500/5" 
+                            : "border-stone-200/80"
+                        }`}
+                      >
+                        {/* Header for Card (above image) */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2.5">
+                            <div className="text-xl shrink-0 p-1.5 bg-amber-100/65 rounded-xl border border-amber-200/30">
+                              {sub.icon}
+                            </div>
+                            <div>
+                              <h3 className="font-extrabold text-[12.5px] text-stone-900 leading-tight">
+                                {sub.name}
+                              </h3>
+                              <p className="text-[7.5px] font-bold text-stone-400 uppercase tracking-widest mt-0.5">
+                                {sub.subtitle}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-
-                        {/* Display pricing details */}
-                        <div className="mt-2 p-2 bg-[#EFECE5]/35 rounded-lg border border-[#1A1A1A]/5 text-center">
-                          <span className="text-[8px] text-gray-400 block font-mono leading-none">Monthly Subscription Fee</span>
-                          <div className="flex items-baseline justify-center space-x-0.5 mt-0.5">
-                            <span className="text-base sm:text-lg font-sans font-extrabold text-[#1A1A1A]">₹{sub.price}</span>
-                            <span className="text-[8.5px] text-gray-500">/ month</span>
-                          </div>
-                          <span className="text-[7.5px] font-bold text-[#38A325] bg-[#38A325]/10 px-2.5 py-0.5 rounded-full inline-block mt-0.5 leading-none">
-                            {sub.savings}
-                          </span>
-                        </div>
-
-                        {/* Details block */}
-                        <div className="mt-2.5 space-y-2 font-medium text-[9px] sm:text-[10px] text-gray-600">
-                          <p className="font-bold text-[7.5px] uppercase text-[#1A1A1A]/40 tracking-wider">
-                            Deliveries frequency:
-                          </p>
-                          <p className="text-[#1A1A1A] font-bold flex items-center gap-1 bg-[#38A325]/5 py-1 px-2.5 rounded-md border border-[#38A325]/15 text-[9px]">
-                            <Calendar className="w-3 h-3 text-[#38A325]" />
-                            <span>{sub.deliveries}</span>
-                          </p>
                           
-                          <p className="font-bold text-[7.5px] uppercase text-[#1A1A1A]/40 tracking-wider pt-0.5">
-                            Exclusive Benefits:
-                          </p>
-                          <ul className="space-y-1 text-[8.5px] sm:text-[9.5px]">
-                            {sub.benefits.map((b, i) => (
-                              <li key={i} className="flex items-start text-[#1A1A1A]/85">
-                                <span className="leading-tight">{b}</span>
-                              </li>
-                            ))}
-                          </ul>
+                          {/* Best Seller Badge for Card 2 */}
+                          {isCard2 && (
+                            <span className="bg-[#2E7D32] text-white text-[7px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm border border-[#38A325]/20">
+                              Best Seller
+                            </span>
+                          )}
                         </div>
-                      </div>
 
-                      {/* Subscription verification activator trigger button */}
-                      <div className="mt-3 pt-2 border-t border-[#1A1A1A]/5">
-                        <button
-                          onClick={() => handleMonthlySubscribe(sub)}
-                          className={`w-full py-1.5 sm:py-2 rounded-lg font-bold text-[8.5px] sm:text-[9px] uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center space-x-1 shadow-sm ${
-                            sub.popular
-                              ? "bg-[#38A325] hover:bg-[#38A325]/95 text-white"
-                              : "bg-[#1A1A1A] hover:bg-[#38A325] text-white"
-                          }`}
-                        >
-                          <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
-                            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
-                          </svg>
-                          <span>Activate via WhatsApp</span>
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
+                        {/* Image Block */}
+                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-stone-200/50 mb-3.5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.05)] bg-stone-100">
+                          <img
+                            src={sub.image}
+                            alt={sub.name}
+                            referrerPolicy="no-referrer"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+
+                        {/* Title, Pricing and Save Badge section */}
+                        <div className="flex-1 flex flex-col">
+                          <div className="mt-1">
+                            <div className="flex items-baseline space-x-1.5">
+                              <span className="text-2.5xl font-black text-stone-950">₹{sub.price}</span>
+                              {sub.originalPrice && (
+                                <span className="text-stone-400 line-through text-sm font-semibold">₹{sub.originalPrice}</span>
+                              )}
+                              <span className="text-[11px] font-bold text-stone-400">/month</span>
+                            </div>
+                          </div>
+
+                          {/* Save off standard menu green tag */}
+                          <div className="mt-2.5">
+                            <span className="inline-flex items-center gap-1 bg-[#E8F5E9] text-[#2E7D32] text-[9.5px] font-bold px-2.5 py-1 rounded-md leading-none border border-emerald-100">
+                              <span>✓</span> {sub.savings}
+                            </span>
+                          </div>
+
+                          {/* Deliveries Frequency Section */}
+                          <div className="mt-4">
+                            <p className="text-[8px] uppercase font-extrabold text-stone-400 tracking-wider mb-1.5">
+                              Deliveries Frequency:
+                            </p>
+                            <div className="flex items-center gap-2 bg-[#E8F5E9]/20 border border-[#2E7D32]/10 py-2 px-3 rounded-xl text-[9.5px] font-bold text-stone-800 shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]">
+                              <Calendar className="w-3.5 h-3.5 text-[#2E7D32] shrink-0" />
+                              <span>{sub.deliveries}</span>
+                            </div>
+                          </div>
+
+                          {/* Exclusive Benefits Block */}
+                          <div className="mt-4 flex-1 flex flex-col justify-start">
+                            <p className="text-[8px] uppercase font-extrabold text-stone-400 tracking-wider mb-2">
+                              Exclusive Benefits:
+                            </p>
+                            <ul className="space-y-1.5 text-[10.5px] font-medium text-stone-700">
+                              {sub.benefits.map((b, idx) => {
+                                const firstEmoji = b.split(" ")[0];
+                                const restText = b.replace(firstEmoji, "").trim();
+                                return (
+                                  <li key={idx} className="flex items-start gap-2">
+                                    <span className="text-xs shrink-0 select-none mt-0.5">{firstEmoji}</span>
+                                    <span className="leading-normal font-sans text-stone-700 font-semibold">{restText}</span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        </div>
+
+                        {/* Button Block */}
+                        <div className="mt-5 pt-3 border-t border-stone-100 space-y-2">
+                          {(() => {
+                            const matchingItem: MenuItem = {
+                              id: sub.id,
+                              name: sub.name,
+                              price: sub.price,
+                              category: "Subscription Plans",
+                              description: sub.subtitle,
+                              icon: sub.icon,
+                              image: sub.image
+                            };
+
+                            const existingCartItem = cartItems.find(
+                              (c) => c.menuItem.id === sub.id && (!c.customIngredients || c.customIngredients.length === 0)
+                            );
+
+                            if (existingCartItem) {
+                              return (
+                                <div className="w-full flex items-center justify-between bg-[#F1F6F2] text-[#1E4620] border border-[#1E4620]/30 rounded-xl h-[44px] px-2 select-none transition-all duration-300">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (existingCartItem.quantity > 1) {
+                                        onUpdateCartQuantity?.(existingCartItem.id, existingCartItem.quantity - 1);
+                                      } else {
+                                        onRemoveCartItem?.(existingCartItem.id);
+                                      }
+                                    }}
+                                    className="w-8 h-8 flex items-center justify-center bg-white border border-[#1E4620]/25 hover:bg-[#1E4620]/10 rounded-lg text-[#1E4620] cursor-pointer transition-colors active:scale-95 shadow-2xs"
+                                    title="Decrease Quantity"
+                                  >
+                                    <Minus className="w-3.5 h-3.5" strokeWidth={3} />
+                                  </button>
+                                  
+                                  <div className="flex flex-col items-center justify-center">
+                                    <span className="text-[11px] font-black tracking-wider uppercase text-[#1E4620]">
+                                      {existingCartItem.quantity} Added
+                                    </span>
+                                  </div>
+
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onAddToCartDirectly(matchingItem);
+                                    }}
+                                    className="w-8 h-8 flex items-center justify-center bg-white border border-[#1E4620]/25 hover:bg-[#1E4620]/10 rounded-lg text-[#1E4620] cursor-pointer transition-colors active:scale-95 shadow-2xs"
+                                    title="Increase Quantity"
+                                  >
+                                    <Plus className="w-3.5 h-3.5" strokeWidth={3} />
+                                  </button>
+                                </div>
+                              );
+                            }
+
+                            return (
+                              <button
+                                onClick={() => {
+                                  promptRegistrationForPlan({
+                                    id: sub.id,
+                                    name: sub.name,
+                                    type: "monthly",
+                                    price: sub.price,
+                                    startDate: new Date().toISOString().split("T")[0],
+                                    renewalDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+                                    deliveriesCompleted: 0,
+                                    totalDeliveries: 30,
+                                    status: "active"
+                                  }, { singleItem: matchingItem });
+                                }}
+                                className={`w-full py-2.5 px-4 rounded-xl font-bold text-[10px] sm:text-[10.5px] uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center justify-center space-x-2 shadow-xs border ${
+                                  isCard2
+                                    ? "bg-gradient-to-r from-[#2E7D32] to-[#1B5E20] hover:brightness-110 active:scale-[0.98] border-[#1B5E20]/25 text-white shadow-md shadow-emerald-900/10"
+                                    : "bg-[#111111] hover:bg-stone-900 active:scale-[0.98] border-stone-950 text-white shadow-sm"
+                                }`}
+                              >
+                                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                <span>ADD TO CART</span>
+                              </button>
+                            );
+                          })()}
+
+                          <button
+                            onClick={() => handleMonthlySubscribe(sub)}
+                            className="w-full py-2 px-4 rounded-xl font-bold text-[9.5px] uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center justify-center space-x-1.5 bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 shadow-3xs"
+                          >
+                            <svg className="w-3 h-3 fill-current text-green-600" viewBox="0 0 24 24">
+                              <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
+                            </svg>
+                            <span>WhatsApp Order</span>
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </motion.div>
             )}
@@ -1837,12 +1959,15 @@ import { motion, AnimatePresence } from "motion/react";
                       <div className="space-y-1.5 text-xs">
                         <div className="flex justify-between text-gray-300">
                           <span className="text-[10px]">Configured subtotal</span>
-                          <span className="font-mono text-[10px]">₹{customSubtotal}</span>
+                          <span className="font-mono text-[10px] line-through text-stone-500">₹{customSubtotal}</span>
                         </div>
-                        <div className="flex justify-between text-emerald-400">
-                          <span className="text-[10px] font-bold"> Discount</span>
-                          <span className="font-mono text-[10px] font-bold">-₹{customSavings}</span>
-                        </div>
+                        
+                        {customSubtotal > 0 && (
+                          <div className="flex justify-between text-[#38A325] font-bold">
+                            <span className="text-[10px]">Discount</span>
+                            <span className="font-mono text-[10px]">-₹{customSubtotal - customFinalPrice}</span>
+                          </div>
+                        )}
                         
                         <div className="border-t border-white/10 pt-2 flex justify-between items-baseline">
                           <span className="text-[10px] text-gray-400 font-bold uppercase">Total Price</span>
@@ -1852,7 +1977,7 @@ import { motion, AnimatePresence } from "motion/react";
 
                       <div className="text-[8.5px] text-gray-400 leading-relaxed pt-1 flex items-start space-x-1 border-t border-white/5">
                         <span>🛵</span>
-                        <span>Free Pune core delivery + daily doorstep schedule locks included. Cancel or reschedule days anytime.</span>
+                        <span>Free Pune core delivery + daily schedule locks included. Cancel or reschedule days anytime.</span>
                       </div>
 
                       <div className="space-y-2 pt-1 border-t border-white/10">
@@ -1865,8 +1990,10 @@ import { motion, AnimatePresence } from "motion/react";
                               : "bg-[#38A325] hover:bg-[#38A325]/95 active:scale-95 text-white cursor-pointer"
                           }`}
                         >
-                          <Calendar className="w-3 h-3" />
-                          <span>{customSubtotal === 0 ? "Select Items to Build Plan" : "Add Custom Plan"}</span>
+                          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                          </svg>
+                          <span>{customSubtotal === 0 ? "Select Items to Build Plan" : "Add to Cart"}</span>
                         </button>
                         <button
                           onClick={handleCustomWhatsAppSubscribe}
@@ -1910,96 +2037,7 @@ import { motion, AnimatePresence } from "motion/react";
             )}
           </AnimatePresence>
 
-          {/* Pune Delivery Registration / Subscriber Profile Onboarding Modal */}
-          <AnimatePresence>
-            {showProfileModal && (
-              <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                  className="bg-[#FAF9F5] border-2 border-[#38A325] max-w-md w-full rounded-3xl p-6 shadow-2xl relative text-left"
-                >
-                  <div className="flex items-start space-x-3.5 mb-4">
-                    <div className="text-3xl select-none bg-emerald-100 p-2 rounded-2xl border border-emerald-200">
-                      🛵
-                    </div>
-                    <div>
-                      <h3 className="font-serif italic font-black text-lg text-gray-950">
-                        Pune Delivery Registration
-                      </h3>
-                      <p className="text-[10.5px] text-gray-500 leading-normal mt-0.5">
-                        Register your delivery profile at the customer end to activate morning dispatches.
-                      </p>
-                    </div>
-                  </div>
 
-                  <form onSubmit={handleSaveProfile} className="space-y-4">
-                    <div>
-                      <label className="block text-[9.5px] font-bold uppercase tracking-wider text-neutral-500 font-mono mb-1">
-                        Subscriber Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={profileForm.name}
-                        onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
-                        className="w-full bg-white border border-[#1A1A1A]/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#38A325]/50 focus:border-[#38A325] font-semibold text-gray-950 shadow-2xs"
-                        placeholder="e.g. Aditi Sharma"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[9.5px] font-bold uppercase tracking-wider text-neutral-500 font-mono mb-1">
-                        WhatsApp/Contact Number *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={profileForm.phone}
-                        onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
-                        className="w-full bg-white border border-[#1A1A1A]/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#38A325]/50 focus:border-[#38A325] font-mono text-gray-950 shadow-2xs"
-                        placeholder="e.g. +91 98765 43210"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[9.5px] font-bold uppercase tracking-wider text-neutral-500 font-mono mb-1">
-                        Complete House / Flat Address *
-                      </label>
-                      <textarea
-                        required
-                        rows={2}
-                        value={profileForm.address}
-                        onChange={(e) => setProfileForm({ ...profileForm, address: e.target.value })}
-                        className="w-full bg-white border border-[#1A1A1A]/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#38A325]/50 focus:border-[#38A325] text-gray-950 shadow-2xs resize-none"
-                        placeholder="e.g. Flat 402, Green Glen Society, Baner, Pune - 411045"
-                      />
-                    </div>
-
-                    <div className="flex justify-end items-center space-x-2 pt-2 border-t border-gray-100">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setShowProfileModal(false);
-                          setPendingPlan(null);
-                        }}
-                        className="bg-neutral-100 hover:bg-neutral-200 text-neutral-600 font-bold uppercase py-2.5 px-4 rounded-xl text-[10px] tracking-wider transition-colors cursor-pointer"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className="bg-[#38A325] hover:bg-[#2F891F] text-white font-extrabold uppercase py-2.5 px-5.5 rounded-xl text-[10px] tracking-wider shadow-md transition-all cursor-pointer"
-                      >
-                        Save & Activate
-                      </button>
-                    </div>
-                  </form>
-                </motion.div>
-              </div>
-            )}
-          </AnimatePresence>
 
         </div>
       </section>
