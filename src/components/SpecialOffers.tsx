@@ -101,7 +101,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     icon: "🌱",
     image1: ABCWellnessComboImg,
     subtitle: "ABC JUICE + SPROUTS BOWL",
-    description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with a protein-rich sprouts bowl, naturally rich in vitamins, antioxidants, and fiber for complete daily wellness. Limited to a 2 | lines with a fade effect.",
+    description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with a protein-rich sprouts bowl, naturally rich in vitamins, antioxidants, and fiber for complete daily wellness.",
     originalPrice: 179,
     price: 161,
     category: "Detox & Wellness",
