@@ -111,6 +111,17 @@ import MangoChocofrostImg from "./assets/images/Mango-Chocofrost.png";
 // @ts-ignore
 import chickenPowerBowlImg from "./assets/images/Chicken-Power-Bowl.png";
 
+// @ts-ignore
+import ABCWellnessComboImg from "../assets/images/ABC_Wellness_Combo.png";
+
+// @ts-ignore
+import ImmunityShieldSpecialImg from "../assets/images/Immunity_Shield_Special.png";
+
+// @ts-ignore
+import GoldenGlowSpecialImg from "../assets/images/Golden_Glow_Special.png";
+
+// @ts-ignore
+import MuscleRefillSpecialImg from "../assets/images/Muscle_Refill_Special.png";
 
 export const MENU_CATEGORIES = [
   "Fruit Juices",
