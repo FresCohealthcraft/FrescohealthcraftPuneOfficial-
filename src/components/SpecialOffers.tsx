@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { MenuItem, CartItem } from "../types";
 import { Plus, Minus, Star, Sparkles, Flame, CheckCircle, Heart, Zap, Shield, Dumbbell, Activity, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
 
-
 // @ts-ignore
 import ABCWellnessComboImg from "../assets/images/ABC_Wellness_Combo.png";
 
@@ -56,8 +55,8 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     image1: GoldenGlowSpecialImg,
     subtitle: "SKIN GLOW-UP JUICE + POWER PACKED CUP",
     description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds & superfoods.",
-    originalPrice: 210,
-    price: 189,
+    originalPrice: 218,
+    price: 199,
     category: "Detox & Wellness",
     tag: "SKIN GLOW",
     tagIcon: "sparkles",
@@ -65,7 +64,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     reviews: "95+ orders",
     badgeColor: "bg-[#a855f7] text-white",
     saveTagColor: "bg-[#f3e8ff] text-[#a855f7] border border-[#e9d5ff]",
-    saveAmount: 21,
+    saveAmount: 19,
     savePercentText: "SAVE 10% ┘",
     imgBg: "bg-[#EAEFF2]", // soft premium cool grey/blue
     nutrientTags: [
@@ -79,7 +78,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     image1: MuscleRefillSpecialImg,
     subtitle: "FAT-BURNING + 35G PROTEIN CHICKEN BOWL",
     description: "A fitness-focused pairing of our Fat-Burning Juice and fresh high-protein Chicken Bowl, delivering protein, fiber & lasting energy.",
-    originalPrice: 329,
+    originalPrice: 318,
     price: 299,
     category: "Detox & Wellness",
     tag: "ATHLETE PICK",
@@ -88,7 +87,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     reviews: "80+ orders",
     badgeColor: "bg-[#3b82f6] text-white",
     saveTagColor: "bg-[#dbeafe] text-[#1e40af] border border-[#bfdbfe]",
-    saveAmount: 30,
+    saveAmount: 19,
     savePercentText: "SAVE 9% ┘",
     imgBg: "bg-[#E9F3EB]", // soft clean sage/green
     nutrientTags: [
@@ -102,7 +101,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     image1: ABCWellnessComboImg,
     subtitle: "ABC JUICE + SPROUTS BOWL",
     description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with a protein-rich sprouts bowl, naturally rich in vitamins, antioxidants, and fiber for complete daily wellness.",
-    originalPrice: 179,
+    originalPrice: 178,
     price: 161,
     category: "Detox & Wellness",
     tag: "POPULAR",
@@ -111,7 +110,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     reviews: "120+ orders",
     badgeColor: "bg-[#2E7D32] text-white",
     saveTagColor: "bg-[#2E7D32] text-white",
-    saveAmount: 18,
+    saveAmount: 17,
     savePercentText: "SAVE 10% ┘",
     imgBg: "bg-[#F3EFE9]", // warm premium cream like Curd
     nutrientTags: [
@@ -125,7 +124,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     image1: ImmunityShieldSpecialImg,
     subtitle: "IMMUNITY BOOSTER JUICE + EXOTIC DELIGHT CUP",
     description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support your immunity & keep you fresh.",
-    originalPrice: 199,
+    originalPrice: 198,
     price: 179,
     category: "Detox & Wellness",
     tag: "IMMUNITY BOOST",
@@ -134,7 +133,7 @@ const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
     reviews: "180+ orders",
     badgeColor: "bg-[#f97316] text-white",
     saveTagColor: "bg-[#ffedd5] text-[#f97316] border border-[#fed7aa]",
-    saveAmount: 20,
+    saveAmount: 19,
     savePercentText: "SAVE 10% ┘",
     imgBg: "bg-[#F3B917]", // stunning bright golden yellow like Garlic Yogurt
     nutrientTags: [
