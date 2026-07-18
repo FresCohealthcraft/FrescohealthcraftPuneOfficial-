@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
   import { MENU_ITEMS } from "../data";
   import { Leaf, Calendar, Sparkles, CheckCircle2, ChevronRight, ChevronLeft, Gift, Trophy, ShieldAlert, Sliders, Clock, Settings, Pause, Play, RefreshCw, AlertCircle, Trash2, Plus, Minus, ChevronDown, Check, MessageSquare, ShieldCheck, Truck } from "lucide-react";
 
- // @ts-ignore
+   // @ts-ignore
   import WeeklyFruitJuiceMockup from "../assets/images/weekly_fruit_juice.png";
   // @ts-ignore
   import FrescoWellnessMockup from "../assets/images/fresco_wellness_flatlay.png";
@@ -12,7 +12,13 @@ import { motion, AnimatePresence } from "motion/react";
   import WeightLossMockup from "../assets/images/weight_loss.png";
   // @ts-ignore
   import HeroHealthySelection from "../assets/images/hero_healthy_selection.png";
-
+   // @ts-ignore
+  import DailyFreshWellnessPlan from "../assets/images/Daily_Fresh_Wellness_Plan.png";
+   // @ts-ignore
+  import ProteinPowerPlan from "../assets/images/Protein_Power_Plan.png";  
+  
+ // @ts-ignore
+  import UltimateWellnessElitePlan from "../assets/images/Ultimate_Wellness_Elite_Plan.png";
 
   // @ts-ignore
   import DetoxBodyImg from "../assets/images/Detox-Body.png";
@@ -57,6 +63,7 @@ import { motion, AnimatePresence } from "motion/react";
 
   // @ts-ignore
   import GutResetImg from "../assets/images/Gut-Reset.png";
+
 
 
   interface SubscriptionSectionProps {
@@ -548,28 +555,44 @@ import { motion, AnimatePresence } from "motion/react";
       }
     ];
 
-    const monthlySubscriptions = [
-      {
+    const monthlySubscriptions: {
+      id: string;
+      name: string;
+      icon: string;
+      subtitle: string;
+      deliveries: string;
+      savings: string;
+      price: number;
+      originalPrice?: number;
+      image: any;
+      benefits: string[];
+      popular: boolean;
+      bgColor: string;
+      accentColor: string;
+      whatsappText: string;
+    }[] = [
+           {
         id: "month_green_taster",
         name: "Daily Fresh Wellness Plan",
         icon: "🌿",
         subtitle: "Complete 30-Day Nutrition Journey",
         deliveries: "30 deliveries / month (Free Delivery)",
-       savings: "Save ₹518 off standard menu",
-        price: 4222,
-        image: WeightLossMockup,
+       savings: "Save ₹407 off standard menu",
+        price: 4333,
+        image: DailyFreshWellnessPlan,
         benefits: [
-           "🍹 30 Fresh Juices",
-          "🥗 15 Sprouts Bowls + 15 Classic Delight Cups",
-          "🌿 Supports Natural Detox",
-          "💪 Rich in Vitamins & Minerals",
+            "🍹 30 Fresh Juices",
+          "🥗 15 Sprouts Bowls",
+          "🍍 15 Classic Delight Cups",
+          "🌿 Supports Natural Detox, High in Protein",
+          "💪 Rich in Nutrients, Vitamins & Minerals",
           "🚚 Free Delivery",
           "📱  WhatsApp Support"
         ],
         popular: false,
         bgColor: "bg-white",
         accentColor: "#38A325",
-        whatsappText: "Hi! I want to subscribe to the Daily Fresh Wellness Plan (₹7359) on FresCo HealthCraft."
+        whatsappText: "Hi! I want to subscribe to the Daily Fresh Wellness Plan (₹4333) on FresCo HealthCraft."
       },
       {
         id: "month_balanced_cleanse",
@@ -580,14 +603,13 @@ import { motion, AnimatePresence } from "motion/react";
         savings: "Save ₹683 off standard menu",
         price: 8777,
       
-        image: FrescoWellnessMockup,
+        image: ProteinPowerPlan,
         benefits: [
-           "🥣 30 30G Protein Paneer Bowl",
+          "🥣 30 30G Protein Paneer Bowl",
           "🍓 26 Power Packed Cups",
-          "🍍 Premium Fruit Cup Every Sunday",
+          "🍍 4  Premium Fruit Cup Every Sunday",
           "⚡ High Protein & Fiber",
           "🚚 Priority Morning Delivery",
-          "⏸  Pause Anytime",
           "📱  Priority WhatsApp Support",
           "💪 Rich in Omega-3, Vitamins, and Minerals",
           
@@ -595,7 +617,7 @@ import { motion, AnimatePresence } from "motion/react";
         popular: true,
         bgColor: "bg-gradient-to-b from-white to-[#38A325]/5",
         accentColor: "#38A325",
-        whatsappText: "Hi! I want to subscribe to the Protein Power Plan (₹7359) on FresCo HealthCraft."
+        whatsappText: "Hi! I want to subscribe to the Protein Power Plan (₹8777) on FresCo HealthCraft."
       },
       {
         id: "month_wellness_overhaul",
@@ -603,15 +625,15 @@ import { motion, AnimatePresence } from "motion/react";
         icon: "👑",
     subtitle: "Complete 30-Day Nutrition Journey",
         deliveries: "30 deliveries / month (Free Delivery)",
-        savings: "Save ₹983 off standard retail menu",
-        price: 7999 ,
-        image: HeroHealthySelection,
+        savings: "Save ₹494 off standard retail menu",
+        price: 5444 ,
+        image: UltimateWellnessElitePlan,
         benefits: [
-         "🍹 Daily Juice",
-          "🥗 Daily Sprouts Bowl",
-          "🍓 Daily Premium Fruit Cup",
-          "💪 Weekly Power Packed Cup",
-          "🥣 Weekly Paneer Bowl",
+          "🍹 30 Daily Juice",
+          "🥗 26 Daily Sprouts Bowl",
+          "🍓 26 Daily Premium Fruit Cup",
+          "💪 4  Weekly Power Packed Cup",
+          "🥣 4  Weekly 30G Protein Paneer Bowl",
           "📱  WhatsApp Support",
           "🚚 Free Delivery",
           "⭐ Priority Order Handling",
@@ -620,9 +642,10 @@ import { motion, AnimatePresence } from "motion/react";
         popular: false,
         bgColor: "bg-white",
         accentColor: "#F26419",
-        whatsappText: "Hi! I want to subscribe to the full Ultimate Wellness Elite Plan (₹7359) on FresCo HealthCraft."
+        whatsappText: "Hi! I want to subscribe to the full Ultimate Wellness Elite Plan (₹5444) on FresCo HealthCraft."
       }
     ];
+
 
     const handleAddWeeklyDay = (plan: typeof weeklyPlans[0]) => {
       // Map custom plan to a standard MenuItem object
@@ -710,7 +733,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_nutrient",
         name: "FrsCo 6-Day Wellness Cycle",
         type: "weekly",
-        price: 1103,
+        price: 1266,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -744,7 +767,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_fruit_juice",
         name: "weekly fruit juice",
         type: "weekly",
-        price: 431,
+        price: 488,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -766,7 +789,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_fat_burn",
         name: "7 days weight loss transformation",
         type: "weekly",
-        price: 1533,
+        price: 1717,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -810,7 +833,9 @@ import { motion, AnimatePresence } from "motion/react";
     };
 
     const customSubtotal = calculateCustomSubtotal();
-    const customFinalPrice = Math.round(customSubtotal * 0.92);
+    const customFinalPrice = Math.round(
+      customCycleType === "weekly" ? customSubtotal * 0.95 : customSubtotal * 0.92
+    );
 
     const handleAddCustomPlanToCart = () => {
       const scheduleSummary = Object.keys(customDays).map(dayId => {
@@ -1062,15 +1087,20 @@ import { motion, AnimatePresence } from "motion/react";
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
           {/* Elegant Heading strictly matching the shared image */}
-          <div className="pt-6 pb-2">
-            <h2 className="font-serif text-[28px] sm:text-[34px] md:text-[38px] text-[#1E4620] font-medium tracking-normal leading-tight">
-              Choose Your Wellness Journey
+         <div className="pt-6 pb-2">
+          <h2 className="font-serif text-[28px] sm:text-[34px] md:text-[38px] text-[#1E4620] font-medium tracking-normal leading-tight">
+            Choose Your Wellness Journey
             </h2>
-            <p className="mt-2 text-[#1A1A1A]/60 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed font-sans font-medium">
-              Transform your daily wellness and save big with scheduled raw nourishment.
-              Freshly prepared and delivered daily.
+            
+            <p className="mt-2 text-[#1A1A1A]/60 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed font-medium">
+            Transform your daily wellness and save big with scheduled raw nourishment.
+            Freshly prepared and delivered daily.
             </p>
-          </div>
+            
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-green-50 border border-green-200 px-4 py-2 text-sm font-semibold text-[#1E4620]">
+              👇 Click a wellness program below to view benefits, pricing & delivery schedule.
+            </p>
+            </div>
 
           <div id="explore-plans-container" className="scroll-mt-24">
             {/* Tabs for switching between Weekly, Monthly and Custom subscriptions (Styled exactly as per shared image) */}
@@ -1178,15 +1208,15 @@ import { motion, AnimatePresence } from "motion/react";
                     fresco: {
                       title: "FresCo 6-Day Wellness Cycle",
                       subtitle: "A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.",
-                      price: 1103,
-                      originalPrice: 1199,
+                      price: 1266,
+                      originalPrice: 1328,
                       showcaseImg: FrescoWellnessMockup,
                       icon: "🌿",
                       onSubscribe: handleAddAllWeeklyDays,
                       days: [
                         { dayLabel: "MONDAY", shortName: "Detox", emoji: "🍃", bgClass: "bg-[#F4F9F2]", borderClass: "border-green-100/60", labelColorClass: "text-[#4C9E2F]", leafColorClass: "text-[#4C9E2F]/8", iconBgClass: "bg-green-100/30", subtitle: "Detox Body Drink + Sprouts Bowl" },
                         { dayLabel: "TUESDAY", shortName: "Immunity", emoji: "🍊", bgClass: "bg-[#FFF6F0]", borderClass: "border-orange-100/80", labelColorClass: "text-[#ED8B42]", leafColorClass: "text-[#ED8B42]/8", iconBgClass: "bg-orange-100/30", subtitle: "Immunity Booster Drink + Classic Delight Cup" },
-                        { dayLabel: "WEDNESDAY", shortName: "Energy", emoji: "⚡", bgClass: "bg-[#FFFDF0]", borderClass: "border-amber-100/80", labelColorClass: "text-[#D4A300]", leafColorClass: "text-[#D4A300]/8", iconBgClass: "bg-amber-100/30", subtitle: "Vital Energy Drink + Protein Packed Cup" },
+                        { dayLabel: "WEDNESDAY", shortName: "Energy", emoji: "⚡", bgClass: "bg-[#FFFDF0]", borderClass: "border-amber-100/80", labelColorClass: "text-[#D4A300]", leafColorClass: "text-[#D4A300]/8", iconBgClass: "bg-amber-100/30", subtitle: "Vital Energy Drink + Power Packed Cup" },
                         { dayLabel: "THURSDAY", shortName: "Glow", emoji: "☀️", bgClass: "bg-[#FFF5F6]", borderClass: "border-rose-100/80", labelColorClass: "text-[#ED5353]", leafColorClass: "text-[#ED5353]/8", iconBgClass: "bg-rose-100/30", subtitle: "Skin Glow-up Drink + Exotic Delight Cup" },
                         { dayLabel: "FRIDAY", shortName: "Fitness", emoji: "💪", bgClass: "bg-[#EEF7F5]", borderClass: "border-teal-100/60", labelColorClass: "text-[#2E8B75]", leafColorClass: "text-[#2E8B75]/8", iconBgClass: "bg-teal-100/40", subtitle: "Fat Burner Drink + 30G Protein Paneer Bowl" },
                         { dayLabel: "SATURDAY", shortName: "Refresh", emoji: "🍇", bgClass: "bg-[#FAF2FA]", borderClass: "border-purple-100/60", labelColorClass: "text-[#7A1FA2]", leafColorClass: "text-[#7A1FA2]/8", iconBgClass: "bg-purple-100/40", subtitle: "ABC Drink + Energy Boost Shake" }
@@ -1195,8 +1225,8 @@ import { motion, AnimatePresence } from "motion/react";
                     fruit: {
                       title: "Weekly Fruit Juice",
                       subtitle: "A curated Monday-to-Saturday pure organic fresh juices.",
-                      price: 431,
-                      originalPrice: 469,
+                      price: 488,
+                      originalPrice: 514,
                       showcaseImg: WeeklyFruitJuiceMockup,
                       icon: "🍹",
                       onSubscribe: handleAddAllFruitJuiceDays,
@@ -1212,8 +1242,8 @@ import { motion, AnimatePresence } from "motion/react";
                     fatburn: {
                       title: "7-Days Weight Loss Transformation",
                       subtitle: "Scientifically curated juice & protein bowl plan to support healthy weight management.",
-                      price: 1533,
-                      originalPrice: 1666,
+                      price: 1717,
+                      originalPrice: 1806,
                       showcaseImg: WeightLossMockup,
                       icon: "🔥",
                       onSubscribe: handleAddAllFatBurnDays,
@@ -1331,7 +1361,7 @@ import { motion, AnimatePresence } from "motion/react";
                               fresco: {
                                 id: "sub_weekly_nutrient",
                                 name: "FrsCo 6-Day Wellness Cycle",
-                                price: 1103,
+                                price: 1266,
                                 category: "Subscription Plans",
                                 description: "A curated Monday-to-Saturday breakfast routing with raw juices, fruit cups & sprout bowls.",
                                 icon: "🌿"
@@ -1339,7 +1369,7 @@ import { motion, AnimatePresence } from "motion/react";
                               fruit: {
                                 id: "sub_weekly_fruit_juice",
                                 name: "Weekly Fruit Juice",
-                                price: 431,
+                                price: 488,
                                 category: "Subscription Plans",
                                 description: "A curated Monday-to-Saturday pure organic fresh juices.",
                                 icon: "🍹"
@@ -1347,7 +1377,7 @@ import { motion, AnimatePresence } from "motion/react";
                               fatburn: {
                                 id: "sub_weekly_fat_burn",
                                 name: "7 Days Weight Loss Transformation",
-                                price: 1533,
+                                price: 1717,
                                 category: "Subscription Plans",
                                 description: "A high-efficacy 7-day caloric deficit fresh nutrition plan designed to boost metabolic activity.",
                                 icon: "🔥"
@@ -1623,16 +1653,6 @@ import { motion, AnimatePresence } from "motion/react";
                               </button>
                             );
                           })()}
-
-                          <button
-                            onClick={() => handleMonthlySubscribe(sub)}
-                            className="w-full py-2 px-4 rounded-xl font-bold text-[9.5px] uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center justify-center space-x-1.5 bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 shadow-3xs"
-                          >
-                            <svg className="w-3 h-3 fill-current text-green-600" viewBox="0 0 24 24">
-                              <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
-                            </svg>
-                            <span>WhatsApp Order</span>
-                          </button>
                         </div>
                       </motion.div>
                     );
@@ -1960,7 +1980,7 @@ import { motion, AnimatePresence } from "motion/react";
                         
                         {customSubtotal > 0 && (
                           <div className="flex justify-between text-[#38A325] font-bold">
-                            <span className="text-[10px]">Discount</span>
+                            <span className="text-[10px]">Discount </span>
                             <span className="font-mono text-[10px]">-₹{customSubtotal - customFinalPrice}</span>
                           </div>
                         )}
@@ -1991,20 +2011,7 @@ import { motion, AnimatePresence } from "motion/react";
                           </svg>
                           <span>{customSubtotal === 0 ? "Select Items to Build Plan" : "Add to Cart"}</span>
                         </button>
-                        <button
-                          onClick={handleCustomWhatsAppSubscribe}
-                          disabled={customSubtotal === 0}
-                          className={`w-full py-2 px-3 rounded-lg font-bold text-[9px] uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 shadow-sm ${
-                            customSubtotal === 0
-                              ? "bg-neutral-800/40 text-neutral-500 cursor-not-allowed border border-white/5"
-                              : "bg-white text-gray-900 hover:bg-gray-100 active:scale-95 cursor-pointer"
-                          }`}
-                        >
-                          <svg className="w-3 h-3 fill-current text-green-600" viewBox="0 0 24 24">
-                            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
-                          </svg>
-                          <span>Build via WhatsApp</span>
-                        </button>
+                      
                       </div>
                     </div>
                   </div>
