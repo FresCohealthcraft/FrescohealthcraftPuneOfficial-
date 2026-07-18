@@ -17,6 +17,7 @@ import PaneerPowerBowlImg from "../assets/images/Paneer-Power-Bowl.png";
 // @ts-ignore
 import chickenPowerBowlImg from "../assets/images/Chicken-Power-Bowl.png";
 
+
 interface HeroProps {
   onExploreMenu: () => void;
 }
