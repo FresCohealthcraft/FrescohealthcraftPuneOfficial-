@@ -102,7 +102,7 @@ export default function AiBlender({
     const mockMenuItem: MenuItem = {
       id: `ai_custom_${Date.now()}`,
       name: custom.name,
-      category: "Detox & Wellness",
+      category: "Fresco Power Juices",
       price: custom.estimatedPrice || 95,
       description: custom.benefits,
       icon: "🥤",
@@ -290,7 +290,7 @@ export default function AiBlender({
                           Flavor Accent: <span className="font-bold text-[#38A325]">{recommendationResult.customRecipe.tasteProfile}</span>
                         </p>
                       </div>
-                      <span className="text-2xl font-serif italic text-[#38A325]">
+                      <span className="text-2xl font-sans font-extrabold text-[#38A325]">
                         ₹{recommendationResult.customRecipe.estimatedPrice || 85}
                       </span>
                     </div>
