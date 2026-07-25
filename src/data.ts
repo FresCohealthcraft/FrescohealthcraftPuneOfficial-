@@ -227,7 +227,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "papaya-Juice",
     name: "Papaya Juice",
     description: "Thick, soothing papaya extract loaded with digestive enzymes and essential folate.",
-    price: 59,
+    price: 69,
     image: papayaJuiceImg,
     icon: "🧡",
     category: "Fruit Juices",
