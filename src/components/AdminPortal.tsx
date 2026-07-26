@@ -56,6 +56,7 @@ interface Customer {
   subscriptionStartDate: string;
   subscriptionExpiryDate: string;
   registeredDate: string;
+  address?: string;
 }
 
 export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
@@ -445,273 +446,9 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
     return `${dd}/${mm}/${yyyy}, ${hh}:${min}:00`;
   };
 
-  const getSeededOrders = (): Order[] => [
-    {
-      id: "FR-1001",
-      customerName: "Rohan Mehta",
-      address: "Noble Hospital Road, Hadapsar, Pune",
-      phone: "9876543210",
-      email: "rohan@gmail.com",
-      puneLocation: "Hadapsar",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(0),
-      totalBeforePromo: 118,
-      discountValue: 0,
-      payableAmount: 118,
-      items: [
-        {
-          id: "Watermelon-Juice-1",
-          menuItem: { id: "Watermelon-Juice", name: "Watermelon Juice", category: "Fruit Juices", price: 59, icon: "🍉", description: "Keeps You Hydrated" },
-          quantity: 2,
-          finalPrice: 118
-        }
-      ]
-    },
-    {
-      id: "FR-1002",
-      customerName: "Anjali Sharma",
-      address: "DP Road, Kothrud, Pune",
-      phone: "9823456781",
-      email: "anjali@gmail.com",
-      puneLocation: "Kothrud",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(1),
-      totalBeforePromo: 207,
-      discountValue: 0,
-      payableAmount: 207,
-      items: [
-        {
-          id: "Mosambi-Juice-1",
-          menuItem: { id: "Mosambi-Juice", name: "Mosambi Juice", category: "Fruit Juices", price: 69, icon: "🍊", description: "Vitamin C immunity booster" },
-          quantity: 3,
-          finalPrice: 207
-        }
-      ]
-    },
-    {
-      id: "FR-1003",
-      customerName: "Amit Patel",
-      address: "Lane 5, Koregaon Park, Pune",
-      phone: "9890123456",
-      email: "amit@gmail.com",
-      puneLocation: "Koregaon Park",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(2),
-      totalBeforePromo: 138,
-      discountValue: 0,
-      payableAmount: 138,
-      items: [
-        {
-          id: "Pineapple-Juice-1",
-          menuItem: { id: "Pineapple-Juice", name: "Pineapple Juice", category: "Fruit Juices", price: 69, icon: "🍍", description: "Bromelain-rich refreshing juice" },
-          quantity: 2,
-          finalPrice: 138
-        }
-      ]
-    },
-    {
-      id: "FR-1004",
-      customerName: "Priya Nair",
-      address: "JM Road, Shivaji Nagar, Pune",
-      phone: "9765432109",
-      email: "priya@gmail.com",
-      puneLocation: "Shivaji Nagar",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(3),
-      totalBeforePromo: 237,
-      discountValue: 0,
-      payableAmount: 237,
-      items: [
-        {
-          id: "Mango-Juice-1",
-          menuItem: { id: "Mango-Juice", name: "Mango Juice", category: "Fruit Juices", price: 79, icon: "🥭", description: "Rich, luscious juice" },
-          quantity: 3,
-          finalPrice: 237
-        }
-      ]
-    },
-    {
-      id: "FR-1005",
-      customerName: "Sneha Rao",
-      address: "Amanora Park Town, Hadapsar, Pune",
-      phone: "9545123489",
-      email: "sneha@gmail.com",
-      puneLocation: "Hadapsar",
-      status: "confirmed",
-      timestamp: getFormattedDateOffset(4),
-      totalBeforePromo: 158,
-      discountValue: 0,
-      payableAmount: 158,
-      items: [
-        {
-          id: "Apple-Juice-1",
-          menuItem: { id: "Apple-Juice", name: "Apple Juice", category: "Fruit Juices", price: 79, icon: "🍎", description: "Crisp and refreshing juice sweet apple juice" },
-          quantity: 2,
-          finalPrice: 158
-        }
-      ]
-    },
-    {
-      id: "FR-1006",
-      customerName: "Vikram Singh",
-      address: "Ideal Colony, Kothrud, Pune",
-      phone: "9123456789",
-      email: "vikram@gmail.com",
-      puneLocation: "Kothrud",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(5),
-      totalBeforePromo: 118,
-      discountValue: 0,
-      payableAmount: 118,
-      items: [
-        {
-          id: "Watermelon-Juice-2",
-          menuItem: { id: "Watermelon-Juice", name: "Watermelon Juice", category: "Fruit Juices", price: 59, icon: "🍉", description: "Keeps You Hydrated" },
-          quantity: 2,
-          finalPrice: 118
-        }
-      ]
-    },
-    {
-      id: "FR-1007",
-      customerName: "Nisha Joshi",
-      address: "North Main Road, Koregaon Park, Pune",
-      phone: "9654123098",
-      email: "nisha@gmail.com",
-      puneLocation: "Koregaon Park",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(6),
-      totalBeforePromo: 138,
-      discountValue: 0,
-      payableAmount: 138,
-      items: [
-        {
-          id: "Pineapple-Juice-2",
-          menuItem: { id: "Pineapple-Juice", name: "Pineapple Juice", category: "Fruit Juices", price: 69, icon: "🍍", description: "Bromelain-rich refreshing juice" },
-          quantity: 2,
-          finalPrice: 138
-        }
-      ]
-    },
-    {
-      id: "FR-1008",
-      customerName: "Karan Johar",
-      address: "Bhusari Colony, Kothrud, Pune",
-      phone: "9988776655",
-      email: "karan@gmail.com",
-      puneLocation: "Kothrud",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(2),
-      totalBeforePromo: 158,
-      discountValue: 0,
-      payableAmount: 158,
-      items: [
-        {
-          id: "Mango-Juice-2",
-          menuItem: { id: "Mango-Juice", name: "Mango Juice", category: "Fruit Juices", price: 79, icon: "🥭", description: "Rich, luscious juice" },
-          quantity: 2,
-          finalPrice: 158
-        }
-      ]
-    },
-    {
-      id: "FR-1009",
-      customerName: "Pooja Hegde",
-      address: "Kalyani Nagar, Pune",
-      phone: "9876123405",
-      email: "pooja@gmail.com",
-      puneLocation: "Koregaon Park",
-      status: "pending",
-      timestamp: getFormattedDateOffset(0),
-      totalBeforePromo: 237,
-      discountValue: 0,
-      payableAmount: 237,
-      items: [
-        {
-          id: "Apple-Juice-2",
-          menuItem: { id: "Apple-Juice", name: "Apple Juice", category: "Fruit Juices", price: 79, icon: "🍎", description: "Crisp and refreshing sweet apple juice" },
-          quantity: 3,
-          finalPrice: 237
-        }
-      ]
-    },
-    {
-      id: "FR-1010",
-      customerName: "Rahul Deshmukh",
-      address: "Sadesatranali, Hadapsar, Pune",
-      phone: "9012345678",
-      email: "rahul_d@gmail.com",
-      puneLocation: "Hadapsar",
-      status: "delivered",
-      timestamp: getFormattedDateOffset(7),
-      totalBeforePromo: 207,
-      discountValue: 0,
-      payableAmount: 207,
-      items: [
-        {
-          id: "Mosambi-Juice-2",
-          menuItem: { id: "Mosambi-Juice", name: "Mosambi Juice", category: "Fruit Juices", price: 69, icon: "🍊", description: "Vitamin C immunity booster" },
-          quantity: 3,
-          finalPrice: 207
-        }
-      ]
-    }
-  ];
+  const getSeededOrders = (): Order[] => [];
 
-  const getSeededCustomers = (): Customer[] => [
-    {
-      id: "cust-101",
-      name: "Rohan Mehta",
-      email: "rohan@gmail.com",
-      phone: "9876543210",
-      spent: "118",
-      orders: "1",
-      status: "Active",
-      subscribedPlan: "Daily Refresh Plan",
-      subscriptionStartDate: "10/06/2026",
-      subscriptionExpiryDate: "10/07/2026",
-      registeredDate: "10/06/2026"
-    },
-    {
-      id: "cust-102",
-      name: "Anjali Sharma",
-      email: "anjali@gmail.com",
-      phone: "9823456781",
-      spent: "207",
-      orders: "1",
-      status: "Active",
-      subscribedPlan: "Fresco Power Plan",
-      subscriptionStartDate: "12/06/2026",
-      subscriptionExpiryDate: "12/07/2026",
-      registeredDate: "12/06/2026"
-    },
-    {
-      id: "cust-103",
-      name: "Amit Patel",
-      email: "amit@gmail.com",
-      phone: "9890123456",
-      spent: "138",
-      orders: "1",
-      status: "Active",
-      subscribedPlan: "Weekly Cleanse Plan",
-      subscriptionStartDate: "15/06/2026",
-      subscriptionExpiryDate: "15/07/2026",
-      registeredDate: "15/06/2026"
-    },
-    {
-      id: "cust-104",
-      name: "Priya Nair",
-      email: "priya@gmail.com",
-      phone: "9765432109",
-      spent: "237",
-      orders: "1",
-      status: "Active",
-      subscribedPlan: "None",
-      subscriptionStartDate: "—",
-      subscriptionExpiryDate: "—",
-      registeredDate: "18/06/2026"
-    }
-  ];
+  const getSeededCustomers = (): Customer[] => [];
 
   const getSeededInventory = (): Ingredient[] => [
     { id: "ing-101", name: "Fresh Watermelon", category: "Fruits", stock: 0, maxStock: 150, unit: "kg", reorderLevel: 25, supplier: "Pune Farm Wholesale", lastUpdated: "27/06/2026" },
@@ -759,24 +496,162 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
     }
   ];
 
+  // Helper function to detect mock/dummy order data
+  const isDummyOrder = (o: any) => {
+    if (!o || !o.id) return true;
+    if (typeof o.id === "string" && (o.id.startsWith("FR-1") || o.id.startsWith("FR-2") || o.id.startsWith("FR-3") || o.id.startsWith("DLV-"))) return true;
+    const dummyNames = ["rohan mehta", "anjali sharma", "amit patel", "priya nair", "sneha rao", "vikram singh", "nisha joshi", "karan johar", "pooja hegde", "rahul deshmukh", "rahul shinde", "sneha patil", "vikram malhotra"];
+    if (o.customerName && dummyNames.includes(o.customerName.toLowerCase().trim())) return true;
+    return false;
+  };
+
+  const isDummyCustomer = (c: any) => {
+    if (!c || !c.id) return true;
+    if (typeof c.id === "string" && (c.id.startsWith("cust-10") || c.id.startsWith("CUST-"))) return true;
+    const dummyNames = ["rohan mehta", "anjali sharma", "amit patel", "priya nair", "sneha rao", "vikram singh", "nisha joshi", "karan johar", "pooja hegde", "rahul deshmukh", "rahul shinde", "sneha patil", "vikram malhotra"];
+    if (c.name && dummyNames.includes(c.name.toLowerCase().trim())) return true;
+    return false;
+  };
+
   // Load and Seed Data Function
   const loadAllData = async () => {
-    // 1. Fetch Orders from server
+    // 1. Fetch Orders from server & merge seamlessly with localStorage (filtering out dummy mock data)
+    let combinedOrders: Order[] = [];
     try {
-      const ordersRes = await fetch("/api/orders");
-      const serverOrders = await ordersRes.json();
-      const currentOrders = serverOrders.filter((o: any) => !o.id.startsWith("FR-1"));
-      setOrders(currentOrders);
-      localStorage.setItem("fresco_orders", JSON.stringify(currentOrders));
-    } catch (e) {
-      console.error("AdminPortal: Error loading live orders from server:", e);
-      // fallback
-      const savedOrders = localStorage.getItem("fresco_orders");
-      if (savedOrders) {
-        try {
-          setOrders(JSON.parse(savedOrders).filter((o: any) => !o.id.startsWith("FR-1")));
-        } catch (err) {}
+      let serverOrders: Order[] = [];
+      try {
+        const ordersRes = await fetch("/api/orders");
+        if (ordersRes.ok) {
+          const data = await ordersRes.json();
+          if (Array.isArray(data)) serverOrders = data;
+        }
+      } catch (err) {
+        console.warn("Server orders endpoint temporarily unavailable:", err);
       }
+
+      let localOrders: Order[] = [];
+      try {
+        const saved = localStorage.getItem("fresco_orders");
+        if (saved) localOrders = JSON.parse(saved);
+      } catch (err) {}
+
+      const orderMap = new Map<string, Order>();
+
+      // Load real local orders (filtering dummy orders)
+      if (Array.isArray(localOrders)) {
+        localOrders.forEach(o => {
+          if (o && o.id && !isDummyOrder(o)) orderMap.set(o.id, o);
+        });
+      }
+
+      // Merge real server orders
+      if (Array.isArray(serverOrders)) {
+        serverOrders.forEach(o => {
+          if (o && o.id && !isDummyOrder(o)) {
+            orderMap.set(o.id, o);
+          }
+        });
+      }
+
+      combinedOrders = Array.from(orderMap.values());
+
+      setOrders(combinedOrders);
+      localStorage.setItem("fresco_orders", JSON.stringify(combinedOrders));
+
+      // Post sanitized list back to server to clean server store
+      fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(combinedOrders),
+      }).catch(err => console.error("Error syncing orders to server:", err));
+
+    } catch (e) {
+      console.error("AdminPortal: Error loading live orders:", e);
+    }
+
+    // 2. Load Customers - merge server, localStorage, AND dynamic order customer profiles
+    try {
+      let serverCustomers: Customer[] = [];
+      try {
+        const custRes = await fetch("/api/customers");
+        if (custRes.ok) {
+          const data = await custRes.json();
+          if (Array.isArray(data)) serverCustomers = data;
+        }
+      } catch (err) {}
+
+      let localCustomers: Customer[] = [];
+      try {
+        const saved = localStorage.getItem("fresco_customers_v3");
+        if (saved) localCustomers = JSON.parse(saved);
+      } catch (err) {}
+
+      const custMap = new Map<string, Customer>();
+
+      if (Array.isArray(localCustomers)) {
+        localCustomers.forEach(c => { if (c && c.id && !isDummyCustomer(c)) custMap.set(c.id, c); });
+      }
+      if (Array.isArray(serverCustomers)) {
+        serverCustomers.forEach(c => { if (c && c.id && !isDummyCustomer(c)) custMap.set(c.id, c); });
+      }
+
+      // Automatically compile/update customer profiles from placed real orders
+      combinedOrders.forEach(ord => {
+        if (!ord.customerName) return;
+        const phone = ord.phone || "—";
+        const email = ord.email || `${ord.customerName.toLowerCase().replace(/\s+/g, "")}@gmail.com`;
+
+        let existingKey = Array.from(custMap.keys()).find(k => {
+          const c = custMap.get(k)!;
+          return (phone !== "—" && c.phone === phone) || c.email === email || c.name.toLowerCase() === ord.customerName.toLowerCase();
+        });
+
+        const custOrders = combinedOrders.filter(o =>
+          (phone !== "—" && o.phone === phone) || o.email === email || o.customerName.toLowerCase() === ord.customerName.toLowerCase()
+        );
+        const totalSpent = custOrders.reduce((sum, o) => sum + (o.payableAmount || 0), 0);
+
+        if (existingKey && custMap.has(existingKey)) {
+          const existingCust = custMap.get(existingKey)!;
+          custMap.set(existingKey, {
+            ...existingCust,
+            orders: String(custOrders.length),
+            spent: String(totalSpent),
+            phone: phone !== "—" ? phone : existingCust.phone,
+            email: email || existingCust.email,
+            address: ord.address || existingCust.address
+          });
+        } else {
+          const newCustId = `cust_${Date.now()}_${Math.random().toString(36).substring(2, 5)}`;
+          custMap.set(newCustId, {
+            id: newCustId,
+            name: ord.customerName,
+            email: email,
+            phone: phone,
+            spent: String(totalSpent),
+            orders: String(custOrders.length),
+            status: "Active",
+            subscribedPlan: "None",
+            subscriptionStartDate: "—",
+            subscriptionExpiryDate: "—",
+            registeredDate: ord.timestamp ? ord.timestamp.split(",")[0] : new Date().toLocaleDateString("en-IN")
+          });
+        }
+      });
+
+      const combinedCustomers = Array.from(custMap.values());
+      setCustomers(combinedCustomers);
+      localStorage.setItem("fresco_customers_v3", JSON.stringify(combinedCustomers));
+
+      // Sync back to server
+      fetch("/api/customers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(combinedCustomers),
+      }).catch(err => console.error("Error syncing customers to server:", err));
+
+    } catch (e) {
+      console.error("AdminPortal: Error syncing customers:", e);
     }
 
     // Load Products (synchronized with App.tsx menu list using real MENU_ITEMS)
@@ -846,43 +721,31 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
     // Save back to localStorage to persist updated categories & additions
     localStorage.setItem("fresco_inventory", JSON.stringify(currentInventory));
     setInventory(currentInventory);
-
-    // Load Customers - live only from server
-    try {
-      const custRes = await fetch("/api/customers");
-      const serverCustomers = await custRes.json();
-      const currentCustomers = serverCustomers.filter((c: any) => !c.id.startsWith("cust-10"));
-      setCustomers(currentCustomers);
-      localStorage.setItem("fresco_customers_v3", JSON.stringify(currentCustomers));
-    } catch (e) {
-      console.error("AdminPortal: Error loading live customers from server:", e);
-      // fallback
-      const savedCustomers = localStorage.getItem("fresco_customers_v3");
-      if (savedCustomers) {
-        try {
-          setCustomers(JSON.parse(savedCustomers).filter((c: any) => !c.id.startsWith("cust-10")));
-        } catch (err) {}
-      }
-    }
   };
 
   useEffect(() => {
-    if (!isOpen) return;
-
     loadAllData();
 
-    // Background polling interval (4s) for instant live order updates
+    // Background polling interval (3s) for instant live order updates
     const pollInterval = setInterval(() => {
       loadAllData();
-    }, 4000);
+    }, 3000);
 
-    // Listen for storage events to update the dashboard instantly when changes are made
-    window.addEventListener("storage", loadAllData);
+    const handleSyncEvent = () => {
+      loadAllData();
+    };
+
+    window.addEventListener("storage", handleSyncEvent);
+    window.addEventListener("fresco_orders_updated", handleSyncEvent);
+    window.addEventListener("fresco_data_updated", handleSyncEvent);
+
     return () => {
       clearInterval(pollInterval);
-      window.removeEventListener("storage", loadAllData);
+      window.removeEventListener("storage", handleSyncEvent);
+      window.removeEventListener("fresco_orders_updated", handleSyncEvent);
+      window.removeEventListener("fresco_data_updated", handleSyncEvent);
     };
-  }, [isOpen]);
+  }, []);
 
   // Login Authentication Handler
   const handleLogin = (e: React.FormEvent) => {
@@ -905,7 +768,8 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
   // State Save Helper with Backend Synch
   const syncStorage = async (key: string, data: any) => {
     localStorage.setItem(key, JSON.stringify(data));
-    window.dispatchEvent(new Event("storage")); // Trigger client-side React refresh instantly!
+    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("fresco_orders_updated"));
 
     // Save to server data store
     let endpoint = "";
@@ -932,6 +796,30 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
     setOrders(updated);
     syncStorage("fresco_orders", updated);
     setNotifications(prev => [`Order #${orderId} marked as ${status}.`, ...prev.slice(0, 4)]);
+
+    const order = orders.find((o) => o.id === orderId);
+    if (order && order.phone) {
+      let cleanPhone = order.phone.replace(/\D/g, "");
+      if (cleanPhone.length === 10) {
+        cleanPhone = "91" + cleanPhone;
+      }
+
+      let statusMsg = "";
+      if (status === "confirmed") {
+        statusMsg = `Hello *${order.customerName}*! Your FresCo order *#${order.id}* has been *Confirmed*! Our team is preparing your fresh, cold-pressed juices right now. Thank you for choosing FresCo HealthCraft Pune! 🥤✨`;
+      } else if (status === "delivered") {
+        statusMsg = `Hello *${order.customerName}*! Your FresCo order *#${order.id}* has been *Delivered* successfully! 🚚 Enjoy your premium fresh juices, and stay healthy!`;
+      } else if (status === "cancelled") {
+        statusMsg = `Hello *${order.customerName}*! Your FresCo order *#${order.id}* has been *Cancelled*. If you have any questions, please contact FresCo Support at +91 89833 63146. 🔴`;
+      }
+
+      if (statusMsg) {
+        const confirmSend = window.confirm(`Send WhatsApp order status notification to ${order.customerName}?`);
+        if (confirmSend) {
+          window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(statusMsg)}`, "_blank");
+        }
+      }
+    }
   };
 
   const handleDeleteOrder = (orderId: string) => {
@@ -1748,14 +1636,32 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-neutral-100">
-                            {orders
-                              .filter(o => {
-                                const q = searchQuery.toLowerCase().trim();
-                                const matchesSearch = o.customerName.toLowerCase().includes(q) || o.phone.includes(q) || o.address.toLowerCase().includes(q);
-                                const matchesStatus = statusFilter === "all" || o.status === statusFilter;
-                                return matchesSearch && matchesStatus;
-                              })
-                              .map((order) => (
+                            {orders.filter(o => {
+                              const q = searchQuery.toLowerCase().trim();
+                              const matchesSearch = o.customerName.toLowerCase().includes(q) || o.phone.includes(q) || o.address.toLowerCase().includes(q);
+                              const matchesStatus = statusFilter === "all" || o.status === statusFilter;
+                              return matchesSearch && matchesStatus;
+                            }).length === 0 ? (
+                              <tr>
+                                <td colSpan={7} className="p-10 text-center bg-neutral-50/50">
+                                  <div className="max-w-sm mx-auto space-y-2.5">
+                                    <div className="w-12 h-12 bg-emerald-100 text-[#054A29] rounded-2xl flex items-center justify-center mx-auto text-xl shadow-sm">🥤</div>
+                                    <h4 className="font-extrabold text-neutral-800 text-sm">No Live Customer Orders Found</h4>
+                                    <p className="text-xs text-neutral-500 leading-relaxed">
+                                      When a customer places an order on the storefront, it will automatically reflect in this live admin panel in real time!
+                                    </p>
+                                  </div>
+                                </td>
+                              </tr>
+                            ) : (
+                              orders
+                                .filter(o => {
+                                  const q = searchQuery.toLowerCase().trim();
+                                  const matchesSearch = o.customerName.toLowerCase().includes(q) || o.phone.includes(q) || o.address.toLowerCase().includes(q);
+                                  const matchesStatus = statusFilter === "all" || o.status === statusFilter;
+                                  return matchesSearch && matchesStatus;
+                                })
+                                .map((order) => (
                                 <tr key={order.id} className="hover:bg-[#FDFDFD] transition-colors">
                                   <td className="p-4">
                                     <div className="font-extrabold text-neutral-800">{order.customerName}</div>
@@ -1827,7 +1733,7 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                                     </button>
                                   </td>
                                 </tr>
-                              ))}
+                              )))}
                           </tbody>
                         </table>
                       </div>
@@ -1969,7 +1875,20 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-neutral-100">
-                            {customers.map((cust) => {
+                            {customers.length === 0 ? (
+                              <tr>
+                                <td colSpan={8} className="p-10 text-center bg-neutral-50/50">
+                                  <div className="max-w-sm mx-auto space-y-2.5">
+                                    <div className="w-12 h-12 bg-emerald-100 text-[#054A29] rounded-2xl flex items-center justify-center mx-auto text-xl shadow-sm">👤</div>
+                                    <h4 className="font-extrabold text-neutral-800 text-sm">No Customer Profiles Yet</h4>
+                                    <p className="text-xs text-neutral-500 leading-relaxed">
+                                      Customer profiles are automatically compiled in real time as new customer orders are placed!
+                                    </p>
+                                  </div>
+                                </td>
+                              </tr>
+                            ) : (
+                              customers.map((cust) => {
                               const isActive = cust.status === "Active";
                               const remainingStr = calculateRemainingDays(cust.subscriptionExpiryDate);
                               
@@ -2005,7 +1924,12 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                                   {/* 2. Contact Details */}
                                   <td className="p-4">
                                     <div className="font-bold text-neutral-700">{cust.email}</div>
-                                    <div className="text-[10px] text-neutral-400 font-mono mt-0.5">{cust.phone}</div>
+                                    <div className="text-[10px] text-neutral-500 font-mono mt-0.5">{cust.phone}</div>
+                                    {cust.address && (
+                                      <div className="text-[9.5px] text-[#054A29] font-medium truncate max-w-[180px] mt-0.5" title={cust.address}>
+                                        📍 {cust.address}
+                                      </div>
+                                    )}
                                   </td>
 
                                   {/* 3. Subscribed Plan */}
@@ -2067,8 +1991,12 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
 
                                   {/* 7. Spend Metrics (Complete Customer Details) */}
                                   <td className="p-4">
-                                    <div className="font-black font-mono text-neutral-800">{cust.spent}</div>
-                                    <div className="text-[10px] text-neutral-400 font-semibold mt-0.5">{cust.orders}</div>
+                                    <div className="font-black font-mono text-neutral-800">
+                                      {cust.spent.startsWith("₹") ? cust.spent : `₹${Number(cust.spent || 0).toLocaleString("en-IN")}`}
+                                    </div>
+                                    <div className="text-[10px] text-neutral-500 font-semibold mt-0.5">
+                                      {cust.orders.includes("order") ? cust.orders : `${cust.orders} orders`}
+                                    </div>
                                   </td>
 
                                   {/* 8. Action Toggle */}
@@ -2086,7 +2014,7 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
                                   </td>
                                 </tr>
                               );
-                            })}
+                            }))}
                           </tbody>
                         </table>
                       </div>
@@ -3520,4 +3448,3 @@ export default function AdminPortal({ isOpen, onClose }: AdminPortalProps) {
     </AnimatePresence>
   );
 }
-
