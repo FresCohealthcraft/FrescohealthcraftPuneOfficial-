@@ -19,8 +19,6 @@ import Logo from "./components/Logo";
 import { Sparkles, Leaf, MessageSquare, ShieldCheck, Heart, Check } from "lucide-react";
 
 
-
-
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -30,6 +28,82 @@ export default function App() {
   const [appliedCoupon, setAppliedCoupon] = useState<PromoCoupon | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [toasts, setToasts] = useState<{ id: number; message: string; icon?: string }[]>([]);
+
+  // Live dynamic menu items state synchronized with Admin Portal & Backend Server
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(() => {
+    const saved = localStorage.getItem("fresco_menu_items");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      } catch (e) {}
+    }
+    return MENU_ITEMS;
+  });
+
+  const loadLiveMenu = async () => {
+    let serverProducts: MenuItem[] = [];
+    try {
+      const res = await fetch("/api/products");
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          serverProducts = data;
+        }
+      }
+    } catch (err) {}
+
+    let localProducts: MenuItem[] = [];
+    const saved = localStorage.getItem("fresco_menu_items");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) localProducts = parsed;
+      } catch (e) {}
+    }
+
+    const currentProducts = serverProducts.length > 0 ? serverProducts : (saved !== null ? localProducts : MENU_ITEMS);
+    setMenuItems(currentProducts);
+    localStorage.setItem("fresco_menu_items", JSON.stringify(currentProducts));
+  };
+
+  useEffect(() => {
+    loadLiveMenu();
+
+    // 1. Poll server every 3s for background synchronization
+    const interval = setInterval(loadLiveMenu, 3000);
+
+    // 2. BroadcastChannel for instant cross-tab / cross-window sync
+    let frescoChannel: BroadcastChannel | null = null;
+    if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+      frescoChannel = new BroadcastChannel("fresco_realtime_channel");
+      frescoChannel.onmessage = (event) => {
+        if (event.data && (event.data.type === "fresco_menu_items" || event.data.type === "menu")) {
+          if (Array.isArray(event.data.data)) {
+            setMenuItems(event.data.data);
+            localStorage.setItem("fresco_menu_items", JSON.stringify(event.data.data));
+          }
+        }
+      };
+    }
+
+    // 3. Listen for window & localStorage storage events
+    const handleSyncEvent = () => {
+      loadLiveMenu();
+    };
+
+    window.addEventListener("storage", handleSyncEvent);
+    window.addEventListener("fresco_menu_updated", handleSyncEvent);
+    window.addEventListener("fresco_data_updated", handleSyncEvent);
+
+    return () => {
+      clearInterval(interval);
+      if (frescoChannel) frescoChannel.close();
+      window.removeEventListener("storage", handleSyncEvent);
+      window.removeEventListener("fresco_menu_updated", handleSyncEvent);
+      window.removeEventListener("fresco_data_updated", handleSyncEvent);
+    };
+  }, []);
 
   const showToast = (message: string, icon?: string) => {
     const id = Date.now();
