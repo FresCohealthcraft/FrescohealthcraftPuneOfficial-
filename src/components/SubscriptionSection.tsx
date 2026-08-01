@@ -763,7 +763,7 @@ import { motion, AnimatePresence } from "motion/react";
         id: "sub_weekly_fruit_juice",
         name: "weekly fruit juice",
         type: "weekly",
-        price: 488,
+        price: 499,
         startDate: new Date().toISOString().split("T")[0],
         renewalDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         deliveriesCompleted: 0,
@@ -1219,7 +1219,7 @@ import { motion, AnimatePresence } from "motion/react";
                     fruit: {
                       title: "Weekly Fruit Juice",
                       subtitle: "A curated Monday-to-Saturday pure organic fresh juices.",
-                      price: 488,
+                      price: 499,
                       originalPrice: 514,
                       showcaseImg: WeeklyFruitJuiceMockup,
                       icon: "🍹",
@@ -1363,7 +1363,7 @@ import { motion, AnimatePresence } from "motion/react";
                               fruit: {
                                 id: "sub_weekly_fruit_juice",
                                 name: "Weekly Fruit Juice",
-                                price: 488,
+                                price: 499,
                                 category: "Subscription Plans",
                                 description: "A curated Monday-to-Saturday pure organic fresh juices.",
                                 icon: "🍹"
