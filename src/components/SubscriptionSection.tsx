@@ -64,9 +64,7 @@ import { motion, AnimatePresence } from "motion/react";
   // @ts-ignore
   import GutResetImg from "../assets/images/Gut-Reset.png";
 
-
-
-  interface SubscriptionSectionProps {
+ interface SubscriptionSectionProps {
     onAddToCartDirectly: (item: MenuItem) => void;
     onAddBulkToCartDirectly: (items: MenuItem[]) => void;
     cartItems?: CartItem[];
@@ -571,7 +569,7 @@ import { motion, AnimatePresence } from "motion/react";
       accentColor: string;
       whatsappText: string;
     }[] = [
-           {
+      {
         id: "month_green_taster",
         name: "Daily Fresh Wellness Plan",
         icon: "🌿",
@@ -581,9 +579,8 @@ import { motion, AnimatePresence } from "motion/react";
         price: 4333,
         image: DailyFreshWellnessPlan,
         benefits: [
-            "🍹 30 Fresh Juices",
-          "🥗 15 Sprouts Bowls",
-          "🍍 15 Classic Delight Cups",
+           "🍹 30 Fresh Juices",
+          "🥗 15 Sprouts Bowls + 15 Classic Delight Cups",
           "🌿 Supports Natural Detox, High in Protein",
           "💪 Rich in Nutrients, Vitamins & Minerals",
           "🚚 Free Delivery",
@@ -645,7 +642,6 @@ import { motion, AnimatePresence } from "motion/react";
         whatsappText: "Hi! I want to subscribe to the full Ultimate Wellness Elite Plan (₹5444) on FresCo HealthCraft."
       }
     ];
-
 
     const handleAddWeeklyDay = (plan: typeof weeklyPlans[0]) => {
       // Map custom plan to a standard MenuItem object
@@ -833,9 +829,7 @@ import { motion, AnimatePresence } from "motion/react";
     };
 
     const customSubtotal = calculateCustomSubtotal();
-    const customFinalPrice = Math.round(
-      customCycleType === "weekly" ? customSubtotal * 0.95 : customSubtotal * 0.92
-    );
+    const customFinalPrice = customSubtotal;
 
     const handleAddCustomPlanToCart = () => {
       const scheduleSummary = Object.keys(customDays).map(dayId => {
@@ -1973,19 +1967,12 @@ import { motion, AnimatePresence } from "motion/react";
                       </div>
 
                       <div className="space-y-1.5 text-xs">
-                        <div className="flex justify-between text-gray-300">
+                        <div className="flex justify-between text-gray-300 border-b border-white/10 pb-1.5">
                           <span className="text-[10px]">Configured subtotal</span>
-                          <span className="font-mono text-[10px] line-through text-stone-500">₹{customSubtotal}</span>
+                          <span className="font-mono text-[10px] text-stone-300 font-bold">₹{customSubtotal}</span>
                         </div>
                         
-                        {customSubtotal > 0 && (
-                          <div className="flex justify-between text-[#38A325] font-bold">
-                            <span className="text-[10px]">Discount </span>
-                            <span className="font-mono text-[10px]">-₹{customSubtotal - customFinalPrice}</span>
-                          </div>
-                        )}
-                        
-                        <div className="border-t border-white/10 pt-2 flex justify-between items-baseline">
+                        <div className="pt-1 flex justify-between items-baseline">
                           <span className="text-[10px] text-gray-400 font-bold uppercase">Total Price</span>
                           <span className="text-base font-sans font-black text-[#38A325]">₹{customFinalPrice}</span>
                         </div>
@@ -2011,7 +1998,20 @@ import { motion, AnimatePresence } from "motion/react";
                           </svg>
                           <span>{customSubtotal === 0 ? "Select Items to Build Plan" : "Add to Cart"}</span>
                         </button>
-                      
+                        <button
+                          onClick={handleCustomWhatsAppSubscribe}
+                          disabled={customSubtotal === 0}
+                          className={`w-full py-2 px-3 rounded-lg font-bold text-[9px] uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 shadow-sm ${
+                            customSubtotal === 0
+                              ? "bg-neutral-800/40 text-neutral-500 cursor-not-allowed border border-white/5"
+                              : "bg-white text-gray-900 hover:bg-gray-100 active:scale-95 cursor-pointer"
+                          }`}
+                        >
+                          <svg className="w-3 h-3 fill-current text-green-600" viewBox="0 0 24 24">
+                            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.13-1.347a9.96 9.96 0 0 0 4.887 1.28c5.505 0 9.988-4.478 9.989-9.985v-.012C22 6.478 17.518 2 12.012 2zm4.986 14.108c-.273.767-1.345 1.388-1.887 1.48-.485.082-.98.156-3.13-.734-2.15-.89-3.534-3.075-3.641-3.218-.107-.144-.863-1.148-.863-2.19 0-1.042.545-1.554.739-1.765.193-.21.428-.263.57-.263h.406c.128 0 .3.047.47.45.17.41.597 1.455.648 1.56.052.107.086.23.013.374-.072.144-.11.23-.217.359-.11.13-.23.29-.327.391-.107.111-.22.23-.094.444.125.214.557.917 1.194 1.485.819.73 1.507.955 1.721 1.062.214.107.34.09.467-.056.128-.147.548-.64.694-.858.147-.217.29-.181.49-.107s1.265.597 1.482.705c.217.107.362.164.416.257.054.094.054.545-.22 1.312z" />
+                          </svg>
+                          <span>Build via WhatsApp</span>
+                        </button>
                       </div>
                     </div>
                   </div>
