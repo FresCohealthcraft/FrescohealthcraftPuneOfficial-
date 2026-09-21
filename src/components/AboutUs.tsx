@@ -62,7 +62,7 @@ export default function AboutUs() {
   ];
 
   return (
-    <section id="why-choose-us" className="relative py-20 sm:py-28 bg-[#FCFBF8] overflow-hidden scroll-mt-20">
+    <section id="about" data-section="why-choose-us" className="relative py-20 sm:py-28 bg-[#FCFBF8] overflow-hidden scroll-mt-20">
       
       {/* Decorative leaf backgrounds for elegant presentation (Matching the shared image vibe) */}
       <div className="absolute top-0 left-0 w-72 h-72 opacity-5 pointer-events-none select-none -translate-x-12 -translate-y-12">
@@ -82,6 +82,10 @@ export default function AboutUs() {
         
         {/* Title Block matching the exact typography and details of the shared image */}
         <div className="text-center mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-800/10 text-emerald-900 text-[11px] font-extrabold uppercase tracking-widest mb-3">
+            <span>🌱</span>
+            <span>About Us</span>
+          </div>
           <div className="flex items-center justify-center space-x-2.5 mb-2 select-none">
             {/* Left Leaf branch decorative SVG */}
             <svg className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-700/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
