@@ -121,7 +121,7 @@ import DubaiKunafaPistachioImg from "./assets/images/Dubai-Kunafa-Pistachio.png"
 import chickenPowerBowlImg from "./assets/images/Chicken-Power-Bowl.png";
 
 // @ts-ignore
-import avocadotoastImg from "./assets/images/avocado_toast.png";
+import AvocadotoastImg from "./assets/images/avocado_toast.png";
 // @ts-ignore
 import ProteinChickenSandwichImg from "./assets/images/Chicken-Sandwich.png";
 // @ts-ignore
@@ -718,7 +718,7 @@ popular: true,
   name: "Avocado Toast",
   description: "Creamy Avocado • Whole Wheat Bread • Fresh & Wholesome",
   price: 179,
-  image: avocadotoastImg,
+  image: AvocadotoastImg,
   icon: "🥑",
   category: "Sandwich",
   popular: true,
