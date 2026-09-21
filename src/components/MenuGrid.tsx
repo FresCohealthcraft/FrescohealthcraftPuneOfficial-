@@ -50,7 +50,7 @@ import HighProteinQuinoaBowlImg from "../assets/images/HighProteinQuinoaBowlImg.
 import HealthyFuelImg from "../assets/images/HealthyFuelImg.PNG";
 
 // @ts-ignore
-import ExoticDelightlImg from "../assets/images/Exotic-Delight-Cup.PNG";
+import ExoticDelightlImg from "../assets/images/Exotic-Delight-Cup.png";
 
 // @ts-ignore
 import SproutsBowlImg from "../assets/images/Sprouts-Bowl.PNG";
