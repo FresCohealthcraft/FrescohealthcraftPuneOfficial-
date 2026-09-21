@@ -46,7 +46,11 @@ export default function Navbar({
     const scroll = () => {
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (id === "contact") {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
     };
     scroll();
