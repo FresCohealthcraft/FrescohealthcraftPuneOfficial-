@@ -30,7 +30,7 @@ import GangaJuiceImg from "./assets/images/Ganga-Juic.png";
 // @ts-ignore
 import PomegranateJuiceImg from "./assets/images/Pomegranate-Juice.png";
 // @ts-ignore
-import papayaJuiceImg from "./assets/images/Papaya-Juice.png";
+import papayaJuiceImg from "./assets/images/papaya-Juice.png";
 // @ts-ignore
 import MuskmelonJuiceImg from "./assets/images/Muskmelon-Juice.png";
 // @ts-ignore
