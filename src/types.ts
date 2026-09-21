@@ -2,6 +2,8 @@ export interface MenuItem {
   id: string;
   name: string;
   category: string;
+  subCategory?: string;
+  proteinAmount?: string;
   price: number;
   description: string;
   popular?: boolean;
@@ -14,6 +16,7 @@ export interface CartItem {
   id: string; // unique cart id (can be same as menuItem.id for standard, or unique for custom)
   menuItem: MenuItem;
   customIngredients?: string[]; // customization or custom recipe ingredients
+  customSchedule?: string[]; // day-wise customized schedule for plans
   quantity: number;
   finalPrice: number;
   isCustomRecipe?: boolean;
@@ -27,6 +30,9 @@ export interface PromoCoupon {
   discountAmount?: number;
   description: string;
   tag: string;
+  isActive?: boolean;
+  minOrderValue?: number;
+  usageCount?: number;
 }
 
 export interface Order {
