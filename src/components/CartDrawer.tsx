@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CartItem, PromoCoupon } from "../types";
 import { PROMO_COUPONS } from "../data";
-import { X, Trash2, Plus, Minus, ShoppingCart, Compass, Leaf, User, Phone, MapPin, Truck, Clock, Calendar, ChevronDown, ArrowRight } from "lucide-react";
+import { X, Trash2, Plus, Minus, ShoppingCart, Compass, Leaf, User, Phone, MapPin, Truck, Clock, Calendar, ChevronDown, ArrowRight, AlertCircle, ShieldAlert, Printer } from "lucide-react";
+import OrderReceiptPoster from "./OrderReceiptPoster";
+import { convertOrderToParsed, ParsedWhatsAppOrder } from "../utils/whatsappOrderParser";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -13,6 +15,110 @@ interface CartDrawerProps {
   appliedCoupon: PromoCoupon | null;
   onApplyCoupon: (coupon: PromoCoupon | null) => void;
   onClearCart: () => void;
+}
+
+export function resolveItemCustomSchedule(item: CartItem): string[] | null {
+  // 1. Direct CartItem customSchedule property
+  if (item.customSchedule && Array.isArray(item.customSchedule) && item.customSchedule.length > 0) {
+    return item.customSchedule;
+  }
+  // 2. Schedule attached to menuItem
+  if ((item.menuItem as any)?.customSchedule && Array.isArray((item.menuItem as any).customSchedule) && (item.menuItem as any).customSchedule.length > 0) {
+    return (item.menuItem as any).customSchedule;
+  }
+  // 3. Extracted from menuItem description (matches lines with days)
+  if (item.menuItem?.description) {
+    const rawLines = item.menuItem.description.split("\n").map((l) => l.replace(/^[•\-\*\s]+/, "").trim()).filter(Boolean);
+    const dayLines = rawLines.filter((l) => /(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Day\s*\d+)\s*[:\-]/i.test(l));
+    if (dayLines.length > 0) {
+      return dayLines;
+    }
+  }
+  // 4. Fallback: retrieve from localStorage for custom plan subscriptions
+  const itemName = (item.menuItem?.name || "").toLowerCase();
+  if (itemName.includes("custom")) {
+    const planType = itemName.includes("monthly") ? "monthly" : "weekly";
+    const stored = localStorage.getItem(`fresco_custom_schedule_${planType}`) || localStorage.getItem("fresco_last_custom_schedule");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      } catch {}
+    }
+    // Also check fresco_active_sub_v2
+    const activeSub = localStorage.getItem("fresco_active_sub_v2");
+    if (activeSub) {
+      try {
+        const parsedSub = JSON.parse(activeSub);
+        if (parsedSub?.customSchedule && Array.isArray(parsedSub.customSchedule) && parsedSub.customSchedule.length > 0) {
+          return parsedSub.customSchedule;
+        }
+      } catch {}
+    }
+  }
+
+  // 5. Presets for Standard Weekly Subscriptions
+  if (itemName.includes("wellness cycle") || item.menuItem?.id === "sub_weekly_nutrient") {
+    return [
+      "Monday: Detox Body Drink + Sprouts Bowl (🌱)",
+      "Tuesday: Immunity Booster Drink + Classic Delight Cup (🛡️)",
+      "Wednesday: Vital Energy Drink + Protein Packed Cup (⚡)",
+      "Thursday: Skin Glow-up Drink + Exotic Delight Cup (✨)",
+      "Friday: Fat Burner Drink + 30G Protein Paneer Bowl (💪)",
+      "Saturday: ABC Drink + Energy Boost Shake (💧)"
+    ];
+  }
+  if (itemName.includes("fruit juice") || item.menuItem?.id === "sub_weekly_fruit_juice") {
+    return [
+      "Monday: Fresh Sweet Orange Juice (🍊)",
+      "Tuesday: Bromelain-Rich Pineapple Juice (🍍)",
+      "Wednesday: Sweet Lime (Mosambi) Natural Immunity Extract (🍈)",
+      "Thursday: Fresh Apple Juice (🍎)",
+      "Friday: Digestive Enzyme Papaya Juice (🍑)",
+      "Saturday: Antioxidant Pomegranate Juice (🍷)"
+    ];
+  }
+  if (itemName.includes("weight loss") || itemName.includes("fat burn") || item.menuItem?.id === "sub_weekly_fat_burn") {
+    return [
+      "Monday: Fat Burner Juice + 35g Protein Chicken Bowl (🔥)",
+      "Tuesday: Detox Body Juice + Sprout Bowl (🌿)",
+      "Wednesday: Gut Reset Juice + 30G Protein Paneer Bowl (🥒)",
+      "Thursday: Fat Burner Juice + 35g Protein Chicken Bowl (🔥)",
+      "Friday: Detox Body Juice + Sprout Bowl (🍃)",
+      "Saturday: ABC Booster Juice + Power Packed Cup (❤️)",
+      "Sunday: Gut Reset Juice + 30G Protein Paneer Bowl (🌱)"
+    ];
+  }
+
+  // 6. Presets for Standard Monthly Subscriptions
+  if (itemName.includes("daily fresh wellness") || item.menuItem?.id === "month_green_taster") {
+    return [
+      "30 Daily Fresh Cold-Pressed Juices",
+      "15 Sprouts Bowls + 15 Classic Delight Cups",
+      "Natural Detox, High in Protein & Micronutrients",
+      "Free Pune Priority Morning Delivery"
+    ];
+  }
+  if (itemName.includes("protein power") || item.menuItem?.id === "month_balanced_cleanse") {
+    return [
+      "30 x 30G Protein Paneer Bowls",
+      "26 x Power Packed Cups",
+      "4 x Premium Fruit Cups Every Sunday",
+      "High Protein & Muscle Recovery Fuel"
+    ];
+  }
+  if (itemName.includes("ultimate wellness") || item.menuItem?.id === "month_wellness_overhaul") {
+    return [
+      "30 x Daily Cold-Pressed Juices",
+      "26 x Daily Sprouts Bowls + 26 x Premium Fruit Cups",
+      "4 x Weekly Power Packed Cups + 4 x 30G Protein Paneer Bowls",
+      "Complete 30-Day Elite Raw Nutrition with Free Delivery"
+    ];
+  }
+
+  return null;
 }
 
 export default function CartDrawer({
@@ -40,6 +146,26 @@ export default function CartDrawer({
   });
   const [deliveryTime, setDeliveryTime] = useState("Morning (08:00 AM - 11:00 AM)");
   const [customTime, setCustomTime] = useState("");
+  const [receiptOrder, setReceiptOrder] = useState<ParsedWhatsAppOrder | null>(null);
+  const [isReceiptOpen, setIsReceiptOpen] = useState(false);
+
+  const handlePreviewReceipt = () => {
+    const resolvedDeliveryTime = deliveryTime === "Custom Time" ? (customTime.trim() ? `Custom (${customTime.trim()})` : "") : deliveryTime;
+    const tempOrder = {
+      customerName: customerName || "Valued Customer",
+      phone: phoneNumber || "",
+      address: addressDetails || "Pune",
+      deliveryDate,
+      deliveryTime: resolvedDeliveryTime,
+      items: cartItems,
+      totalBeforePromo,
+      discountValue,
+      payableAmount,
+      promoApplied: appliedCoupon || undefined,
+    };
+    setReceiptOrder(convertOrderToParsed(tempOrder));
+    setIsReceiptOpen(true);
+  };
 
   const getShortDescription = (desc: string) => {
     if (!desc) return "";
@@ -84,6 +210,42 @@ export default function CartDrawer({
   const deliveryCharge = isFreeDelivery ? 0 : 30;
   const payableAmount = Math.max(0, totalBeforePromo - discountValue + deliveryCharge);
 
+  // Validation Rule: Weekly Fruit Juice subscription requirement
+  const hasWeeklyFruitJuice = cartItems.some((item) => {
+    const id = item.menuItem.id;
+    const name = item.menuItem.name.toLowerCase();
+    return (
+      id === "sub_weekly_fruit_juice" ||
+      id.startsWith("sub_fj_") ||
+      name.includes("weekly fruit juice")
+    );
+  });
+
+  const selectedBowlItems = cartItems.filter((item) => {
+    const id = item.menuItem.id;
+    const name = item.menuItem.name.toLowerCase();
+    const category = (item.menuItem.category || "").toLowerCase();
+
+    if (id === "sub_weekly_fruit_juice" || id.startsWith("sub_fj_") || name.includes("weekly fruit juice")) {
+      return false;
+    }
+
+    return (
+      name.includes("bowl") ||
+      category.includes("bowl") ||
+      category.includes("super food sprouts bowls") ||
+      category.includes("high protein meals") ||
+      category.includes("power cups") ||
+      name.includes("sprouts") ||
+      name.includes("paneer") ||
+      name.includes("chicken")
+    );
+  });
+
+  const hasBowlItem = selectedBowlItems.length > 0;
+  const assignedBowlNames = selectedBowlItems.map((i) => i.menuItem.name).join(", ");
+  const isWeeklyFruitJuiceValid = !hasWeeklyFruitJuice || hasBowlItem;
+
   const handleApplyPromoCode = () => {
     setPromoError("");
     const matched = PROMO_COUPONS.find(
@@ -110,49 +272,108 @@ export default function CartDrawer({
       return;
     }
 
+    // Weekly Fruit Juice Validation Rule check: Bowl required
+    if (hasWeeklyFruitJuice && !hasBowlItem) {
+      alert(
+        "⚠️ Weekly Fruit Juice Subscription Restriction:\n\nCustomers purchasing a Weekly Fruit Juice subscription cannot proceed to send an order unless they add at least one Bowl item (e.g., Sprouts Bowl, Paneer Sprouts Bowl, or Chicken Power Bowl) to their cart.\n\nPlease add a Bowl item to proceed!"
+      );
+      return;
+    }
+
     const itemsSummary = cartItems
       .map((item, i) => {
-        const customizationInfo = item.customIngredients?.length
-          ? ` (${item.customIngredients.join(", ")})`
-          : "";
-        return `${i + 1}. *${item.menuItem.name}* x ${item.quantity} - ₹${item.finalPrice * item.quantity}${customizationInfo}`;
+        let details = "";
+
+        // Check if item has a customized plan schedule (from Customize Plan or subscriptions)
+        const schedule = resolveItemCustomSchedule(item);
+
+        if (schedule && schedule.length > 0) {
+          const isMonthly = item.menuItem.name.toLowerCase().includes("monthly");
+          const planHeading = isMonthly ? "Selected 24-Day Menu & Schedule" : "Selected Menu & Daily Schedule";
+          const formattedDays = schedule
+            .map((line) => {
+              const cleaned = line.replace(/^[•\-\*\s]+/, "").trim();
+              const dayMatch = cleaned.match(/^([A-Za-z0-9\s]+)\s*[:\-]\s*(.*)$/);
+              if (dayMatch && !cleaned.startsWith("🍹") && !cleaned.startsWith("🥗") && !cleaned.startsWith("🥣")) {
+                const dayLabel = dayMatch[1].trim();
+                let dayContent = dayMatch[2].trim();
+                if (dayContent.toLowerCase() === "not selected" || !dayContent) {
+                  dayContent = "Not selected (Rest / No delivery)";
+                }
+                return `   • *${dayLabel}:* ${dayContent}`;
+              }
+              return `   • ${cleaned}`;
+            })
+            .join("\n");
+          details = `\n   📋 *${planHeading}:*\n${formattedDays}`;
+        } else if (item.customIngredients?.length) {
+          details = ` (${item.customIngredients.join(", ")})`;
+        }
+
+        return `${i + 1}. *${item.menuItem.name}* x ${item.quantity} - ₹${item.finalPrice * item.quantity}${details}`;
       })
-      .join("\n");
+      .join("\n\n");
+
+    const weeklyAssignmentMsg = (hasWeeklyFruitJuice && hasBowlItem)
+      ? `\n━━━━━━━━━━━━━━\n📌 *AUTOMATIC WEEKLY PLAN ASSIGNMENT:*\n• *Weekly Fruit Juice Subscription:* Paired with selected Bowl (*${assignedBowlNames}*)\n• *Scheduled Deliveries:* Automatically assigned to customer's weekly plan and included in scheduled weekly deliveries 🚚`
+      : "";
 
     const orderMsg = `Hello FresCo HealthCraft Pune! I'd like to place an order:
-=============================
+━━━━━━━━━━━━━━
 *Customer Name:* ${customerName}
 *Phone / WhatsApp:* ${phoneNumber}
 *Delivery Address:* ${addressDetails}
 *Preferred Delivery:* ${deliveryDate} @ ${resolvedDeliveryTime}
 
 *Order Items:*
-${itemsSummary}
+${itemsSummary}${weeklyAssignmentMsg}
 
 *Subtotal Amount:* ₹${totalBeforePromo}
 ${appliedCoupon ? `*Applied Offer:* ${appliedCoupon.label}${discountValue > 0 ? ` (- ₹${discountValue})` : ""}` : ""}
 *Delivery Fees:* ${deliveryCharge === 0 ? "FREE" : `₹${deliveryCharge}`}
-=============================
+━━━━━━━━━━━━━━
 *Total Payable Amount:* *₹${payableAmount.toFixed(0)}*
-=============================
+━━━━━━━━━━━━━━
 *Payment Mode:* Pay on Delivery (Cash / UPI scan)
-=============================
+*Total Payable Amount:* *₹${payableAmount.toFixed(0)}*
+━━━━━━━━━━━━━━
 Please accept my order request and share tracking updates on WhatsApp!`;
 
     const encoded = encodeURIComponent(orderMsg);
+
+    const savedUser = localStorage.getItem("fresco_logged_in_user");
+    let calculatedEmail = `${customerName.toLowerCase().replace(/\s+/g, "") || "user"}@gmail.com`;
+    if (savedUser) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        if (parsed.email) calculatedEmail = parsed.email;
+      } catch (e) {}
+    }
 
     const newOrder = {
       id: `FCD_${Date.now()}`,
       customerName,
       address: addressDetails,
       phone: phoneNumber,
-      itemsCount: cartItems.length,
-      items: cartItems,
+      email: calculatedEmail,
+      items: cartItems.map((it) => ({
+        ...it,
+        customSchedule: resolveItemCustomSchedule(it) || it.customSchedule,
+      })),
+      rawText: orderMsg,
+      totalBeforePromo,
+      discountValue,
       payableAmount,
+      promoApplied: appliedCoupon || undefined,
       status: "pending",
       puneLocation,
       deliveryDate,
       deliveryTime: resolvedDeliveryTime,
+      weeklyFruitJuiceSubscription: hasWeeklyFruitJuice,
+      assignedWeeklyBowl: (hasWeeklyFruitJuice && hasBowlItem) ? assignedBowlNames : undefined,
+      scheduledWeeklyDeliveriesNote: (hasWeeklyFruitJuice && hasBowlItem)
+        ? `Bowl (${assignedBowlNames}) automatically assigned to Weekly Fruit Juice Plan & included in scheduled weekly deliveries.`
+        : undefined,
       timestamp: new Date().toLocaleDateString("en-IN", {
         hour: "2-digit",
         minute: "2-digit",
@@ -160,10 +381,24 @@ Please accept my order request and share tracking updates on WhatsApp!`;
     };
 
     const existing = JSON.parse(localStorage.getItem("fresco_orders") || "[]");
-    localStorage.setItem("fresco_orders", JSON.stringify([newOrder, ...existing]));
+    const updatedOrdersList = [newOrder, ...existing];
+    localStorage.setItem("fresco_orders", JSON.stringify(updatedOrdersList));
+
+    // Dispatch custom events to notify open Admin Portals in real time
+    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("fresco_orders_updated"));
+    window.dispatchEvent(new CustomEvent("fresco_data_updated"));
+
+    // BroadcastChannel message across tabs/windows
+    if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+      try {
+        const frescoChannel = new BroadcastChannel("fresco_realtime_channel");
+        frescoChannel.postMessage({ type: "fresco_orders", data: updatedOrdersList });
+        frescoChannel.close();
+      } catch (e) {}
+    }
 
     // Sync to logged-in user in localStorage
-    const savedUser = localStorage.getItem("fresco_logged_in_user");
     if (!savedUser) {
       const newUser = {
         name: customerName,
@@ -188,9 +423,9 @@ Please accept my order request and share tracking updates on WhatsApp!`;
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newOrder),
-      });
+      }).catch(() => {});
     } catch (err) {
-      console.error("Error pushing order to server database:", err);
+      // Local fallback
     }
 
     // POST new customer info to live server
@@ -209,10 +444,15 @@ Please accept my order request and share tracking updates on WhatsApp!`;
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(serverCust),
-      });
+      }).catch(() => {});
     } catch (err) {
-      console.error("Error pushing customer to server database:", err);
+      // Local fallback
     }
+
+    // Set receipt order for instant high-quality print and save
+    const parsedReceipt = convertOrderToParsed(newOrder);
+    setReceiptOrder(parsedReceipt);
+    setIsReceiptOpen(true);
 
     // First, open WhatsApp immediately so it's a direct user-initiated action (prevents browser popup blocker)
     window.open(`https://wa.me/918983363146?text=${encoded}`, "_blank");
@@ -222,7 +462,8 @@ Please accept my order request and share tracking updates on WhatsApp!`;
   };
 
   return (
-    <AnimatePresence>
+    <>
+      <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-y-0 right-0 z-110 flex outline-none">
           
@@ -341,18 +582,67 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                             </p>
                             
                             {/* Customizable additives lists */}
-                            {item.customIngredients && item.customIngredients.length > 0 && (
+                            {item.customIngredients && item.customIngredients.length > 0 && !item.customSchedule && (
                               <div className="flex flex-wrap gap-1 mt-1.5">
-                                {item.customIngredients.map((ing, k) => (
-                                  <span
-                                    key={k}
-                                    className="bg-neutral-50 text-stone-600 text-[9px] font-semibold px-2 py-0.5 rounded-lg border border-stone-100"
-                                  >
-                                    {ing}
-                                  </span>
-                                ))}
+                                {item.customIngredients.map((ing, k) => {
+                                  const isProtein = ing.toLowerCase().includes("protein");
+                                  return (
+                                    <span
+                                      key={k}
+                                      className={isProtein 
+                                        ? "bg-purple-50 text-purple-900 text-[9.5px] font-bold px-2 py-0.5 rounded-lg border border-purple-200/80 flex items-center gap-1"
+                                        : "bg-amber-50 text-amber-900 text-[9.5px] font-bold px-2 py-0.5 rounded-lg border border-amber-200/80 flex items-center gap-1"
+                                      }
+                                    >
+                                      <span>{isProtein ? "💪" : "🍫"}</span>
+                                      <span>{ing}</span>
+                                    </span>
+                                  );
+                                })}
                               </div>
                             )}
+
+                            {/* Customized Plan Schedule Breakdown */}
+                            {(() => {
+                              const schedule = resolveItemCustomSchedule(item);
+
+                              if (!schedule || schedule.length === 0) return null;
+
+                              return (
+                                <div className="mt-2 p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-[10px] space-y-1">
+                                  <div className="font-extrabold text-[#2E7D32] flex items-center gap-1 text-[10.5px]">
+                                    <span>📋</span>
+                                    <span>Selected Daily Menu:</span>
+                                  </div>
+                                  <div className="space-y-0.5 text-stone-700 font-medium">
+                                    {schedule.map((line, sIdx) => {
+                                      const cleaned = line.replace(/^[•\-\*\s]+/, "").trim();
+                                      const dayMatch = cleaned.match(/^([A-Za-z0-9\s]+)\s*[:\-]\s*(.*)$/);
+                                      if (dayMatch && !cleaned.startsWith("🍹") && !cleaned.startsWith("🥗") && !cleaned.startsWith("🥣")) {
+                                        const dayLabel = dayMatch[1].trim();
+                                        const dayContent = dayMatch[2].trim();
+                                        const isNotSelected = !dayContent || dayContent.toLowerCase().includes("not selected");
+                                        return (
+                                          <div key={sIdx} className="flex items-start gap-1 leading-snug">
+                                            <span className="text-[#38A325] font-bold">•</span>
+                                            <span className="font-semibold text-stone-900">{dayLabel}:</span>
+                                            <span className={isNotSelected ? "text-stone-400 italic" : "text-stone-700"}>
+                                              {isNotSelected ? "Rest / No item selected" : dayContent}
+                                            </span>
+                                          </div>
+                                        );
+                                      }
+                                      return (
+                                        <div key={sIdx} className="flex items-start gap-1 leading-snug">
+                                          <span className="text-[#38A325] font-bold">•</span>
+                                          <span>{cleaned}</span>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              );
+                            })()}
 
                             {/* Quantity and Price Row */}
                             <div className="flex items-center justify-between mt-2.5">
@@ -555,6 +845,59 @@ Please accept my order request and share tracking updates on WhatsApp!`;
                   </div>
                 </div>
 
+                {/* Weekly Fruit Juice Subscription Rule Notice */}
+                {hasWeeklyFruitJuice && (
+                  <div className={`p-3.5 rounded-2xl border text-left my-2 transition-all ${
+                    hasBowlItem
+                      ? "bg-emerald-50/90 border-emerald-300 text-emerald-900"
+                      : "bg-amber-50/90 border-amber-300/90 text-amber-900 shadow-xs"
+                  }`}>
+                    <div className="flex items-start gap-2.5">
+                      {hasBowlItem ? (
+                        <ShieldAlert className="w-4.5 h-4.5 text-emerald-600 shrink-0 mt-0.5" />
+                      ) : (
+                        <AlertCircle className="w-4.5 h-4.5 text-amber-600 shrink-0 mt-0.5" />
+                      )}
+                      <div className="flex-1 text-xs">
+                        <h4 className="font-extrabold uppercase tracking-wide text-[10.5px] text-[#1E4620]">
+                          Weekly Fruit Juice Subscription Requirement
+                        </h4>
+                        <p className="mt-1 leading-snug font-medium text-[11px] text-stone-700">
+                          To order Weekly Fruit Juice, please select at least <strong>1 Bowl item</strong> (e.g. Sprouts Bowl, Paneer Bowl, or Chicken Power Bowl).
+                        </p>
+
+                        <div className="mt-2 pt-2 border-t border-stone-200/60 space-y-1.5 text-[11px]">
+                          <div className="flex items-center justify-between font-bold">
+                            <span className="text-stone-600">Bowl Item Selection:</span>
+                            <span className={hasBowlItem ? "text-emerald-700 font-extrabold" : "text-red-600 font-bold"}>
+                              {hasBowlItem ? `✅ Added (${assignedBowlNames})` : "❌ Bowl Required"}
+                            </span>
+                          </div>
+
+                          {hasBowlItem && (
+                            <div className="mt-1 p-2 rounded-xl bg-emerald-100/80 border border-emerald-300/80 text-[#1E4620] text-[10.5px] font-semibold leading-tight flex items-start gap-1.5">
+                              <span className="shrink-0 text-xs">🚚</span>
+                              <span>
+                                <strong>Automatic Assignment:</strong> Selected Bowl (<em>{assignedBowlNames}</em>) is automatically assigned to your Weekly Fruit Juice plan &amp; included in your scheduled weekly deliveries!
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Preview Printable Receipt Poster */}
+                <button
+                  type="button"
+                  onClick={handlePreviewReceipt}
+                  className="w-full bg-emerald-50 hover:bg-emerald-100 text-[#054A29] border border-emerald-200/80 py-2.5 px-3 rounded-2xl font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.99]"
+                >
+                  <Printer className="w-4 h-4 text-[#054A29]" />
+                  <span>Preview &amp; Print Bill Poster</span>
+                </button>
+
                 {/* Confirm & checkout button */}
                 <button
                   onClick={handleCheckoutWhatsAppSubmit}
@@ -577,5 +920,18 @@ Please accept my order request and share tracking updates on WhatsApp!`;
         </div>
       )}
     </AnimatePresence>
-    );
+
+    {/* Order Receipt Poster Modal */}
+    {receiptOrder && (
+      <OrderReceiptPoster
+        isOpen={isReceiptOpen}
+        onClose={() => {
+          setIsReceiptOpen(false);
+          setReceiptOrder(null);
+        }}
+        order={receiptOrder}
+      />
+    )}
+    </>
+  );
 }
