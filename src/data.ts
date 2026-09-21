@@ -60,6 +60,9 @@ import ClassicDelightCupImg from "./assets/images/Classic-Delight-Cup.png";
 
 // @ts-ignore
 import ExoticDelightCupImg from "./assets/images/Exotic-Delight-Cup.png";
+
+// Sprouts Bowl image import
+
 // @ts-ignore
 import SproutsBowlImg from "./assets/images/Sprouts-Bowl.png";
 
