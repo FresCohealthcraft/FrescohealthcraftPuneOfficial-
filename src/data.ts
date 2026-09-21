@@ -121,7 +121,7 @@ import DubaiKunafaPistachioImg from "./assets/images/Dubai-Kunafa-Pistachio.png"
 import chickenPowerBowlImg from "./assets/images/Chicken-Power-Bowl.png";
 
 // @ts-ignore
-import AvocadotoastImg from "./assets/images/avocado_toast.png";
+import AvocadotoastImg from "./assets/images/avocado_toast.PNG";
 // @ts-ignore
 import ProteinChickenSandwichImg from "./assets/images/Chicken-Sandwich.png";
 // @ts-ignore
