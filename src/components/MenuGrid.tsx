@@ -51,8 +51,6 @@ import ExoticDelightlImg from "../assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
 import SmoothiesImg from "../assets/images/Chocolate-Protein-Smoothie.PNG";
 
-// @ts-ignore
-import ShakesImg from "../assets/images/Muskmelon-Shake.PNG";
 
 // @ts-ignore
 import SpecialsImg from "../assets/images/Dubai-Kunafa-Pistachio.PNG";
