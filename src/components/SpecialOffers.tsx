@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { MenuItem, CartItem } from "../types";
 import { Plus, Minus, Star, Sparkles, Flame, CheckCircle, Heart, Zap, Shield, Dumbbell, Activity, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
 
+
 // @ts-ignore
 import ABCWellnessComboImg from "../assets/images/ABC_Wellness_Combo.png";
 
@@ -16,27 +17,19 @@ import GoldenGlowSpecialImg from "../assets/images/Golden_Glow_Special.png";
 // @ts-ignore
 import MuscleRefillSpecialImg from "../assets/images/Muscle_Refill_Special.png";
 
-interface ComboItem {
+
+interface SpecialCardItem {
   id: string;
   name: string;
-  icon: string;
-  image1: any;
-  image2?: any;
+  badge: string;
+  badgeIcon?: string;
+  image: any;
   subtitle: string;
   description: string;
-  originalPrice: number;
+  tags: string[];
   price: number;
-  category: string;
-  tag: string;
-  tagIcon: string;
-  rating: string;
-  reviews: string;
-  badgeColor: string;
-  saveTagColor: string;
+  originalPrice: number;
   saveAmount: number;
-  savePercentText: string;
-  imgBg: string;
-  nutrientTags: any[];
 }
 
 interface SpecialOffersProps {
@@ -46,435 +39,363 @@ interface SpecialOffersProps {
   onRemoveCartItem: (cartId: string) => void;
 }
 
-const DYNAMIC_ITEM_COMBOS: ComboItem[] = [
-
+const SPECIAL_CARDS: SpecialCardItem[] = [
   {
     id: "combo_glow_thursday",
     name: "Golden Glow Special",
-    icon: "✨",
-    image1: GoldenGlowSpecialImg,
+    badge: "SKIN GLOW",
+    badgeIcon: "✨",
+    image: GoldenGlowSpecialImg,
     subtitle: "SKIN GLOW-UP JUICE + POWER PACKED CUP",
-    description: "A beauty-boosting combination of our Skin Glow-Up Juice and signature Power Packed Cup, crafted with fresh fruits, seeds & superfoods.",
-    originalPrice: 218,
+    description: "A refreshing beauty-focused pairing packed with fresh fruits, seeds and superfoods.",
+    tags: ["Antioxidants", "Vitamin C", "Superfoods"],
     price: 199,
-    category: "Detox & Wellness",
-    tag: "SKIN GLOW",
-    tagIcon: "sparkles",
-    rating: "4.8",
-    reviews: "95+ orders",
-    badgeColor: "bg-[#a855f7] text-white",
-    saveTagColor: "bg-[#f3e8ff] text-[#a855f7] border border-[#e9d5ff]",
+    originalPrice: 218,
     saveAmount: 19,
-    savePercentText: "SAVE 10% ┘",
-    imgBg: "bg-[#EAEFF2]", // soft premium cool grey/blue
-    nutrientTags: [
-     
-    ]
   },
   {
     id: "combo_fitness_friday",
     name: "Muscle-Refill Special",
-    icon: "💪",
-    image1: MuscleRefillSpecialImg,
+    badge: "ATHLETE PICK",
+    badgeIcon: "💪",
+    image: MuscleRefillSpecialImg,
     subtitle: "FAT-BURNING + 35G PROTEIN CHICKEN BOWL",
-    description: "A fitness-focused pairing of our Fat-Burning Juice and fresh high-protein Chicken Bowl, delivering protein, fiber & lasting energy.",
-    originalPrice: 318,
+    description: "A fitness-focused combination delivering protein, fiber and lasting energy.",
+    tags: ["35g Protein", "High Fiber", "Fitness"],
     price: 299,
-    category: "Detox & Wellness",
-    tag: "ATHLETE PICK",
-    tagIcon: "dumbbell",
-    rating: "4.8",
-    reviews: "80+ orders",
-    badgeColor: "bg-[#3b82f6] text-white",
-    saveTagColor: "bg-[#dbeafe] text-[#1e40af] border border-[#bfdbfe]",
+    originalPrice: 318,
     saveAmount: 19,
-    savePercentText: "SAVE 9% ┘",
-    imgBg: "bg-[#E9F3EB]", // soft clean sage/green
-    nutrientTags: [
-     
-    ]
   },
   {
     id: "combo_detox_monday",
     name: "ABC Wellness Combo",
-    icon: "🌱",
-    image1: ABCWellnessComboImg,
+    badge: "POPULAR",
+    badgeIcon: "🌱",
+    image: ABCWellnessComboImg,
     subtitle: "ABC JUICE + SPROUTS BOWL",
-    description: "Fresh ABC Juice (Apple, Beetroot & Carrot) paired with a protein-rich sprouts bowl, naturally rich in vitamins, antioxidants, and fiber for complete daily wellness.",
-    originalPrice: 178,
+    description: "Fresh ABC Juice paired with our protein-rich Sprouts Bowl for a refreshing wellness meal.",
+    tags: ["Vitamins", "Antioxidants", "Fiber"],
     price: 161,
-    category: "Detox & Wellness",
-    tag: "POPULAR",
-    tagIcon: "leaf",
-    rating: "4.9",
-    reviews: "120+ orders",
-    badgeColor: "bg-[#2E7D32] text-white",
-    saveTagColor: "bg-[#2E7D32] text-white",
+    originalPrice: 178,
     saveAmount: 17,
-    savePercentText: "SAVE 10% ┘",
-    imgBg: "bg-[#F3EFE9]", // warm premium cream like Curd
-    nutrientTags: [
-     
-    ]
   },
   {
     id: "combo_immuno_tuesday",
     name: "Immunity Shield Special",
-    icon: "🛡️",
-    image1: ImmunityShieldSpecialImg,
+    badge: "IMMUNITY BOOST",
+    badgeIcon: "🛡️",
+    image: ImmunityShieldSpecialImg,
     subtitle: "IMMUNITY BOOSTER JUICE + EXOTIC DELIGHT CUP",
-    description: "A powerful blend of antioxidant-rich Immunity Booster Juice and our signature Exotic Delight Fruit Cup, crafted to support your immunity & keep you fresh.",
-    originalPrice: 198,
+    description: "A refreshing antioxidant-rich pairing with fresh fruits and immunity-supporting ingredients.",
+    tags: ["Vitamin C", "Antioxidants", "Fresh Fruits"],
     price: 179,
-    category: "Detox & Wellness",
-    tag: "IMMUNITY BOOST",
-    tagIcon: "shield",
-    rating: "4.9",
-    reviews: "180+ orders",
-    badgeColor: "bg-[#f97316] text-white",
-    saveTagColor: "bg-[#ffedd5] text-[#f97316] border border-[#fed7aa]",
+    originalPrice: 198,
     saveAmount: 19,
-    savePercentText: "SAVE 10% ┘",
-    imgBg: "bg-[#F3B917]", // stunning bright golden yellow like Garlic Yogurt
-    nutrientTags: [
-      
-    ]
   },
-
 ];
 
 export default function SpecialOffers({
   onAddToCartDirectly,
   cartItems = [],
   onUpdateCartQuantity,
-  onRemoveCartItem
+  onRemoveCartItem,
 }: SpecialOffersProps) {
-  const [addedItem, setAddedItem] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Auto sliding timer for the curated daily special combos
+  const checkScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+
+    const card = scrollContainerRef.current.querySelector<HTMLElement>("[data-special-card]");
+    const cardWidth = card ? card.offsetWidth + 20 : 300;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveIndex(Math.max(0, Math.min(SPECIAL_CARDS.length - 1, index)));
+  };
+
   useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % DYNAMIC_ITEM_COMBOS.length;
-        if (scrollContainerRef.current) {
-          const cardWidth = 310;
-          scrollContainerRef.current.scrollTo({
-            left: nextIndex * cardWidth,
-            behavior: "smooth"
-          });
-        }
-        return nextIndex;
-      });
-    }, 4500);
-
-    return () => clearInterval(interval);
-  }, [isPaused]);
+    const el = scrollContainerRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkScroll, { passive: true });
+      checkScroll();
+      return () => el.removeEventListener("scroll", checkScroll);
+    }
+  }, []);
 
   const toggleFavorite = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    setFavorites(prev => ({ ...prev, [id]: !prev[id] }));
+    setFavorites((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const handleAddToCart = (plan: typeof DYNAMIC_ITEM_COMBOS[0]) => {
-    // Map to a MenuItem structure
+  const handleAddToCart = (card: SpecialCardItem) => {
     const item: MenuItem = {
-      id: plan.id,
-      name: plan.name,
-      price: plan.price,
-      category: plan.category,
-      description: `${plan.subtitle} — ${plan.description}`,
-      icon: plan.icon
+      id: card.id,
+      name: card.name,
+      price: card.price,
+      category: "Special Offers",
+      description: `${card.subtitle} — ${card.description}`,
+      icon: card.badgeIcon || "⚡",
+      image: card.image,
     };
     onAddToCartDirectly(item);
-    
-    // Short temporary pop confirmation
-    setAddedItem(plan.id);
-    setTimeout(() => {
-      setAddedItem(null);
-    }, 1200);
   };
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const container = e.currentTarget;
-    const scrollLeft = container.scrollLeft;
+  const scrollByAmount = (direction: "left" | "right") => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const card = container.querySelector<HTMLElement>("[data-special-card]");
+    const cardWidth = card ? card.offsetWidth + 20 : 300;
     
-    // Width of card is 290px + gap of 20px = 310px
-    const cardWidth = 310;
-    const index = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(Math.max(0, Math.min(DYNAMIC_ITEM_COMBOS.length - 1, index)));
+    if (direction === "left") {
+      container.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: cardWidth, behavior: "smooth" });
+    }
   };
 
   const scrollToCard = (index: number) => {
     if (scrollContainerRef.current) {
-      const cardWidth = 310;
-      scrollContainerRef.current.scrollTo({
+      const container = scrollContainerRef.current;
+      const card = container.querySelector<HTMLElement>("[data-special-card]");
+      const cardWidth = card ? card.offsetWidth + 20 : 300;
+      container.scrollTo({
         left: index * cardWidth,
-        behavior: "smooth"
+        behavior: "smooth",
       });
       setActiveIndex(index);
     }
   };
 
+  const handlePrev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (activeIndex > 0) {
+      scrollToCard(activeIndex - 1);
+    } else {
+      scrollByAmount("left");
+    }
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (activeIndex < SPECIAL_CARDS.length - 1) {
+      scrollToCard(activeIndex + 1);
+    } else {
+      scrollByAmount("right");
+    }
+  };
+
   return (
-    <section id="offers" className="pt-10 pb-12 bg-[#E1EAE3] scroll-mt-20 border-y border-neutral-200/30">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+    <section id="offers" className="py-10 sm:py-14 bg-[#EDF3EF] scroll-mt-16 select-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Special Offers Badge */}
-        <div className="inline-flex items-center justify-center border border-[#FFFF00]/15 text-white bg-[#1E4620] px-6 py-2.5 rounded-full text-xs sm:text-sm font-black uppercase tracking-widest mb-4 shadow-xs select-none">
-          ⚡ Special Combos
+        {/* Section Heading matching screenshot 1:1 */}
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-neutral-300/80 text-[#1B4D2E] text-[11px] sm:text-[11.5px] font-extrabold tracking-wider uppercase mb-2.5 shadow-2xs">
+            <span className="text-[12px] leading-none">⚡</span>
+            <span>SPECIAL COMBOS</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight font-serif">
+            Curated Wellness Combos
+          </h2>
+          <p className="text-sm sm:text-base font-semibold text-neutral-700 mt-1.5">
+            Smart nutrition pairings. Better value. One easy order.
+          </p>
+          <p className="text-xs sm:text-sm text-neutral-500 mt-0.5">
+            Freshly prepared • Made to order • Save up to 10%
+          </p>
         </div>
 
-        {/* Display Title */}
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif italic text-[#1A1A1A] font-extrabold tracking-tight leading-tight">
-          Curated  Wellness Combos
-        </h2>
-        <p className="mt-1 text-[#1A1A1A]/70 max-w-lg mx-auto text-xs sm:text-sm">
-          Add our popular nutrition pairings directly to your delivery in one click. Completely raw, fresh, and hand-prepared.
-        </p>
-
-        {/* Curated horizontal list with smooth horizontal scroll way */}
-        <div className="relative mt-8 group/slider w-full max-w-lg sm:max-w-xl md:max-w-4xl mx-auto">
-          {/* Left Arrow Button - Positioned at corner-center of the active card's image area */}
-          <button 
-            onClick={() => {
-              const prevIndex = (activeIndex - 1 + DYNAMIC_ITEM_COMBOS.length) % DYNAMIC_ITEM_COMBOS.length;
-              scrollToCard(prevIndex);
-            }}
-            className="absolute left-2 md:-left-5 top-[119px] -translate-y-1/2 z-40 w-9 h-9 rounded-full bg-white/95 hover:bg-white text-[#1E4620] border border-neutral-200/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xs hover:border-[#1E4620]/30"
-            title="Previous Combo"
+        {/* Carousel / Cards Outer Wrapper */}
+        <div className="relative flex items-center">
+          
+          {/* Left Arrow Button (Always clickable and functional) */}
+          <button
+            id="special-card-prev-btn"
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous special card"
+            className="flex absolute -left-2 sm:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white hover:bg-neutral-50 active:bg-neutral-100 text-neutral-800 border border-neutral-200/90 shadow-md items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <ChevronLeft className="w-5 h-5 text-[#1E4620]" strokeWidth={3} />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800" strokeWidth={2.4} />
           </button>
 
-          {/* Right Arrow Button - Positioned at corner-center of the active card's image area */}
-          <button 
-            onClick={() => {
-              const nextIndex = (activeIndex + 1) % DYNAMIC_ITEM_COMBOS.length;
-              scrollToCard(nextIndex);
-            }}
-            className="absolute right-2 md:-right-5 top-[119px] -translate-y-1/2 z-40 w-9 h-9 rounded-full bg-white/95 hover:bg-white text-[#1E4620] border border-neutral-200/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xs hover:border-[#1E4620]/30"
-            title="Next Combo"
+          {/* Right Arrow Button (Always clickable and functional) */}
+          <button
+            id="special-card-next-btn"
+            type="button"
+            onClick={handleNext}
+            aria-label="Next special card"
+            className="flex absolute -right-2 sm:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white hover:bg-neutral-50 active:bg-neutral-100 text-neutral-800 border border-neutral-200/90 shadow-md items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <ChevronRight className="w-5 h-5 text-[#1E4620]" strokeWidth={3} />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800" strokeWidth={2.4} />
           </button>
 
-          <div 
+          {/* Cards Grid / Scroll Track */}
+          <div
             ref={scrollContainerRef}
-            onScroll={handleScroll}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onTouchStart={() => setIsPaused(true)}
-            onTouchEnd={() => setIsPaused(false)}
-            className="flex overflow-x-auto gap-5 pb-4 px-4 scrollbar-none snap-x snap-mandatory scroll-smooth w-full justify-start md:justify-center"
+            className="flex overflow-x-auto gap-4 sm:gap-5 pb-3 px-1 sm:px-2 scrollbar-none snap-x snap-mandatory scroll-smooth w-full"
+            style={{ WebkitOverflowScrolling: "touch" }}
           >
-            {DYNAMIC_ITEM_COMBOS.map((combo) => {
+            {SPECIAL_CARDS.map((card) => {
               const existingCartItem = cartItems.find(
-                (c) => c.menuItem.id === combo.id && (!c.customIngredients || c.customIngredients.length === 0)
+                (c) => c.menuItem.id === card.id && (!c.customIngredients || c.customIngredients.length === 0)
               );
-              const isAdded = !!existingCartItem || addedItem === combo.id;
-              const isFavorite = !!favorites[combo.id];
+              const isFavorite = !!favorites[card.id];
 
               return (
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  transition={{ duration: 0.15 }}
-                  key={combo.id}
-                  className="bg-white border border-neutral-200/50 rounded-[28px] p-4.5 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all duration-300 text-left flex flex-col justify-between group relative shrink-0 w-[275px] xs:w-[290px] snap-center select-none"
+                <div
+                  key={card.id}
+                  id={`special-card-${card.id}`}
+                  data-special-card="true"
+                  className="bg-white border border-neutral-200/90 rounded-[24px] p-3.5 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 flex flex-col justify-between shrink-0 w-[275px] xs:w-[290px] sm:w-[300px] lg:w-[calc(25%-16px)] snap-start text-left"
                 >
-                  {/* 1. Image Container (Top block) */}
-                  <div 
-                    style={{ height: "202.4px" }}
-                    className={`relative w-full ${combo.imgBg} rounded-[22px] overflow-hidden flex items-end justify-center p-3 select-none mb-3.5`}
-                  >
-                    {/* Badge pinned on the top-left */}
-                    <div className={`absolute top-3 left-3 z-30 flex items-center space-x-1 px-2.5 py-1 rounded-full text-[8.5px] font-black uppercase tracking-wider shadow-xs ${combo.badgeColor}`}>
-                      {combo.tagIcon === "leaf" && <Leaf className="w-2.5 h-2.5" />}
-                      {combo.tagIcon === "shield" && <Shield className="w-2.5 h-2.5" />}
-                      {combo.tagIcon === "sparkles" && <Sparkles className="w-2.5 h-2.5" />}
-                      {combo.tagIcon === "dumbbell" && <Dumbbell className="w-2.5 h-2.5" />}
-                      <span>{combo.tag}</span>
-                    </div>
+                  <div>
+                    {/* 1. Top Image Box */}
+                    <div className="relative w-full aspect-[16/11] rounded-2xl overflow-hidden bg-[#F6F8F6] mb-3.5">
+                      {/* Top-Left Category Badge */}
+                      <div className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs border border-neutral-200/80 shadow-2xs text-[9.5px] font-extrabold text-neutral-900 tracking-wider uppercase">
+                        {card.badgeIcon && <span className="text-[11px] leading-none">{card.badgeIcon}</span>}
+                        <span>{card.badge}</span>
+                      </div>
 
-                    {/* Favorite/Heart Button pinned on top-right */}
-                    <button 
-                      onClick={(e) => toggleFavorite(combo.id, e)}
-                      className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-white/45 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-xs hover:bg-white/60 transition-colors active:scale-90 cursor-pointer"
-                    >
-                      <Heart 
-                        className={`w-4 h-4 transition-colors ${isFavorite ? "fill-red-500 text-red-500" : "text-neutral-800"}`} 
-                        strokeWidth={2} 
+                      {/* Top-Right Favorite / Wishlist Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => toggleFavorite(card.id, e)}
+                        aria-label={`Save ${card.name} to favorites`}
+                        className="absolute top-2.5 right-2.5 z-10 w-7 h-7 rounded-full bg-white/95 backdrop-blur-xs border border-neutral-200/80 shadow-2xs flex items-center justify-center hover:bg-white transition-transform active:scale-90 cursor-pointer"
+                      >
+                        <Heart
+                          className={`w-3.5 h-3.5 transition-colors ${
+                            isFavorite ? "fill-red-500 text-red-500" : "text-neutral-700"
+                          }`}
+                          strokeWidth={2}
+                        />
+                      </button>
+
+                      {/* Product Banner Image */}
+                      <img
+                        src={card.image}
+                        alt={card.name}
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
                       />
-                    </button>
-
-                    {/* Overlapping Products Composition or Single Image */}
-                    <div className="relative w-full h-[95%] flex items-end justify-center">
-                      {combo.image2 ? (
-                        <>
-                          {/* Image 1: Drink (Left side, standing tall) */}
-                          <div className="absolute left-[4%] bottom-0 w-[46%] h-[95%] flex items-end justify-center z-10 transition-transform duration-500 group-hover:scale-[1.03]">
-                            <img
-                              src={combo.image1}
-                              alt={`${combo.name} Drink`}
-                              referrerPolicy="no-referrer"
-                              className="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_10px_rgba(0,0,0,0.12)]"
-                            />
-                          </div>
-                          {/* Image 2: Bowl / Cup (Right side, in front) */}
-                          <div className="absolute right-[4%] bottom-0 w-[56%] h-[82%] flex items-end justify-center z-20 transition-transform duration-500 group-hover:scale-[1.03] group-hover:translate-x-0.5">
-                            <img
-                              src={combo.image2}
-                              alt={`${combo.name} Bowl`}
-                              referrerPolicy="no-referrer"
-                              className="max-w-full max-h-full object-contain filter drop-shadow-[0_10px_12px_rgba(0,0,0,0.16)]"
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        /* Single high-end image (e.g. ABC Wellness Combo) */
-                        <div className="absolute inset-0 w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03]">
-                          <img
-                            src={combo.image1}
-                            alt={combo.name}
-                            referrerPolicy="no-referrer"
-                            className="w-full h-full object-cover rounded-[22px]"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* 2. Content Area */}
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-
-                      {/* Bold Heading & Subheading */}
-                      <div className="mt-1.5">
-                        <h3 className="font-extrabold text-[18px] sm:text-[19px] text-[#1A1A1A] leading-tight font-sans tracking-tight line-clamp-1">
-                          {combo.name}
-                        </h3>
-                        <p className="text-[#38A325] text-[9.5px] font-black uppercase tracking-wider mt-0.5 font-sans truncate">
-                          {combo.subtitle}
-                        </p>
-                      </div>
-
-                      {/* Detailed Description */}
-                      <p className="text-neutral-500 text-[11px] mt-2 leading-relaxed font-normal">
-                        {combo.description}
-                      </p>
-
-                      {/* Nutrition Chips section exactly as per shared image */}
-                      <div className="mt-3">
-                        <span className="text-[10px] font-bold text-neutral-400 block mb-1.5 uppercase tracking-wider">Nutrition</span>
-                        <div className="flex flex-wrap gap-1.5 select-none">
-                          {combo.nutrientTags.map((tag, tIdx) => (
-                            <div 
-                              key={tIdx} 
-                              className={`flex items-center space-x-1 px-2.5 py-0.5 rounded-md border text-[9.5px] font-bold tracking-tight shadow-2xs ${tag.color}`}
-                            >
-                              <span className="text-[10px]">{tag.icon}</span>
-                              <span>{tag.text}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
                     </div>
 
-                    {/* Bottom pricing & add to cart button */}
-                    <div className="mt-4.5 pt-3.5 border-t border-neutral-100 flex flex-col gap-3">
-                      {/* Price display with originalPrice struck through and savings badge */}
-                      <div className="flex items-center flex-wrap gap-2">
-                        <span className="text-[18px] font-sans font-black text-neutral-900 leading-none">₹{combo.price}</span>
-                        {combo.originalPrice && combo.originalPrice > combo.price && (
-                          <span className="text-neutral-400 line-through text-[14px] font-sans font-semibold">₹{combo.originalPrice}</span>
-                        )}
-                        {combo.originalPrice && combo.originalPrice > combo.price && (
-                          <span className="text-[9px] bg-[#E1EAE3] text-[#1E4620] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
-                            Save ₹{combo.originalPrice - combo.price}
-                          </span>
-                        )}
-                      </div>
+                    {/* 2. Title & Subtitle */}
+                    <h3 className="font-bold text-[17px] sm:text-[18px] text-neutral-950 leading-snug tracking-tight">
+                      {card.name}
+                    </h3>
+                    <p className="text-[10px] sm:text-[10.5px] font-extrabold text-[#1B4D2E] tracking-wider uppercase mt-1 leading-tight">
+                      {card.subtitle}
+                    </p>
 
-                      {/* Add to Cart button stretching full-width of card */}
-                      {existingCartItem ? (
-                        <div className="w-full flex items-center justify-between bg-[#F1F6F2] text-[#1E4620] border border-[#1E4620]/30 rounded-full h-[48px] px-2.5 select-none transition-all duration-300">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (existingCartItem.quantity > 1) {
-                                onUpdateCartQuantity(existingCartItem.id, existingCartItem.quantity - 1);
-                              } else {
-                                onRemoveCartItem(existingCartItem.id);
-                              }
-                            }}
-                            className="w-9 h-9 flex items-center justify-center bg-white border border-[#1E4620]/25 hover:bg-[#1E4620]/10 rounded-full text-[#1E4620] cursor-pointer transition-colors active:scale-95 shadow-xs"
-                            title="Decrease Quantity"
-                          >
-                            <Minus className="w-4 h-4" strokeWidth={3} />
-                          </button>
-                          
-                          <div className="flex flex-col items-center justify-center">
-                            <span className="text-[12px] font-black tracking-wider uppercase text-[#1E4620]">
-                              {existingCartItem.quantity} Added
-                            </span>
-                          </div>
+                    {/* 3. Description */}
+                    <p className="text-[11.5px] sm:text-[12px] text-neutral-600 mt-1.5 leading-relaxed line-clamp-2 min-h-[34px]">
+                      {card.description}
+                    </p>
 
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const item: MenuItem = {
-                                id: combo.id,
-                                name: combo.name,
-                                price: combo.price,
-                                category: combo.category,
-                                description: `${combo.subtitle} — ${combo.description}`,
-                                icon: combo.icon
-                              };
-                              onAddToCartDirectly(item);
-                            }}
-                            className="w-9 h-9 flex items-center justify-center bg-white border border-[#1E4620]/25 hover:bg-[#1E4620]/10 rounded-full text-[#1E4620] cursor-pointer transition-colors active:scale-95 shadow-xs"
-                            title="Increase Quantity"
-                          >
-                            <Plus className="w-4 h-4" strokeWidth={3} />
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => handleAddToCart(combo)}
-                          className="w-full py-3.5 rounded-full text-[12px] font-black tracking-wider transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer uppercase shadow-xs active:scale-[0.98] bg-[#1E4620] text-white hover:bg-[#15311a] hover:shadow-[0_4px_12px_rgba(20,83,45,0.18)]"
+                    {/* 4. Nutrient / Feature Tags */}
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {card.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-[#F0F3F1] text-neutral-700 text-[10px] sm:text-[10.5px] font-semibold px-2 py-0.5 rounded-md"
                         >
-                          <span>Add to Cart</span>
-                        </button>
-                      )}
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </motion.div>
+
+                  {/* 5. Pricing & Action Button */}
+                  <div className="mt-4 pt-2">
+                    {/* Price Row */}
+                    <div className="flex items-baseline gap-1.5 mb-3">
+                      <span className="text-[19px] sm:text-[20px] font-black text-neutral-950 tracking-tight leading-none">
+                        ₹{card.price}
+                      </span>
+                      <span className="text-[12px] sm:text-[13px] text-neutral-400 line-through font-medium leading-none">
+                        ₹{card.originalPrice}
+                      </span>
+                      <span className="text-[10.5px] sm:text-[11px] font-bold text-[#1B4D2E] tracking-wider ml-1 leading-none">
+                        SAVE ₹{card.saveAmount}
+                      </span>
+                    </div>
+
+                    {/* Add to Cart Button / Quantity Controller */}
+                    {existingCartItem ? (
+                      <div className="w-full flex items-center justify-between bg-[#F0F5F2] text-[#1B4D2E] border border-[#1B4D2E]/25 rounded-full h-[44px] px-2 select-none">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (existingCartItem.quantity > 1) {
+                              onUpdateCartQuantity(existingCartItem.id, existingCartItem.quantity - 1);
+                            } else {
+                              onRemoveCartItem(existingCartItem.id);
+                            }
+                          }}
+                          className="w-8 h-8 flex items-center justify-center bg-white border border-[#1B4D2E]/20 hover:bg-[#1B4D2E]/10 rounded-full text-[#1B4D2E] cursor-pointer transition-colors active:scale-95 shadow-2xs"
+                          aria-label="Decrease quantity"
+                        >
+                          <Minus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                        </button>
+
+                        <span className="text-[11.5px] font-extrabold tracking-wider uppercase text-[#1B4D2E]">
+                          {existingCartItem.quantity} Added
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToCart(card);
+                          }}
+                          className="w-8 h-8 flex items-center justify-center bg-white border border-[#1B4D2E]/20 hover:bg-[#1B4D2E]/10 rounded-full text-[#1B4D2E] cursor-pointer transition-colors active:scale-95 shadow-2xs"
+                          aria-label="Increase quantity"
+                        >
+                          <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => handleAddToCart(card)}
+                        className="w-full py-2.5 sm:py-3 rounded-full bg-[#183B1E] hover:bg-[#122D17] active:scale-[0.98] text-white font-extrabold text-[12px] uppercase tracking-wider transition-colors shadow-xs flex items-center justify-center cursor-pointer"
+                      >
+                        ADD TO CART
+                      </button>
+                    )}
+                  </div>
+                </div>
               );
             })}
           </div>
         </div>
 
-        {/* Pagination Dots (Exactly as per shared image layout) */}
-        <div className="flex justify-center items-center space-x-2 mt-4">
-          {DYNAMIC_ITEM_COMBOS.map((_, idx) => (
+        {/* Carousel Pagination Dots */}
+        <div className="flex justify-center items-center gap-1.5 mt-5">
+          {SPECIAL_CARDS.map((_, idx) => (
             <button
               key={idx}
               onClick={() => scrollToCard(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
               className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                activeIndex === idx 
-                  ? "w-4 bg-[#1E4620]" 
-                  : "w-2 bg-[#9BAFA0]/75 hover:bg-[#9BAFA0]"
+                activeIndex === idx ? "w-4 bg-[#183B1E]" : "w-2 bg-neutral-300 hover:bg-neutral-400"
               }`}
             />
           ))}
         </div>
-
       </div>
     </section>
   );
 }
+ 
