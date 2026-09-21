@@ -8,27 +8,39 @@ export default function ActiveSubscriptionWidget() {
 
   const checkPlanState = () => {
     const saved = localStorage.getItem("fresco_active_sub_v2");
+    let nextPlan: any = null;
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         if (parsed && typeof parsed === "object") {
-          // Check if plan has completed all deliveries (expired)
           const isExpired = parsed.deliveriesCompleted >= parsed.totalDeliveries;
           if (!isExpired) {
-            setActivePlan(parsed);
-            return;
+            nextPlan = parsed;
           }
         }
       } catch (e) {}
     }
-    setActivePlan(null);
+
+    setActivePlan((prev: any) => {
+      if (!prev && !nextPlan) return null;
+      if (
+        prev &&
+        nextPlan &&
+        prev.id === nextPlan.id &&
+        prev.deliveriesCompleted === nextPlan.deliveriesCompleted &&
+        prev.status === nextPlan.status
+      ) {
+        return prev;
+      }
+      return nextPlan;
+    });
   };
 
   useEffect(() => {
     checkPlanState();
     // Synchronize instantly across storage updates
     window.addEventListener("storage", checkPlanState);
-    const interval = setInterval(checkPlanState, 1500);
+    const interval = setInterval(checkPlanState, 10000);
 
     return () => {
       window.removeEventListener("storage", checkPlanState);
