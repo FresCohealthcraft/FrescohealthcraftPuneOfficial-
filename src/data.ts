@@ -147,7 +147,7 @@ import ProteinTofuSaladImg from "./assets/images/25g Protein Tofu Salad Bowl.png
 // @ts-ignore  
 import ProteinPaneerSaladImg from "./assets/images/30g Protein Paneer Salad Bowl.png"; 
 // @ts-ignore  
-import MediterraneanChickpeaSaladImg from "./assets/images/Mediterranean Chickpea Salad Bowl.png"; 
+import MediterraneanChickpeaSaladImg from "./assets/images/Mediterranean-Chickpea-Salad.png"; 
 
 // @ts-ignore  
 import SweetCornChaatImg from "./assets/images/Sweet-Corn-Chaat.png"; 
