@@ -53,14 +53,14 @@ import SmoothiesImg from "../assets/images/Chocolate-Protein-Smoothie.png";
 
 
 // @ts-ignore
-import SpecialsImg from "../assets/images/Dubai-Kunafa-Pistachio.PNG";
+import SpecialsImg from "../assets/images/Dubai-Kunafa-Pistachio.png";
 
 // @ts-ignore  
-import ProteinGreekYogurtParfaitImg from "../assets/images/30g-Protein-Greek-Yogurt-Parfait.PNG"; 
+import ProteinGreekYogurtParfaitImg from "../assets/images/30g-Protein-Greek-Yogurt-Parfait.png"; 
 // @ts-ignore  
-import OvernightOatsImg from "../assets/images/Overnight-Oats.PNG"; 
+import OvernightOatsImg from "../assets/images/Overnight-Oats.png"; 
 // @ts-ignore  
-import BoiledEggProteinBoxaImg from "../assets/images/Boiled-Egg-Protein.PNG"; 
+import BoiledEggProteinBoxaImg from "../assets/images/Boiled-Egg-Protein.png"; 
 
 
 const PREMIUM_ITEMS: Record<string, {
