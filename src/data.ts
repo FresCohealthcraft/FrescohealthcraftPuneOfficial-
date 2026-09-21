@@ -1,4 +1,18 @@
 import { MenuItem, PromoCoupon } from "./types";
+
+// @ts-ignore
+import ABCWellnessComboImg from "../assets/images/ABC_Wellness_Combo.png";
+
+// @ts-ignore
+import ImmunityShieldSpecialImg from "../assets/images/Immunity_Shield_Special.png";
+
+// @ts-ignore
+import GoldenGlowSpecialImg from "../assets/images/Golden_Glow_Special.png";
+
+// @ts-ignore
+import MuscleRefillSpecialImg from "../assets/images/Muscle_Refill_Special.png";
+
+
 // @ts-ignore
 import watermelonJuiceImg from "./assets/images/watermelon-juice.png";
 // @ts-ignore
@@ -16,7 +30,7 @@ import GangaJuiceImg from "./assets/images/Ganga-Juic.png";
 // @ts-ignore
 import PomegranateJuiceImg from "./assets/images/Pomegranate-Juice.png";
 // @ts-ignore
-import papayaJuiceImg from "./assets/images/papaya-Juice.png";
+import papayaJuiceImg from "./assets/images/Papaya-Juice.png";
 // @ts-ignore
 import MuskmelonJuiceImg from "./assets/images/Muskmelon-Juice.png";
 // @ts-ignore
@@ -48,8 +62,9 @@ import ClassicDelightCupImg from "./assets/images/Classic-Delight-Cup.png";
 import ExoticDelightCupImg from "./assets/images/Exotic-Delight-Cup.png";
 // @ts-ignore
 import SproutsBowlImg from "./assets/images/Sprouts-Bowl.png";
+
 // @ts-ignore
-import PaneerPowerBowlImg from "./assets/images/Paneer-Power-Bowl.png";
+import PaneerPowerBowlImg from "./assets/images/Paneer-Bowl.png";
 // @ts-ignore
 import ABCDrinkImg from "./assets/images/ABC-Drink.png";
 // @ts-ignore
@@ -103,131 +118,150 @@ import BiscoffCrunchImg from "./assets/images/Biscoff-Crunch.png";
 // @ts-ignore
 import DubaiKunafaPistachioImg from "./assets/images/Dubai-Kunafa-Pistachio.png";
 // @ts-ignore
-import AppleChocofrostImg from "./assets/images/Apple-Chocofrost.png";
-// @ts-ignore
-import GrapesChocofrostImg from "./assets/images/Grapes-Chocofrost.png";
-// @ts-ignore
-import MangoChocofrostImg from "./assets/images/Mango-Chocofrost.png";
-// @ts-ignore
 import chickenPowerBowlImg from "./assets/images/Chicken-Power-Bowl.png";
 
 // @ts-ignore
-import ABCWellnessComboImg from "../assets/images/ABC_Wellness_Combo.png";
-
+import avocadotoastImg from "./assets/images/avocado_toast.png";
 // @ts-ignore
-import ImmunityShieldSpecialImg from "../assets/images/Immunity_Shield_Special.png";
-
+import ProteinChickenSandwichImg from "./assets/images/Chicken-Sandwich.png";
 // @ts-ignore
-import GoldenGlowSpecialImg from "../assets/images/Golden_Glow_Special.png";
-
+import ProteinPaneerSandwichImg from "./assets/images/35g-Protein-Paneer-Sandwich.png";
 // @ts-ignore
-import MuscleRefillSpecialImg from "../assets/images/Muscle_Refill_Special.png";
+import ProteinBoiledEggSandwichImg  from "./assets/images/25g-Protein-Boiled-Egg-Sandwich.png";
+// @ts-ignore
+import PeanutButterBananaSandwichImg from "./assets/images/Peanut-Butter-Banana-Sandwich.png";
+
+  
+// @ts-ignore
+import ProteinChickenWrapImg from "./assets/images/Protein-Chicken-Wrap.png";
+// @ts-ignore
+import ProteinPaneerWrapImg from "./assets/images/Protein-Paneer-Wrap.png";
+// @ts-ignore
+import ProteinEggWrapImg from "./assets/images/Protein-Egg-Wrap.png";   
+
+
+// @ts-ignore  
+import ProteinChickenSaladImg from "./assets/images/Chicken-Power-Bowl.png"; 
+// @ts-ignore  
+import ProteinTofuSaladImg from "./assets/images/25g Protein Tofu Salad Bowl.png"; 
+// @ts-ignore  
+import ProteinPaneerSaladImg from "./assets/images/30g Protein Paneer Salad Bowl.png"; 
+// @ts-ignore  
+import MediterraneanChickpeaSaladImg from "./assets/images/Mediterranean Chickpea Salad Bowl.png"; 
+
+// @ts-ignore  
+import SweetCornChaatImg from "./assets/images/Sweet-Corn-Chaat.png"; 
+
+// @ts-ignore  
+import ProteinChickenBrownRiceImg from "./assets/images/Protein-Chicken-Brown-Rice.png"; 
+// @ts-ignore  
+import ProteinPaneerBrownRiceImg from "./assets/images/Protein-Paneer-Brown-Rice.png"; 
+// @ts-ignore  
+import ProteinTofuBrownRiceImg from "./assets/images/Protein-Tofu-Brown-Rice.png"; 
+
+    
+// @ts-ignore  
+import ProteinTofuQuinoaImg from "./assets/images/Protein-Tofu-Quinoa.png"; 
+// @ts-ignore  
+import ProteinPaneerQuinoaImg from "./assets/images/Protein-Paneer-Quinoa.png"; 
+// @ts-ignore  
+import ProteinChickenQuinoaImg from "./assets/images/Protein-Chicken-Quinoa.png"; 
+
+
+// @ts-ignore  
+import ProteinGreekYogurtParfaitImg from "./assets/images/30g-Protein-Greek-Yogurt-Parfait.png"; 
+// @ts-ignore  
+import OvernightOatsImg from "./assets/images/Overnight-Oats.png"; 
+// @ts-ignore  
+import BoiledEggProteinBoxaImg from "./assets/images/Boiled-Egg-Protein.png"; 
+
+
+// @ts-ignore  
+import ChocolateProteinSmoothieImg from "./assets/images/Chocolate-Protein-Smoothie.png"; 
+// @ts-ignore  
+import PeanutButterBananaProteinSmoothieImg from "./assets/images/Peanut-Butter-Banana-Protein-Smoothie.png"; 
+
+
+
+const ChocolateProteinSmoothie = ChocolateProteinSmoothieImg;
+const PeanutButterBananaProteinSmoothie = PeanutButterBananaProteinSmoothieImg;
+const ProteinGreekYogurtParfait = ProteinGreekYogurtParfaitImg;
+const OvernightOats = OvernightOatsImg;
+const BoiledEggProteinBoxa = BoiledEggProteinBoxaImg;
+const ProteinChickenQuinoa = ProteinChickenQuinoaImg;
+const ProteinPaneerQuinoa = ProteinPaneerQuinoaImg;
+const ProteinTofuQuinoa = ProteinTofuQuinoaImg;
+const ProteinChickenBrownRice = ProteinChickenBrownRiceImg;
+const ProteinPaneerBrownRice = ProteinPaneerBrownRiceImg;
+const ProteinTofuBrownRice = ProteinTofuBrownRiceImg;
+const ProteinChickenSandwich = ProteinChickenSandwichImg;
+const ProteinPaneerSandwich = ProteinPaneerSandwichImg;
+const ProteinBoiledEggSandwich = ProteinBoiledEggSandwichImg;
+const PeanutButterBananaSandwich = PeanutButterBananaSandwichImg;
+const ProteinChickenWrap = ProteinChickenWrapImg;
+const ProteinPaneerWrap = ProteinPaneerWrapImg;
+const ProteinEggWrap = ProteinEggWrapImg;
+const ProteinChickenSalad = ProteinChickenSaladImg;
+const ProteinPaneerSalad = ProteinPaneerSaladImg;
+const ProteinTofuSalad = ProteinTofuSaladImg;
+const SweetCornChaat = SweetCornChaatImg;
+const MediterraneanChickpeaSalad = MediterraneanChickpeaSaladImg;
+const chickenPowerBowl = chickenPowerBowlImg;
+
+
 
 export const MENU_CATEGORIES = [
   "Fruit Juices",
-  "Power Cups",
-  "High Protein Meals",
-  "Green Vitality Juice",
-  "Super Food Sprouts Bowls",
   "Fresco Power Juices",
+  "Exotic Fruit Cup",
+  "Green Vitality Juice", 
+  "Super Food Sprouts Bowls",
+  "Specials",
+
+
+  "Sandwich",
+  "Wrap",
+  "Salad Bowl",
+  "Rice Bowl",
+  "Quinoa Bowl",
+  "Power Cups",
+  "Smoothies",
   "Shakes",
-  "Specials"
+  "4 Boiled Egg 25g Protein Box",
+  "Instant oats",
+  "Protein greek yogurt parfait",
+
 ];
 
 export const MENU_ITEMS: MenuItem[] = [
- // Fruit Juices
 
+
+  // Fruit Juices
+   {
+    id: "Nimbu-Pani-Juice",
+    name: "Nimbu Pani Juice",
+    description: "Traditional sweet and sour lemon cooler designed to hydrate and refresh instantly.",
+    price: 40,
+    image: NimbuPaniJuiceImg,
+    icon: "🍋",
+    category: "Fruit Juices",
+   
+  },
   {
     id: "Watermelon-Juice",
     name: "Watermelon Juice",
-    description: "Keeps You Hydrated • Supports Heart Health • Rich in Antioxidants",
-    price: 59,
+    description: "Juicy & Refreshing • Naturally Hydrating • Perfectly Light",
+    price: 60,
     image: watermelonJuiceImg,
     icon: "🍉",
     category: "Fruit Juices",
     popular: true,
   },
-
   {
-    id: "Mosambi-Juice",
-    name: "Mosambi Juice",
-    description: " Vitamin C immunity booster • Supporting digestion • Everyday energy.",
-    price: 69,
-    image: MosambiJuiceImg,
-    icon: "🍊",
-    category: "Fruit Juices",
-   popular: true,
-  },
-
-
-{
-    id: "Pineapple-Juice",
-    name: "Pineapple Juice",
-    description: "Bromelain-rich refreshing juice supporting digestion, joint health, and daily energy.",
-    price: 69,
-    image: pineappleJuiceImg,
-    icon: "🍍",
-    category: "Fruit Juices",
-    popular: true,
-  },
-
-  {
-    id: "Mango-Juice",
-    name: "Mango Juice",
-    description: "Rich, luscious juice bursting with tropical mango sweetness and vital vitamins.",
-    price: 79,
-    image: MangoJuiceImg,
-    icon: "🥭",
-    category: "Fruit Juices",
-    popular: true,
-  },
-
-  {
-    id: "Apple-Juice",
-    name: "Apple Juice",
-    description: "Crisp and refreshing cold-pressed sweet apple juice for immunity and daily hydration.",
-    price: 79,
-    image: AppleJuiceImg,
-    icon: " 🍎",
-    category: "Fruit Juices",
-  
-  },
-
-  {
-    id: "Orange-Juice",
-    name: "Orange Juice",
-    description: "Freshly squeezed sweet orange extract, extremely rich in Vitamin C and immunity support.",
-    price: 79,
-    image: OrangeJuiceImg,
-    icon: "🍊",
-    category: "Fruit Juices",
-    popular: true,
-  },
-  {
-    id: "Ganga-Juice",
-    name: "Ganga Jamuna Juice",
-    description: "A delicious combination of sweet lime (mosambi) and pineapple juice for double the immunity.",
-    price: 79,
-    image: GangaJuiceImg,
-    icon: "🍇",
-    category: "Fruit Juices",
-   
-  },
-  {
-    id: "Pomegranate-Juice",
-    name: "Pomegranate Juice",
-    description: "Pure pomegranate extract rich in polyphenols, antioxidants, and heart-healthy nutrients.",
-    price: 149,
-    image: PomegranateJuiceImg,
-    icon: "❤️",
-    category: "Fruit Juices",
-   
-  },
-   {
     id: "papaya-Juice",
     name: "Papaya Juice",
     description: "Thick, soothing papaya extract loaded with digestive enzymes and essential folate.",
-    price: 69,
+    price: 60,
     image: papayaJuiceImg,
     icon: "🧡",
     category: "Fruit Juices",
@@ -237,7 +271,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "Muskmelon-Juice",
     name: "Muskmelon Juice",
     description: "Cooling and hydrating muskmelon juice perfect for refreshing summer wellness.",
-    price: 69,
+    price: 70,
     image: MuskmelonJuiceImg,
     icon: "🍈",
     category: "Fruit Juices",
@@ -245,15 +279,79 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   
   {
-    id: "Nimbu-Pani-Juice",
-    name: "Nimbu Pani Juice",
-    description: "Traditional sweet and sour lemon cooler designed to hydrate and refresh instantly.",
-    price: 39,
-    image: NimbuPaniJuiceImg,
-    icon: "🍋",
+    id: "Mosambi-Juice",
+    name: "Mosambi Juice",
+    description: "Fresh & Zesty • Naturally Refreshing • Vitamin-C Rich",
+    price: 70,
+    image: MosambiJuiceImg,
+    icon: "🍊",
+    category: "Fruit Juices",
+  },
+  
+  {
+    id: "Pineapple-Juice",
+    name: "Pineapple Juice",
+    description: "Tropical & Juicy • Naturally Tangy • Refreshingly Delicious",
+    price: 70,
+    image: pineappleJuiceImg,
+    icon: "🍍",
+    category: "Fruit Juices",
+    popular: true,
+  },
+
+  {
+    id: "Mango-Juice",
+    name: "Mango Juice",
+    description: "Rich & Creamy • Naturally Sweet • Tropical Mango Goodness",
+    price: 80,
+    image: MangoJuiceImg,
+    icon: "🥭",
+    category: "Fruit Juices",
+  },
+
+  {
+    id: "Apple-Juice",
+    name: "Apple Juice",
+    description: "Crisp & Naturally Sweet • Refreshing • Smooth & Delicious",
+    price: 80,
+    image: AppleJuiceImg,
+    icon: " 🍎",
+    category: "Fruit Juices",
+  
+  },
+
+  {
+    id: "Orange-Juice",
+    name: "Orange Juice",
+    description: "Fresh & Citrusy • Naturally Sweet • Bright & Refreshing",
+    price: 80,
+    image: OrangeJuiceImg,
+    icon: "🍊",
+    category: "Fruit Juices",
+    popular: true,
+  },
+  {
+    id: "Ganga-Juice",
+    name: "Ganga Jamuna Juice",
+    description: "Sweet Lime & Pineapple • Zesty & Juicy • Refreshingly Delicious",
+    price: 80,
+    image: GangaJuiceImg,
+    icon: "🍇",
     category: "Fruit Juices",
    
   },
+  {
+    id: "Pomegranate-Juice",
+    name: "Pomegranate Juice",
+    description: "Pure pomegranate extract rich in polyphenols, antioxidants, and heart-healthy nutrients.",
+    price: 140,
+    image: PomegranateJuiceImg,
+    icon: "❤️",
+    category: "Fruit Juices",
+   
+  },
+ 
+ 
 
   // Green Vitality Juice
 
@@ -322,8 +420,6 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "Green Vitality Juice",
     
   },
-  
-
 
   {
     id: "Lauki-Juice",
@@ -347,51 +443,17 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true,
   },
 
-  // Protein Power Fruit Cup
 
-  {
-    id: "Protein-Power-Cup",
-    name: "Power Packed Cup",
-    description: "Small Cup. Big Nutrition. Fresh Greek Yogurt, Milk, Chia Seeds, Peanut Butter, Apple, Banana, Pomegranate, Flax, Sunflower & Pumpkin Seeds with a touch of Honey.",
-    price: 119,
-    image: ProteinPowerCupImg,
-    icon: "💪",
-    category: "Power Cups",
-    popular: true,
-    benefits: [
-      "💪 18–20 g Protein*",
-      "🌾 High in Fiber",
-      "❤️ Healthy Fats & Omega-3",
-      "⚡ Long-Lasting Energy",
-      "🥜 Rich in Super Seeds",
-      "🍎 Made with Fresh Fruits"
-    ]
-  },
+//Exotic Fruit Cup
 
-  {
-    id: "Classic-Delight-Cup",
-    name: "Classic Delight Cup",
-    description: "Fresh Fruits. Daily Goodness. A refreshing blend of 8–9 seasonal fruits, naturally rich in vitamins, antioxidants, and fiber for a healthy energy boost.",
-    price: 79,
-    image: ClassicDelightCupImg,
-    icon: "🍓",
-    category: "Power Cups",
-     benefits: [
-      "🍎 Rich in Essential Vitamins",
-      "🌿 High in Natural Fiber",
-      "⚡ Refreshing & Energizing",
-      "🍊 Packed with Fresh Seasonal Fruits",
-      "💚 Supports Everyday Wellness"
-    ]
-  },
 {
   id: "Exotic-Delight-Cup",
   name: "Exotic Delight Cup",
-  description: "Premium Cup. Exotic Flavors. Ultimate Freshness. A luxurious mix of 13–14 premium fruits packed with antioxidants, vitamins, and tropical goodness in every bite..",
+  description: "Premium Cup. Exotic Flavors. Ultimate Freshness. A luxurious premium fruits packed with antioxidants, vitamins, and tropical goodness in every bite..",
   price: 99,
   image: ExoticDelightCupImg,
   icon: "✨",
-  category: "Power Cups",
+  category: "Exotic Fruit Cup",
  popular: true,
  benefits: [
      "🥭 Loaded with Premium Fruits",
@@ -403,53 +465,15 @@ export const MENU_ITEMS: MenuItem[] = [
 },
 
 
-  // High Protein Meals
- {
-  id: "Chicken-Power-Bowl",
-  name: "35g Protein Chicken Bowl",
-  description: "Lean Protein. Fresh Veggies. Complete Nutrition. Premium tossed chicken served with crisp vegetables and creamy Greek yogurt Paneer dressing for a wholesome, protein-rich meal.",
-  price: 219,
-  image: chickenPowerBowlImg,
-  icon: "🍗",
-  category: "High Protein Meals",
-  popular: true,
-  benefits: [
-    "💪 35g High-Quality Protein",
-    "🥗 Rich in Fiber & Fresh Veggies",
-    "⚡ Long-Lasting Energy",
-    "❤️ Supports Muscle Growth & Recovery",
-    "🌿 Made with Clean Ingredients"  
-  ]
-},
-
- {
-  id: "Paneer-Power-Bowl",
-  name: "30G Protein Paneer Bowl",
-  description: "High Protein. Fresh Paneer. Balanced Nutrition. Tossed paneer paired with colorful vegetables and creamy Greek yogurt dressing for a delicious, wholesome meal.",
-  price: 199,
-  image: PaneerPowerBowlImg,
-  icon: "🧀",
-  category: "High Protein Meals",
-  popular: true,
-  benefits: [
-    "💪 30g High-Quality Protein",
-    "🥬 Rich in Fiber & Vitamins",
-    "⚡ Balanced & Filling Meal",
-    "❤️ Supports Muscle Health",
-    "🌱 Fresh Farm Ingredients"
-  ]
-
-},
-
-  // Super Food Sprouts Bowl
+// Super Food Sprouts Bowl
  {
   id: "Sprouts-Bowl",
   name: "Super food sprouts bowl",
   description: "Fresh Sprouts. Natural Nutrition. Everyday Wellness. A refreshing mix of protein-rich sprouts, fresh vegetables, herbs, and spices for a light yet satisfying meal.",
-  price: 79,
+  price: 80,
   image: SproutsBowlImg,
   icon: "🌱",
-  category: "High Protein Meals",
+  category: "Super Food Sprouts Bowls",
   popular: true,
   benefits: [
     "🌱 Rich in Plant Protein",
@@ -459,10 +483,7 @@ export const MENU_ITEMS: MenuItem[] = [
     "🌿 Freshly Prepared Daily"
   ]
 },
- 
-  
 
-  
 // Fresco Power Juices
 {
   id: "ABC-Drink",
@@ -488,13 +509,17 @@ export const MENU_ITEMS: MenuItem[] = [
 
 {
   id: "Super-Women",
-  name: "Super Women",
+  name: "Super You",
   description: "Orange, amla, and pomegranate juice rich in antioxidants and iron support.",
   price: 99,
   image: SuperWomenImg,
   icon: "🌸",
   category: "Fresco Power Juices",
   popular: true,
+  benefits:[
+    "Supports Energy, Vitality & Balance",
+      "Nourishment Designed for Women’s Wellness",
+      "Empowering Wellness in Every Sip"],
 },
 
 
@@ -512,12 +537,15 @@ export const MENU_ITEMS: MenuItem[] = [
 
 {
   id: "Stress-Relief",
-  name: "Stress Relief",
+  name: "Mind Fresh",
   description: "A refreshing blend of pomegranate and beetroot, rich in antioxidants and natural goodness.",
   price: 99,
   image: StressReliefImg,
   icon: "😌",
   category: "Fresco Power Juices",
+  benefits:["Promotes Calm & Relaxation Naturally",
+      "Sip Your Way to Serenity",
+      "Helps Ease Stress & Restore Balance"],
 },
 
 {
@@ -532,24 +560,18 @@ export const MENU_ITEMS: MenuItem[] = [
 
 {
   id: "Skin-Glow-up",
-  name: "Skin Glow-up",
+  name: "Skin Glow",
   description: "Carrot, orange, and apple juice for naturally glowing and healthy skin.",
   price: 99,
   image: SkinGlowupImg,
   icon: "✨",
   category: "Fresco Power Juices",
  popular: true,
+ benefits:["Radiant Skin from Within",
+      "Glow Naturally, Every Day",
+      "Nourishes Healthy, Glowing Skin"],
 },
 
-{
-  id: "Liver-Cleanser",
-  name: "Liver Cleanser",
-  description: "Aloe vera, cucumber, and amla juice for refreshing detox and cleansing support.",
-  price: 99,
-  image: LiverCleanserImg,
-  icon: "🍃",
-  category: "Fresco Power Juices",
-},
 
 {
   id: "Heart-Care",
@@ -564,7 +586,7 @@ export const MENU_ITEMS: MenuItem[] = [
 {
   id: "Fat-Burner",
   name: "Fat Burner",
-  description: "Lauki, spinach, and ginger juice crafted to support healthy metabolism.",
+  description: "Cucumber, spinach, apple, lemon, mint, and ginger juice crafted to support healthy metabolism.",
   price: 99,
   image: FatBurnerImg,
   icon: "🔥",
@@ -586,12 +608,17 @@ popular: true,
 
 {
   id: "Gut-Reset",
-  name: "Gut Reset",
+  name: "Gut care",
   description: "Lauki, tomato, and ginger juice to support digestion and gut wellness.",
   price: 99,
   image: GutResetImg,
   icon: "💚",
   category: "Fresco Power Juices",
+  benefits:[
+      "Happy Gut, Happy You",
+      "Supports Digestive Wellness Naturally",
+      "Refresh & Restore Digestive Balance"
+    ],
 },
 
 {
@@ -608,82 +635,12 @@ popular: true,
   id: "Make-Your-Own-(Any-5)",
   name: "Make Your Own (Any 5)",
   description: "Create your own custom power juice blend with any 5 fresh ingredients.",
-  price: 119,
+  price: 129,
   image: MakeYourOwnImg,
   icon: "🧑‍🍳",
   category: "Fresco Power Juices",
  
 },
-
-// Shakes
-
-{
-  id: "Banana-Shake",
-  name: "Banana Shake",
-  description: "Creamy banana shake packed with natural energy and rich flavor.",
-  price: 119,
-  image: BananaShakeImg,
-  icon: "🍌",
-  category: "Shakes",
-  
-},
-
-{
-  id: "Apple-Shake",
-  name: "Apple Shake",
-  description: "Refreshing apple shake blended for a smooth and naturally sweet taste.",
-  price: 129,
-  image: AppleShakeImg,
-  icon: "🍎",
-  category: "Shakes",
-
-},
-
-{
-  id: "Muskmelon-Shake",
-  name: "Muskmelon Shake",
-  description: "Cool and refreshing muskmelon shake perfect for summer hydration.",
-  price: 149,
-  image: MuskmelonShakeImg,
-  icon: "🍈",
-  category: "Shakes",
- popular: true,
-
-},
-
-{
-  id: "Mango-Shake",
-  name: "Mango Shake",
-  description: "Rich and creamy mango shake made with fresh juicy mangoes.",
-  price: 199,
-  image: MangoShakeImg,
-  icon: "🥭",
-  category: "Shakes",
-popular: true,
-},
-
-{
-  id: "oreo-shake",
-  name: "Oreo Shake",
-  description: "Creamy, chocolaty, and loaded with the irresistible taste of Oreo cookies.",  
-  price: 99,
-  image: OreoshakeImg,
-  icon: "🍪",
-  category: "Shakes",
-  popular: true
-},
-
-{
-  id: "Energy-Boost-Shake",
-  name: "Energy Boost Shake",
-  description: "Nutritious power-packed shake crafted to keep you energized and refreshed.",
-  price: 159,
-  image: EnergyBoostShakeImg,
-  icon: "⚡",
-  category: "Shakes",
-  popular: true,
-},
-
 
 // Specials
 
@@ -753,6 +710,555 @@ popular: true,
 },
 
 
+
+// Sandwich
+
+{
+  id: "avocado_toast",
+  name: "Avocado Toast",
+  description: "Creamy Avocado • Whole Wheat Bread • Fresh & Wholesome",
+  price: 179,
+  image: avocadotoastImg,
+  icon: "🥑",
+  category: "Sandwich",
+  popular: true,
+  benefits: [
+    "🥑 Creamy Fresh Avocado",
+    "🍞 Whole Wheat Bread",
+    "🌿 Fresh & Wholesome",
+    "✨ Simple & Satisfying"
+  ]
+},
+
+{
+  id: "35g-Protein-Chicken-Sandwich",
+  name: "35g Protein Chicken Sandwich",
+  description: "35g Protein • Tender Chicken • Whole Wheat Bread • Fresh & Filling",
+  price: 169,
+  image: ProteinChickenSandwich,
+  icon: "🐔",
+  category: "Sandwich",
+  popular: true,
+  benefits: [
+    "💪 35g Protein",
+    "🐔 Tender Chicken",
+    "🥬 Fresh Ingredients",
+    "🍞 Whole Wheat Bread"
+  ]
+},
+
+{
+  id: "35g-Protein-Paneer-Sandwich",
+  name: "30g Protein Paneer Sandwich",
+  description: "35g Protein • Creamy Paneer • Whole Wheat Bread • Wholesome & Filling",
+  price: 159,
+  image: ProteinPaneerSandwich,
+  icon: "🧀",
+  category: "Sandwich",
+  benefits: [
+    "💪 35g Protein",
+    "🧀 Creamy Paneer",
+    "🥬 Fresh Ingredients",
+    "🍞 Whole Wheat Bread"
+  ]
+},
+
+{
+  id: "25g-Protein-Boiled-Egg-Sandwich",
+  name: "25g Protein Boiled Egg Sandwich",
+  description: "25g Protein • Boiled Eggs • Whole Wheat Bread • Simple & Satisfying",
+  price: 119,
+  image: ProteinBoiledEggSandwich,
+  icon: "🥚",
+  category: "Sandwich",
+  benefits: [
+    "💪 25g Protein",
+    "🥚 Boiled Eggs",
+    "🍞 Whole Wheat Bread",
+    "⚡ Satisfying & Filling"
+  ]
+},
+
+{
+  id: "Peanut-Butter-Banana-Sandwich",
+  name: "Peanut Butter Banana Sandwich",
+  description: "Creamy Peanut Butter • Ripe Banana • Whole Wheat Bread • Naturally Delicious",
+  price: 99,
+  image: PeanutButterBananaSandwich,
+  icon: "🥜",
+  category: "Sandwich",
+  popular: true,
+  benefits: [
+    "🥜 Peanut Butter Goodness",
+    "🍌 Naturally Sweet Banana",
+    "🍞 Whole Wheat Bread",
+    "⚡ Naturally Energizing"
+  ]
+},
+
+// High Protein Wrap
+
+{
+  id: "30g-Protein-Chicken-Wrap",
+  name: "30g Protein Chicken Wrap",
+  description: "30g Protein • Tender Chicken • Whole Wheat Wrap • Fresh & Filling",
+  price: 159,
+  image: ProteinChickenWrap,
+  icon: "🐔",
+  category: "Wrap",
+  popular: true,
+  benefits: [
+    "💪 30g Protein",
+    "🐔 Tender Chicken",
+    "🌯 Whole Wheat Wrap",
+    "🥬 Fresh Ingredients"
+  ]
+},
+
+{
+  id: "25g-Protein-Paneer-Wrap",
+  name: "25g Protein Paneer Wrap",
+  description: "25g Protein • Creamy Paneer • Whole Wheat Wrap • Wholesome & Filling",
+  price: 149,
+  image: ProteinPaneerWrap,
+  icon: "🧀",
+  category: "Wrap",
+  popular: true,
+  benefits: [
+    "💪 25g Protein",
+    "🧀 Creamy Paneer",
+    "🌯 Whole Wheat Wrap",
+    "🥬 Fresh Ingredients"
+  ]
+},,
+
+{
+  id: "20g-Protein-Egg-Wrap",
+  name: "20g Protein Egg Wrap",
+  description: "20g Protein • Fluffy Eggs • Whole Wheat Wrap • Light & Satisfying",
+  price: 99,
+  image: ProteinEggWrap,
+  icon: "🥚",
+  category: "Wrap",
+  benefits: [
+    "💪 20g Protein",
+    "🥚 Fluffy Eggs",
+    "🌯 Whole Wheat Wrap",
+    "⚡ Light & Filling"
+  ]
+},
+
+
+// High Protein Salad Bowl
+
+{
+  id: "35g-Protein-Chicken-Salad",
+  name: "35g Protein Chicken Salad",
+  description: "35g Protein • Tender Chicken • Fresh Vegetables • Light & Wholesome",
+  price: 199,
+  image: ProteinChickenSalad,
+  icon: "🐔",
+  category: "Salad Bowl",
+  popular: true,
+  benefits: [
+    "💪 35g Protein",
+    "🐔 Tender Chicken",
+    "🥗 Fresh Vegetables",
+    "🌿 Light & Wholesome"
+  ]
+},
+
+{
+  id: "30g-Protein-Paneer-Salad",
+  name: "30g Protein Paneer Salad",
+  description: "30g Protein • Creamy Paneer • Fresh Vegetables • Wholesome & Satisfying",
+  price: 179,
+  image: ProteinPaneerSalad,
+  icon: "🧀",
+  category: "Salad Bowl",
+  popular: true,
+  benefits: [
+    "💪 30g Protein",
+    "🧀 Creamy Paneer",
+    "🥗 Fresh Vegetables",
+    "🌿 Wholesome & Satisfying"
+  ]
+},
+
+{
+  id: "30g-Protein-Tofu-Salad",
+  name: "25g Protein Tofu Salad",
+  description: "30g Protein • Plant-Based Tofu • Fresh Vegetables • Light & Wholesome",
+  price: 169,
+  image: ProteinTofuSalad,
+  icon: "🌱",
+  category: "Salad Bowl",
+  benefits: [
+    "💪 30g Protein",
+    "🌱 Plant-Based Tofu",
+    "🥗 Fresh Vegetables",
+    "🌿 Light & Wholesome"
+  ]
+},
+
+{
+  id: "Mediterranean-Chickpea-Salad",
+  name: "Mediterranean Chickpea Salad",
+  description: "Chickpeas • Fresh Veggies • Mediterranean Herbs • Fresh & Flavorful",
+  price: 99,
+  image: MediterraneanChickpeaSalad,
+  icon: "🫘",
+  category: "Salad Bowl",
+  benefits: [
+    "🫘 Plant-Based Protein",
+    "🥗 Fresh Chickpeas & Veggies",
+    "🌿 Mediterranean Flavors",
+    "✨ Fresh & Flavorful"
+  ]
+},
+
+{
+  id: "Sweet-Corn-Chaat",
+  name: "Sweet Corn Chaat",
+  description: "Sweet Corn • Fresh Veggies • Zesty Flavors • Light & Wholesome",
+  price: 49,
+  image: SweetCornChaat,
+  icon: "🌽",
+  category: "Salad Bowl",
+  popular: true,
+  benefits: [
+    "🌽 Sweet Corn",
+    "🥗 Fresh & Crunchy",
+    "✨ Zesty & Flavorful",
+    "🌿 Wholesome Snack"
+  ]
+},
+
+
+// High Protein Quinoa Bowl
+
+{
+  id: "35g-Protein-Chicken-Quinoa",
+  name: "35g Protein Chicken Quinoa",
+  description: "35g Protein • Tender Chicken • Wholesome Quinoa • Fresh & Filling",
+  price: 279,
+  image: ProteinChickenQuinoa,
+  icon: "🐔",
+  category: "Quinoa Bowl",
+  popular: true,
+  benefits: [
+      "💪 35g Protein",
+  "🐔 Tender Chicken",
+  "🌾 Wholesome Quinoa",
+  "🥗 Balanced & Filling"
+    ]
+},
+
+{
+  id: "30g-Protein-Paneer-Quinoa",
+  name: "30g Protein Paneer Quinoa",
+  description: "30g Protein • Creamy Paneer • Wholesome Quinoa • Rich & Satisfying",
+  price: 269,
+  image: ProteinPaneerQuinoa,
+  icon: "🧀",
+  category: "Quinoa Bowl",
+  benefits: [
+      "💪 30g Protein",
+  "🧀 Creamy Paneer",
+  "🌾 Wholesome Quinoa",
+  "🥗 Rich & Satisfying"
+    ]
+},
+
+{
+  id: "25g-Protein-Tofu-Quinoa",
+  name: "25g Protein Tofu Quinoa",
+  description: "25g Protein • Plant-Based Tofu • Wholesome Quinoa • Light & Filling",
+  price: 259,
+  image: ProteinTofuQuinoa,
+  icon: "🌱",
+  category: "Quinoa Bowl",
+  benefits: [
+       "💪 25g Protein",
+  "🌱 Plant-Based Tofu",
+  "🌾 Wholesome Quinoa",
+  "🥗 Light & Filling"
+    ]
+  
+},
+
+
+// High Protein Rice Bowl
+
+{
+  id: "35g-Protein-Chicken-Brown-Rice",
+  name: "35g Protein Chicken Brown Rice",
+  description: "35g Protein • Tender Chicken • Wholesome Brown Rice • Fresh & Filling",
+  price: 199,
+  image: ProteinChickenBrownRice,
+  icon: "🐔",
+  category: "Rice Bowl",
+  popular: true,
+  benefits: [
+    "💪 35g Protein",
+    "🐔 Tender Chicken",
+    "🍚 Wholesome Brown Rice",
+    "🥗 Fresh & Filling"
+  ]
+},
+
+{
+  id: "35g-Protein-Paneer-Brown-Rice",
+  name: "30g Protein Paneer Brown Rice",
+  description: "35g Protein • Creamy Paneer • Wholesome Brown Rice • Rich & Satisfying",
+  price: 179,
+  image: ProteinPaneerBrownRice,
+  icon: "🧀",
+  category: "Rice Bowl",
+  benefits: [
+    "💪 35g Protein",
+    "🧀 Creamy Paneer",
+    "🍚 Wholesome Brown Rice",
+    "🥗 Rich & Satisfying"
+  ]
+},
+
+{
+  id: "25g-Protein-Tofu-Brown-Rice",
+  name: "25g Protein Tofu Brown Rice",
+  description: "25g Protein • Plant-Based Tofu • Wholesome Brown Rice • Light & Filling",
+  price: 159,
+  image: ProteinTofuBrownRice,
+  icon: "🌱",
+  category: "Rice Bowl",
+  popular: true,
+  benefits: [
+    "💪 25g Protein",
+    "🌱 Plant-Based Tofu",
+    "🍚 Wholesome Brown Rice",
+    "🥗 Light & Filling"
+  ]
+},
+
+
+// Protein Power Fruit Cup
+
+  {
+    id: "Protein-Power-Cup",
+    name: "Power Packed Cup",
+    description: "Small Cup. Big Nutrition. Fresh Greek Yogurt, Milk, Chia Seeds, Peanut Butter, Apple, Banana, Pomegranate, Flax, Sunflower & Pumpkin Seeds with a touch of Honey.",
+    price: 119,
+    image: ProteinPowerCupImg,
+    icon: "💪",
+    category: "Power Cups",
+    popular: true,
+    benefits: [
+       "💪 18–20g Protein",
+  "🌾 High in Fiber",
+  "❤️ Healthy Fats & Omega-3",
+  "🥜 Rich in Nuts & Seeds",
+  "🍎 Made with Fresh Fruits",
+  "⚡ Long-Lasting Satisfaction"
+    ]
+  },
+
+ // Protein Smoothies
+
+{
+  id: "Chocolate-Protein-Smoothie",
+  name: "Chocolate Protein Smoothie",
+  description: "Protein-Rich • Creamy Chocolate • Smooth, Rich & Satisfying",
+  price: 119,
+  image: ChocolateProteinSmoothie,
+  icon: "🍫",
+  category: "Smoothies",
+  benefits: [
+      "💪 Protein-Rich",
+  "🍫 Rich Chocolate Flavor",
+  "🥛 Creamy & Smooth",
+  "⚡ Satisfying & Energizing"
+    ]
+},
+
+{
+  id: "Peanut-Butter-Banana-Protein-Smoothie",
+  name: "Peanut Butter Banana Protein Smoothie",
+  description: "Protein-Rich • Peanut Butter & Banana • Creamy & Naturally Energizing",
+  price: 139,
+  image: PeanutButterBananaProteinSmoothie,
+  icon: "🥜",
+  category: "Smoothies",
+  popular: true,
+  benefits: [
+     "💪 Protein-Rich",
+  "🥜 Peanut Butter Goodness",
+  "🍌 Naturally Sweet Banana",
+  "🥛 Creamy & Satisfying"
+    ]
+},
+
+
+// Shakes
+
+{
+  id: "oreo-shake",
+  name: "Oreo Shake",
+  description: "Creamy & Chocolaty • Loaded with Oreo Goodness • Rich & Indulgent",
+  price: 99,
+  image: OreoshakeImg,
+  icon: "🍪",
+  category: "Shakes",
+  benefits: [
+       "🍪 Loaded with Oreo Goodness",
+  "🍫 Rich & Chocolaty",
+  "🥛 Creamy & Smooth",
+  "✨ Indulgent Treat"
+    ]
+},
+
+{
+  id: "Banana-Shake",
+  name: "Banana Shake",
+  description: "Creamy Banana • Naturally Sweet • Smooth & Satisfying",
+  price: 119,
+  image: BananaShakeImg,
+  icon: "🍌",
+  category: "Shakes",
+  benefits: [
+       "🍌 Naturally Sweet Banana",
+  "🥛 Creamy & Smooth",
+  "⚡ Naturally Energizing",
+  "✨ Deliciously Satisfying"
+    ]
+  
+},
+
+{
+  id: "Apple-Shake",
+  name: "Apple Shake",
+ description: "Fresh Apple Flavor • Smooth & Creamy • Naturally Sweet",
+  price: 129,
+  image: AppleShakeImg,
+  icon: "🍎",
+  category: "Shakes",
+  benefits: [
+      "🍎 Fresh Apple Flavor",
+  "🥛 Smooth & Creamy",
+  "✨ Naturally Sweet",
+  "🌿 Refreshingly Delicious"
+    ]
+
+},
+
+{
+  id: "Muskmelon-Shake",
+  name: "Muskmelon Shake",
+  description: "Cool & Creamy • Naturally Sweet Muskmelon • Refreshingly Delicious",
+  price: 139,
+  image: MuskmelonShakeImg,
+  icon: "🍈",
+  category: "Shakes",
+  benefits: [
+     "🍈 Naturally Sweet Muskmelon",
+  "🥛 Cool & Creamy",
+  "💧 Refreshingly Light",
+  "✨ Deliciously Smooth"
+    ]
+
+},
+
+{
+  id: "Mango-Shake",
+  name: "Mango Shake",
+  description: "Rich & Creamy • Fresh Mango Flavor • Tropical & Indulgent",
+  price: 179,
+  image: MangoShakeImg,
+  icon: "🥭",
+  category: "Shakes",
+popular: true,
+benefits: [
+  "🥭 Fresh Mango Flavor",
+  "🥛 Rich & Creamy",
+  "🌴 Tropical Goodness",
+  "✨ Naturally Sweet"
+],
+
+},
+
+
+
+{
+  id: "Energy-Boost-Shake",
+  name: "Energy Boost Shake",
+  description: "Creamy & Wholesome • Rich in Natural Goodness • Deliciously Energizing",
+  price: 159,
+  image: EnergyBoostShakeImg,
+  icon: "⚡",
+  category: "Shakes",
+  popular: true,
+  benefits: [
+  "⚡ Naturally Energizing",
+  "🥛 Creamy & Wholesome",
+  "🌿 Made with Nutritious Ingredients",
+  "✨ Deliciously Satisfying"
+],
+},
+
+// Healthy Bites
+
+{
+  id: "Instant-Oats",
+  name: "Instant Oats",
+  description: "Fiber-Rich • Creamy & Wholesome • Perfectly Satisfying",
+  price: 119,
+  image: OvernightOats,
+  icon: "🥣",
+  category: "Instant oats",
+  popular: true,
+  bestSeller: true,
+  benefits: [
+  "🌾 Fiber-Rich",
+  "🥣 Creamy & Wholesome",
+  "🍓 Fresh Fruits & Nuts",
+  "⚡ Satisfying & Filling"
+],
+},
+ 
+{
+  id: "Protein-Greek-Yogurt-Parfait",
+  name: "Protein Greek Yogurt Parfait",
+  description: "Protein-Rich • Creamy Greek Yogurt • Fresh Fruits & Wholesome Goodness",
+  price: 149,
+  image: ProteinGreekYogurtParfait,
+  icon: "🥛",
+  category: "Protein Greek Yogurt Parfait",
+  popular: false,
+  benefits: [
+  "💪 Protein-Rich",
+  "🥛 Creamy Greek Yogurt",
+  "🍓 Fresh Fruits",
+  "🥜 Nuts & Seeds",
+  "✨ Wholesome & Satisfying"
+],
+},
+
+{
+  id: "4-Boiled-Egg-Protein-Boxa",
+  name: "4 Boiled Egg 25g Protein Box",
+  description: "25g Protein • 4 Boiled Eggs • Simple, Wholesome & Power-Packed",
+  price: 79,
+  image: BoiledEggProteinBoxa,
+  icon: "🥚",
+  category: "4 Boiled Egg 25g Protein Box",
+  benefits: [
+  "💪 25g Protein",
+  "🥚 4 Boiled Eggs",
+  "⚡ Simple & Power-Packed",
+  "🍱 Convenient Protein Snack"
+],
+},
+  
+
 ];
 
 export const PROMO_COUPONS: PromoCoupon[] = [
@@ -821,6 +1327,4 @@ export const SAMPLE_TESTIMONIALS = [
     date: "Yesterday"
   }
 ];
-
-
 
