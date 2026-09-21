@@ -41,7 +41,7 @@ import HighProteinWrapImg from "../assets/images/HighProteinWrapImg.png";
 import HighProteinSaladBowlImg from "../assets/images/HighProteinSaladBowlImg.png";
 
 // @ts-ignore
-import HighProteinRiceBowlImg from "../assets/images/HighProteinRiceBowlImg.png";
+import HighProteinRiceBowlImg from "../assets/images/HighProteinRiceBowlImg.PNG";
 
 // @ts-ignore
 import HighProteinQuinoaBowlImg from "../assets/images/HighProteinQuinoaBowlImg.png";
