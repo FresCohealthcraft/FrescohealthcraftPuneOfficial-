@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MenuItem, CartItem } from "../types";
 import { MENU_ITEMS } from "../data";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, Plus, Leaf, Minus } from "lucide-react";
+import { Search, Plus, Leaf, Minus, Dumbbell, Sparkles, Check } from "lucide-react";
 
 // @ts-ignore
 import orangeJuiceImg from "../assets/images/Orange-Juice.png";
@@ -25,6 +25,51 @@ import ProteinPowerCupImg from "../assets/images/Protein-Cup.png";
 // @ts-ignore
 import MuskmelonShakeImg from "../assets/images/Muskmelon-Shake.png";
 
+// @ts-ignore
+import darkChocolateImg from "../assets/images/dark-chocolate.png";
+// @ts-ignore
+import proteinScoopImg from "../assets/images/protein_scoop.png";
+
+
+// @ts-ignore
+import HighProteinSandwichImg from "../assets/images/HighProteinSandwichImg.png";
+
+// @ts-ignore
+import HighProteinWrapImg from "../assets/images/HighProteinWrapImg.png";
+
+// @ts-ignore
+import HighProteinSaladBowlImg from "../assets/images/HighProteinSaladBowlImg.png";
+
+// @ts-ignore
+import HighProteinRiceBowlImg from "../assets/images/HighProteinRiceBowlImg.png";
+
+// @ts-ignore
+import HighProteinQuinoaBowlImg from "../assets/images/HighProteinQuinoaBowlImg.png";
+
+// @ts-ignore
+import HealthyFuelImg from "../assets/images/HealthyFuelImg.PNG";
+
+// @ts-ignore
+import ExoticDelightlImg from "../assets/images/Exotic-Delight-Cup.PNG";
+
+// @ts-ignore
+import SproutsBowlImg from "../assets/images/Sprouts-Bowl.PNG";
+
+// @ts-ignore
+import SmoothiesImg from "../assets/images/Chocolate-Protein-Smoothie.PNG";
+
+// @ts-ignore
+import ShakesImg from "../assets/images/Muskmelon-Shake.PNG";
+
+// @ts-ignore
+import SpecialsImg from "../assets/images/Dubai-Kunafa-Pistachio.PNG";
+
+// @ts-ignore  
+import ProteinGreekYogurtParfaitImg from "../assets/images/30g-Protein-Greek-Yogurt-Parfait.PNG"; 
+// @ts-ignore  
+import OvernightOatsImg from "../assets/images/Overnight-Oats.PNG"; 
+// @ts-ignore  
+import BoiledEggProteinBoxaImg from "../assets/images/Boiled-Egg-Protein.PNG"; 
 
 
 const PREMIUM_ITEMS: Record<string, {
@@ -107,147 +152,166 @@ export function getItemBenefits(item: MenuItem): string[] {
   
   if (name.includes("watermelon")) {
     return [
-      "Keeps You Hydrated",
-      "Supports Heart Health",
-      "Rich in Antioxidants"
+      "🍉 Naturally Refreshing",
+      "💧 High Water Content",
+      "🌿 Light & Easy to Enjoy",
+      "✨ Naturally Sweet"
     ];
   }
   if (name.includes("mosambi")) {
     return [
-      "Vitamin C immunity booster",
-      "Supporting digestion",
-      "Everyday energy."
+      "🍊 Naturally Rich in Vitamin C",
+  "💧 Refreshing & Hydrating",
+  "🌿 Light & Zesty",
+  "⚡ Naturally Energizing"
     ];
   }
   if (name.includes("pineapple")) {
     return [
-      "Active digestive enzymes",
-      "Rich in bone-strengthening Manganese",
-      "Natural premium energy source"
+       "🍍 Naturally Refreshing",
+  "✨ Tropical Fruit Goodness",
+  "🌿 Naturally Zesty",
+  "💧 Light & Juicy"
     ];
   }
   if (name.includes("mango")) {
     return [
-      "Rich in Vitamin A for eye health",
-      "Energy boost packed with natural sweetness",
-      "Revitalizing freshness"
+       "🥭 Rich Mango Flavor",
+  "✨ Naturally Sweet",
+  "🌴 Tropical Goodness",
+  "💛 Smooth & Delicious"
     ];
   }
   if (name.includes("apple")) {
     return [
-      "Natural antioxidants",
-      "Supporting energy",
-      "Immunity, and everyday wellness"
+       "🍎 Naturally Sweet",
+  "✨ Crisp & Refreshing",
+  "🌿 Fruit-Based Goodness",
+  "💧 Light & Refreshing"
     ];
   }
   if (name.includes("orange")) {
     return [
-      "Supercharged clinical Vitamin C",
-      "Natural energy,",
-      "Immunity-boosting goodness"
+       "🍊 Naturally Rich in Vitamin C",
+  "💧 Refreshing & Juicy",
+  "✨ Bright Citrus Flavor",
+  "🌿 Naturally Sweet"
     ];
   }
   
 
   if (name.includes("ganga jamuna juice")) {
     return [
-      "Mosambi + pinapple, packed with vitamin c",
-      "Preserves living immune-bioenzymes",
-      "Naturally hydrating & sugar-crash free"  
+       "🍊 Sweet Lime & Pineapple",
+  "✨ Refreshing Citrus Flavor",
+  "🍍 Tropical Fruit Goodness",
+  "💧 Naturally Refreshing" 
     ];
   }
 if (name.includes("pomegranate")) {
     return [
-      "Polyphenolic arterial support",
-      "Promotes fresh oxygenated blood",
-      "Combats general cellular fatiguing"
+     "❤️ Rich in Antioxidants",
+  "🍎 Naturally Fruity",
+  "✨ Vibrant & Refreshing",
+  "🌿 Naturally Tart & Delicious"
     ];
   }
 
   if (name.includes("nimbu pani juice")) {
     return [
-      "Detox drink that refreshes,",
-      "Restores natural energy instantlyd",
-      "keep hydrates"
+      "🍋 Zesty Lemon Freshness",
+  "💧 Refreshing Cooler",
+  "✨ Sweet & Tangy",
+  "🌿 Light & Refreshing"
     ];
   }
 
    if (name.includes("muskmelon juice")) {
     return [
-      "Polyphenolic arterial support",
-      "Promotes fresh oxygenated blood",
-      "Combats general cellular fatiguing"
+      "🍈 High Water Content",
+  "💧 Naturally Refreshing",
+  "✨ Light & Juicy",
+  "🌿 Naturally Sweet"
     ];
   }
 
   if (name.includes("papaya")) {
     return [
-      "Active high-grade papain digestion",
-      "Fiber to clear abdominal heavy fat",
-      "Skin renewing vitamins & folate"
+     "🧡 Naturally Sweet",
+  "🌿 Smooth & Refreshing",
+  "✨ Tropical Fruit Goodness",
+  "💛 Naturally Wholesome"
     ];
   }
 
   if (name.includes("beetroot")) {
     return [
-      "Lower blood pressure",
-      "Boost athletic stamina",
-      "Liver health"
+       "❤️ Naturally Nutrient-Rich",
+  "🌿 Earthy & Fresh",
+  "✨ Vibrant Natural Color",
+  "🥤 Refreshingly Light"
     ];
   }
   if (name.includes("cucumber")) {
     return [
-      "Deep alkalizing system cooling",
-      "Natural hydration & skin repair",
-      "Silica for hair and nail integrity"
+      "🥒 Naturally Hydrating",
+  "💧 High Water Content",
+  "✨ Cool & Refreshing",
+  "🌿 Light & Crisp"
     ];
   }
 
    if (name.includes("tomato juice")) {
     return [
-      "Boost heart health",
-      "support your immune system and skin",
-      "Rich in antioxidants"
+       "🍅 Rich in Lycopene",
+  "🌿 Naturally Nutrient-Rich",
+  "✨ Fresh & Savory",
+  "❤️ Naturally Wholesome"
     ];
   }
 
   if (name.includes("karela juice")) {
     return [
-      "Supports healthy blood sugar",
-      "Boosts digestive health",
-      "Natural detox powerhouse"
+      "🌿 Naturally Bold Flavor",
+  "🥒 Traditional Vegetable Goodness",
+  "✨ Freshly Prepared",
+  "💚 Light & Refreshing"
     ];
   }
 
   if (name.includes("carrot")) {
     return [
-      "supporting eye health",
-      "Glowing skin, and natural vitality",
-      "Naturally rich in antioxidants"
+      "🥕 Rich in Beta-Carotene",
+  "✨ Naturally Sweet",
+  "🌿 Nutrient-Rich",
+  "🧡 Fresh & Vibrant"
     ];
   }
 
   if (name.includes("palak juice")) {
     return [
-      "Rich in iron",
-      "Antioxidants, and daily nourishment",
-      "Rich in antioxidants"
+      "🥬 Green Leafy Goodness",
+  "🌿 Naturally Nutrient-Rich",
+  "✨ Fresh & Wholesome",
+  "💚 Packed with Green Goodness"
     ];
   }
 
   if (name.includes("lauki juice")) {
     return [
-      "Ntioxidants, and daily nourishment",
-      "Naturally low in calories",
-      "Nutrients for everyday wellness"
+       "🥒 Light & Refreshing",
+  "💧 High Water Content",
+  "🌿 Naturally Mild",
+  "✨ Simple & Wholesome"
     ];
   }
 
   if (name.includes("ash gourd juice")) {
     return [
-      "Aids digestion",
-      "Supports weight loss",
-      "Flushes out toxins"
+     "🍈 Naturally Cooling",
+  "💧 Refreshingly Light",
+  "🌿 Mild & Smooth",
+  "✨ Naturally Wholesome"
     ];
   }
 
@@ -272,9 +336,11 @@ if (name.includes("pomegranate")) {
 
    if (name.includes("exotic delight cup")) {
     return [
-      "Boost of Vitamins & Antioxidants",
-      "Rich in Antioxidants & Natural Goodness",
-      "Bursting with Tropical Freshness"
+       "🥭 13–14 Premium Fruits",
+  "💪 Rich in Vitamins & Antioxidants",
+  "🍍 Naturally Refreshing",
+  "❤️ Variety of Fresh Fruits",
+  "✨ Vibrant & Delicious"
     ];
   }
 
@@ -311,7 +377,7 @@ if (name.includes("pomegranate")) {
     ];
   }
 
-  if (name.includes("super women") ) {
+  if (name.includes("Super You") ) {
     return [
       "Supports Energy, Vitality & Balance",
       "Nourishment Designed for Women’s Wellness",
@@ -327,7 +393,7 @@ if (name.includes("pomegranate")) {
     ];
   }
 
-   if (name.includes("stress relief") ) {
+   if (name.includes("Mind Fresh") ) {
     return [
       "Promotes Calm & Relaxation Naturally",
       "Sip Your Way to Serenity",
@@ -454,6 +520,14 @@ if (name.includes("liver cleanser") ) {
     ];
   }
 
+  if (name.includes("35g Protein Chicken Sandwich") ) {
+    return [
+      "Creamy Banana Meets Cookie Crunch",
+      "White Chocolate Bliss with Every Bite",
+      "Frozen Banana Goodness, Elevated"
+    ];
+  }
+
    if (name.includes("coconut caramel frozen banana") ) {
     return [
       "Tropical Indulgence, Naturally Sweet",
@@ -527,14 +601,12 @@ if (name.includes("liver cleanser") ) {
   }
 
   return [
-    "No chemical additives or flavorings",
-    "Hand-pressed fresh daily on order",
-    "Native bio-available vitamins & ions"
+
   ];
 }
 
 interface MenuProps {
-  onAddToCartDirectly: (item: MenuItem) => void;
+  onAddToCartDirectly: (item: MenuItem, customAddons?: { name: string; price: number }[]) => void;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   cartItems: CartItem[];
@@ -542,15 +614,32 @@ interface MenuProps {
   onRemoveCartItem: (cartId: string) => void;
 }
 
-const CATEGORIES = [
+const MAIN_CATEGORIES = [
   { name: "Fruit Juices", image: orangeJuiceImg, value: "Fruit Juices" },
-  { name: "Power Cups", image: ProteinPowerCupImg, value: "Power Cups" },
-  { name: "High Protein Meals", image: chickenPowerBowlImg, value: "High Protein Meals" },
-  { name: "Green Juice", image: cucumberJuiceImg, value: "Green Vitality Juice" },
   { name: "FresCo Power Juices", image: vitalEnergyDrinkImg, value: "Fresco Power Juices" },
-  { name: "Shakes", image: MuskmelonShakeImg, value: "Shakes" },
-  { name: "Choco Frozen Banana", image: grapesChocofrostImg, value: "Specials" }
+  { name: "Exotic Fruit Cup", image: ExoticDelightlImg, value: "Exotic Fruit Cup" },
+  { name: "Green Juice", image: cucumberJuiceImg, value: "Green Vitality Juice" },
+  { name: "Super food sprouts bowl", image: SproutsBowlImg, value: "Super Food Sprouts Bowls" },
+  { name: "Specials", image: SpecialsImg, value: "Specials" },
 ];
+
+const HIGH_PROTEIN_CATEGORIES = [
+  
+
+  { name: "Sandwich", image: HighProteinSandwichImg, value: "Sandwich", badge: "25g+ Protein" },
+  { name: "Wrap", image: HighProteinWrapImg, value: "Wrap", badge: "28g+ Protein" },
+  { name: "Salad Bowl", image: HighProteinSaladBowlImg, value: "Salad Bowl", badge: "30g+ Protein" },
+  { name: "Rice Bowl", image: HighProteinRiceBowlImg, value: "Rice Bowl", badge: "32g+ Protein" },
+  { name: "Quinoa Bowl", image: HighProteinQuinoaBowlImg, value: "Quinoa Bowl", badge: "35g+ Protein" },
+  { name: "Power Cups", image: ProteinPowerCupImg, value: "Power Cups" },
+  { name: "Smoothies", image: SmoothiesImg, value: "Smoothies" },
+  { name: "Shakes", image: ShakesImg, value: "Shakes" },
+  { name: "Instant Oats", image: OvernightOatsImg, value: "Instant oats" },
+  { name: "Protein Greek Yogurt Parfait", image: ProteinGreekYogurtParfaitImg, value: "Protein greek yogurt parfait" },
+  { name: "4 Boiled Egg 25g Protein Box", image: BoiledEggProteinBoxaImg, value: "4 Boiled Egg 25g Protein Box" },
+];
+
+const ALL_CATEGORIES = [...MAIN_CATEGORIES, ...HIGH_PROTEIN_CATEGORIES];
 
 export default function MenuGrid({ 
   onAddToCartDirectly,
@@ -562,6 +651,18 @@ export default function MenuGrid({
 }: MenuProps) {
  
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedAddons, setSelectedAddons] = useState<Record<string, boolean>>({});
+
+  const isAddonSelected = (itemId: string, addonKey: string) => {
+    return Boolean(selectedAddons[`${itemId}_${addonKey}`]);
+  };
+
+  const toggleAddon = (itemId: string, addonKey: string) => {
+    setSelectedAddons((prev) => {
+      const key = `${itemId}_${addonKey}`;
+      return { ...prev, [key]: !prev[key] };
+    });
+  };
 
   useEffect(() => {
     if (searchTerm && searchTerm.trim() !== "") {
@@ -569,7 +670,19 @@ export default function MenuGrid({
     }
   }, [searchTerm]);
 
-  const getCartItemInfo = (itemId: string) => {
+  const getCartItemInfo = (itemId: string, hasAddon?: boolean) => {
+    if (hasAddon !== undefined) {
+      const found = cartItems.find((c) => {
+        if (c.menuItem.id !== itemId) return false;
+        const cHasAddon = (c.customIngredients || []).length > 0;
+        return hasAddon === cHasAddon;
+      });
+      if (found) {
+        return { quantity: found.quantity, cartId: found.id };
+      }
+      return { quantity: 0, cartId: "" };
+    }
+
     // Find a standard (non-customized) cart item first
     const found = cartItems.find(
       (c) => c.menuItem.id === itemId && (!c.customIngredients || c.customIngredients.length === 0)
@@ -601,7 +714,7 @@ export default function MenuGrid({
     }
     
     if (selectedCategory) {
-      const catMapping = CATEGORIES.find(c => c.name === selectedCategory);
+      const catMapping = ALL_CATEGORIES.find(c => c.name === selectedCategory);
       if (catMapping) {
         return item.category === catMapping.value;
       }
@@ -687,19 +800,19 @@ export default function MenuGrid({
         </motion.div>
 
 
-        {/* CATEGORIES CARD VIEW: Displayed beautifully as a main category selector card */}
+        {/* MAIN MENU CARD */}
         <motion.div
           id="categories-card"
           initial={{ opacity: 0, y: 15, scale: 0.99 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ type: "spring", stiffness: 120, damping: 16 }}
-          className="mt-4 bg-[#FDFDFD] border border-neutral-200/50 rounded-[2.5rem] pt-6 px-4 pb-8 sm:pt-8 sm:px-8 sm:pb-10 max-w-2xl mx-auto shadow-[0_10px_35px_-8px_rgba(26,26,26,0.025)] flex flex-col items-center text-center relative overflow-hidden mb-8"
+          className="mt-4 bg-[#FDFDFD] border border-neutral-200/50 rounded-[2.5rem] pt-6 px-4 pb-8 sm:pt-8 sm:px-8 sm:pb-9 max-w-2xl mx-auto shadow-[0_10px_35px_-8px_rgba(26,26,26,0.025)] flex flex-col items-center text-center relative overflow-hidden mb-5"
         >
           {/* Soft ambient background glow */}
           <div className="absolute -top-24 -left-24 w-40 h-40 rounded-full bg-[#38A325]/5 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -right-24 w-40 h-40 rounded-full bg-[#EFECE5]/40 blur-3xl pointer-events-none" />
 
-          {/* Centered header: OUR DAILY MENU with elegant green decorative elements */}
+          {/* Centered header: MENU with elegant green decorative elements */}
           <div className="flex items-center justify-center space-x-2.5 sm:space-x-3.5 mb-6 sm:mb-8 mt-1 z-10 select-none">
             <span className="text-[#38A325] text-xs sm:text-sm font-bold tracking-widest flex items-center">
               <span className="opacity-40 mr-1">─</span>⊹
@@ -709,12 +822,13 @@ export default function MenuGrid({
             </h2>
             <span className="text-[#38A325] text-xs sm:text-sm font-bold tracking-widest flex items-center">
               ⊹<span className="opacity-40 ml-1">─</span>
+
             </span>
           </div>
 
-          {/* Circular Category Buttons layout (4 in one line) */}
+          {/* Circular Main Category Buttons (2 rows of 4) */}
           <div className="flex flex-wrap justify-center gap-x-2.5 sm:gap-x-8 gap-y-5 sm:gap-y-7 max-w-[400px] xs:max-w-[440px] sm:max-w-[720px] mx-auto px-1 z-10">
-            {CATEGORIES.map((cat, idx) => {
+            {MAIN_CATEGORIES.map((cat, idx) => {
               const isActive = selectedCategory === cat.name;
               return (
                 <motion.button
@@ -725,7 +839,6 @@ export default function MenuGrid({
                     } else {
                       setSelectedCategory(cat.name);
                       setSearchTerm(""); // clear search term to show full category items
-                      // Smoothly scroll down to the category results section
                       setTimeout(() => {
                         const element = document.getElementById("categories-results-anchor");
                         if (element) {
@@ -749,7 +862,6 @@ export default function MenuGrid({
                   whileTap={{ scale: 0.95 }}
                   className="flex flex-col items-center space-y-2.5 group cursor-pointer focus:outline-none shrink-0 w-auto min-w-[84px] sm:min-w-[112px] px-1"
                 >
-                  {/* Perfect circle image frame with light cream background */}
                   <div
                     className={`w-[76px] h-[76px] xs:w-[82px] xs:h-[82px] sm:w-[104px] sm:h-[104px] rounded-full flex items-center justify-center overflow-hidden transition-all duration-300 bg-[#FAF9F5]/40 border ${
                       isActive
@@ -767,26 +879,114 @@ export default function MenuGrid({
                           ? { width: "102.9444px", height: "114.9444px" }
                           : cat.name === "Power Cups"
                           ? { width: "102.9444px", height: "114.9444px" }
-                          : cat.name === "High Protein Meals"
+                          : cat.name === "Power Meals"
                           ? { width: "94.2222px", height: "85.3056px" }
-                          : cat.name === "Super Food Sprouts Bowls"
-                          ? { width: "102.9444px", height: "114.9444px" }
                           : cat.name === "Green Juice"
                           ? { width: "102.9444px", height: "114.9444px" }
                           : cat.name === "FresCo Power Juices"
                           ? { width: "102.9444px", height: "114.9444px" }
                           : cat.name === "Shakes"
                           ? { width: "102.9444px", height: "115.9444px" }
-                          : cat.name === "Choco Frozen Banana"
-                          ? { width: "102.9444px", height: "106.9444px" }
                           : undefined
                       }
                     />
                   </div>
-                  {/* Category Label below circle */}
                   <span
                     className={`text-[9.5px] sm:text-xs font-bold tracking-tight text-center transition-colors font-sans whitespace-nowrap ${
                       isActive ? "text-[#38A325] font-black" : "text-gray-700 group-hover:text-[#38A325]"
+                    }`}
+                  >
+                    {cat.name}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* DEDICATED SEPARATE HIGH PROTEIN MENU CARD */}
+        <motion.div
+          id="high-protein-card"
+          initial={{ opacity: 0, y: 15, scale: 0.99 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 120, damping: 16, delay: 0.08 }}
+          className="mt-3 bg-gradient-to-b from-[#FAFBF8] to-[#F4F8F0] border border-[#38A325]/25 rounded-[2.5rem] pt-6 px-4 pb-8 sm:pt-7 sm:px-8 sm:pb-9 max-w-2xl mx-auto shadow-[0_12px_36px_-10px_rgba(56,163,37,0.07)] flex flex-col items-center text-center relative overflow-hidden mb-8"
+        >
+          {/* Subtle athletic green ambient glows */}
+          <div className="absolute -top-16 -right-16 w-36 h-36 rounded-full bg-[#38A325]/10 blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-16 -left-16 w-36 h-36 rounded-full bg-[#38A325]/5 blur-2xl pointer-events-none" />
+
+          {/* High Protein Header */}
+          <div className="flex flex-col items-center justify-center space-y-1 mb-6 sm:mb-7 mt-1 z-10 select-none">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#38A325]/10 border border-[#38A325]/20 text-[#2D821E] text-[10px] sm:text-xs font-black uppercase tracking-wider mb-0.5">
+              <Dumbbell className="w-3.5 h-3.5 text-[#38A325]" />
+              <span>HIGH PROTEIN SPECIALS</span>
+              <Sparkles className="w-3 h-3 text-[#38A325]" />
+            </div>
+            <h2 className="text-[13px] sm:text-base font-black text-[#1A1A1A] tracking-[0.16em] uppercase font-sans">
+              HIGH PROTEIN MENU
+            </h2>
+            <p className="text-[10px] sm:text-xs text-neutral-500 font-medium">
+              Lean Protein • Low Carb Options • Wholesome Clean Macros
+            </p>
+          </div>
+
+          {/* Circular High Protein Category Buttons */}
+          <div className="flex flex-wrap justify-center gap-x-3 sm:gap-x-7 gap-y-5 sm:gap-y-6 max-w-[420px] xs:max-w-[460px] sm:max-w-[720px] mx-auto px-1 z-10">
+            {HIGH_PROTEIN_CATEGORIES.map((cat, idx) => {
+              const isActive = selectedCategory === cat.name;
+              return (
+                <motion.button
+                  key={cat.name}
+                  onClick={() => {
+                    if (isActive) {
+                      setSelectedCategory(null);
+                    } else {
+                      setSelectedCategory(cat.name);
+                      setSearchTerm("");
+                      setTimeout(() => {
+                        const element = document.getElementById("categories-results-anchor");
+                        if (element) {
+                          element.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }, 100);
+                    }
+                  }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 120, 
+                    damping: 14,
+                    delay: idx * 0.05
+                  }}
+                  whileHover={{ scale: 1.06, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex flex-col items-center space-y-2 group cursor-pointer focus:outline-none shrink-0 w-auto min-w-[84px] sm:min-w-[110px] px-1"
+                >
+                  <div className="relative">
+                    <div
+                      className={`w-[76px] h-[76px] xs:w-[82px] xs:h-[82px] sm:w-[102px] sm:h-[102px] rounded-full flex items-center justify-center overflow-hidden transition-all duration-300 bg-white border ${
+                        isActive
+                          ? "border-[#38A325] ring-4 ring-[#38A325]/20 scale-105 shadow-lg bg-white"
+                          : "border-[#38A325]/20 hover:border-[#38A325] hover:scale-105 shadow-[0_4px_14px_rgba(56,163,37,0.08)]"
+                      }`}
+                    >
+                      <img
+                        src={cat.image}
+                        alt={cat.name}
+                        referrerPolicy="no-referrer"
+                        className="w-[90%] h-[90%] rounded-full object-cover"
+                      />
+                    </div>
+                    {/* Badge tag */}
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1A1A1A] text-white text-[8px] sm:text-[9px] font-extrabold px-1.5 py-0.5 rounded-full shadow-xs border border-white/20">
+                      {cat.badge}
+                    </div>
+                  </div>
+                  <span
+                    className={`text-[9.5px] sm:text-xs font-bold tracking-tight text-center transition-colors font-sans whitespace-nowrap pt-1 ${
+                      isActive ? "text-[#38A325] font-black" : "text-gray-800 group-hover:text-[#38A325]"
                     }`}
                   >
                     {cat.name}
@@ -829,7 +1029,11 @@ export default function MenuGrid({
               <AnimatePresence mode="popLayout">
                 {filteredItems.map((item, index) => {
                   const premiumInfo = PREMIUM_ITEMS[item.id];
-                  const cartItemInfo = getCartItemInfo(item.id);
+                  const isExoticCup = item.id === "Exotic-Delight-Cup";
+                  const isChocoSelected = isExoticCup && isAddonSelected(item.id, "chocolate");
+                  const cartItemInfo = isExoticCup ? getCartItemInfo(item.id, isChocoSelected) : getCartItemInfo(item.id);
+                  const displayPrice = (isExoticCup && isChocoSelected) ? item.price + 30 : item.price;
+
                   if (premiumInfo) {
                     return (
                       <motion.div
@@ -919,17 +1123,74 @@ export default function MenuGrid({
                                  </div>
                                ))}
                              </div>
+
+                             {/* Special Add-on for Exotic Delight Cup: 30/- Add Extra Dark Chocolate */}
+                             {isExoticCup && (
+                               <div 
+                                 onClick={(e) => {
+                                   e.stopPropagation();
+                                   toggleAddon(item.id, "chocolate");
+                                 }}
+                                 className={`mt-3.5 p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer select-none flex items-center justify-between gap-2.5 group/addon ${
+                                   isChocoSelected 
+                                     ? "bg-amber-50/85 border-amber-600 ring-2 ring-amber-600/20 shadow-sm" 
+                                     : "bg-[#FDFBF7] border-amber-900/20 hover:border-amber-600/70 hover:bg-amber-50/40 shadow-2xs"
+                                 }`}
+                               >
+                                 {/* Left: 30/- and Add Extra Dark Chocolate (styled exactly as user's poster) */}
+                                 <div className="flex flex-col text-left min-w-0">
+                                   <div className="flex items-baseline gap-1.5">
+                                     <span className="text-base sm:text-lg font-black font-sans text-neutral-950 leading-none">
+                                       30/-
+                                     </span>
+                                     
+                                   </div>
+                                   <span className="text-xs sm:text-[13px] font-black text-neutral-900 leading-tight mt-1">
+                                     Add Extra
+                                   </span>
+                                   <span className="text-xs sm:text-[13px] font-black text-amber-950 leading-tight">
+                                     Dark Chocolate 🍫
+                                   </span>
+                                 </div>
+
+                                 {/* Right: Chocolate photo + selection check box */}
+                                 <div className="flex items-center gap-2 shrink-0">
+                                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-white border border-amber-900/20 shadow-xs shrink-0 flex items-center justify-center p-0.5 group-hover/addon:scale-105 transition-transform duration-300">
+                                     <img 
+                                       src={darkChocolateImg} 
+                                       alt="Add Extra Dark Chocolate" 
+                                       className="w-full h-full object-cover rounded-lg"
+                                     />
+                                   </div>
+
+                                   <div className={`w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-lg flex items-center justify-center border-2 transition-all shrink-0 ${
+                                     isChocoSelected 
+                                       ? "bg-amber-800 border-amber-800 text-white shadow-xs scale-105" 
+                                       : "bg-white border-neutral-300 group-hover/addon:border-amber-600"
+                                   }`}>
+                                     {isChocoSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                                   </div>
+                                 </div>
+                                </div>
+                             )}
                           </div>
 
                           {/* 3. Bottom Row: Price, Sublabel & Button */}
-                          <div className="mt-5 pt-3.5 border-t border-neutral-100 flex items-center justify-between gap-1.5 w-full">
+                          <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between gap-1.5 w-full">
                             <div className="flex flex-col">
-                              <span className="text-lg sm:text-xl font-black font-sans text-neutral-900 leading-none">
-                                ₹{item.price}
-                              </span>
+                              <div className="flex items-baseline gap-1">
+                                <span className="text-lg sm:text-xl font-black font-sans text-neutral-900 leading-none">
+                                  ₹{displayPrice}
+                                </span>
+                                {isChocoSelected && (
+                                  <span className="text-[9px] sm:text-[10px] font-bold text-amber-800 leading-none">
+                                    (99 + 30)
+                                  </span>
+                                )}
+                              </div>
                               {premiumInfo.subLabel && (
                                 <span className="text-[8px] sm:text-[9px] font-black tracking-widest uppercase text-neutral-400 mt-1 leading-none">
-                                  {premiumInfo.subLabel}
+                                  {isChocoSelected ? "WITH DARK CHOCOLATE" : premiumInfo.subLabel}
                                 </span>
                               )}
                             </div>
@@ -955,7 +1216,11 @@ export default function MenuGrid({
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    onAddToCartDirectly(item);
+                                    if (isChocoSelected) {
+                                      onAddToCartDirectly(item, [{ name: "Extra Dark Chocolate (+₹30)", price: 30 }]);
+                                    } else {
+                                      onAddToCartDirectly(item);
+                                    }
                                   }}
                                   className="px-2.5 sm:px-3 h-full flex items-center justify-center hover:bg-[#2c821c] active:bg-[#1a550f] cursor-pointer transition-colors"
                                 >
@@ -966,7 +1231,11 @@ export default function MenuGrid({
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  onAddToCartDirectly(item);
+                                  if (isChocoSelected) {
+                                    onAddToCartDirectly(item, [{ name: "Extra Dark Chocolate (+₹30)", price: 30 }]);
+                                  } else {
+                                    onAddToCartDirectly(item);
+                                  }
                                 }}
                                 className="px-4 py-1.5 sm:px-5 sm:py-2.5 bg-[#38A325] hover:bg-[#2c821c] active:bg-[#1a550f] text-white font-black text-[10px] sm:text-[11px] uppercase tracking-wider rounded-xl flex items-center gap-1.5 cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-103 shrink-0"
                               >
@@ -979,6 +1248,13 @@ export default function MenuGrid({
                       </motion.div>
                     );
                   }
+
+                  const isSmoothie = item.category === "Smoothies" || item.id.includes("Smoothie");
+                  const isScoopSelected = isSmoothie && isAddonSelected(item.id, "protein_scoop");
+                  const standardCartInfo = isSmoothie 
+                    ? getCartItemInfo(item.id, isScoopSelected) 
+                    : getCartItemInfo(item.id);
+                  const standardDisplayPrice = isScoopSelected ? item.price + 30 : item.price;
 
                   return (
                     <motion.div
@@ -1040,7 +1316,7 @@ export default function MenuGrid({
                       </p>
 
                        {/* Dynamic Point-wise Benefits */}
-                       {!["Shakes", "Specials", "Fruit Juices", "Green Vitality Juice"].includes(item.category || "") && (
+                       {!["Shakes", "Specials", "Fruit Juices", "Green Vitality Juice","High Protein Sandwich","High Protein Wrap","High Protein Salad Bowl","High Protein Rice Bowl","High Protein Quinoa Bowl","Healthy Fuel"].includes(item.category || "") && (
                          <div className="mt-1.5 pt-1.5 border-t border-[#1A1A1A]/5 space-y-1">
                            <span className="text-[7.5px] xs:text-[8px] sm:text-[8.5px] font-extrabold tracking-wider uppercase text-[#38A325] block mb-1">
                              Key Benefits
@@ -1053,49 +1329,110 @@ export default function MenuGrid({
                            ))}
                          </div>
                        )}
+
+                       {/* Special Add-on for Smoothies: 50/- Add Extra Protein Scoop */}
+                       {isSmoothie && (
+                         <div 
+                           onClick={(e) => {
+                             e.stopPropagation();
+                             toggleAddon(item.id, "protein_scoop");
+                           }}
+                           className={`mt-3 p-2 sm:p-2.5 rounded-2xl border-2 transition-all cursor-pointer select-none flex items-center justify-between gap-2.5 group/addon ${
+                             isScoopSelected 
+                               ? "bg-purple-50/90 border-purple-600 ring-2 ring-purple-600/20 shadow-sm" 
+                               : "bg-[#FCFBFD] border-purple-900/15 hover:border-purple-600/70 hover:bg-purple-50/40 shadow-2xs"
+                           }`}
+                         >
+                           {/* Left: 30/- and Add Extra Protein Scoop */}
+                           <div className="flex flex-col text-left min-w-0">
+                             <div className="flex items-baseline gap-1.5">
+                               <span className="text-base sm:text-lg font-black font-sans text-neutral-950 leading-none">
+                                 50/-
+                               </span>
+                               
+                             </div>
+                             <span className="text-xs sm:text-[13px] font-black text-neutral-900 leading-tight mt-1">
+                               Add Extra
+                             </span>
+                             <span className="text-xs sm:text-[13px] font-black text-purple-950 leading-tight">
+                               Protein Scoop 💪
+                             </span>
+                           </div>
+
+                           {/* Right: Protein Scoop photo + selection check box */}
+                           <div className="flex items-center gap-2 shrink-0">
+                             <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl overflow-hidden bg-white border border-purple-900/15 shadow-xs shrink-0 flex items-center justify-center p-0.5 group-hover/addon:scale-105 transition-transform duration-300">
+                               <img 
+                                 src={proteinScoopImg} 
+                                 alt="Add Extra Protein Scoop" 
+                                 className="w-full h-full object-cover rounded-lg"
+                               />
+                             </div>
+
+                             <div className={`w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-lg flex items-center justify-center border-2 transition-all shrink-0 ${
+                               isScoopSelected 
+                                 ? "bg-purple-700 border-purple-700 text-white shadow-xs scale-105" 
+                                 : "bg-white border-neutral-300 group-hover/addon:border-purple-600"
+                             }`}>
+                               {isScoopSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                             </div>
+                           </div>
+                         </div>
+                       )}
                     
                     </div>
      
                      {/* Bottom line with price and action column (Add to Cart + Order in one line) */}
                     <div className="mt-3.5 pt-2 border-t border-[#1A1A1A]/5 flex flex-row items-center justify-between gap-1.5 w-full">
                       <div className="flex flex-col shrink-0">
-                        <span className="text-sm xs:text-base sm:text-lg font-extrabold font-sans text-[#38A325] leading-none">
-                          ₹{item.price}
-                        </span>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-sm xs:text-base sm:text-lg font-extrabold font-sans text-[#38A325] leading-none">
+                            ₹{standardDisplayPrice}
+                          </span>
+                          {isScoopSelected && (
+                            <span className="text-[8.5px] sm:text-[9.5px] font-bold text-purple-700 leading-none">
+                              ({item.price} + 30)
+                            </span>
+                          )}
+                        </div>
                         <span className="text-[7.5px] xs:text-[8px] sm:text-[9px] font-bold tracking-wider uppercase text-[#1A1A1A]/40 mt-0.5 leading-none">
-                          per serving
+                          {isScoopSelected ? "WITH EXTRA PROTEIN" : "per serving"}
                         </span>
                       </div>
      
                       <div className="flex flex-row items-center gap-1 shrink-0">
-                        {cartItemInfo.quantity > 0 ? (
-                          <div className="flex items-center bg-[#1A1A1A] hover:bg-[#2c821c]/15 hover:border-[#38A325]/20 border border-transparent text-white rounded-full overflow-hidden select-none h-5.5 sm:h-7 shadow-xs">
+                        {standardCartInfo.quantity > 0 ? (
+                          <div className="flex items-center bg-[#1A1A1A] hover:bg-[#2c821c]/15 hover:border-[#38A325]/20 border border-transparent text-white rounded-full overflow-hidden select-none h-6 sm:h-7.5 shadow-xs">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
-                                if (cartItemInfo.quantity > 1) {
-                                  onUpdateCartQuantity(cartItemInfo.cartId, cartItemInfo.quantity - 1);
+                                if (standardCartInfo.quantity > 1) {
+                                  onUpdateCartQuantity(standardCartInfo.cartId, standardCartInfo.quantity - 1);
                                 } else {
-                                  onRemoveCartItem(cartItemInfo.cartId);
+                                  onRemoveCartItem(standardCartInfo.cartId);
                                 }
                               }}
-                              className="w-5.5 sm:w-7 h-full flex items-center justify-center hover:bg-[#38A325] cursor-pointer transition-colors"
+                              className="w-6 sm:w-7.5 h-full flex items-center justify-center hover:bg-[#38A325] cursor-pointer transition-colors"
                               title="Decrease Quantity"
                             >
-                              <Minus className="w-2 h-2 sm:w-2.5 sm:h-2.5" strokeWidth={2.5} />
+                              <Minus className="w-2.5 h-2.5" strokeWidth={2.5} />
                             </button>
-                            <span className="px-1 text-[10px] sm:text-xs font-black min-w-[16px] text-center">
-                              {cartItemInfo.quantity}
+                            <span className="px-1.5 text-[10px] sm:text-xs font-black min-w-[18px] text-center">
+                              {standardCartInfo.quantity}
                             </span>
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
-                                onAddToCartDirectly(item);
+                                if (isScoopSelected) {
+                                  onAddToCartDirectly(item, [{ name: "Extra Protein Scoop (+₹30)", price: 30 }]);
+                                } else {
+                                  onAddToCartDirectly(item);
+                                }
                               }}
-                              className="w-5.5 sm:w-7 h-full flex items-center justify-center hover:bg-[#38A325] cursor-pointer transition-colors"
+                              className="w-6 sm:w-7.5 h-full flex items-center justify-center hover:bg-[#38A325] cursor-pointer transition-colors"
                               title="Increase Quantity"
                             >
-                              <Plus className="w-2 h-2 sm:w-2.5 sm:h-2.5" strokeWidth={2.5} />
+                              <Plus className="w-2.5 h-2.5" strokeWidth={2.5} />
                             </button>
                           </div>
                         ) : (
@@ -1103,12 +1440,20 @@ export default function MenuGrid({
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              onAddToCartDirectly(item);
+                              if (isScoopSelected) {
+                                onAddToCartDirectly(item, [{ name: "Extra Protein Scoop (+₹30)", price: 30 }]);
+                              } else {
+                                onAddToCartDirectly(item);
+                              }
                             }}
-                            className="w-5.5 h-5.5 sm:w-7 sm:h-7 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0"
+                            className={isSmoothie 
+                              ? "px-3.5 py-1.5 sm:px-4 sm:py-2 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-xl flex items-center gap-1.5 cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0 text-[10px] sm:text-[11px] font-black uppercase tracking-wider"
+                              : "w-5.5 h-5.5 sm:w-7 sm:h-7 bg-[#1A1A1A] hover:bg-[#38A325] active:bg-[#111111] text-white rounded-full flex items-center justify-center cursor-pointer transition-all border border-transparent shadow-xs active:scale-95 hover:scale-105 shrink-0"
+                            }
                             title="Add to Cart"
                           >
                             <Plus className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" strokeWidth={2.5} />
+                            {isSmoothie && <span>Add</span>}
                           </button>
                         )}
                       </div>
