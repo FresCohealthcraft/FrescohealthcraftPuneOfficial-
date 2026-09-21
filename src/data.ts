@@ -64,7 +64,7 @@ import ExoticDelightCupImg from "./assets/images/Exotic-Delight-Cup.png";
 // Sprouts Bowl image import
 
 // @ts-ignore
-import SproutsBowlImg from "./assets/images/Sprouts-Bowl.png";
+import SproutsBowlImage from "./assets/images/Sprouts-Bowl.png";
 
 // @ts-ignore
 import PaneerPowerBowlImg from "./assets/images/Paneer-Power-Bowl.png";
@@ -475,7 +475,7 @@ export const MENU_ITEMS: MenuItem[] = [
   name: "Super food sprouts bowl",
   description: "Fresh Sprouts. Natural Nutrition. Everyday Wellness. A refreshing mix of protein-rich sprouts, fresh vegetables, herbs, and spices for a light yet satisfying meal.",
   price: 80,
-  image: SproutsBowlImg,
+  image: SproutsBowlImage,
   icon: "🌱",
   category: "Super Food Sprouts Bowls",
   popular: true,
