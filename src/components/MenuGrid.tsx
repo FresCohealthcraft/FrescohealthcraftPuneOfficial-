@@ -49,9 +49,6 @@ import HealthyFuelImg from "../assets/images/HealthyFuelImg.PNG";
 import ExoticDelightlImg from "../assets/images/Exotic-Delight-Cup.png";
 
 // @ts-ignore
-import SproutsBowlImg from "../assets/images/Sprouts-Bowl.PNG";
-
-// @ts-ignore
 import SmoothiesImg from "../assets/images/Chocolate-Protein-Smoothie.PNG";
 
 // @ts-ignore
