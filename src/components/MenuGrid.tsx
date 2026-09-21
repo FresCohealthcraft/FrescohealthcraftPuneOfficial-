@@ -7,10 +7,6 @@ import { Search, Plus, Leaf, Minus, Dumbbell, Sparkles, Check } from "lucide-rea
 // @ts-ignore
 import orangeJuiceImg from "../assets/images/Orange-Juice.png";
 // @ts-ignore
-import classicDelightCupImg from "../assets/images/Classic-Delight-Cup.png";
-// @ts-ignore
-import sproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
-// @ts-ignore
 import cucumberJuiceImg from "../assets/images/Cucumber-Juice.png";
 // @ts-ignore
 import vitalEnergyDrinkImg from "../assets/images/Vital-Energy-Drink.png";
