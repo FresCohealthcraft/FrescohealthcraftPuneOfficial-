@@ -52,7 +52,7 @@ import ExoticDelightlImg from "../assets/images/Exotic-Delight-Cup.png";
 import SmoothiesImg from "../assets/images/Chocolate-Protein-Smoothie.png";
 
 // @ts-ignore
-import SproutsBowlImg from "./assets/images/Sprouts-Bowl.png";
+import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 
 
 // @ts-ignore
