@@ -54,6 +54,8 @@ import SmoothiesImg from "../assets/images/Chocolate-Protein-Smoothie.png";
 // @ts-ignore
 import SproutsBowlImg from "../assets/images/Sprouts-Bowl.png";
 
+// @ts-ignore  
+import ShakesImg from "../assets/images/Muskmelon-Shake.png"; 
 
 // @ts-ignore
 import SpecialsImg from "../assets/images/Dubai-Kunafa-Pistachio.png";
