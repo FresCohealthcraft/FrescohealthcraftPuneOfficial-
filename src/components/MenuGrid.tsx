@@ -631,7 +631,7 @@ const HIGH_PROTEIN_CATEGORIES = [
   { name: "Smoothies", image: SmoothiesImg, value: "Smoothies" },
   { name: "Shakes", image: ShakesImg, value: "Shakes" },
   { name: "Instant Oats", image: OvernightOatsImg, value: "Instant oats" },
-  { name: "Protein Greek Yogurt Parfait", image: ProteinGreekYogurtParfaitImg, value: "Protein greek yogurt parfait" },
+  { name: "Protein Greek Yogurt Parfait", image: ProteinGreekYogurtParfaitImg, value: "ProteinGreekYogurt" },
   { name: "4 Boiled Egg 25g Protein Box", image: BoiledEggProteinBoxaImg, value: "4 Boiled Egg 25g Protein Box" },
 ];
 
