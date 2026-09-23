@@ -233,7 +233,7 @@ export const MENU_CATEGORIES = [
   "Shakes",
   "4 Boiled Egg 25g Protein Box",
   "Instant oats",
-  "Protein greek yogurt parfait",
+  "ProteinGreekYogurt",
 
 ];
 
@@ -1235,7 +1235,7 @@ benefits: [
   price: 149,
   image: ProteinGreekYogurtParfait,
   icon: "🥛",
-  category: "Protein Greek Yogurt Parfait",
+  category: "ProteinGreekYogurt",
   popular: false,
   benefits: [
   "💪 Protein-Rich",
